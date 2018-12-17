@@ -19,8 +19,6 @@ const apiURL = {
   getIssueDetail: '/report/issueDetail',
   //反省明细
   getIntrospectionDetail: '/report/introspectionDetail'
-
-
 }
 
 export default {

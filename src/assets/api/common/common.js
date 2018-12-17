@@ -2,7 +2,7 @@ import Api from '../axios'
 
 const apiURL = {
     // 登录
-    login: '/user/login',
+    login: '/api/v1/user/getRoleListByUser',
     // 退出
     logout: '/user/logout',
     //菜单
@@ -11,13 +11,12 @@ const apiURL = {
 
 export default {
     login(obj) {
-        return Api.get(apiURL.login, obj)
+        return Api.get(`${configM.tempComUrl}${apiURL.login}`, obj);
     },
     logout(obj) {
         return Api.get(apiURL.logout, obj)
     },
     sidebar(obj) {
-        return Api.get2(apiURL.sidebar, obj)
-    },
-
+        return Api.get(`${configM.otherComUrl}${apiURL.sidebar}`, obj)
+    }
 }

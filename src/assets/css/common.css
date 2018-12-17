@@ -22,6 +22,9 @@
 .padding-left15{padding-left: 15px;}
 .padding-right15{padding-right:15px;}
 .padding-right20{padding-right:20px;}
+body {
+  overflow: hidden;
+}
 
 .com-submit{
   padding: 8px 15px;

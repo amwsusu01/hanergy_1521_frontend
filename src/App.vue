@@ -103,9 +103,9 @@
 
     // 公共头部
     .el-header {
-        padding: 16px 40px 16px 30px !important;
-        background: #409EFF;
-        height: 70px !important;
+        padding: 13px 40px 13px 30px !important;
+        background: #cf5246;
+        height: 60px !important;
         line-height: 36px;
     }
 

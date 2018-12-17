@@ -1,23 +1,9 @@
-import {getQueryStringHr, _sessionStorage} from '../../../assets/js/util'
-import Paging from '../../../components/common/Paging'
-import Vue from 'vue'
-
-import Echarts from 'echarts';
-Vue.prototype.echarts = Echarts;
-Vue.use(Echarts);
 
 export default {
     components: {
-        Paging
     },
     data() {
         return {
-            form: {
-                name: '', //职级
-                region: '', //部门
-                value4:"",
-                value5:"",
-            },
         }
     },
     computed: {
@@ -41,7 +27,6 @@ export default {
      * vue的DOM挂载之后执行
      */
     mounted(){
-        this.init1()
     },
 
     // vue内挂载其他方法
@@ -417,7 +402,7 @@ export default {
      */
     watch: {
         $route(to, from){
-            this.routeFrom = ( from && from.name ) || "";
+            
         }
     }
 

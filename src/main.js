@@ -37,6 +37,8 @@ Vue.config.debug = true
 Vue.config.devtools = false
 Vue.config.silent = true
 
+import store from './store';
+
 
 // 并且配置路由规则
 const router = new VueRouter({
@@ -66,6 +68,7 @@ router.afterEach(route  => {
 })
 window.vm = new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')
 
