@@ -24,6 +24,7 @@
         <div v-for="(item,index) in rcdata">
             <div class="heartPictureChart">
                 <div style="text-align: left;font-size: 16px;margin-left: 91px;">{{item.name}}</div>
+                <el-button v-if="buttons['77']==true" class="exp-btn" plain size="small" @click="exportExl(index,item.name)">导出</el-button>
                 <div :id="'heartPicture'+index" style="height: 180px;"></div>
             </div>
         </div>
@@ -32,7 +33,7 @@
 <script>
 import { timeDiff } from '../../../assets/js/util'
 import testImg from '../../../assets/img/redTips.png';
-import { getMaxFreq } from '../../../utils';
+import { getMaxFreq,exportCsv } from '../../../utils';
 
 export default {
     name: "canteenReceiverOrder",
@@ -63,7 +64,23 @@ export default {
                 return testImg;
             }
         },
+         buttons: {
+            get() {
+                //获取当前可导出的按钮组
+                if (this.$store.state.common.menuData && this.$store.state.common.menuData.length > 0 && this.$store.state.common.menuData[0].list) {
+                    let curMenu = this.$store.state.common.menuData[0].list.find((item) => item.menuId == '55') //部门热词
+                    if (curMenu && curMenu.list) {
+                        let res = {};
+                        curMenu.list.map((item) => {
+                            res[item.menuId] = true;
+                        })
+                        return res;
+                    }
+                }
 
+                return {};
+            }
+        },
         userCode: {
             get() {
                 if (this.$store.state.common.user)
@@ -250,6 +267,18 @@ export default {
             this.form.date.date1 = this.initTime; //默认显示时间
             this.form.date.date2 = this.initTime; //默认显示时间
         },
+        exportExl(type,name) {
+            if(!this.rcdata[type]) return;
+            let data = this.rcdata[type].value;
+            if(data.length <=0 ) return;
+
+            let res = {
+                title:["热词","频率"],
+                titleForKey:["name","freq"],
+                data:data
+            };
+            exportCsv(res,name+'—热词.csv');
+        }
     },
 
 }
@@ -260,6 +289,7 @@ export default {
     height: 200px;
     float: left;
     margin-top: 10px;
+    position:relative;
 }
 
 .zhiji {
@@ -269,6 +299,13 @@ export default {
 .query {
     margin-left: 30px;
     cursor: pointer;
+}
+
+.exp-btn {
+    position: absolute;
+    right: 0;
+    z-index: 1000;
+    top: 0px;
 }
 
 .relationShipChart {

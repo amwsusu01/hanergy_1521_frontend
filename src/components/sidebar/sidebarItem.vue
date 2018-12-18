@@ -5,13 +5,13 @@
                 <i :class="item.icon"></i>
                 <span slot="title">{{item.name}}</span>
             </el-menu-item>
-            <el-submenu v-else :index="item.menuId" :key="item.menuId">
+            <el-submenu v-else :index="`${item.menuId}`" :key="item.menuId">
                 <template slot="title">
                     <i :class="item.icon"></i>
                     <span slot="title" :class="{'el-menu--display':isCollapse}">{{item.name}}</span>
                 </template>
                 <template v-for="(child,cindex) in item.list">
-                    <el-menu-item :index="child.menuId" @click="open(child)" v-if="child.list.length==0" :key="child.menuId">
+                    <el-menu-item :index="`${child.menuId}`" @click="open(child)" v-if="child.list.length==0" :key="child.menuId">
                         <i :class="child.icon"></i>
                         <span slot="title">{{child.name}}</span>
                     </el-menu-item>

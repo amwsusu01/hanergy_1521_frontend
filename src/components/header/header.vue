@@ -1,5 +1,5 @@
 <template>
-    <div class="clearfix header-box" >
+    <div class="clearfix header-box">
         <div class="header-logo fl"><img :src="logoUrl"></img></div>
         <div class="header-title fl" @click="childClick">{{title}}</div>
         <div class="header-subtitle fl">{{subtitle}}</div>
@@ -29,14 +29,26 @@ export default {
         }
     },
     activated() {
-        
+        this.init();
     },
     mounted() {
-        
+        this.init();
     },
     methods: {
         init() {
-           
+            if (!this.user.name) {
+                this.$message({
+                    message: '未登录，3s后返回登录页',
+                    type: 'error'
+                });
+                setTimeout(function() {
+                    this.$store.commit('setUser', null);
+                    sessionStorage.removeItem('loggeduser');
+                    this.$router.push({
+                        'name': 'login',
+                    });
+                }, 3000);
+            }
         },
         quit() {
             this.$confirm('确定退出吗?', '提示', {
@@ -49,30 +61,7 @@ export default {
                 this.$router.push({
                     'name': 'login',
                 });
-
-                // let param={
-                //     id :  _sessionStorage('userId')
-                // }
-                // this.$api.common.logout(param).then(res => {
-                //     if (res.data.code == 0) {
-
-                //     } else {
-                //         this.$message.error({
-                //             message: res.data.message,
-                //             duration: 1000,
-                //             center: true
-                //         });
-                //         this.$router.push({
-                //             'name': 'login',
-                //         });
-                //     }
-                // })
-            }).catch(() => {
-                // this.$message({
-                //     type: 'info',
-                //     message: '已取消退出'
-                // });
-            });
+            }).catch(() => {});
         }, // 退出
         childClick() {
             // this.sidebar.childValue = true;

@@ -60,6 +60,7 @@
 </template>
 <script>
 import Paging from '../../../components/common/Paging';
+import { exportCsv } from '../../../utils';
 
 export default {
     name: "canteenOrder",
@@ -855,8 +856,45 @@ export default {
                 this.form.date.date2 = Y + M;
                 return this.form.date.date2;
             }
+        },
+        exportExl(type) {
+            let data = [],pers = [],title="";
+            switch(type) {
+                case '64': data = this.cnt;pers = this.per;
+                title ="超过4次(含)未请假未提报统计报表";
+                break;
+                case '65': data = this.cnt1;pers = this.per1;
+                 title ="提报内容一样/当天重复条数超过6条(含)/一个月累计出现超过6次(含)";
+                 break;
+                case '66': data = this.cnt2;pers = this.per2;
+                title ="提报月平均条数小于5";
+                break;
+                case '67': data = this.cnt3;pers = this.per3;
+                title = "提报月平均字数小于5";
+                break;
+                case '68': data = this.cnt4;pers = this.per4;
+                title="9点之前提报统计报表/一个月累计出现3次(含)";
+                break;
+                case '69': data = this.cnt5;pers = this.per5;
+                title="12点之前提报统计报表/一个月累计出现3次(含)";
+                break;
+            }
+            if(data.length <=0 || pers.length <= 0) return;
+            let resData = data.map((a,i) => {
+                return {
+                    name:a,
+                    per:pers[i]
+                }
+            });
 
+            let res = {
+                title:["提报人数","占比"],
+                titleForKey:["name","per"],
+                data:resData
+            };
+            exportCsv(res,title);
         }
+
     },
     /**
      * 监控数据

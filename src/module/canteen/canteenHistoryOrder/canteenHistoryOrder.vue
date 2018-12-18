@@ -32,7 +32,7 @@
         </div>
         <div class="table-contain">
             <div class="table">
-                <el-button v-if="buttons['70']==true" class="exp-btn" plain size="small" @click="exportExl('70')">导出</el-button>
+                <el-button v-if="buttons['70']==true" class="exp-btn" plain size="small" @click="exportExl(3)">导出</el-button>
                 <el-table :data="tableData1" border style="width: 100%">
                     <el-table-column label="超过4次(含)未请假未提报统计报表" label-class-name="table-title">
                         <el-table-column prop="month1" label="月份" width="180">
@@ -53,7 +53,7 @@
                 </el-pagination>
             </div>
             <div class="table">
-                <el-button class="exp-btn" plain size="small" v-if="buttons['71']==true" @click="exportExl('71')">导出</el-button>
+                <el-button class="exp-btn" plain size="small" v-if="buttons['71']==true" @click="exportExl(4)">导出</el-button>
                 <el-table :data="tableData2" border style="width: 100%">
                     <el-table-column prop="date" label="提报月平均条数小于5明细表" label-class-name="table-title">
                         <el-table-column prop="in_month" label="月份" width="100">
@@ -78,7 +78,7 @@
                 </el-pagination>
             </div>
             <div class="table">
-                <el-button class="exp-btn" v-if="buttons['72']==true" plain size="small" @click="exportExl('72')">导出</el-button>
+                <el-button class="exp-btn" v-if="buttons['72']==true" plain size="small" @click="exportExl(5)">导出</el-button>
                 <el-table :data="tableData3" border style="width: 100%">
                     <el-table-column prop="date" label="提报月平均字数小于5明细表" label-class-name="table-title">
                         <el-table-column prop="in_month" label="月份" width="100">
@@ -103,7 +103,7 @@
                 </el-pagination>
             </div>
             <div class="table">
-                <el-button class="exp-btn" plain size="small" v-if="buttons['73']==true" @click="exportExl('73')">导出</el-button>
+                <el-button class="exp-btn" plain size="small" v-if="buttons['73']==true" @click="exportExl(6)">导出</el-button>
                 <el-table :data="tableData4" border style="width: 100%" label-class-name="table-title">
                     <el-table-column prop="date" label="9点之前提报数据明细表">
                         <el-table-column prop="month" label="月份" width="100">
@@ -128,7 +128,7 @@
                 </el-pagination>
             </div>
             <div class="table">
-                <el-button class="exp-btn" plain size="small" v-if="buttons['74']==true" @click="exportExl('74')">导出</el-button>
+                <el-button class="exp-btn" plain size="small" v-if="buttons['74']==true" @click="exportExl(7)">导出</el-button>
                 <el-table :data="tableData5" border style="width: 100%" label-class-name="table-title">
                     <el-table-column prop="date" label="12点之前提报数据明细表">
                         <el-table-column prop="month" label="月份" width="100">
@@ -153,7 +153,7 @@
                 </el-pagination>
             </div>
             <div class="table">
-                <el-button class="exp-btn" plain v-if="buttons['75']==true" size="small" @click="exportExl('75')">导出</el-button>
+                <el-button class="exp-btn" plain v-if="buttons['75']==true" size="small" @click="exportExl(8)">导出</el-button>
                 <el-table :data="tableData6" border style="width: 100%" label-class-name="table-title">
                     <el-table-column prop="date" label="提报内容重复超6次(含)汇总表">
                         <el-table-column prop="month" label="月份" width="100">
@@ -178,7 +178,7 @@
                 </el-pagination>
             </div>
             <div class="table">
-                <el-button class="exp-btn" plain v-if="buttons['76']==true" size="small" @click="exportExl('76')">导出</el-button>
+                <el-button class="exp-btn" plain v-if="buttons['76']==true" size="small" @click="exportExl(9)">导出</el-button>
                 <el-table :data="tableData7" border style="width: 100%" label-class-name="table-title">
                     <el-table-column prop="month" label="提报内容重复超6次(含)明细表">
                         <el-table-column prop="month" label="月份" width="100">
@@ -206,6 +206,7 @@
 <script>
 import { formatChange } from '../../../assets/js/util'
 import Paging from '../../../components/common/Paging'
+import { exportExl } from '../../../utils';
 
 export default {
     name: 'canteenHistoryOrder',
@@ -261,6 +262,14 @@ export default {
             deptList: [],
             rankOptions: ['21-24', '15-20', '10-14', '05-09', '01-04'],
             form: {
+                rankname: '', //职级
+                region: [], //部门
+                date: { //时间
+                    startTime: '',
+                    endTime: ''
+                }
+            },
+            originForm: {
                 rankname: '', //职级
                 region: [], //部门
                 date: { //时间
@@ -334,7 +343,8 @@ export default {
                     item.inputtime = formatChange(item.inputtime, 2)
                     return item
                 })
-                this.tableData1 = cgsc
+                this.tableData1 = cgsc;
+                this.originForm = Object.assign({}, this.form);
             })
         },
         CurrentChange1(val) {
@@ -358,7 +368,8 @@ export default {
                     item.in_date = formatChange(item.in_date, 2)
                     return item
                 })
-                this.tableData2 = tsxyw
+                this.tableData2 = tsxyw;
+                this.originForm = Object.assign({}, this.form);
             })
         },
         CurrentChange2(val) {
@@ -382,7 +393,8 @@ export default {
                     item.in_date = formatChange(item.in_date, 2)
                     return item
                 })
-                this.tableData3 = zsxyw
+                this.tableData3 = zsxyw;
+                this.originForm = Object.assign({}, this.form);
             })
         },
         CurrentChange3(val) {
@@ -406,7 +418,8 @@ export default {
                     item.inputtime = formatChange(item.inputtime, 2)
                     return item
                 })
-                this.tableData4 = jdzq
+                this.tableData4 = jdzq;
+                this.originForm = Object.assign({}, this.form);
             })
         },
         CurrentChange4(val) {
@@ -430,7 +443,8 @@ export default {
                     item.inputtime = formatChange(item.inputtime, 2)
                     return item
                 })
-                this.tableData5 = sedzq
+                this.tableData5 = sedzq;
+                this.originForm = Object.assign({}, this.form);
             })
         },
         CurrentChange5(val) {
@@ -454,7 +468,8 @@ export default {
                     item.day = formatChange(item.day, 2)
                     return item
                 })
-                this.tableData6 = cglhz
+                this.tableData6 = cglhz;
+                this.originForm = Object.assign({}, this.form);
             })
         },
         CurrentChange6(val) {
@@ -478,7 +493,8 @@ export default {
                     item.day1 = formatChange(item.day1, 2)
                     return item
                 })
-                this.tableData7 = cglmx
+                this.tableData7 = cglmx;
+                this.originForm = Object.assign({}, this.form);
             })
         },
         CurrentChange7(val) {
@@ -487,10 +503,10 @@ export default {
         },
         //部门接口
         getSelectPermission() {
-            if(this.userCode == '') {
+            if (this.userCode == '') {
                 this.$message({
-                    'message':'未获取到部门，登录后重试',
-                    'type':'info'
+                    'message': '未获取到部门，登录后重试',
+                    'type': 'info'
                 });
                 return;
             }
@@ -502,7 +518,8 @@ export default {
                 for (let j = 0; j < user.length; j++) {
                     let deptName = user[j].dept_name
                     this.deptList.push(deptName)
-                    let dept_id = user[j].dept_id
+                    let dept_id = user[j].dept_id;
+                    this.originForm = Object.assign({}, this.form);
                 }
             })
         },
@@ -542,10 +559,45 @@ export default {
                 return this.form.date.endTime
             }
         },
-
         exportExl(type) {
-            //导出
-        }
+            let params = {
+                type: `type` + type,
+                dept: this.originForm.region.join(','),
+                jobGrade: this.originForm.rankname,
+                beginDate: this.originForm.date.startTime,
+                endDate: this.originForm.date.endTime
+            }
+
+            let filename = '';
+            switch (type) {
+                case 3:
+                    filename = "超过4次(含)未请假未提报统计报表.xls";
+                    break;
+                case 4:
+                    filename = "提拔月平均条数小于5明细表.xls";
+                    break;
+                case 5:
+                    filename = "提拔月平均字数小于5明细表.xls";
+                    break;
+                case 6:
+                    filename = "9点之前提报数据明细表.xls";
+                    break;
+                case 7:
+                    filename = "12点之前提报数据明细表.xls";
+                    break;
+                case 8:
+                    filename = "提报内容重复超6次(含)汇总表.xls";
+                    break;
+                case 9:
+                    filename = "提报内容重复超6次(含)明细表.xls";
+                    break;
+            }
+
+            this.$api.common.exportExcel(params).then(res => {
+                exportExl(res, filename);
+            })
+
+        },
 
     }
 }

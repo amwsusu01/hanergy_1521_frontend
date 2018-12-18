@@ -7,7 +7,7 @@
             <el-scrollbar style="height: 100%;" ref="globalScrollbar">
                 <div class="sidebar-container" :class="{'is-active':isCollapse}">
                     <logo :isCollapse="isCollapse"></logo>
-                    <el-menu unique-opened default-active="53" :isCollapse="isCollapse" class="el-menu-vertical-demo" mode="vertical" :show-timeout="200" @open="handleOpen" @close="handleClose">
+                    <el-menu unique-opened :default-active="53" :isCollapse="isCollapse" class="el-menu-vertical-demo" mode="vertical" :show-timeout="200" @open="handleOpen" @close="handleClose">
                         <sidebar-item :menu="menuData" :isCollapse="isCollapse"></sidebar-item>
                     </el-menu>
                 </div>
@@ -26,7 +26,7 @@
 <script>
 import '../../assets/css/reset.css'
 import '../../assets/css/common.css'
-import { _setTitle, getQueryStringHr, sessionId, _sessionStorage, calcuMD5 } from '../../assets/js/util'
+import { _sessionStorage } from '../../assets/js/util'
 import Header from '../../components/header/header';
 import SidebarItem from '../../components/sidebar/sidebarItem.vue';
 
@@ -38,7 +38,6 @@ export default {
     },
     data() {
         return {
-            leftDefauleActive: '1-1', // 左侧菜单默认展开哪个
             isCollapse: true,
             //sysTitle: '报表'
         };
@@ -54,7 +53,6 @@ export default {
         },
         menuData: {
             get() {
-                debugger
                 return this.$store.state.common.menuData;
             },
             set(val) {

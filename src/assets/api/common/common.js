@@ -8,7 +8,8 @@ const apiURL = {
     //菜单
     sidebar: '/admin/api/v1/user/roles', //无用了。
 
-    updateDate:'/return/getDate'
+    updateDate:'/return/getDate',
+    exportExcel:'/return/printExcel'
 }
 
 export default {
@@ -23,5 +24,8 @@ export default {
     },
     getUpdateData() {
         return Api.get(apiURL.updateDate,{})
+    },
+    exportExcel(obj) {
+        return Api.exportGet(apiURL.exportExcel,obj);
     }
 }

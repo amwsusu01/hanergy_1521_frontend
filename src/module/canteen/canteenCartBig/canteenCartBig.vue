@@ -33,7 +33,7 @@
             </div>
             <div class="table-contain">
                 <div class="table">
-                    <el-button v-if="buttons['78']==true" class="exp-btn" plain size="small" @click="exportExl('78')">导出</el-button>
+                    <el-button v-if="buttons['78']==true" class="exp-btn" plain size="small" @click="exportExl(1)">导出</el-button>
                     <el-table :data="tableDataQuestion" border style="width: 100%">
                         <el-table-column label="部门问题明细表" label-class-name="table-title">
                             <el-table-column prop="month" label="月份" width="180">
@@ -56,7 +56,7 @@
                     </el-pagination>
                 </div>
                 <div class="table">
-                    <el-button v-if="buttons['79']==true" class="exp-btn" plain size="small" @click="exportExl('79')">导出</el-button>
+                    <el-button v-if="buttons['79']==true" class="exp-btn" plain size="small" @click="exportExl(2)">导出</el-button>
                     <el-table :data="tableDataIntro" border style="width: 100%">
                         <el-table-column label="部门反省明细表" label-class-name="table-title">
                             <el-table-column prop="month" label="月份" width="100">
@@ -83,6 +83,7 @@
     </div>
 </template>
 <script>
+    import { exportExl } from '../../../utils';
 export default {
     name: 'canteen-cart-big',
     data() {
@@ -103,6 +104,14 @@ export default {
             startTimeUnix: 0,
             deptList: [],
             rankOptions: ['21-24', '15-20', '10-14', '05-09', '01-04'],
+            originForm:{
+                 rankname: '', //职级
+                region: [], //部门
+                date: { //时间
+                    startTime: '',
+                    endTime: ''
+                }
+            },
             form: {
                 rankname: '', //职级
                 region: [], //部门
@@ -155,7 +164,25 @@ export default {
             this.getIntrospectionDetail()
             this.getSelectPermission()
         },
-        exportExl() {
+        exportExl(type) {
+            let params={
+                type:`type`+type,
+                dept:this.originForm.region.join(','),
+                jobGrade:this.originForm.rankname,
+                beginDate:this.originForm.date.startTime,
+                endDate:this.originForm.date.endTime
+            }
+
+            let filename = '';
+            if(type == 1) {
+                filename ="部门问题明细表.xls"
+            } else {
+                filename ="部门反省明细表.xls";
+            }
+
+            this.$api.common.exportExcel(params).then(res => {
+                exportExl(res,filename);
+            })
 
         },
         //初始化表格数据-----部门问题明细
@@ -172,7 +199,9 @@ export default {
                 this.page1.totalNumber = res.count
                 let qusetionData = JSON.parse(res.list)
                 console.log(qusetionData)
-                this.tableDataQuestion = qusetionData
+                this.tableDataQuestion = qusetionData;
+
+                this.originForm = Object.assign({},this.form);
             })
         },
         CurrentChange1(val) {
@@ -192,7 +221,9 @@ export default {
             this.$api.canteen.getIntrospectionDetail(params).then(res => {
                 this.page2.totalNumber = res.count
                 let qusetionData = JSON.parse(res.list)
-                this.tableDataIntro = qusetionData
+                this.tableDataIntro = qusetionData;
+
+                this.originForm = Object.assign({},this.form); //保存上一次的值
             })
         },
         CurrentChange2(val) {
