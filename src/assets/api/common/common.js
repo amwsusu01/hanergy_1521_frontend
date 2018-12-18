@@ -6,7 +6,9 @@ const apiURL = {
     // 退出
     logout: '/user/logout',
     //菜单
-    sidebar: '/admin/api/v1/user/roles',
+    sidebar: '/admin/api/v1/user/roles', //无用了。
+
+    updateDate:'/return/getDate'
 }
 
 export default {
@@ -18,5 +20,8 @@ export default {
     },
     sidebar(obj) {
         return Api.get(`${configM.otherComUrl}${apiURL.sidebar}`, obj)
+    },
+    getUpdateData() {
+        return Api.get(apiURL.updateDate,{})
     }
 }

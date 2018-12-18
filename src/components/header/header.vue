@@ -1,5 +1,5 @@
 <template>
-    <div class="clearfix header-box" v-if="response">
+    <div class="clearfix header-box" >
         <div class="header-logo fl"><img :src="logoUrl"></img></div>
         <div class="header-title fl" @click="childClick">{{title}}</div>
         <div class="header-subtitle fl">{{subtitle}}</div>
@@ -29,19 +29,14 @@ export default {
         }
     },
     activated() {
-        this.init()
+        
     },
     mounted() {
-        this.init()
+        
     },
     methods: {
         init() {
-            let type = _sessionStorage('type'); // 0管理员 1采购端 2供应商端
-            this.subtitle = type == 1 ? '采购端' : type == 2 ? '供应商端' : '';
-            this.user = _sessionStorage('user');
-            this.response = true;
-            this.$forceUpdate();
-            this.sidebar = _sessionStorage('sidebar');
+           
         },
         quit() {
             this.$confirm('确定退出吗?', '提示', {
@@ -50,9 +45,11 @@ export default {
                 type: 'warning'
             }).then(() => {
                 this.$store.commit('setUser', null);
+                sessionStorage.removeItem('loggeduser');
                 this.$router.push({
                     'name': 'login',
                 });
+
                 // let param={
                 //     id :  _sessionStorage('userId')
                 // }

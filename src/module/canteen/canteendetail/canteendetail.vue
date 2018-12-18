@@ -1,12 +1,7 @@
 <template>
     <div>
         <div class="canteen-history-order">
-            <el-breadcrumb separator="/" class="order-breadcrumb">
-                <el-breadcrumb-item  :to="{ path: '/canteenPurchase'}">1521报表</el-breadcrumb-item>
-                <el-breadcrumb-item  :to="{ path: '/canteendetail'}">离职人员明细统计</el-breadcrumb-item>
-            </el-breadcrumb>
             <div class="box">
-                <div class="rightline">更新时间: 2018-01-01</div>
                 <el-form ref="form"  :inline="true" :model="form"  label-width="80px" class="contain" >
                     <el-form-item label="部门:">
                         <el-select v-model="form.region" placeholder="请选择部门" size="mini">

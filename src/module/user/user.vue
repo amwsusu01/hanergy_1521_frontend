@@ -5,16 +5,21 @@
         </el-header>
         <el-container :style="{ 'height': documentClientHeight-70 + 'px'}">
             <el-scrollbar style="height: 100%;" ref="globalScrollbar">
-            <div class="sidebar-container" :class="{'is-active':isCollapse}" @mouseenter="isCollapse=!isCollapse" @mouseleave="isCollapse=!isCollapse">
-                <logo :isCollapse="isCollapse"></logo>
-                <el-menu unique-opened default-active="53" :isCollapse="isCollapse" class="el-menu-vertical-demo" mode="vertical" :show-timeout="200" @open="handleOpen" @close="handleClose">
-                    <sidebar-item :menu="menuData" :isCollapse="isCollapse"></sidebar-item>
-                </el-menu>
-            </div>
-            <el-main>
-                <router-view></router-view>               
-            </el-main>
-             </el-scrollbar>
+                <div class="sidebar-container" :class="{'is-active':isCollapse}">
+                    <logo :isCollapse="isCollapse"></logo>
+                    <el-menu unique-opened default-active="53" :isCollapse="isCollapse" class="el-menu-vertical-demo" mode="vertical" :show-timeout="200" @open="handleOpen" @close="handleClose">
+                        <sidebar-item :menu="menuData" :isCollapse="isCollapse"></sidebar-item>
+                    </el-menu>
+                </div>
+                <el-main>
+                    <el-breadcrumb separator="/" class="order-breadcrumb">
+                        <el-breadcrumb-item>{{breadMenu[0]}}</el-breadcrumb-item>
+                        <el-breadcrumb-item>{{breadMenu[1]}}</el-breadcrumb-item>
+                    </el-breadcrumb>
+                    <div class="rightline">更新时间: {{updateTime}}</div>
+                    <router-view></router-view>
+                </el-main>
+            </el-scrollbar>
         </el-container>
     </el-container>
 </template>
@@ -35,12 +40,21 @@ export default {
         return {
             leftDefauleActive: '1-1', // 左侧菜单默认展开哪个
             isCollapse: true,
-            sysTitle: '报表'
+            //sysTitle: '报表'
         };
     },
     computed: {
+        sysTitle: {
+            get() {
+                return this.$store.state.common.sysTitle;
+            },
+            set(val) {
+                this.$store.commit('setSysTitle', val);
+            }
+        },
         menuData: {
             get() {
+                debugger
                 return this.$store.state.common.menuData;
             },
             set(val) {
@@ -51,6 +65,19 @@ export default {
             get() { return this.$store.state.common.documentClientHeight },
             set(val) { this.$store.commit('updateDocumentClientHeight', val) }
         },
+        breadMenu: {
+            get() {
+                return this.$store.state.common.breadcrumbMenu;
+            }
+        },
+        updateTime:{
+             get() {
+                return this.$store.state.common.updateTime;
+            },
+            set(val){
+                this.$store.commit('setUpdateTime', val);
+            }
+        }
     },
     mounted() {
         this.init();
@@ -63,8 +90,13 @@ export default {
     },
     methods: {
         init() {
-            _setTitle('1521报表');
-            this.getSidebarList();
+            this.$api.common.getUpdateData().then(res=>{
+                if(res.Date) {
+                    this.updateTime = res.Date;
+                } else {
+                    this.updateTime = '';
+                }
+            })
         },
         // 重置窗口可视高度
         resetDocumentClientHeight() {
@@ -102,32 +134,12 @@ export default {
                 menuId: '48',
             };
             this.$api.common.sidebar(param).then(res => {
-                console.log(res, "sidebar")
                 if (res.status == 0) {
                     this.sysTitle = res.data[0].menus[0].name;
                     this.menuData = res.data[0].menus[0].list; // 存储菜单
-                    /*_sessionStorage('type', res.data.type); // 0管理员 1采购端 2供应商端
-                    _sessionStorage('user', res.data.name);*/
-                    // console.log(res.data.type)
-
-                    /*if (res.data.type == 1) { // 1521
-                        this.$router.push({
-                            path: '/canteenHome',
-                        })
-                    } else if (res.data.type == 2) { // 系统管理
-                        this.$router.push({
-                            path: '/supplierHome',
-                        })
-                    } else {
-                        this.$router.push({
-                            path: '/user',
-                        })
-                        console.log(res.data.type)
-                    }*/
-
                 } else {
                     this.$message.error({
-                        message: res.meta.message,
+                        message: res.message,
                         duration: 1000,
                         center: true
                     });
@@ -142,9 +154,23 @@ export default {
 .el-breadcrumb {
     margin-bottom: 20px;
 }
+
+.el-main {
+    overflow-x: hidden;
+}
 </style>
 <style lang="less">
 .sidebar-container {
-    float:left;
+    float: left;
+}
+
+.el-container {
+    .el-scrollbar__wrap {
+        overflow-x: hidden;
+    }
+
+    .el-scrollbar__bar.is-horizontal {
+        display: none;
+    }
 }
 </style>

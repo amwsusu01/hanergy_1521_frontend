@@ -1,11 +1,6 @@
 <template>
     <div>
-        <el-breadcrumb separator="/">
-            <el-breadcrumb-item :to="{ path: '/canteenPurchase'}">1521报表</el-breadcrumb-item>
-            <el-breadcrumb-item :to="{ path: '/canteenOrder'}">1521数据汇总统计</el-breadcrumb-item>
-        </el-breadcrumb>
         <div class="box">
-            <div class="rightline">更新时间: 2018-01-01</div>
             <el-form ref="form" :inline="true" :model="form" class="contain" size="mini">
                 <el-form-item label="部门:" label-width="50px" prop="region">
                     <el-select v-model="form.region" multiple collapse-tags placeholder="请选择部门" size="mini">
@@ -29,30 +24,74 @@
                         </el-date-picker>
                     </el-col>
                 </el-form-item>
-                <div style="display: inline-block">
+                <el-form-item>
                     <el-button size="mini" type="primary" class="query" @click="queryList()">查询</el-button>
                     <el-button size="mini" type="primary" class="reset" @click="resetForm()">重置</el-button>
-                </div>
+                </el-form-item>
             </el-form>
         </div>
         <div>
-            <div id="assemblyChart" class="relationShipChart"></div>
-            <!--<div class="download"></div>-->
-            <div id="assemblyFiveChart" class="relationShipChart"></div>
-            <div id="assemblyThreeChart" class="relationShipChart"></div>
-            <div id="assemblyFourChart" class="relationShipChart"></div>
-            <div id="assemblyTwoChart" class="relationShipChart"></div>
-            <div id="assemblySixChart" class="relationShipChart"></div>
+            <div class="chart-box">
+                <el-button v-if="buttons['64']==true" class="exp-btn" plain size="small" @click="exportExl('64')">导出</el-button>
+                <div id="assemblyChart" class="relationShipChart"></div>
+            </div>
+            <div class="chart-box">
+                <el-button v-if="buttons['65']==true" class="exp-btn" plain size="small" @click="exportExl('65')">导出</el-button>
+                <div id="assemblyFiveChart" class="relationShipChart"></div>
+            </div>
+            <div class="chart-box">
+                <el-button v-if="buttons['66']==true" class="exp-btn" plain size="small" @click="exportExl('66')">导出</el-button>
+                <div id="assemblyThreeChart" class="relationShipChart"></div>
+            </div>
+            <div class="chart-box">
+                <el-button v-if="buttons['67']==true" class="exp-btn" plain size="small" @click="exportExl('67')">导出</el-button>
+                <div id="assemblyFourChart" class="relationShipChart"></div>
+            </div>
+            <div class="chart-box">
+                <el-button v-if="buttons['68']==true" class="exp-btn" plain size="small" @click="exportExl('68')">导出</el-button>
+                <div id="assemblyTwoChart" class="relationShipChart"></div>
+            </div>
+            <div class="chart-box">
+                <el-button v-if="buttons['69']==true" class="exp-btn" plain size="small" @click="exportExl('69')">导出</el-button>
+                <div id="assemblySixChart" class="relationShipChart"></div>
+            </div>
         </div>
     </div>
 </template>
 <script>
 import Paging from '../../../components/common/Paging';
+
 export default {
     name: "canteenOrder",
     components: {
         //Paging
     },
+    computed: {
+        buttons: {
+            get() {
+                //获取当前可导出的按钮组
+                if (this.$store.state.common.menuData && this.$store.state.common.menuData.length > 0 && this.$store.state.common.menuData[0].list) {
+                    let curMenu = this.$store.state.common.menuData[0].list.find((item) => item.menuId == '53') //1521问题和反省明细
+                    if (curMenu && curMenu.list) {
+                        let res = {};
+                        curMenu.list.map((item) => {
+                            res[item.menuId] = true;
+                        })
+                        return res;
+                    }
+                }
+
+                return {};
+            }
+        },
+        userCode: {
+            get() {
+                if (this.$store.state.common.user)
+                    return this.$store.state.common.user.jobNumber;
+                else return '';
+            }
+        }
+    }, // 计算属性
     data() {
         return {
             //图一
@@ -60,7 +99,7 @@ export default {
                 title: {
                     text: '超过4次(含)未请假未提报统计报表',
                     textStyle: {
-                        fontSize: 16,
+                        fontSize: 14,
                     }
                 },
                 legend: { //图例位置
@@ -153,7 +192,7 @@ export default {
                 title: {
                     text: '提报内容一样/当天重复条数超过6条(含)/一个月累计出现超过6次(含)',
                     textStyle: {
-                        fontSize: 16
+                        fontSize: 14
                     }
                 },
                 dataZoom: [{
@@ -237,7 +276,7 @@ export default {
                 title: {
                     text: '提报月平均条数小于5',
                     textStyle: {
-                        fontSize: 16
+                        fontSize: 14
                     }
                 },
                 dataZoom: [{
@@ -321,7 +360,7 @@ export default {
                 title: {
                     text: '提报月平均字数小于5',
                     textStyle: {
-                        fontSize: 16
+                        fontSize: 14
                     }
                 },
                 legend: {
@@ -494,7 +533,7 @@ export default {
                 title: {
                     text: '12点之前提报统计报表/一个月累计出现3次(含)12点',
                     textStyle: {
-                        fontSize: 16
+                        fontSize: 14
                     }
                 },
                 legend: {
@@ -773,8 +812,15 @@ export default {
         },
         //部门接口
         getSelectPermission() {
+            if(this.userCode == '') {
+                this.$message({
+                    'message':'未获取到部门，登录后重试',
+                    'type':'info'
+                });
+                return;
+            }
             var params = {
-                userCode: 2
+                userCode: this.userCode
             }
             this.$api.canteen.getSelectPermission(params).then(res => {
                 let user = JSON.parse(res.user) || [];
@@ -826,19 +872,11 @@ export default {
 <style scoped>
 .box {}
 
-.rightline {
-    margin-top: 15px;
-    margin-right: 25px;
-    text-align: right;
-}
-
 .contain {
-    margin-top: 10px;
     display: inline-block;
 }
 
 .zhiji {
-    margin-top: 6px;
     display: inline-block;
 }
 
@@ -852,8 +890,20 @@ export default {
     /*margin-left: 30px;*/
 }
 
+.chart-box {
+    width: 530px;
+    float: left;
+    position: relative;
+}
+.exp-btn {
+    position: absolute;
+    right: 15px;
+    z-index: 1000;
+    top: 0px;
+}
+
 .relationShipChart {
-    width: 500px;
+    width: 530px;
     height: 330px;
     margin-top: 4px;
     margin-bottom: 20px;
@@ -862,7 +912,7 @@ export default {
     display: inline-block;
 }
 
-.download {
+/*.download {
     background: url("../../../assets/img/noSearch.png") no-repeat;
     background-size: cover;
     width: 30px;
@@ -870,5 +920,5 @@ export default {
     position: relative;
     top: -430px;
     right: -380px;
-}
+}*/
 </style>

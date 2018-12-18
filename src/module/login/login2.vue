@@ -58,6 +58,24 @@ export default {
     mounted() {
         this.init();
     },
+    computed: {
+        menuData: {
+            get() {
+                return this.$store.state.common.menuData;
+            },
+            set(val) {
+                this.$store.commit('setMenuData', val);
+            }
+        },
+        sysTitle: {
+            get() {
+                return this.$store.state.common.sysTitle;
+            },
+            set(val) {
+                this.$store.commit('setSysTitle', val);
+            }
+        }
+    },
     methods: {
         init() {
             if (this.$route.name == 'login') {
@@ -85,6 +103,13 @@ export default {
             this.$api.common.login(param).then(res => {
                 if (res.status == 0) {
                     this.$store.commit('setUser', res.user);
+                    this.sysTitle = res.data[0].menus[0].name;
+                    this.menuData = res.data[0].menus[0].list;
+
+                    _sessionStorage("loggeduser",JSON.stringify(res.user));
+                    _sessionStorage("menuData",JSON.stringify(this.menuData));
+                    _sessionStorage("sysTitle",this.sysTitle);
+
                     this.$router.push({
                         name: 'canteenOrder'
                     });
@@ -100,7 +125,7 @@ export default {
 
         }, // 登录ajax
         clearForm() {
-            if(this.$refs['loginForm'])
+            if (this.$refs['loginForm'])
                 this.$refs['loginForm'].resetFields();
         } // 表单重置
     }
