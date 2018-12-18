@@ -1,7 +1,7 @@
 require('es6-promise').polyfill();
 import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Routers from './route.config'
+import Router from 'vue-router'
+import router from './route.config'
 // import axios from 'axios'
 // import Api from './assets/api/axios'
 import globalConfig from './assets/js/global-config'
@@ -30,7 +30,7 @@ import md5 from 'js-md5';
 Vue.use(ElementUI);
 
 
-Vue.use(VueRouter)
+Vue.use(Router)
 Vue.use(globalConfig)
 
 Vue.config.debug = true
@@ -38,13 +38,6 @@ Vue.config.devtools = false
 Vue.config.silent = true
 
 import store from './store';
-
-
-// 并且配置路由规则
-const router = new VueRouter({
-  mode: 'hash',
-  routes: Routers
-})
 
 router.beforeEach((to, from, next) => {
   if (!navigator.onLine) {

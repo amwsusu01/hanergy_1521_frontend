@@ -77,3 +77,4 @@ yarn-error.log
 
 # 苹果设备 webstorm 编辑器的编辑配置文件
 .editorconfig
+dist

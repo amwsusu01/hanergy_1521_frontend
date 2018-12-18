@@ -1,13 +1,14 @@
 import util from './assets/js/util';
 
-export default [
+var Routers= [
     // 登录
     {
         path: '/',
         name: 'login',
         component: function(resolve) {
             require(['./module/login/login2.vue'], resolve)
-        }
+        },
+        meta:{ title:'登录' }
     },
     {
         path: '/user',
@@ -32,7 +33,9 @@ export default [
                 component: function(resolve) {
                     require(['./module/canteen/canteenOrder/canteenOrder.vue'], resolve)
                 },
-                meta: { keepAlive: false }
+                meta: { keepAlive: false,
+                    title:'1521数据汇总统计'
+                 }
             }, // 1521明细统计
             {
                 path: '/canteenHistoryOrder',
@@ -40,7 +43,8 @@ export default [
                 component: function(resolve) {
                     require(['./module/canteen/canteenHistoryOrder/canteenHistoryOrder.vue'], resolve)
                 },
-                meta: { keepAlive: false }
+                meta: { keepAlive: false,
+                title:'1521明细统计' }
             }, //部门热词
             {
                 path: '/canteenReceiverOrder',
@@ -48,7 +52,8 @@ export default [
                 component: function(resolve) {
                     require(['./module/canteen/canteenReceiverOrder/canteenReceiverOrder.vue'], resolve)
                 },
-                meta: { keepAlive: false }
+                meta: { keepAlive: false,
+                title:'部门热词' }
             }, // 1521问题和反省明细
             {
                 path: '/canteenCartBig',
@@ -56,7 +61,8 @@ export default [
                 component: function(resolve) {
                     require(['./module/canteen/canteenCartBig/canteenCartBig.vue'], resolve)
                 },
-                meta: { keepAlive: false }
+                meta: { keepAlive: false,
+                title:'1521问题和反省明细' }
             },
             // // 离职人员汇总统计
             // {
@@ -110,5 +116,22 @@ export default [
             },
         ]
     },
-
 ]
+
+import Router from 'vue-router'
+
+// 并且配置路由规则
+const router = new Router({
+  mode: 'hash',
+  routes: Routers
+})
+
+router.beforeEach((to, from, next) => {
+  /* 路由发生变化修改页面title */
+  if (to.meta.title) {
+    document.title = to.meta.title
+  }
+  next()
+})
+
+export default router

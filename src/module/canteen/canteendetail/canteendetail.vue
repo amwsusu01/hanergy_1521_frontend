@@ -4,7 +4,7 @@
             <div class="box">
                 <el-form ref="form"  :inline="true" :model="form"  label-width="80px" class="contain" >
                     <el-form-item label="部门:">
-                        <el-select v-model="form.region" placeholder="请选择部门" size="mini">
+                        <el-select v-model="form.region" placeholder="请选择部门" size="mini" style="width: 220px;">
                             <el-option label="所有" value="shanghai"></el-option>
                             <el-option label="区域二" value="beijing"></el-option>
                             <el-option label="区域二" value="beijing"></el-option>

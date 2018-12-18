@@ -5,7 +5,7 @@ const common = {
     curMenuID:'48',
     // 页面文档可视高度(随窗口改变大小)
     documentClientHeight: 0,
-    menuData:_sessionStorage("menuData")!=null?JSON.parse(_sessionStorage("menuData")):[],
+    menuData:_sessionStorage("menuData")?JSON.parse(_sessionStorage("menuData")):[],
     user:_sessionStorage("loggeduser")?JSON.parse(_sessionStorage("loggeduser")):{},
     breadcrumbMenu:['1521日志分析报表','1521数据汇总统计'],
     sysTitle:_sessionStorage("sysTitle")||'',

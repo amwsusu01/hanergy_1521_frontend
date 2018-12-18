@@ -222,6 +222,9 @@ input[type=number]::-webkit-outer-spin-button {
 
 .rightline {
     margin: 0px 25px 10px;
+    font-size: 14px;
     text-align: right;
+    margin-top: -59px;
+    margin-bottom: 33px;
 }
 </style>

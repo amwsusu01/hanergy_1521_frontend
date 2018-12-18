@@ -3,7 +3,7 @@
         <div class="box">
             <el-form ref="form" :inline="true" :model="form" class="contain" size="mini">
                 <el-form-item label="部门:" label-width="50px" prop="region">
-                    <el-select v-model="form.region" multiple collapse-tags placeholder="请选择部门" size="mini">
+                    <el-select v-model="form.region" multiple collapse-tags placeholder="请选择部门" size="mini" style="width: 220px;">
                         <el-option v-for="item in this.deptList" :key="item" :label="item" :value="item" style="width: 220px">
                         </el-option>
                     </el-select>
@@ -99,7 +99,7 @@ export default {
             chartOption: {
                 title: {
                     text: '超过4次(含)未请假未提报统计报表',
-                    textStyle: {
+                    textStyle : {
                         fontSize: 14,
                     }
                 },
@@ -134,7 +134,7 @@ export default {
                 yAxis: [{
                         type: 'value',
                         name: '人数',
-                        // nameTextStyle:{
+                        // namelineStyle :{
                         //     width: 20%
                         // },
                         // nameLocation: 'center', //坐标名称位置
@@ -165,7 +165,8 @@ export default {
                         },
                         itemStyle: {
                             color: function(params) {
-                                var colorList = ['#56CEFB', '#7297E7', '#56CEFB', '#7297E7', '#56CEFB', '#7297E7', '#56CEFB', '#7297E7', '#56CEFB', '#7297E7'];
+                                var colorList = ['#56CEFB', '#5793f3', '#56CEFB', '#5793f3', '#56CEFB', '#5793f3', '#56CEFB', '#5793f3', '#56CEFB', '#5793f3'];
+                                                                return '#5793f3';
 
                                 return colorList[params.dataIndex];
                             },
@@ -183,6 +184,12 @@ export default {
                                 position: 'inside'
                             }
                         },
+                        itemStyle:{
+                            color:'#7a70c2'
+                        },
+                        lineStyle :{
+                            color:'#7a70c2'
+                        },
                         data: this.per
                     }
                 ]
@@ -192,7 +199,7 @@ export default {
             chartTwoOption: {
                 title: {
                     text: '提报内容一样/当天重复条数超过6条(含)/一个月累计出现超过6次(含)',
-                    textStyle: {
+                    textStyle : {
                         fontSize: 14
                     }
                 },
@@ -249,9 +256,9 @@ export default {
                         },
                         itemStyle: {
                             color: function(params) {
-                                var colorList = ['#56CEFB', '#7297E7', '#56CEFB', '#7297E7', '#56CEFB', '#7297E7', '#56CEFB', '#7297E7', '#56CEFB', '#7297E7'];
-
-                                return colorList[params.dataIndex];
+                                var colorList = ['#56CEFB', '#5793f3', '#56CEFB', '#5793f3', '#56CEFB', '#5793f3', '#56CEFB', '#5793f3', '#56CEFB', '#5793f3'];
+                                return '#5793f3';
+                                //return colorList[params.dataIndex];
                             },
                         },
                         data: this.cnt2
@@ -267,6 +274,14 @@ export default {
                                 position: 'inside'
                             }
                         },
+                        itemStyle:{
+                            color:function() {
+                                return '#7a70c2';
+                            }
+                        },
+                        lineStyle :{
+                            color:'#7a70c2'
+                        },
                         data: this.per2,
                     }
                 ]
@@ -276,7 +291,7 @@ export default {
             chartThreeOption: {
                 title: {
                     text: '提报月平均条数小于5',
-                    textStyle: {
+                    textStyle : {
                         fontSize: 14
                     }
                 },
@@ -333,9 +348,9 @@ export default {
                         },
                         itemStyle: {
                             color: function(params) {
-                                var colorList = ['#56CEFB', '#7297E7', '#56CEFB', '#7297E7', '#56CEFB', '#7297E7', '#56CEFB', '#7297E7', '#56CEFB', '#7297E7'];
-
-                                return colorList[params.dataIndex];
+                                var colorList = ['#56CEFB', '#5793f3', '#56CEFB', '#5793f3', '#56CEFB', '#5793f3', '#56CEFB', '#5793f3', '#56CEFB', '#5793f3'];
+                                return '#5793f3';
+                                //return colorList[params.dataIndex];
                             },
                         },
                         data: this.cnt3
@@ -350,6 +365,13 @@ export default {
                                 show: true,
                                 position: 'inside'
                             }
+                        },itemStyle:{
+                            color:function() {
+                                return '#7a70c2';
+                            }
+                        },
+                        lineStyle :{
+                            color:'#7a70c2'
                         },
                         data: this.per3,
                     }
@@ -360,7 +382,7 @@ export default {
             chartFourOption: {
                 title: {
                     text: '提报月平均字数小于5',
-                    textStyle: {
+                    textStyle : {
                         fontSize: 14
                     }
                 },
@@ -417,9 +439,10 @@ export default {
                         },
                         itemStyle: {
                             color: function(params) {
-                                var colorList = ['#56CEFB', '#7297E7', '#56CEFB', '#7297E7', '#56CEFB', '#7297E7', '#56CEFB', '#7297E7', '#56CEFB', '#7297E7'];
+                                var colorList = ['#56CEFB', '#5793f3', '#56CEFB', '#5793f3', '#56CEFB', '#5793f3', '#56CEFB', '#5793f3', '#56CEFB', '#5793f3'];
+                                return '#5793f3';
 
-                                return colorList[params.dataIndex];
+                                //return colorList[params.dataIndex];
                             },
                         },
                         data: this.cnt4
@@ -435,6 +458,14 @@ export default {
                                 position: 'inside'
                             }
                         },
+                        itemStyle:{
+                            color:function() {
+                                return '#7a70c2';
+                            }
+                        },
+                        lineStyle :{
+                            color:'#7a70c2'
+                        },
                         data: this.per4,
                     }
                 ]
@@ -444,7 +475,7 @@ export default {
             chartFiveOption: {
                 title: {
                     text: '9点之前提报统计报表/一个月累计出现3次(含)9点',
-                    textStyle: {
+                    textStyle : {
                         fontSize: 14
                     }
                 },
@@ -507,8 +538,10 @@ export default {
                         },
                         itemStyle: {
                             color: function(params) {
-                                var colorList = ['#56CEFB', '#7297E7', '#56CEFB', '#7297E7', '#56CEFB', '#7297E7', '#56CEFB', '#7297E7', '#56CEFB', '#7297E7'];
-                                return colorList[params.dataIndex];
+                                var colorList = ['#56CEFB', '#5793f3', '#56CEFB', '#5793f3', '#56CEFB', '#5793f3', '#56CEFB', '#5793f3', '#56CEFB', '#5793f3'];
+                                                                return '#5793f3';
+
+                                //return colorList[params.dataIndex];
                             },
                         },
                         data: this.cnt5
@@ -524,6 +557,14 @@ export default {
                                 position: 'inside'
                             }
                         },
+                        itemStyle:{
+                            color:function() {
+                                return '#7a70c2';
+                            }
+                        },
+                        lineStyle :{
+                            color:'#7a70c2'
+                        },
                         data: this.per5
                     }
                 ]
@@ -533,7 +574,7 @@ export default {
             chartSixOption: {
                 title: {
                     text: '12点之前提报统计报表/一个月累计出现3次(含)12点',
-                    textStyle: {
+                    textStyle : {
                         fontSize: 14
                     }
                 },
@@ -591,9 +632,10 @@ export default {
                         },
                         itemStyle: {
                             color: function(params) {
-                                var colorList = ['#56CEFB', '#7297E7', '#56CEFB', '#7297E7', '#56CEFB', '#7297E7', '#56CEFB', '#7297E7', '#56CEFB', '#7297E7'];
+                                var colorList = ['#56CEFB', '#5793f3', '#56CEFB', '#5793f3', '#56CEFB', '#5793f3', '#56CEFB', '#5793f3', '#56CEFB', '#5793f3'];
+                                                                return '#5793f3';
 
-                                return colorList[params.dataIndex];
+                                //return colorList[params.dataIndex];
                             },
                         },
                         data: this.cnt6
@@ -608,6 +650,14 @@ export default {
                                 show: true,
                                 position: 'inside'
                             }
+                        },
+                        itemStyle:{
+                            color:function() {
+                                return '#7a70c2';
+                            }
+                        },
+                        lineStyle :{
+                            color:'#7a70c2'
                         },
                         data: this.per6,
                     }

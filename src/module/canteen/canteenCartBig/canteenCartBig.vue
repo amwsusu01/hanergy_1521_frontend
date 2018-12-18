@@ -4,7 +4,7 @@
             <div class="box">
                 <el-form :inline="true" :model="form" ref="form" class="contain">
                     <el-form-item label="部门:" label-width="50px" prop="region">
-                        <el-select v-model="form.region" multiple collapse-tags placeholder="请选择部门" size="mini">
+                        <el-select v-model="form.region" style="width: 220px;" multiple collapse-tags placeholder="请选择部门" size="mini">
                             <el-option v-for="item in this.deptList" :key="item" :label="item" :value="item" style="width: 220px">
                             </el-option>
                         </el-select>
@@ -21,7 +21,7 @@
                         </el-col>
                         <el-col class="line" :span="1">-</el-col>
                         <el-col style="width:120px;display: inline-block">
-                            <el-date-picker size="mini" type="month" :placeholder=initTime @change="changeEndTime(form.date.endTime)" :picker-options="pickerOptions" v-model="form.date.endTime" style="width: 100%;">
+                            <el-date-picker size="mini" type="month" value-format="yyyy-MM" :placeholder=initTime @change="changeEndTime(form.date.endTime)" :picker-options="pickerOptions" v-model="form.date.endTime" style="width: 100%;">
                             </el-date-picker>
                         </el-col>
                     </el-form-item>
@@ -276,12 +276,12 @@ export default {
         //结束时间选择改变的函数
         changeEndTime(startDateTime) {
             if (startDateTime) {
-                this.form.date.endTime = startDateTime.getTime()
-                let dateEnd = new Date(this.form.date.endTime)
+                let etime = startDateTime.getTime();
+                let dateEnd = new Date(etime)
                 let Y = dateEnd.getFullYear() + '-'
                 let M = (dateEnd.getMonth() + 1 < 10 ? '0' + (dateEnd.getMonth() + 1) : dateEnd.getMonth() + 1)
-                this.form.date.endTime = Y + M
-                return this.form.date.endTime
+                etime = Y + M
+                return etime
             }
         }
     }

@@ -116,7 +116,7 @@ export default {
                     this.clearForm();
                 } else {
                     this.$message.error({
-                        message: res.message,
+                        message: res.msg,
                         duration: 1000,
                         center: true
                     });

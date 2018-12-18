@@ -3,7 +3,7 @@
         <div class="box">
             <el-form :inline="true" :model="form" class="contain">
                 <el-form-item label="部门:" label-width="50px" prop="region">
-                    <el-select v-model="form.region" multiple collapse-tags placeholder="请选择部门" size="mini">
+                    <el-select v-model="form.region" multiple collapse-tags placeholder="请选择部门" size="mini" style="width: 220px;">
                         <el-option v-for="item in this.deptList" :key="item" :label="item" :value="item" style="width: 220px">
                         </el-option>
                     </el-select>
@@ -20,7 +20,7 @@
                     </el-col>
                     <el-col class="line" :span="1">-</el-col>
                     <el-col style="width:120px;display: inline-block">
-                        <el-date-picker size="mini" type="month" :placeholder=initTime @change="changeEndTime(form.date.endTime)" :picker-options="pickerOptions" v-model="form.date.endTime" style="width: 100%;">
+                        <el-date-picker size="mini" type="month" value-format="yyyy-MM" :placeholder=initTime @change="changeEndTime(form.date.endTime)" :picker-options="pickerOptions" v-model="form.date.endTime" style="width: 100%;">
                         </el-date-picker>
                     </el-col>
                 </el-form-item>
@@ -104,8 +104,8 @@
             </div>
             <div class="table">
                 <el-button class="exp-btn" plain size="small" v-if="buttons['73']==true" @click="exportExl(6)">导出</el-button>
-                <el-table :data="tableData4" border style="width: 100%" label-class-name="table-title">
-                    <el-table-column prop="date" label="9点之前提报数据明细表">
+                <el-table :data="tableData4" border style="width: 100%" >
+                    <el-table-column prop="date" label="9点之前提报数据明细表" label-class-name="table-title">
                         <el-table-column prop="month" label="月份" width="100">
                         </el-table-column>
                         <el-table-column prop="day" label="日期" width="150">
@@ -129,8 +129,8 @@
             </div>
             <div class="table">
                 <el-button class="exp-btn" plain size="small" v-if="buttons['74']==true" @click="exportExl(7)">导出</el-button>
-                <el-table :data="tableData5" border style="width: 100%" label-class-name="table-title">
-                    <el-table-column prop="date" label="12点之前提报数据明细表">
+                <el-table :data="tableData5" border style="width: 100%" >
+                    <el-table-column prop="date" label="12点之前提报数据明细表" label-class-name="table-title">
                         <el-table-column prop="month" label="月份" width="100">
                         </el-table-column>
                         <el-table-column prop="day" label="日期" width="150">
@@ -154,8 +154,8 @@
             </div>
             <div class="table">
                 <el-button class="exp-btn" plain v-if="buttons['75']==true" size="small" @click="exportExl(8)">导出</el-button>
-                <el-table :data="tableData6" border style="width: 100%" label-class-name="table-title">
-                    <el-table-column prop="date" label="提报内容重复超6次(含)汇总表">
+                <el-table :data="tableData6" border style="width: 100%" >
+                    <el-table-column prop="date" label="提报内容重复超6次(含)汇总表" label-class-name="table-title">
                         <el-table-column prop="month" label="月份" width="100">
                         </el-table-column>
                         <el-table-column prop="day" label="日期" width="150">
@@ -179,8 +179,8 @@
             </div>
             <div class="table">
                 <el-button class="exp-btn" plain v-if="buttons['76']==true" size="small" @click="exportExl(9)">导出</el-button>
-                <el-table :data="tableData7" border style="width: 100%" label-class-name="table-title">
-                    <el-table-column prop="month" label="提报内容重复超6次(含)明细表">
+                <el-table :data="tableData7" border style="width: 100%" >
+                    <el-table-column prop="month" label="提报内容重复超6次(含)明细表" label-class-name="table-title">
                         <el-table-column prop="month" label="月份" width="100">
                         </el-table-column>
                         <el-table-column prop="day1" label="日期" width="150">
@@ -551,12 +551,12 @@ export default {
         //结束时间选择改变的函数
         changeEndTime(startDateTime) {
             if (startDateTime) {
-                this.form.date.endTime = startDateTime.getTime()
-                let dateEnd = new Date(this.form.date.endTime)
+                let etime = startDateTime.getTime();
+                let dateEnd = new Date(etime)
                 let Y = dateEnd.getFullYear() + '-'
                 let M = (dateEnd.getMonth() + 1 < 10 ? '0' + (dateEnd.getMonth() + 1) : dateEnd.getMonth() + 1)
-                this.form.date.endTime = Y + M
-                return this.form.date.endTime
+                etime = Y + M
+                return etime
             }
         },
         exportExl(type) {
