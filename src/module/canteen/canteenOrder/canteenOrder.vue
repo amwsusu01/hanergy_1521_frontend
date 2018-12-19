@@ -1014,6 +1014,8 @@ export default {
     margin-right: 30px;
     position: relative;
     display: inline-block;
+    background: url('../../../assets/img/no-data.png') no-repeat;
+    background-position: 50% 50%;
 }
 
 /*.download {
