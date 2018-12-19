@@ -20,7 +20,7 @@ var Routers= [
         children: [
             // 报表 首页
             {
-                path: '/canteenPurchase',
+                path: '/homehh',
                 name: 'canteenPurchase',
                 component: function(resolve) {
                     require(['./module/canteen/canteenPurchase/canteenPurchase.vue'], resolve)
@@ -28,7 +28,7 @@ var Routers= [
                 meta: { keepAlive: true }
             }, // 1521数据汇总统计
             {
-                path: '/canteenOrder',
+                path: '/Logsummarystatistics',
                 name: 'canteenOrder',
                 component: function(resolve) {
                     require(['./module/canteen/canteenOrder/canteenOrder.vue'], resolve)
@@ -38,7 +38,7 @@ var Routers= [
                  }
             }, // 1521明细统计
             {
-                path: '/canteenHistoryOrder',
+                path: '/Logdetailstatistics',
                 name: 'canteenHistoryOrder',
                 component: function(resolve) {
                     require(['./module/canteen/canteenHistoryOrder/canteenHistoryOrder.vue'], resolve)
@@ -47,7 +47,7 @@ var Routers= [
                 title:'1521明细统计' }
             }, //部门热词
             {
-                path: '/canteenReceiverOrder',
+                path: '/Departmentofhotword',
                 name: 'canteenReceiverOrder',
                 component: function(resolve) {
                     require(['./module/canteen/canteenReceiverOrder/canteenReceiverOrder.vue'], resolve)
@@ -56,7 +56,7 @@ var Routers= [
                 title:'部门热词' }
             }, // 1521问题和反省明细
             {
-                path: '/canteenCartBig',
+                path: '/Theproblemtoreflect',
                 name: 'canteenCartBig',
                 component: function(resolve) {
                     require(['./module/canteen/canteenCartBig/canteenCartBig.vue'], resolve)

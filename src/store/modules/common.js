@@ -9,7 +9,8 @@ const common = {
     user:_sessionStorage("loggeduser")?JSON.parse(_sessionStorage("loggeduser")):{},
     breadcrumbMenu:['1521日志分析报表','1521数据汇总统计'],
     sysTitle:_sessionStorage("sysTitle")||'',
-    updateTime:''
+    updateTime:'',
+    deptments:[]
   },
   actions: {
   },
@@ -18,6 +19,9 @@ const common = {
       state.curMenuID = id;
     },
     setMenuData(state,data){
+      if(data && data.length > 0) {
+            data[0].icon="el-icon-tickets";
+        }
       state.menuData = data;
     },
     updateDocumentClientHeight(state, height) {
@@ -34,6 +38,9 @@ const common = {
     },
     setUpdateTime(state,data) {
       state.updateTime = data;
+    },
+    setDeptments(state,data) {
+      state.deptments = data;
     }
   }
 }

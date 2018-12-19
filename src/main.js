@@ -29,6 +29,9 @@ import md5 from 'js-md5';
 //import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
 
+import moment from 'moment';
+Object.defineProperty(Vue.prototype, '$moment', { value: moment });
+
 
 Vue.use(Router)
 Vue.use(globalConfig)

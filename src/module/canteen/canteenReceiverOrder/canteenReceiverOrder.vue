@@ -4,13 +4,13 @@
             <el-form ref="form" :inline="true" :model="form" class="contain" size="mini">
                 <el-form-item label="部门:" label-width="50px" prop="region">
                     <el-select v-model="form.region" multiple collapse-tags placeholder="请选择部门" size="mini" style="width: 220px">
-                        <el-option v-for="item in this.deptList" :key="item" :label="item" :value="item">
+                        <el-option v-for="item in deptList" :key="item.dept_name" :label="item.dept_name" :value="item.dept_name" style="width: 220px">
                         </el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="查询时间:" prop="date">
                     <el-col :span="8" style="width:150px;">
-                        <el-date-picker size="mini" type="month" :placeholder=initTime value-format="yyyy-MM" v-model="form.date.date1" style="width: 100%;"></el-date-picker>
+                        <el-date-picker size="mini" type="month" :placeholder="initTime" value-format="yyyy-MM" v-model="form.date.date1" style="width: 100%;"></el-date-picker>
                     </el-col>
                 </el-form-item>
                 <el-form-item>
@@ -25,15 +25,15 @@
             <div class="heartPictureChart">
                 <div style="text-align: left;font-size: 16px;margin-left: 91px;">{{item.name}}</div>
                 <el-button v-if="buttons['77']==true" class="exp-btn" plain size="small" @click="exportExl(index,item.name)">导出</el-button>
-                <div :id="'heartPicture'+index" style="height: 180px;"></div>
+                <div :id="'heartPicture'+index" class="heartPicture" style="height: 180px;"></div>
             </div>
         </div>
     </div>
 </template>
 <script>
 import { timeDiff } from '../../../assets/js/util'
-import testImg from '../../../assets/img/redTips.png';
-import { getMaxFreq,exportCsv } from '../../../utils';
+import testImg from '../../../assets/img/no-data.png';
+import { getMaxFreq, exportCsv } from '../../../utils';
 
 export default {
     name: "canteenReceiverOrder",
@@ -49,14 +49,29 @@ export default {
                 }
             },
             deptName: "",
-            initTime: "2018-12-01 00:00:00", //初始化的时间
-            deptList: [],
+            initTime: this.updateTime, //初始化的时间
+            //deptList: [],
             rankOptions: ["21-24", "15-20", "10-14", "05-09", "01-04"],
         }
     },
+    watch: {
+        'updateTime': function(newval, oldval) {
+            if (newval && !oldval) {
+                this.initTime = this.$moment(newval).format('YYYY-MM');
+                this.initHotword();
+            }
+
+        },
+        'deptList': function(newval, oldval) {
+            if (newval.length > 0 && oldval.length == 0) {
+                this.initHotword();
+            }
+        }
+    },
     mounted() {
-        this.form.date.date1 = this.initTime; //默认显示时间
-        this.getSelectPermission(); //获取部门
+
+        // this.form.date.date1 = this.initTime; //默认显示时间
+        // this.form.region = this.deptList.map((a) => a.dept_name);
     },
     computed: {
         testImg: {
@@ -64,7 +79,7 @@ export default {
                 return testImg;
             }
         },
-         buttons: {
+        buttons: {
             get() {
                 //获取当前可导出的按钮组
                 if (this.$store.state.common.menuData && this.$store.state.common.menuData.length > 0 && this.$store.state.common.menuData[0].list) {
@@ -87,83 +102,29 @@ export default {
                     return this.$store.state.common.user.jobNumber;
                 else return '';
             }
-        }
+        },
+        deptList: {
+            get() {
+                return this.$store.state.common.deptments;
+            },
+            set() {
+                this.$store.commit('setDeptments', val);
+            }
+        },
+        updateTime: {
+            get() {
+                return this.$store.state.common.updateTime;
+            }
+        },
     }, // 计算属性
     filters: {}, // 过滤器
     methods: {
-        init() {
-            //热词接口
-            let params = {
-                //部门
-                dept: this.deptList.join(','),
-                beginDate: this.form.date.date1.substring(0, 7),
+        initHotword() {
+            if (this.initTime && this.deptList.length > 0) {
+                this.form.date.date1 = this.initTime; //默认显示时间
+                this.form.region = this.deptList.map((a) => a.dept_name);
+                this.Hotword();
             }
-            this.$api.canteen.getHotWord(params).then(res => {
-                this.rcdata = res.rs || [];
-                this.$nextTick(() => {
-                    for (let i = 0; i < this.rcdata.length; i++) {
-                        let maxFreq = 1,
-                            minFreq = 1;
-                        let curData = this.rcdata[i];
-                        let curDataList = curData.value
-                        let curValue = curDataList.map((item) => {
-                            if (maxFreq < item.freq) maxFreq = item.freq;
-                            if (minFreq > item.freq) minFreq = item.freq;
-                            return {
-                                name: item.name,
-                                value: item.freq
-                            }
-                        })
-
-                        // if(curValue.length<=0){
-                        //     continue
-                        // }
-                        var heartPicture = this.echarts.init(document.getElementById('heartPicture' + i));
-                        let data = {
-                            value: curValue
-                        };
-
-                        //     let maskImage = new Image();//温馨提示：image 选取有严格要求不可过大；，否则firefox不兼容  iconfont上面的图标可以
-                        // maskImage.src = data.image;
-                        // maskImage.onload = function(){
-                        let maxRange = getMaxFreq(maxFreq);
-                        heartPicture.setOption({
-                            backgroundColor: '#fff',
-                            tooltip: {
-                                show: false
-                            },
-                            series: [{
-                                type: 'wordCloud',
-                                gridSize: 1,
-                                sizeRange: [1, maxRange],
-                                rotationRange: [28, 2],
-                                //maskImage: maskImage,
-                                textStyle: {
-                                    normal: {
-                                        color: function(v) {
-                                            let color = ['#27D38A', '#FFCA1C', '#5DD1FA', '#F88E25', '#47A0FF', '#FD6565']
-                                            let num = Math.floor(Math.random() * (5 + 1));
-                                            return color[num];
-                                        },
-                                    },
-                                },
-                                left: 'center',
-                                top: 'center',
-                                width: '100%',
-                                height: '100%',
-                                right: null,
-                                bottom: null,
-                                width: 300,
-                                height: 200,
-                                top: 20,
-                                data: data.value
-                            }]
-                        })
-                    }
-                    // }
-                })
-
-            })
         },
         //点击查询调用接口
         Hotword() {
@@ -171,7 +132,7 @@ export default {
             let params = {
                 //部门
                 dept: this.form.region,
-                beginDate: this.form.date.date1.substring(0, 7),
+                beginDate: this.form.date.date1,
             }
             this.$api.canteen.getHotWord(params).then(res => {
                 // let rc = JSON.parse(res);
@@ -206,12 +167,19 @@ export default {
                         heartPicture.setOption({
                             backgroundColor: '#fff',
                             tooltip: {
-                                show: false
+                                show: true
                             },
                             series: [{
                                 type: 'wordCloud',
-                                gridSize: 1,
-                                sizeRange: [1, maxRange],
+                                autoSize: {
+                                    enable: true,
+                                    minSize: 14
+                                },
+                                size: ['80%', '80%'],
+                                textRotation: [0, 45, 90, -45],
+                                textPadding: 0,
+                                // gridSize: 1,
+                                // sizeRange: [1, maxRange],
                                 rotationRange: [28, 2],
                                 textStyle: {
                                     normal: {
@@ -230,6 +198,7 @@ export default {
                                 bottom: null,
                                 width: 300,
                                 height: 200,
+                                img: this.testImg,
                                 top: 20,
                                 data: data.value
                             }]
@@ -240,44 +209,23 @@ export default {
 
             })
         },
-        //部门接口
-        getSelectPermission() {
-            if (this.userCode == '') {
-                this.$message({
-                    'message': '未获取到部门，登录后重试',
-                    'type': 'info'
-                });
-                return;
-            }
-            var params = {
-                userCode: this.userCode
-            }
-            this.$api.canteen.getSelectPermission(params).then(res => {
-                let user = JSON.parse(res.user) || [];
-                for (let j = 0; j < user.length; j++) {
-                    let dName = user[j].dept_name;
-                    this.deptList.push(dName)
-                }
-                this.init();
-            })
-        },
         // 表单重置
         resetForm() {
             this.$refs.form.resetFields();
             this.form.date.date1 = this.initTime; //默认显示时间
             this.form.date.date2 = this.initTime; //默认显示时间
         },
-        exportExl(type,name) {
-            if(!this.rcdata[type]) return;
+        exportExl(type, name) {
+            if (!this.rcdata[type]) return;
             let data = this.rcdata[type].value;
-            if(data.length <=0 ) return;
+            if (data.length <= 0) return;
 
             let res = {
-                title:["热词","频率"],
-                titleForKey:["name","freq"],
-                data:data
+                title: ["热词", "频率"],
+                titleForKey: ["name", "freq"],
+                data: data
             };
-            exportCsv(res,name+'—热词.csv');
+            exportCsv(res, name + '—热词.csv');
         }
     },
 
@@ -289,7 +237,11 @@ export default {
     height: 200px;
     float: left;
     margin-top: 10px;
-    position:relative;
+    position: relative;
+}
+
+.heartPicture {
+    background: url('../../../assets/img/no-data.png');
 }
 
 .zhiji {
@@ -303,9 +255,9 @@ export default {
 
 .exp-btn {
     position: absolute;
-    right: 0;
+    right: -25px;
     z-index: 1000;
-    top: 0px;
+    top: -3px;
 }
 
 .relationShipChart {

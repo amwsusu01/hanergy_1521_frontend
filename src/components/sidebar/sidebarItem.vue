@@ -5,7 +5,7 @@
                 <i :class="item.icon"></i>
                 <span slot="title">{{item.name}}</span>
             </el-menu-item>
-            <el-submenu v-else :index="`${item.menuId}`" :key="item.menuId">
+            <el-submenu v-else :index="`${item.menuId}`" :key="item.menuId" :class="{'el-submenu--display':isCollapse}">
                 <template slot="title">
                     <i :class="item.icon"></i>
                     <span slot="title" :class="{'el-menu--display':isCollapse}">{{item.name}}</span>
@@ -46,8 +46,8 @@ export default {
             return path == null ? index + "" : path;
         },
         open(item) {
-            if (item.url != '') {
-                this.$store.commit('setBreadcrumbMenu',[this.$store.state.common.menuData[0].name,item.name]);
+            if (item.url != '' && item.url != "‘’") {
+                this.$store.commit('setBreadcrumbMenu', [this.$store.state.common.menuData[0].name, item.name]);
                 this.$router.push({
                     name: item.url
                 });
@@ -56,5 +56,12 @@ export default {
     }
 };
 </script>
-<style lang="scss" scoped>
+<style lang="less">
+.el-menu--display {
+    display: none;
+}
+
+.el-submenu--display .el-submenu__icon-arrow {
+    display: none !important;
+}
 </style>

@@ -4,7 +4,7 @@
             <el-form :inline="true" :model="form" class="contain">
                 <el-form-item label="部门:" label-width="50px" prop="region">
                     <el-select v-model="form.region" multiple collapse-tags placeholder="请选择部门" size="mini" style="width: 220px;">
-                        <el-option v-for="item in this.deptList" :key="item" :label="item" :value="item" style="width: 220px">
+                        <el-option v-for="item in deptList" :key="item.dept_name" :label="item.dept_name" :value="item.dept_name" style="width: 220px">
                         </el-option>
                     </el-select>
                 </el-form-item>
@@ -104,7 +104,7 @@
             </div>
             <div class="table">
                 <el-button class="exp-btn" plain size="small" v-if="buttons['73']==true" @click="exportExl(6)">导出</el-button>
-                <el-table :data="tableData4" border style="width: 100%" >
+                <el-table :data="tableData4" border style="width: 100%">
                     <el-table-column prop="date" label="9点之前提报数据明细表" label-class-name="table-title">
                         <el-table-column prop="month" label="月份" width="100">
                         </el-table-column>
@@ -129,7 +129,7 @@
             </div>
             <div class="table">
                 <el-button class="exp-btn" plain size="small" v-if="buttons['74']==true" @click="exportExl(7)">导出</el-button>
-                <el-table :data="tableData5" border style="width: 100%" >
+                <el-table :data="tableData5" border style="width: 100%">
                     <el-table-column prop="date" label="12点之前提报数据明细表" label-class-name="table-title">
                         <el-table-column prop="month" label="月份" width="100">
                         </el-table-column>
@@ -154,7 +154,7 @@
             </div>
             <div class="table">
                 <el-button class="exp-btn" plain v-if="buttons['75']==true" size="small" @click="exportExl(8)">导出</el-button>
-                <el-table :data="tableData6" border style="width: 100%" >
+                <el-table :data="tableData6" border style="width: 100%">
                     <el-table-column prop="date" label="提报内容重复超6次(含)汇总表" label-class-name="table-title">
                         <el-table-column prop="month" label="月份" width="100">
                         </el-table-column>
@@ -179,7 +179,7 @@
             </div>
             <div class="table">
                 <el-button class="exp-btn" plain v-if="buttons['76']==true" size="small" @click="exportExl(9)">导出</el-button>
-                <el-table :data="tableData7" border style="width: 100%" >
+                <el-table :data="tableData7" border style="width: 100%">
                     <el-table-column prop="month" label="提报内容重复超6次(含)明细表" label-class-name="table-title">
                         <el-table-column prop="month" label="月份" width="100">
                         </el-table-column>
@@ -257,9 +257,9 @@ export default {
                 totalNumber: '', // 总条数
                 currentPage: 1 // 当前页
             },
-            initTime: '2018-12-01 00:00:00', //初始化的时间
+            initTime: this.updateTime, //初始化的时间
             startTimeUnix: 0,
-            deptList: [],
+            //deptList: [],
             rankOptions: ['21-24', '15-20', '10-14', '05-09', '01-04'],
             form: {
                 rankname: '', //职级
@@ -284,10 +284,21 @@ export default {
             }
         }
     },
+    watch: {
+        'updateTime': function(newval, oldval) {
+            if (newval && !oldval) {
+                this.initTime = this.$moment(newval).format('YYYY-MM');
+                this.initData();
+            }
+        },
+        'deptList': function(newval, oldval) {
+            if (newval.length > 0 && oldval.length == 0) {
+                this.initData();
+            }
+        }
+    },
     mounted() {
-        this.form.date.startTime = this.initTime //默认显示时间
-        this.form.date.endTime = this.initTime //默认显示时间
-        this.init();
+
     },
     computed: {
         buttons: {
@@ -313,9 +324,30 @@ export default {
                     return this.$store.state.common.user.jobNumber;
                 else return '';
             }
-        }
+        },
+        deptList: {
+            get() {
+                return this.$store.state.common.deptments;
+            },
+            set() {
+                this.$store.commit('setDeptments', val);
+            }
+        },
+        updateTime: {
+            get() {
+                return this.$store.state.common.updateTime;
+            }
+        },
     }, // 计算属性
     methods: {
+        initData() {
+            if (this.initTime && this.deptList.length > 0) {
+                this.form.date.startTime = this.initTime //默认显示时间
+                this.form.date.endTime = this.initTime //默认显示时间
+                this.form.region = this.deptList.map((a) => a.dept_name);
+                this.init();
+            }
+        },
         init() {
             this.getTabledata1()
             this.getTabledata2()
@@ -324,15 +356,14 @@ export default {
             this.getTabledata5()
             this.getTabledata6()
             this.getTabledata7()
-            this.getSelectPermission()
         },
         //表格初始化数据---超过四次
         getTabledata1() {
             let params = {
                 dept: this.form.region.join(','), //部门
                 jobGrade: this.form.rankname.join(','), //值级
-                beginDate: this.form.date.startTime.substring(0, 7),
-                endDate: this.form.date.endTime.substring(0, 7),
+                beginDate: this.form.date.startTime,
+                endDate: this.form.date.endTime,
                 page: this.page1.currentPage,
                 pageSize: this.page1.pageShowNum
             }
@@ -356,8 +387,8 @@ export default {
             let params = {
                 dept: this.form.region.join(','), //部门
                 jobGrade: this.form.rankname.join(','), //值级
-                beginDate: this.form.date.startTime.substring(0, 7),
-                endDate: this.form.date.endTime.substring(0, 7),
+                beginDate: this.form.date.startTime,
+                endDate: this.form.date.endTime,
                 page: this.page2.currentPage,
                 pageSize: this.page2.pageShowNum
             }
@@ -381,8 +412,8 @@ export default {
             let params = {
                 dept: this.form.region.join(','), //部门
                 jobGrade: this.form.rankname.join(','), //值级
-                beginDate: this.form.date.startTime.substring(0, 7),
-                endDate: this.form.date.endTime.substring(0, 7),
+                beginDate: this.form.date.startTime,
+                endDate: this.form.date.endTime,
                 page: this.page3.currentPage,
                 pageSize: this.page3.pageShowNum
             }
@@ -406,8 +437,8 @@ export default {
             let params = {
                 dept: this.form.region.join(','), //部门
                 jobGrade: this.form.rankname.join(','), //值级
-                beginDate: this.form.date.startTime.substring(0, 7),
-                endDate: this.form.date.endTime.substring(0, 7),
+                beginDate: this.form.date.startTime,
+                endDate: this.form.date.endTime,
                 page: this.page4.currentPage,
                 pageSize: this.page4.pageShowNum
             }
@@ -431,8 +462,8 @@ export default {
             let params = {
                 dept: this.form.region.join(','), //部门
                 jobGrade: this.form.rankname.join(','), //值级
-                beginDate: this.form.date.startTime.substring(0, 7),
-                endDate: this.form.date.endTime.substring(0, 7),
+                beginDate: this.form.date.startTime,
+                endDate: this.form.date.endTime,
                 page: this.page4.currentPage,
                 pageSize: this.page4.pageShowNum
             }
@@ -456,8 +487,8 @@ export default {
             let params = {
                 dept: this.form.region.join(','), //部门
                 jobGrade: this.form.rankname.join(','), //值级
-                beginDate: this.form.date.startTime.substring(0, 7),
-                endDate: this.form.date.endTime.substring(0, 7),
+                beginDate: this.form.date.startTime,
+                endDate: this.form.date.endTime,
                 page: this.page6.currentPage,
                 pageSize: this.page6.pageShowNum
             }
@@ -481,8 +512,8 @@ export default {
             let params = {
                 dept: this.form.region.join(','), //部门
                 jobGrade: this.form.rankname.join(','), //值级
-                beginDate: this.form.date.startTime.substring(0, 7),
-                endDate: this.form.date.endTime.substring(0, 7),
+                beginDate: this.form.date.startTime,
+                endDate: this.form.date.endTime,
                 page: this.page7.currentPage,
                 pageSize: this.page7.pageShowNum
             }
@@ -500,28 +531,6 @@ export default {
         CurrentChange7(val) {
             this.page7.currentPage = val
             this.getTabledata7()
-        },
-        //部门接口
-        getSelectPermission() {
-            if (this.userCode == '') {
-                this.$message({
-                    'message': '未获取到部门，登录后重试',
-                    'type': 'info'
-                });
-                return;
-            }
-            var params = {
-                userCode: this.userCode
-            }
-            this.$api.canteen.getSelectPermission(params).then(res => {
-                let user = JSON.parse(res.user) || []
-                for (let j = 0; j < user.length; j++) {
-                    let deptName = user[j].dept_name
-                    this.deptList.push(deptName)
-                    let dept_id = user[j].dept_id;
-                    this.originForm = Object.assign({}, this.form);
-                }
-            })
         },
         //查询数据接口
         queryList() {

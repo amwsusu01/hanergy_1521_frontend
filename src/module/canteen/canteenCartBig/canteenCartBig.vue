@@ -5,7 +5,7 @@
                 <el-form :inline="true" :model="form" ref="form" class="contain">
                     <el-form-item label="部门:" label-width="50px" prop="region">
                         <el-select v-model="form.region" style="width: 220px;" multiple collapse-tags placeholder="请选择部门" size="mini">
-                            <el-option v-for="item in this.deptList" :key="item" :label="item" :value="item" style="width: 220px">
+                            <el-option v-for="item in deptList" :key="item.dept_name" :label="item.dept_name" :value="item.dept_name" style="width: 220px">
                             </el-option>
                         </el-select>
                     </el-form-item>
@@ -83,7 +83,7 @@
     </div>
 </template>
 <script>
-    import { exportExl } from '../../../utils';
+import { exportExl } from '../../../utils';
 export default {
     name: 'canteen-cart-big',
     data() {
@@ -100,12 +100,12 @@ export default {
                 totalNumber: '', // 总条数
                 currentPage: 1 // 当前页
             },
-            initTime: '2018-12-01 00:00:00', //初始化的时间
+            initTime: this.updateTime, //初始化的时间
             startTimeUnix: 0,
-            deptList: [],
+            //deptList: [],
             rankOptions: ['21-24', '15-20', '10-14', '05-09', '01-04'],
-            originForm:{
-                 rankname: '', //职级
+            originForm: {
+                rankname: '', //职级
                 region: [], //部门
                 date: { //时间
                     startTime: '',
@@ -127,10 +127,19 @@ export default {
             }
         }
     },
-    mounted() {
-        this.form.date.startTime = this.initTime //默认显示时间
-        this.form.date.endTime = this.initTime //默认显示时间
-        this.init()
+    mounted() {},
+    watch: {
+        'updateTime': function(newval, oldval) {
+            if (newval && !oldval) {
+                this.initTime = this.$moment(newval).format('YYYY-MM');
+                this.initData();
+            }
+        },
+        'deptList': function(newval, oldval) {
+            if (newval.length > 0 && oldval.length == 0) {
+                this.initData();
+            }
+        }
     },
     computed: {
         buttons: {
@@ -156,32 +165,52 @@ export default {
                     return this.$store.state.common.user.jobNumber;
                 else return '';
             }
-        }
+        },
+        deptList: {
+            get() {
+                return this.$store.state.common.deptments;
+            },
+            set() {
+                this.$store.commit('setDeptments', val);
+            }
+        },
+        updateTime: {
+            get() {
+                return this.$store.state.common.updateTime;
+            }
+        },
     }, // 计算属性
     methods: {
+        initData() {
+            if (this.initTime && this.deptList.length > 0) {
+                this.form.date.startTime = this.initTime //默认显示时间
+                this.form.date.endTime = this.initTime //默认显示时间
+                this.form.region = this.deptList.map((a) => a.dept_name);
+                this.init()
+            }
+        },
         init() {
-            this.getIssueDetail()
-            this.getIntrospectionDetail()
-            this.getSelectPermission()
+            this.getIssueDetail();
+            this.getIntrospectionDetail();
         },
         exportExl(type) {
-            let params={
-                type:`type`+type,
-                dept:this.originForm.region.join(','),
-                jobGrade:this.originForm.rankname,
-                beginDate:this.originForm.date.startTime,
-                endDate:this.originForm.date.endTime
+            let params = {
+                type: `type` + type,
+                dept: this.originForm.region.join(','),
+                jobGrade: this.originForm.rankname,
+                beginDate: this.originForm.date.startTime,
+                endDate: this.originForm.date.endTime
             }
 
             let filename = '';
-            if(type == 1) {
-                filename ="部门问题明细表.xls"
+            if (type == 1) {
+                filename = "部门问题明细表.xls"
             } else {
-                filename ="部门反省明细表.xls";
+                filename = "部门反省明细表.xls";
             }
 
             this.$api.common.exportExcel(params).then(res => {
-                exportExl(res,filename);
+                exportExl(res, filename);
             })
 
         },
@@ -190,8 +219,8 @@ export default {
             let params = {
                 dept: this.form.region.join(','), //部门
                 jobGrade: this.form.rankname.join(','), //值级
-                beginDate: this.form.date.startTime.substring(0, 7),
-                endDate: this.form.date.endTime.substring(0, 7),
+                beginDate: this.form.date.startTime,
+                endDate: this.form.date.endTime,
                 page: this.page1.currentPage,
                 pageSize: this.page1.pageShowNum
             }
@@ -201,7 +230,7 @@ export default {
                 console.log(qusetionData)
                 this.tableDataQuestion = qusetionData;
 
-                this.originForm = Object.assign({},this.form);
+                this.originForm = Object.assign({}, this.form);
             })
         },
         CurrentChange1(val) {
@@ -213,8 +242,8 @@ export default {
             let params = {
                 dept: this.form.region.join(','), //部门
                 jobGrade: this.form.rankname.join(','), //值级
-                beginDate: this.form.date.startTime.substring(0, 7),
-                endDate: this.form.date.endTime.substring(0, 7),
+                beginDate: this.form.date.startTime,
+                endDate: this.form.date.endTime,
                 page: this.page2.currentPage,
                 pageSize: this.page2.pageShowNum
             }
@@ -223,33 +252,12 @@ export default {
                 let qusetionData = JSON.parse(res.list)
                 this.tableDataIntro = qusetionData;
 
-                this.originForm = Object.assign({},this.form); //保存上一次的值
+                this.originForm = Object.assign({}, this.form); //保存上一次的值
             })
         },
         CurrentChange2(val) {
             this.page2.currentPage = val
             this.getIntrospectionDetail()
-        },
-        //部门接口
-        getSelectPermission() {
-            if(this.userCode == '') {
-                this.$message({
-                    'message':'未获取到部门，登录后重试',
-                    'type':'info'
-                });
-                return;
-            }
-            var params = {
-                userCode: this.userCode
-            }
-            this.$api.canteen.getSelectPermission(params).then(res => {
-                let user = JSON.parse(res.user) || []
-                for (let j = 0; j < user.length; j++) {
-                    let deptName = user[j].dept_name
-                    this.deptList.push(deptName)
-                    let dept_id = user[j].dept_id
-                }
-            })
         },
         //查询数据接口
         queryList() {
@@ -289,6 +297,7 @@ export default {
 </script>
 <style scoped>
 .canteen-history-order {}
+
 .exp-btn {
     position: absolute;
     right: 15px;

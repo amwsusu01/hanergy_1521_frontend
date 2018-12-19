@@ -4,7 +4,7 @@
             <el-form ref="form" :inline="true" :model="form" class="contain" size="mini">
                 <el-form-item label="部门:" label-width="50px" prop="region">
                     <el-select v-model="form.region" multiple collapse-tags placeholder="请选择部门" size="mini" style="width: 220px;">
-                        <el-option v-for="item in this.deptList" :key="item" :label="item" :value="item" style="width: 220px">
+                        <el-option v-for="item in deptList" :key="item.dept_name" :label="item.dept_name" :value="item.dept_name" style="width: 220px">
                         </el-option>
                     </el-select>
                 </el-form-item>
@@ -91,15 +91,42 @@ export default {
                     return this.$store.state.common.user.jobNumber;
                 else return '';
             }
-        }
+        },
+        deptList: {
+            get() {
+                return this.$store.state.common.deptments;
+            },
+            set() {
+                this.$store.commit('setDeptments', val);
+            }
+        },
+        updateTime: {
+            get() {
+                return this.$store.state.common.updateTime;
+            }
+        },
     }, // 计算属性
+    watch: {
+        updateTime: function(newval, oldval) {
+            if (newval && !oldval) {
+                this.initTime = this.$moment(newval).format('YYYY-MM');
+                this.initData();
+            }
+
+        },
+        deptList: function(newval, oldval) {
+            if (newval.length > 0 && oldval.length == 0) {
+                this.initData();
+            }
+        }
+    },
     data() {
         return {
             //图一
             chartOption: {
                 title: {
                     text: '超过4次(含)未请假未提报统计报表',
-                    textStyle : {
+                    textStyle: {
                         fontSize: 14,
                     }
                 },
@@ -166,7 +193,7 @@ export default {
                         itemStyle: {
                             color: function(params) {
                                 var colorList = ['#56CEFB', '#5793f3', '#56CEFB', '#5793f3', '#56CEFB', '#5793f3', '#56CEFB', '#5793f3', '#56CEFB', '#5793f3'];
-                                                                return '#5793f3';
+                                return '#5793f3';
 
                                 return colorList[params.dataIndex];
                             },
@@ -184,11 +211,11 @@ export default {
                                 position: 'inside'
                             }
                         },
-                        itemStyle:{
-                            color:'#7a70c2'
+                        itemStyle: {
+                            color: '#7a70c2'
                         },
-                        lineStyle :{
-                            color:'#7a70c2'
+                        lineStyle: {
+                            color: '#7a70c2'
                         },
                         data: this.per
                     }
@@ -199,7 +226,7 @@ export default {
             chartTwoOption: {
                 title: {
                     text: '提报内容一样/当天重复条数超过6条(含)/一个月累计出现超过6次(含)',
-                    textStyle : {
+                    textStyle: {
                         fontSize: 14
                     }
                 },
@@ -274,13 +301,13 @@ export default {
                                 position: 'inside'
                             }
                         },
-                        itemStyle:{
-                            color:function() {
+                        itemStyle: {
+                            color: function() {
                                 return '#7a70c2';
                             }
                         },
-                        lineStyle :{
-                            color:'#7a70c2'
+                        lineStyle: {
+                            color: '#7a70c2'
                         },
                         data: this.per2,
                     }
@@ -291,7 +318,7 @@ export default {
             chartThreeOption: {
                 title: {
                     text: '提报月平均条数小于5',
-                    textStyle : {
+                    textStyle: {
                         fontSize: 14
                     }
                 },
@@ -365,13 +392,14 @@ export default {
                                 show: true,
                                 position: 'inside'
                             }
-                        },itemStyle:{
-                            color:function() {
+                        },
+                        itemStyle: {
+                            color: function() {
                                 return '#7a70c2';
                             }
                         },
-                        lineStyle :{
-                            color:'#7a70c2'
+                        lineStyle: {
+                            color: '#7a70c2'
                         },
                         data: this.per3,
                     }
@@ -382,7 +410,7 @@ export default {
             chartFourOption: {
                 title: {
                     text: '提报月平均字数小于5',
-                    textStyle : {
+                    textStyle: {
                         fontSize: 14
                     }
                 },
@@ -458,13 +486,13 @@ export default {
                                 position: 'inside'
                             }
                         },
-                        itemStyle:{
-                            color:function() {
+                        itemStyle: {
+                            color: function() {
                                 return '#7a70c2';
                             }
                         },
-                        lineStyle :{
-                            color:'#7a70c2'
+                        lineStyle: {
+                            color: '#7a70c2'
                         },
                         data: this.per4,
                     }
@@ -475,7 +503,7 @@ export default {
             chartFiveOption: {
                 title: {
                     text: '9点之前提报统计报表/一个月累计出现3次(含)9点',
-                    textStyle : {
+                    textStyle: {
                         fontSize: 14
                     }
                 },
@@ -539,7 +567,7 @@ export default {
                         itemStyle: {
                             color: function(params) {
                                 var colorList = ['#56CEFB', '#5793f3', '#56CEFB', '#5793f3', '#56CEFB', '#5793f3', '#56CEFB', '#5793f3', '#56CEFB', '#5793f3'];
-                                                                return '#5793f3';
+                                return '#5793f3';
 
                                 //return colorList[params.dataIndex];
                             },
@@ -557,13 +585,13 @@ export default {
                                 position: 'inside'
                             }
                         },
-                        itemStyle:{
-                            color:function() {
+                        itemStyle: {
+                            color: function() {
                                 return '#7a70c2';
                             }
                         },
-                        lineStyle :{
-                            color:'#7a70c2'
+                        lineStyle: {
+                            color: '#7a70c2'
                         },
                         data: this.per5
                     }
@@ -574,7 +602,7 @@ export default {
             chartSixOption: {
                 title: {
                     text: '12点之前提报统计报表/一个月累计出现3次(含)12点',
-                    textStyle : {
+                    textStyle: {
                         fontSize: 14
                     }
                 },
@@ -633,7 +661,7 @@ export default {
                         itemStyle: {
                             color: function(params) {
                                 var colorList = ['#56CEFB', '#5793f3', '#56CEFB', '#5793f3', '#56CEFB', '#5793f3', '#56CEFB', '#5793f3', '#56CEFB', '#5793f3'];
-                                                                return '#5793f3';
+                                return '#5793f3';
 
                                 //return colorList[params.dataIndex];
                             },
@@ -651,13 +679,13 @@ export default {
                                 position: 'inside'
                             }
                         },
-                        itemStyle:{
-                            color:function() {
+                        itemStyle: {
+                            color: function() {
                                 return '#7a70c2';
                             }
                         },
-                        lineStyle :{
-                            color:'#7a70c2'
+                        lineStyle: {
+                            color: '#7a70c2'
                         },
                         data: this.per6,
                     }
@@ -685,9 +713,9 @@ export default {
             cnt6: [],
             per6: [],
             in_month6: [],
-            initTime: "2018-12-01 00:00:00", //初始化的时间
+            initTime: this.updateTime, //初始化的时间
             startTimeUnix: 0,
-            deptList: [],
+            //deptList: [],
             rankOptions: ["21-24", "15-20", "10-14", "05-09", "01-04"],
             form: {
                 rankname: '', //职级
@@ -713,14 +741,17 @@ export default {
         }
     },
     mounted() {
-        this.init();
-        // this.queryList(); //查询
-        this.getSelectPermission(); //获取部门
-        this.form.date.date1 = this.initTime; //默认显示时间
-        this.form.date.date2 = this.initTime; //默认显示时间
-        // this.changeTime(); //时间改变
+
     },
     methods: {
+        initData() {
+            if (this.initTime && this.deptList.length > 0) {
+                this.form.date.date1 = this.initTime; //默认显示时间
+                this.form.date.date2 = this.initTime; //默认显示时间
+                this.form.region = this.deptList.map((a) => a.dept_name);
+                this.init();
+            }
+        },
         init() {
             //一图
             this.assemblyChart = this.echarts.init(document.getElementById('assemblyChart'));
@@ -861,27 +892,6 @@ export default {
                 // this.response = true;
             })
         },
-        //部门接口
-        getSelectPermission() {
-            if(this.userCode == '') {
-                this.$message({
-                    'message':'未获取到部门，登录后重试',
-                    'type':'info'
-                });
-                return;
-            }
-            var params = {
-                userCode: this.userCode
-            }
-            this.$api.canteen.getSelectPermission(params).then(res => {
-                let user = JSON.parse(res.user) || [];
-                for (let j = 0; j < user.length; j++) {
-                    let deptName = user[j].dept_name;
-                    this.deptList.push(deptName)
-                    let dept_id = user[j].dept_id;
-                }
-            })
-        },
         // 表单重置
         resetForm() {
             this.$refs.form.resetFields();
@@ -908,53 +918,58 @@ export default {
             }
         },
         exportExl(type) {
-            let data = [],pers = [],title="";
-            switch(type) {
-                case '64': data = this.cnt;pers = this.per;
-                title ="超过4次(含)未请假未提报统计报表";
-                break;
-                case '65': data = this.cnt1;pers = this.per1;
-                 title ="提报内容一样/当天重复条数超过6条(含)/一个月累计出现超过6次(含)";
-                 break;
-                case '66': data = this.cnt2;pers = this.per2;
-                title ="提报月平均条数小于5";
-                break;
-                case '67': data = this.cnt3;pers = this.per3;
-                title = "提报月平均字数小于5";
-                break;
-                case '68': data = this.cnt4;pers = this.per4;
-                title="9点之前提报统计报表/一个月累计出现3次(含)";
-                break;
-                case '69': data = this.cnt5;pers = this.per5;
-                title="12点之前提报统计报表/一个月累计出现3次(含)";
-                break;
+            let data = [],
+                pers = [],
+                title = "";
+            switch (type) {
+                case '64':
+                    data = this.cnt;
+                    pers = this.per;
+                    title = "超过4次(含)未请假未提报统计报表";
+                    break;
+                case '65':
+                    data = this.cnt1;
+                    pers = this.per1;
+                    title = "提报内容一样/当天重复条数超过6条(含)/一个月累计出现超过6次(含)";
+                    break;
+                case '66':
+                    data = this.cnt2;
+                    pers = this.per2;
+                    title = "提报月平均条数小于5";
+                    break;
+                case '67':
+                    data = this.cnt3;
+                    pers = this.per3;
+                    title = "提报月平均字数小于5";
+                    break;
+                case '68':
+                    data = this.cnt4;
+                    pers = this.per4;
+                    title = "9点之前提报统计报表/一个月累计出现3次(含)";
+                    break;
+                case '69':
+                    data = this.cnt5;
+                    pers = this.per5;
+                    title = "12点之前提报统计报表/一个月累计出现3次(含)";
+                    break;
             }
-            if(data.length <=0 || pers.length <= 0) return;
-            let resData = data.map((a,i) => {
+            if (data.length <= 0 || pers.length <= 0) return;
+            let resData = data.map((a, i) => {
                 return {
-                    name:a,
-                    per:pers[i]
+                    name: a,
+                    per: pers[i]
                 }
             });
 
             let res = {
-                title:["提报人数","占比"],
-                titleForKey:["name","per"],
-                data:resData
+                title: ["提报人数", "占比"],
+                titleForKey: ["name", "per"],
+                data: resData
             };
-            exportCsv(res,title);
+            exportCsv(res, title);
         }
 
-    },
-    /**
-     * 监控数据
-     */
-    watch: {
-        $route(to, from) {
-            this.routeFrom = (from && from.name) || "";
-        }
     }
-
 }
 </script>
 <style scoped>
@@ -983,6 +998,7 @@ export default {
     float: left;
     position: relative;
 }
+
 .exp-btn {
     position: absolute;
     right: 15px;
