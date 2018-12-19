@@ -120,7 +120,7 @@ export default {
     methods: {
         initHotword() {
             if (this.initTime && this.deptList.length > 0) {
-                this.form.date.date1 = this.initTime; //默认显示时间
+                this.form.date.date1 = '2018-03'; //默认显示时间
                 this.form.region = this.deptList.map((a) => a.dept_name);
                 this.Hotword();
             }

@@ -343,7 +343,7 @@ export default {
     methods: {
         initData() {
             if (this.updateTime && this.deptList.length > 0) {
-                this.form.date.startTime = this.initTime //默认显示时间
+                this.form.date.startTime = '2018-11'; //默认显示时间
                 this.form.date.endTime = this.initTime //默认显示时间
                 this.form.region = this.deptList.map((a) => a.dept_name);
                 this.init();
@@ -547,7 +547,7 @@ export default {
         // 表单重置
         resetForm() {
             this.$refs.form.resetFields()
-            this.form.date.startTime = this.initTime //默认显示时间
+            this.form.date.startTime = '2018-11'; //默认显示时间
             this.form.date.endTime = this.initTime //默认显示时间
         },
         //开始时间选择改变的函数

@@ -37,23 +37,23 @@
             </div>
             <div class="chart-box">
                 <el-button v-if="buttons['65']==true" class="exp-btn" plain size="small" @click="exportExl('65')">导出</el-button>
-                <div id="assemblyFiveChart" class="relationShipChart" :style="{background:cnt.length>0?'white':'transparent'}"></div>
+                <div id="assemblyFiveChart" class="relationShipChart" :style="{background:cnt5.length>0?'white':'transparent'}"></div>
             </div>
             <div class="chart-box">
                 <el-button v-if="buttons['66']==true" class="exp-btn" plain size="small" @click="exportExl('66')">导出</el-button>
-                <div id="assemblyThreeChart" class="relationShipChart" :style="{background:cnt.length>0?'white':'transparent'}"></div>
+                <div id="assemblyThreeChart" class="relationShipChart" :style="{background:cnt2.length>0?'white':'transparent'}"></div>
             </div>
             <div class="chart-box">
                 <el-button v-if="buttons['67']==true" class="exp-btn" plain size="small" @click="exportExl('67')">导出</el-button>
-                <div id="assemblyFourChart" class="relationShipChart" :style="{background:cnt.length>0?'white':'transparent'}"></div>
+                <div id="assemblyFourChart" class="relationShipChart" :style="{background:cnt3.length>0?'white':'transparent'}"></div>
             </div>
             <div class="chart-box">
                 <el-button v-if="buttons['68']==true" class="exp-btn" plain size="small" @click="exportExl('68')">导出</el-button>
-                <div id="assemblyTwoChart" class="relationShipChart" :style="{background:cnt.length>0?'white':'transparent'}"></div>
+                <div id="assemblyTwoChart" class="relationShipChart" :style="{background:cnt4.length>0?'white':'transparent'}"></div>
             </div>
             <div class="chart-box">
                 <el-button v-if="buttons['69']==true" class="exp-btn" plain size="small" @click="exportExl('69')">导出</el-button>
-                <div id="assemblySixChart" class="relationShipChart" :style="{background:cnt.length>0?'white':'transparent'}"></div>
+                <div id="assemblySixChart" class="relationShipChart" :style="{background:cnt6.length>0?'white':'transparent'}"></div>
             </div>
         </div>
     </div>
@@ -115,7 +115,7 @@ export default {
 
         },
         deptList: function(newval, oldval) {
-            if (newval.length > 0 && oldval.length == 0) {
+            if (newval && newval.length > 0 && (!oldval || oldval.length == 0)) {
                 this.initData();
             }
         }
@@ -721,8 +721,8 @@ export default {
                 rankname: '', //职级
                 region: [], //部门
                 date: {
-                    date1: "",
-                    date2: ""
+                    date1: "2018-03",
+                    date2: "2018-12"
                 }
             },
             pickerOptions: {
@@ -748,8 +748,8 @@ export default {
     methods: {
         initData() {
             if (this.initTime && this.deptList.length > 0) {
-                this.form.date.date1 = this.initTime; //默认显示时间
-                this.form.date.date2 = this.initTime; //默认显示时间
+                this.form.date.date1 = '2018-03'; //默认显示时间
+                this.form.date.date2 = '2018-12'; //默认显示时间
                 this.form.region = this.deptList.map((a) => a.dept_name);
                 this.init();
             }
@@ -786,8 +786,8 @@ export default {
             var params = {
                 dept: this.form.region.join(','), //部门
                 jobGrade: this.form.rankname.join(','), //值级
-                beginDate: this.form.date.date1.substring(0, 7),
-                endDate: this.form.date.date2.substring(0, 7),
+                beginDate: this.form.date.date1,
+                endDate: this.form.date.date2,
             }
             this.$api.canteen.getQueryList(params).then(res => {
                 var objList = res || {};
@@ -897,8 +897,8 @@ export default {
         // 表单重置
         resetForm() {
             this.$refs.form.resetFields();
-            this.form.date.date1 = this.initTime; //默认显示时间
-            this.form.date.date2 = this.initTime; //默认显示时间
+            this.form.date.date1 = '2018-03'; //默认显示时间
+            this.form.date.date2 = '2018-12'; //默认显示时间
         },
         //开始时间选择改变的函数
         changeTime(startDateTime) {
@@ -911,12 +911,12 @@ export default {
         //结束时间选择改变的函数
         changeEndTime(startDateTime) {
             if (startDateTime) {
-                this.form.date.date2 = startDateTime.getTime();
-                let dateEnd = new Date(this.form.date.date2);
+                let enddate = startDateTime.getTime();
+                let dateEnd = new Date(enddate);
                 let Y = dateEnd.getFullYear() + '-';
                 let M = (dateEnd.getMonth() + 1 < 10 ? '0' + (dateEnd.getMonth() + 1) : dateEnd.getMonth() + 1);
-                this.form.date.date2 = Y + M;
-                return this.form.date.date2;
+                enddate = Y + M;
+                return enddate;
             }
         },
         exportExl(type) {
@@ -930,8 +930,8 @@ export default {
                     title = "超过4次(含)未请假未提报统计报表";
                     break;
                 case '65':
-                    data = this.cnt1;
-                    pers = this.per1;
+                    data = this.cnt5;
+                    pers = this.per5;
                     title = "提报内容一样/当天重复条数超过6条(含)/一个月累计出现超过6次(含)";
                     break;
                 case '66':
@@ -950,8 +950,8 @@ export default {
                     title = "9点之前提报统计报表/一个月累计出现3次(含)";
                     break;
                 case '69':
-                    data = this.cnt5;
-                    pers = this.per5;
+                    data = this.cnt6;
+                    pers = this.per6;
                     title = "12点之前提报统计报表/一个月累计出现3次(含)";
                     break;
             }
