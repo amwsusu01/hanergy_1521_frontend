@@ -2,12 +2,14 @@
     <div class="login-background">
         <div class="login-box">
             <el-form label-position="right" :model="formLogin" :rules="loginRules" ref="loginForm">
-                <h1 class="login-title">汉能数据中心分析平台</h1>
+                <h1 class="login-title">汉能大数据分析平台
+                <h5>请使用员工OA账号登录</h5>
+            </h1>
                 <el-form-item prop="username">
-                    <el-input maxlength="11" v-model.trim="formLogin.username" placeholder="请输入用户名"></el-input>
+                    <el-input maxlength="50" v-model.trim="formLogin.username" placeholder="账号/邮箱前缀"></el-input>
                 </el-form-item>
                 <el-form-item prop="password">
-                    <el-input maxlength="14" type="password" @keyup.enter.native="loginButton()" onpaste="return false" v-model.trim="formLogin.password" placeholder="请输入密码"></el-input>
+                    <el-input maxlength="15" type="password" @keyup.enter.native="loginButton()" onpaste="return false" v-model.trim="formLogin.password" placeholder="请输入密码"></el-input>
                 </el-form-item>
                 <el-form-item class="btn-item">
                     <el-button type="primary" @click="loginButton()">登&nbsp;&nbsp;录</el-button>
@@ -106,9 +108,9 @@ export default {
                     this.sysTitle = res.data[0].menus[0].name;
                     this.menuData = res.data[0].menus[0].list;
 
-                    _sessionStorage("loggeduser",JSON.stringify(res.user));
-                    _sessionStorage("menuData",JSON.stringify(this.menuData));
-                    _sessionStorage("sysTitle",this.sysTitle);
+                    _sessionStorage("loggeduser", JSON.stringify(res.user));
+                    _sessionStorage("menuData", JSON.stringify(this.menuData));
+                    _sessionStorage("sysTitle", this.sysTitle);
 
                     this.$router.push({
                         name: 'canteenOrder'
@@ -136,9 +138,9 @@ export default {
     height: 100%;
     background: url("../../assets/img/bg.jpg") repeat-x;
     background-size: 100% 100%; //只支持IE9+
-    -webkit-background-size: cover; //webkit核心
-    -moz-background-size: cover; //FF核心
-    -o-background-size: cover; //应该是Opera核心吧，反正不是IE的，就先不管它了
+    -webkit-background-size: 100% 100%; //webkit核心
+    -moz-background-size: 100% 100%; //FF核心
+    -o-background-size: 100% 100%; //应该是Opera核心吧，反正不是IE的，就先不管它了
     position: relative;
     overflow: auto;
     padding: 15.6% 16.3% 17.3% 20.2%;
@@ -152,7 +154,7 @@ export default {
         bottom: 17.3%;
         left: 60.2%;
         right: 51.4%;
-        width: 428px;
+        width: 440px;
         height: 480px;
         /*width: 29.6%;*/
         /*height: 67.6%;*/
@@ -161,18 +163,29 @@ export default {
         border-radius: 25px;
         text-align: center;
         /*padding: 125px 104px 89px;*/
-        padding: 85px 84px 89px;
+        padding: 85px 84px 0px;
 
         .login-title {
             font-family: FZZZHONGJW--GB1-0;
-            font-size: 26px;
+            font-size: 30px;
             /*font-size: 5.2%;*/
             color: #232F49;
             margin-bottom: 73px;
+            text-align: right;
+
+            h5 {
+                font-size: 16px;
+                color: #575757;
+                padding-top: 20px;
+            }
         }
 
         .el-form-item {
             margin-bottom: 30px;
+
+            .el-input {
+                margin-left:10px;
+            }
         }
 
         .code-input {
@@ -210,6 +223,7 @@ export default {
     .el-form-item__error {
         background: url("../../assets/img/redTips.png") no-repeat 2px 4px;
         background-size: 14px;
+        margin-left:10px;
         padding-left: 24px;
         font-family: PingFangSC-Regular;
         font-size: 14px;
@@ -252,6 +266,14 @@ export default {
                 color: #FFFFFF;
                 text-align: center;
                 line-height: 14px;
+                background-color: #5856ba;
+                border-color: #5856ba;
+                margin-left:10px;
+
+                &:hover,&:focus {
+                    background-color: #7573d8;
+                    border-color: #7573d8;
+                }
             }
         }
     }

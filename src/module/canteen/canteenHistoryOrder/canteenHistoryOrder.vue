@@ -35,15 +35,15 @@
                 <el-button v-if="buttons['70']==true" class="exp-btn" plain size="small" @click="exportExl(3)">导出</el-button>
                 <el-table :data="tableData1" border style="width: 100%">
                     <el-table-column label="超过4次(含)未请假未提报统计报表" label-class-name="table-title">
-                        <el-table-column prop="month1" label="月份" width="180">
+                        <el-table-column prop="month1" label="月份" min-width="10%">
                         </el-table-column>
-                        <el-table-column prop="inputtime" label="日期" width="180">
+                        <el-table-column prop="inputtime" label="日期" min-width="20%">
                         </el-table-column>
-                        <el-table-column prop="employeeID" label="员工工号" width="180">
+                        <el-table-column prop="employeeID" label="员工工号" min-width="20%">
                         </el-table-column>
-                        <el-table-column prop="realName" label="员工姓名" width="180">
+                        <el-table-column prop="realName" label="员工姓名" min-width="20%">
                         </el-table-column>
-                        <el-table-column prop="frameName" label="部门" show-overflow-tooltip>
+                        <el-table-column prop="frameName" label="部门" show-overflow-tooltip min-width="30%">
                         </el-table-column>
                     </el-table-column>
                 </el-table>
@@ -56,19 +56,19 @@
                 <el-button class="exp-btn" plain size="small" v-if="buttons['71']==true" @click="exportExl(4)">导出</el-button>
                 <el-table :data="tableData2" border style="width: 100%">
                     <el-table-column prop="date" label="提报月平均条数小于5明细表" label-class-name="table-title">
-                        <el-table-column prop="in_month" label="月份" width="100">
+                        <el-table-column prop="in_month" label="月份" min-width="10%">
                         </el-table-column>
-                        <el-table-column prop="in_date" label="日期" width="150">
+                        <el-table-column prop="in_date" label="日期" min-width="15%">
                         </el-table-column>
-                        <el-table-column prop="in_datetime" label="提报时间" width="180">
+                        <el-table-column prop="in_datetime" label="提报时间" min-width="15%">
                         </el-table-column>
-                        <el-table-column prop="employeeID" label="员工工号" width="100">
+                        <el-table-column prop="employeeID" label="员工工号" min-width="15%">
                         </el-table-column>
-                        <el-table-column prop="empname" label="员工姓名" width="100">
+                        <el-table-column prop="empname" label="员工姓名" min-width="15%">
                         </el-table-column>
-                        <el-table-column prop="departmentname" label="部门" show-overflow-tooltip width="180">
+                        <el-table-column prop="departmentname" label="部门" show-overflow-tooltip min-width="15%">
                         </el-table-column>
-                        <el-table-column prop="content_new" label="提报内容" show-overflow-tooltip>
+                        <el-table-column prop="content_new" label="提报内容" show-overflow-tooltip min-width="15%">
                         </el-table-column>
                     </el-table-column>
                 </el-table>
@@ -81,19 +81,19 @@
                 <el-button class="exp-btn" v-if="buttons['72']==true" plain size="small" @click="exportExl(5)">导出</el-button>
                 <el-table :data="tableData3" border style="width: 100%">
                     <el-table-column prop="date" label="提报月平均字数小于5明细表" label-class-name="table-title">
-                        <el-table-column prop="in_month" label="月份" width="100">
+                        <el-table-column prop="in_month" label="月份" min-width="10%">
                         </el-table-column>
-                        <el-table-column prop="in_date" label="日期" width="150">
+                        <el-table-column prop="in_date" label="日期" min-width="15%">
                         </el-table-column>
-                        <el-table-column prop="in_datetime" label="提报时间" width="180">
+                        <el-table-column prop="in_datetime" label="提报时间" min-width="15%">
                         </el-table-column>
-                        <el-table-column prop="employeeID" label="员工工号" width="100">
+                        <el-table-column prop="employeeID" label="员工工号" min-width="15%">
                         </el-table-column>
-                        <el-table-column prop="empname" label="员工姓名" width="100">
+                        <el-table-column prop="empname" label="员工姓名" min-width="15%">
                         </el-table-column>
-                        <el-table-column prop="departmentname" label="部门" show-overflow-tooltip width="180">
+                        <el-table-column prop="departmentname" label="部门" show-overflow-tooltip min-width="15%">
                         </el-table-column>
-                        <el-table-column prop="content_new" label="提报内容" show-overflow-tooltip>
+                        <el-table-column prop="content_new" label="提报内容" show-overflow-tooltip min-width="15%">
                         </el-table-column>
                     </el-table-column>
                 </el-table>
@@ -106,19 +106,19 @@
                 <el-button class="exp-btn" plain size="small" v-if="buttons['73']==true" @click="exportExl(6)">导出</el-button>
                 <el-table :data="tableData4" border style="width: 100%">
                     <el-table-column prop="date" label="9点之前提报数据明细表" label-class-name="table-title">
-                        <el-table-column prop="month" label="月份" width="100">
+                        <el-table-column prop="month" label="月份" min-width="10%">
                         </el-table-column>
-                        <el-table-column prop="day" label="日期" width="150">
+                        <el-table-column prop="day" label="日期" min-width="15%">
                         </el-table-column>
-                        <el-table-column prop="inputtime" label="提报时间" width="180">
+                        <el-table-column prop="inputtime" label="提报时间" min-width="15%">
                         </el-table-column>
-                        <el-table-column prop="employeeID" label="员工工号" width="100">
+                        <el-table-column prop="employeeID" label="员工工号" min-width="15%">
                         </el-table-column>
-                        <el-table-column prop="emp_name" label="员工姓名" width="100">
+                        <el-table-column prop="emp_name" label="员工姓名" min-width="15%">
                         </el-table-column>
-                        <el-table-column prop="dept_name" label="部门" show-overflow-tooltip width="180">
+                        <el-table-column prop="dept_name" label="部门" show-overflow-tooltip min-width="15%">
                         </el-table-column>
-                        <el-table-column prop="content_new" label="提报内容" show-overflow-tooltip>
+                        <el-table-column prop="content_new" label="提报内容" show-overflow-tooltip min-width="15%">
                         </el-table-column>
                     </el-table-column>
                 </el-table>
@@ -131,19 +131,19 @@
                 <el-button class="exp-btn" plain size="small" v-if="buttons['74']==true" @click="exportExl(7)">导出</el-button>
                 <el-table :data="tableData5" border style="width: 100%">
                     <el-table-column prop="date" label="12点之前提报数据明细表" label-class-name="table-title">
-                        <el-table-column prop="month" label="月份" width="100">
+                        <el-table-column prop="month" label="月份" min-width="10%">
                         </el-table-column>
-                        <el-table-column prop="day" label="日期" width="150">
+                        <el-table-column prop="day" label="日期" min-width="15%">
                         </el-table-column>
-                        <el-table-column prop="inputtime" label="提报时间" width="180">
+                        <el-table-column prop="inputtime" label="提报时间" min-width="15%">
                         </el-table-column>
-                        <el-table-column prop="employeeID" label="员工工号" width="100">
+                        <el-table-column prop="employeeID" label="员工工号" min-width="15%">
                         </el-table-column>
-                        <el-table-column prop="emp_name" label="员工姓名" width="100">
+                        <el-table-column prop="emp_name" label="员工姓名" min-width="15%">
                         </el-table-column>
-                        <el-table-column prop="dept_name" label="部门" show-overflow-tooltip width="180">
+                        <el-table-column prop="dept_name" label="部门" show-overflow-tooltip min-width="15%">
                         </el-table-column>
-                        <el-table-column prop="content_new" label="提报内容" show-overflow-tooltip>
+                        <el-table-column prop="content_new" label="提报内容" show-overflow-tooltip min-width="15%">
                         </el-table-column>
                     </el-table-column>
                 </el-table>
@@ -156,19 +156,19 @@
                 <el-button class="exp-btn" plain v-if="buttons['75']==true" size="small" @click="exportExl(8)">导出</el-button>
                 <el-table :data="tableData6" border style="width: 100%">
                     <el-table-column prop="date" label="提报内容重复超6次(含)汇总表" label-class-name="table-title">
-                        <el-table-column prop="month" label="月份" width="100">
+                        <el-table-column prop="month" label="月份" min-width="10%">
                         </el-table-column>
-                        <el-table-column prop="day" label="日期" width="150">
+                        <el-table-column prop="day" label="日期" min-width="15%">
                         </el-table-column>
-                        <el-table-column prop="employeeID" label="员工工号" width="100">
+                        <el-table-column prop="employeeID" label="员工工号" min-width="15%">
                         </el-table-column>
-                        <el-table-column prop="empname" label="员工姓名" width="100">
+                        <el-table-column prop="empname" label="员工姓名" min-width="15%">
                         </el-table-column>
-                        <el-table-column prop="deptname" label="部门" show-overflow-tooltip width="200">
+                        <el-table-column prop="deptname" label="部门" show-overflow-tooltip min-width="15%">
                         </el-table-column>
-                        <el-table-column prop="ts" label="重复次数" width="80">
+                        <el-table-column prop="ts" label="重复次数" width="80" min-width="5%">
                         </el-table-column>
-                        <el-table-column prop="content" label="提报内容" show-overflow-tooltip>
+                        <el-table-column prop="content" label="提报内容" show-overflow-tooltip min-width="10%">
                         </el-table-column>
                     </el-table-column>
                 </el-table>
@@ -181,17 +181,17 @@
                 <el-button class="exp-btn" plain v-if="buttons['76']==true" size="small" @click="exportExl(9)">导出</el-button>
                 <el-table :data="tableData7" border style="width: 100%">
                     <el-table-column prop="month" label="提报内容重复超6次(含)明细表" label-class-name="table-title">
-                        <el-table-column prop="month" label="月份" width="100">
+                        <el-table-column prop="month" label="月份" min-width="10%">
                         </el-table-column>
-                        <el-table-column prop="day1" label="日期" width="150">
+                        <el-table-column prop="day1" label="日期" min-width="15%">
                         </el-table-column>
-                        <el-table-column prop="employeeID" label="员工工号" width="100">
+                        <el-table-column prop="employeeID" label="员工工号" min-width="15%">
                         </el-table-column>
-                        <el-table-column prop="empname" label="员工姓名" width="100">
+                        <el-table-column prop="empname" label="员工姓名" min-width="15%">
                         </el-table-column>
-                        <el-table-column prop="deptname" label="部门" show-overflow-tooltip width="200">
+                        <el-table-column prop="deptname" label="部门" show-overflow-tooltip min-width="15%">
                         </el-table-column>
-                        <el-table-column prop="content_new" label="提报内容" show-overflow-tooltip>
+                        <el-table-column prop="content_new" label="提报内容" show-overflow-tooltip min-width="15%">
                         </el-table-column>
                     </el-table-column>
                 </el-table>
@@ -298,7 +298,8 @@ export default {
         }
     },
     mounted() {
-
+        this.initTime = this.updateTime ? this.$moment(this.updateTime).format('YYYY-MM') : '';
+        this.initData();
     },
     computed: {
         buttons: {
@@ -341,7 +342,7 @@ export default {
     }, // 计算属性
     methods: {
         initData() {
-            if (this.initTime && this.deptList.length > 0) {
+            if (this.updateTime && this.deptList.length > 0) {
                 this.form.date.startTime = this.initTime //默认显示时间
                 this.form.date.endTime = this.initTime //默认显示时间
                 this.form.region = this.deptList.map((a) => a.dept_name);
@@ -569,6 +570,46 @@ export default {
             }
         },
         exportExl(type) {
+            let count = 0;
+            switch (type) {
+                case 3:
+                    count = this.page1.totalNumber;
+                    break;
+                case 4:
+                    count = this.page2.totalNumber;
+                    break;
+                case 5:
+                    count = this.page3.totalNumber;
+                    break;
+                case 6:
+                    count = this.page4.totalNumber;
+                    break;
+                case 7:
+                    count = this.page5.totalNumber;
+                    break;
+                case 8:
+                    count = this.page6.totalNumber;
+                    break;
+                case 9:
+                    count = this.page7.totalNumber;
+                    break;
+
+            }
+
+            if (count >= 10000) {
+                this.$confirm('当前导出行数超过1万行， 是否继续?', '提示', {
+                    confirmButtonText: '继续',
+                    cancelButtonText: '取消',
+                    type: 'info'
+                }).then(() => {
+                    this.exportExlOk(type);
+                }).catch(() => {});
+            } else {
+                this.exportExlOk(type);
+            }
+        },
+
+        exportExlOk(type) {
             let params = {
                 type: `type` + type,
                 dept: this.originForm.region.join(','),
@@ -605,8 +646,7 @@ export default {
             this.$api.common.exportExcel(params).then(res => {
                 exportExl(res, filename);
             })
-
-        },
+        }
 
     }
 }

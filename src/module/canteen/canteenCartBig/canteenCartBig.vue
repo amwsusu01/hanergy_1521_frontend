@@ -36,17 +36,17 @@
                     <el-button v-if="buttons['78']==true" class="exp-btn" plain size="small" @click="exportExl(1)">导出</el-button>
                     <el-table :data="tableDataQuestion" border style="width: 100%">
                         <el-table-column label="部门问题明细表" label-class-name="table-title">
-                            <el-table-column prop="month" label="月份" width="180">
+                            <el-table-column prop="month" label="月份" min-width="10%">
                             </el-table-column>
-                            <el-table-column prop="day" label="日期" width="180">
+                            <el-table-column prop="day" label="日期" min-width="15%">
                             </el-table-column>
-                            <el-table-column prop="employeeID" label="员工工号" width="180">
+                            <el-table-column prop="employeeID" label="员工工号" min-width="15%">
                             </el-table-column>
-                            <el-table-column prop="empname" label="员工姓名" width="180">
+                            <el-table-column prop="empname" label="员工姓名" min-width="15%">
                             </el-table-column>
-                            <el-table-column prop="deptname" label="部门" width="200" show-overflow-tooltip>
+                            <el-table-column prop="deptname" label="部门" min-width="15%"show-overflow-tooltip>
                             </el-table-column>
-                            <el-table-column prop="sol_pro" label="提报内容" show-overflow-tooltip>
+                            <el-table-column prop="sol_pro" label="提报内容" min-width="30%" show-overflow-tooltip>
                             </el-table-column>
                         </el-table-column>
                     </el-table>
@@ -59,17 +59,17 @@
                     <el-button v-if="buttons['79']==true" class="exp-btn" plain size="small" @click="exportExl(2)">导出</el-button>
                     <el-table :data="tableDataIntro" border style="width: 100%">
                         <el-table-column label="部门反省明细表" label-class-name="table-title">
-                            <el-table-column prop="month" label="月份" width="100">
+                            <el-table-column prop="month" label="月份" min-width="10%">
                             </el-table-column>
-                            <el-table-column prop="day" label="日期" width="150">
+                            <el-table-column prop="day" label="日期" min-width="15%">
                             </el-table-column>
-                            <el-table-column prop="employeeID" label="员工工号" width="100">
+                            <el-table-column prop="employeeID" label="员工工号" min-width="15%">
                             </el-table-column>
-                            <el-table-column prop="empname" label="员工姓名" width="100">
+                            <el-table-column prop="empname" label="员工姓名" min-width="15%">
                             </el-table-column>
-                            <el-table-column prop="deptname" label="部门" show-overflow-tooltip width="200">
+                            <el-table-column prop="deptname" label="部门" show-overflow-tooltip min-width="15%">
                             </el-table-column>
-                            <el-table-column prop="introspect" label="提报内容" show-overflow-tooltip>
+                            <el-table-column prop="introspect" label="提报内容" show-overflow-tooltip min-width="30%">
                             </el-table-column>
                         </el-table-column>
                     </el-table>
@@ -127,7 +127,10 @@ export default {
             }
         }
     },
-    mounted() {},
+    mounted() {
+         this.initTime = this.updateTime? this.$moment(this.updateTime).format('YYYY-MM'):'';
+         this.initData();
+    },
     watch: {
         'updateTime': function(newval, oldval) {
             if (newval && !oldval) {
@@ -194,6 +197,29 @@ export default {
             this.getIntrospectionDetail();
         },
         exportExl(type) {
+            let count = 0;
+            switch (type) {
+                case 1:
+                    count = this.page1.totalNumber;
+                    break;
+                case 2:
+                    count = this.page2.totalNumber;
+                    break;
+            }
+
+            if (count >= 10000) {
+                this.$confirm('当前导出行数超过1万行， 是否继续?', '提示', {
+                    confirmButtonText: '继续',
+                    cancelButtonText: '取消',
+                    type: 'info'
+                }).then(() => {
+                    this.exportExlOk(type);
+                }).catch(() => {});
+            } else {
+                this.exportExlOk(type);
+            }
+        },
+        exportExlOk(type) {
             let params = {
                 type: `type` + type,
                 dept: this.originForm.region.join(','),

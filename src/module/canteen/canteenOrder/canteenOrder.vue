@@ -31,29 +31,29 @@
             </el-form>
         </div>
         <div>
-            <div class="chart-box">
+            <div class="chart-box" >
                 <el-button v-if="buttons['64']==true" class="exp-btn" plain size="small" @click="exportExl('64')">导出</el-button>
-                <div id="assemblyChart" class="relationShipChart"></div>
+                <div id="assemblyChart" class="relationShipChart" :style="{background:cnt.length>0?'white':'transparent'}"></div>
             </div>
             <div class="chart-box">
                 <el-button v-if="buttons['65']==true" class="exp-btn" plain size="small" @click="exportExl('65')">导出</el-button>
-                <div id="assemblyFiveChart" class="relationShipChart"></div>
+                <div id="assemblyFiveChart" class="relationShipChart" :style="{background:cnt.length>0?'white':'transparent'}"></div>
             </div>
             <div class="chart-box">
                 <el-button v-if="buttons['66']==true" class="exp-btn" plain size="small" @click="exportExl('66')">导出</el-button>
-                <div id="assemblyThreeChart" class="relationShipChart"></div>
+                <div id="assemblyThreeChart" class="relationShipChart" :style="{background:cnt.length>0?'white':'transparent'}"></div>
             </div>
             <div class="chart-box">
                 <el-button v-if="buttons['67']==true" class="exp-btn" plain size="small" @click="exportExl('67')">导出</el-button>
-                <div id="assemblyFourChart" class="relationShipChart"></div>
+                <div id="assemblyFourChart" class="relationShipChart" :style="{background:cnt.length>0?'white':'transparent'}"></div>
             </div>
             <div class="chart-box">
                 <el-button v-if="buttons['68']==true" class="exp-btn" plain size="small" @click="exportExl('68')">导出</el-button>
-                <div id="assemblyTwoChart" class="relationShipChart"></div>
+                <div id="assemblyTwoChart" class="relationShipChart" :style="{background:cnt.length>0?'white':'transparent'}"></div>
             </div>
             <div class="chart-box">
                 <el-button v-if="buttons['69']==true" class="exp-btn" plain size="small" @click="exportExl('69')">导出</el-button>
-                <div id="assemblySixChart" class="relationShipChart"></div>
+                <div id="assemblySixChart" class="relationShipChart" :style="{background:cnt.length>0?'white':'transparent'}"></div>
             </div>
         </div>
     </div>
@@ -741,7 +741,9 @@ export default {
         }
     },
     mounted() {
+        this.initTime = this.updateTime? this.$moment(this.updateTime).format('YYYY-MM'):'';
 
+        this.initData();
     },
     methods: {
         initData() {
@@ -997,6 +999,9 @@ export default {
     width: 530px;
     float: left;
     position: relative;
+    background: url('../../../assets/img/no-data.png') no-repeat;
+    background-position: 50% 50%;
+    background-size: 30%;
 }
 
 .exp-btn {
@@ -1014,8 +1019,6 @@ export default {
     margin-right: 30px;
     position: relative;
     display: inline-block;
-    background: url('../../../assets/img/no-data.png') no-repeat;
-    background-position: 50% 50%;
 }
 
 /*.download {

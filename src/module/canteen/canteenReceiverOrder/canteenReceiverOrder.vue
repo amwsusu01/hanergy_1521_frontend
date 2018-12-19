@@ -23,9 +23,9 @@
         </div>
         <div v-for="(item,index) in rcdata">
             <div class="heartPictureChart">
-                <div style="text-align: left;font-size: 16px;margin-left: 91px;">{{item.name}}</div>
+                <div style="text-align: left;font-size: 16px;">{{item.name}}</div>
                 <el-button v-if="buttons['77']==true" class="exp-btn" plain size="small" @click="exportExl(index,item.name)">导出</el-button>
-                <div :id="'heartPicture'+index" class="heartPicture" style="height: 180px;"></div>
+                <div :id="'heartPicture'+index" class="heartPicture" style="height: 280px;"></div>
             </div>
         </div>
     </div>
@@ -69,9 +69,8 @@ export default {
         }
     },
     mounted() {
-
-        // this.form.date.date1 = this.initTime; //默认显示时间
-        // this.form.region = this.deptList.map((a) => a.dept_name);
+        this.initTime = this.updateTime? this.$moment(this.updateTime).format('YYYY-MM'):'';
+        this.initHotword();
     },
     computed: {
         testImg: {
@@ -131,7 +130,7 @@ export default {
             //热词接口
             let params = {
                 //部门
-                dept: this.form.region,
+                dept: this.form.region.join(','),
                 beginDate: this.form.date.date1,
             }
             this.$api.canteen.getHotWord(params).then(res => {
@@ -171,16 +170,19 @@ export default {
                             },
                             series: [{
                                 type: 'wordCloud',
+                                shape: 'circle',
                                 autoSize: {
                                     enable: true,
-                                    minSize: 14
+                                    minSize: 8
                                 },
-                                size: ['80%', '80%'],
-                                textRotation: [0, 45, 90, -45],
-                                textPadding: 0,
+                                size: ['100%', '100%'],
+                                // rotationRange: [-90, 90],
+                                // rotationStep: 45,
+                                // textPadding: 0,
+                                // gridSize: 8,
                                 // gridSize: 1,
                                 // sizeRange: [1, maxRange],
-                                rotationRange: [28, 2],
+                                //rotationRange: [28, 2],
                                 textStyle: {
                                     normal: {
                                         color: function(v) {
@@ -192,13 +194,11 @@ export default {
                                 },
                                 left: 'center',
                                 top: 'center',
-                                width: '100%',
-                                height: '100%',
+                                width: '80%',
+                                height: '80%',
                                 right: null,
                                 bottom: null,
-                                width: 300,
-                                height: 200,
-                                img: this.testImg,
+                                //maskImage: this.testImg,
                                 top: 20,
                                 data: data.value
                             }]
@@ -233,15 +233,18 @@ export default {
 </script>
 <style lang="less" scoped>
 .heartPictureChart {
-    width: 300px;
-    height: 200px;
+    width: 30%;
+    height: 330px;
     float: left;
     margin-top: 10px;
+    margin-left:10px;
     position: relative;
 }
 
 .heartPicture {
-    background: url('../../../assets/img/no-data.png');
+    background: url('../../../assets/img/no-data.png') no-repeat;
+    background-position: 50% 50%;
+    background-size: 30%;
 }
 
 .zhiji {
@@ -255,7 +258,7 @@ export default {
 
 .exp-btn {
     position: absolute;
-    right: -25px;
+    right: 0;
     z-index: 1000;
     top: -3px;
 }
