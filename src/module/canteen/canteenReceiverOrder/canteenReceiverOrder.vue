@@ -13,7 +13,7 @@
                         <el-date-picker size="mini" type="month" :placeholder="initTime" value-format="yyyy-MM" v-model="form.date.date1" style="width: 100%;"></el-date-picker>
                     </el-col>
                 </el-form-item>
-                <el-form-item>
+                <el-form-item >
                     <div style="display: inline-block; margin-left: -115px;">
                         <el-button size="mini" type="primary" class="query" @click.native.prevent="Hotword()">查询</el-button>
                         <el-button size="mini" type="primary" class="reset" @click="resetForm()">重置</el-button>

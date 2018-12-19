@@ -29,6 +29,20 @@ export default {
 
 .el-form-item__content {
     width: 252px !important;
+
+    .line {
+        text-align: center;
+    }
+}
+
+.el-form-item.buttons {
+    .el-form-item__content {
+        width: 160px !important;
+    }
+}
+
+.el-form--inline .el-form-item {
+    margin-right: 0px !important;
 }
 
 .el-breadcrumb {
@@ -215,9 +229,9 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .contain.el-form {
-  .el-form-item {
-    margin-bottom:10px;
-  }
+    .el-form-item {
+        margin-bottom: 10px;
+    }
 }
 
 .rightline {

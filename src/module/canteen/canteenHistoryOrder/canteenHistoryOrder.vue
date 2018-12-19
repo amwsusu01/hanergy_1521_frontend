@@ -24,7 +24,7 @@
                         </el-date-picker>
                     </el-col>
                 </el-form-item>
-                <el-form-item class="operate">
+                <el-form-item class="operate buttons">
                     <el-button size="mini" type="primary" class="query" @click="queryList()">查询</el-button>
                     <el-button size="mini" type="primary" class="reset" @click="resetForm()">重置</el-button>
                 </el-form-item>
