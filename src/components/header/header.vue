@@ -1,7 +1,10 @@
 <template>
     <div class="clearfix header-box">
         <div class="header-logo fl"><img :src="logoUrl"></img></div>
-        <div class="header-title fl" @click="childClick">{{title}}</div>
+        <div class="header-title fl" @click="childClick">
+            <img :src="baobiao" style="margin-top: -11px; width: 40px;" class="home-icon"></img>
+            <span class="home-title" style="display: block;margin-top: -28px;">{{title}}</span>
+        </div>
         <div class="header-subtitle fl">{{subtitle}}</div>
         <div class="header-quit fr" @click="quit()">退出</div>
         <div class="header-oblique-line fr"></div>
@@ -14,6 +17,7 @@
 <script>
 import { _sessionStorage } from '../../assets/js/util';
 import logo from '../../assets/img/logo.png';
+import baobiao from '../../assets/img/baobiao.png';
 
 export default {
     name: "header",
@@ -82,6 +86,9 @@ export default {
             get() {
                 return this.$store.state.common.user || {};
             }
+        },
+        baobiao:{
+            get() { return baobiao;}
         }
     },
     props: {
@@ -108,8 +115,10 @@ export default {
     .header-title {
         cursor: pointer;
         font-family: FZZZHONGJW--GB1-0;
-        font-size: 18px;
+        font-size: 14px;
         color: #FFFFFF;
+        margin-left: 62px;
+        text-align: center;
     }
 
     .header-line {
