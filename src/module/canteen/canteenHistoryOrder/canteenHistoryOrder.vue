@@ -343,7 +343,7 @@ export default {
     methods: {
         initData() {
             if (this.updateTime && this.deptList.length > 0) {
-                this.form.date.startTime = '2018-11'; //默认显示时间
+                this.form.date.startTime = this.initTime; //默认显示时间
                 this.form.date.endTime = this.initTime //默认显示时间
                 this.form.region = this.deptList.map((a) => a.dept_name);
                 this.init();
@@ -465,8 +465,8 @@ export default {
                 jobGrade: this.form.rankname.join(','), //值级
                 beginDate: this.form.date.startTime,
                 endDate: this.form.date.endTime,
-                page: this.page4.currentPage,
-                pageSize: this.page4.pageShowNum
+                page: this.page5.currentPage,
+                pageSize: this.page5.pageShowNum
             }
             this.$api.canteen.getDetailList5(params).then(res => {
                 this.page5.totalNumber = res.count
@@ -546,8 +546,9 @@ export default {
 
         // 表单重置
         resetForm() {
-            this.$refs.form.resetFields()
-            this.form.date.startTime = '2018-11'; //默认显示时间
+            this.$refs.form.resetFields();
+            this.form.region = [];
+            this.form.date.startTime = this.initTime; //默认显示时间
             this.form.date.endTime = this.initTime //默认显示时间
         },
         //开始时间选择改变的函数

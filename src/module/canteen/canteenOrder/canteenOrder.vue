@@ -20,7 +20,7 @@
                     </el-col>
                     <el-col class="line" :span="1">-</el-col>
                     <el-col style="width:120px;display: inline-block">
-                        <el-date-picker size="mini" type="month" :placeholder=initTime @change="changeEndTime(form.date.date2)" :picker-options="pickerOptions" v-model="form.date.date2" style="width: 100%;">
+                        <el-date-picker size="mini" type="month" :placeholder=initTime @change="changeEndTime(form.date.date2)" value-format="yyyy-MM" :picker-options="pickerOptions" v-model="form.date.date2" style="width: 100%;">
                         </el-date-picker>
                     </el-col>
                 </el-form-item>
@@ -749,7 +749,7 @@ export default {
         initData() {
             if (this.initTime && this.deptList.length > 0) {
                 this.form.date.date1 = '2018-03'; //默认显示时间
-                this.form.date.date2 = '2018-12'; //默认显示时间
+                this.form.date.date2 = this.initTime; //默认显示时间
                 this.form.region = this.deptList.map((a) => a.dept_name);
                 this.init();
             }
@@ -898,7 +898,7 @@ export default {
         resetForm() {
             this.$refs.form.resetFields();
             this.form.date.date1 = '2018-03'; //默认显示时间
-            this.form.date.date2 = '2018-12'; //默认显示时间
+            this.form.date.date2 = this.initTime; //默认显示时间
         },
         //开始时间选择改变的函数
         changeTime(startDateTime) {

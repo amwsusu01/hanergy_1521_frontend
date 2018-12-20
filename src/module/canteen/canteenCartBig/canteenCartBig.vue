@@ -296,8 +296,8 @@ export default {
             this.$refs.form.resetFields()
             this.form.date.startTime = this.initTime //默认显示时间
             this.form.date.endTime = this.initTime //默认显示时间
-            this.getIssueDetail();
-            this.getIntrospectionDetail();
+            // this.getIssueDetail();
+            // this.getIntrospectionDetail();
         },
         //开始时间选择改变的函数
         changeTime(startDateTime) {
