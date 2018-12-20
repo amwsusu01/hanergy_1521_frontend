@@ -3,8 +3,8 @@
         <div class="box">
             <el-form ref="form" :inline="true" :model="form" class="contain" size="mini">
                 <el-form-item label="部门:" label-width="50px" prop="region">
-                    <el-select v-model="form.region" multiple collapse-tags placeholder="请选择部门" size="mini" style="width: 220px">
-                        <el-option v-for="item in deptList" :key="item.dept_name" :label="item.dept_name" :value="item.dept_name" style="width: 220px">
+                     <el-select v-model="form.region" multiple filterable collapse-tags placeholder="请选择部门" size="mini" style="width: 251px;">
+                        <el-option v-for="item in deptList" :key="item.dept_name" :label="item.dept_name" :value="item.dept_name" style="width: 251px">
                         </el-option>
                     </el-select>
                 </el-form-item>
@@ -13,7 +13,7 @@
                         <el-date-picker size="mini" type="month" :placeholder="initTime" value-format="yyyy-MM" v-model="form.date.date1" style="width: 100%;"></el-date-picker>
                     </el-col>
                 </el-form-item>
-                <el-form-item >
+                <el-form-item>
                     <div style="display: inline-block; margin-left: -115px;">
                         <el-button size="mini" type="primary" class="query" @click.native.prevent="Hotword()">查询</el-button>
                         <el-button size="mini" type="primary" class="reset" @click="resetForm()">重置</el-button>
@@ -25,7 +25,7 @@
             <div class="heartPictureChart">
                 <div style="text-align: left;font-size: 16px;">{{item.name}}</div>
                 <el-button v-if="buttons['77']==true" class="exp-btn" plain size="small" @click="exportExl(index,item.name)">导出</el-button>
-                <div :id="'heartPicture'+index" class="heartPicture" style="height: 280px;"></div>
+                <div :id="'heartPicture'+index" :style="{height: '280px'}" :class="{isbg: item.value.length==0,heartPicture:true}"></div>
             </div>
         </div>
     </div>
@@ -69,7 +69,7 @@ export default {
         }
     },
     mounted() {
-        this.initTime = this.updateTime? this.$moment(this.updateTime).format('YYYY-MM'):'';
+        this.initTime = this.updateTime ? this.$moment(this.updateTime).format('YYYY-MM') : '';
         this.initHotword();
     },
     computed: {
@@ -135,7 +135,18 @@ export default {
             }
             this.$api.canteen.getHotWord(params).then(res => {
                 // let rc = JSON.parse(res);
-                this.rcdata = res.rs || [];
+                let hasData = [],
+                    nodata = [];
+                for (let i = 0; i < res.rs.length; i++) {
+                    if (res.rs[i].value.length > 0) {
+                        hasData.push(res.rs[i]);
+                    } else {
+                        nodata.push(res.rs[i])
+                    }
+                }
+
+                this.rcdata = hasData.concat(nodata);
+
                 this.$nextTick(() => {
 
                     for (let i = 0; i < this.rcdata.length; i++) {
@@ -164,7 +175,7 @@ export default {
                         // maskImage.src = data.image;
                         // maskImage.onload = function(){
                         heartPicture.setOption({
-                            backgroundColor: '#fff',
+                            //backgroundColor: 'transparent',
                             tooltip: {
                                 show: true
                             },
@@ -237,14 +248,16 @@ export default {
     height: 330px;
     float: left;
     margin-top: 10px;
-    margin-left:10px;
+    margin-left: 10px;
     position: relative;
 }
 
 .heartPicture {
-    background: url('../../../assets/img/no-data.png') no-repeat;
-    background-position: 50% 50%;
-    background-size: 30%;
+    &.isbg {
+        background: url('../../../assets/img/no-data.png') no-repeat;
+        background-position: 50% 50%;
+        background-size: 30%;
+    }
 }
 
 .zhiji {

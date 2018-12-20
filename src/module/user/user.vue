@@ -5,7 +5,7 @@
         </el-header>
         <el-container :style="{ 'height': documentClientHeight-70 + 'px'}">
             <el-scrollbar style="height: 100%;width: 100%;" ref="globalScrollbar">
-                <div class="sidebar-container" :class="{'is-active':isCollapse}" @mouseenter="isCollapse=false" @mouseleave="isCollapse=true">
+                <div class="sidebar-container" :class="{'is-active':isCollapse}" @mouseenter="hanldeMouseenter(false)" @mouseleave="hanldeMouseenter(true)">
                     <el-menu unique-opened :default-active="53" :collapse="isCollapse" class="el-menu-vertical-demo" mode="vertical" :show-timeout="200" @open="handleOpen" @close="handleClose">
                         <sidebar-item :menu="menuData" :isCollapse="isCollapse"></sidebar-item>
                     </el-menu>
@@ -67,11 +67,11 @@ export default {
                 return this.$store.state.common.breadcrumbMenu;
             }
         },
-        updateTime:{
-             get() {
+        updateTime: {
+            get() {
                 return this.$store.state.common.updateTime;
             },
-            set(val){
+            set(val) {
                 this.$store.commit('setUpdateTime', val);
             }
         },
@@ -82,11 +82,11 @@ export default {
                 else return '';
             }
         },
-        depts:{
-            get(){
+        depts: {
+            get() {
                 return this.$store.state.common.deptments;
             },
-            set(val){
+            set(val) {
                 this.$store.commit('setDeptments', val);
             }
         }
@@ -101,9 +101,20 @@ export default {
         }
     },
     methods: {
+        isIE() {
+            if (!!window.ActiveXObject || "ActiveXObject" in window)
+                return true;
+            else
+                return false;
+        },
+        hanldeMouseenter(value) {
+            if(!this.isIE()) {
+                this.isCollapse = value;
+            }
+        },
         init() {
-            this.$api.common.getUpdateData().then(res=>{
-                if(res.Date) {
+            this.$api.common.getUpdateData().then(res => {
+                if (res.Date) {
                     this.updateTime = res.Date;
                 } else {
                     this.updateTime = '';
@@ -115,10 +126,10 @@ export default {
 
         //部门接口
         getSelectPermission() {
-            if(!this.userCode || this.userCode == '') {
+            if (!this.userCode || this.userCode == '') {
                 this.$message({
-                    'message':'未获取到部门，登录后重试',
-                    'type':'info'
+                    'message': '未获取到部门，登录后重试',
+                    'type': 'info'
                 });
                 return;
             }
@@ -127,7 +138,7 @@ export default {
             }
             this.$api.canteen.getSelectPermission(params).then(res => {
                 let user = JSON.parse(res.user) || [];
-                this.depts = user;            
+                this.depts = user;
                 // for (let j = 0; j < user.length; j++) {
                 //     let deptName = user[j].dept_name
                 //     this.deptList.push(deptName)

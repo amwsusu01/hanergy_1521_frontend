@@ -28,10 +28,46 @@ export default {
 }
 
 .el-form-item__content {
-    width: 252px !important;
+    width: 255px !important;
 
     .line {
         text-align: center;
+    }
+
+    .el-select.el-select--mini {
+        .el-input .el-input--mini .el-input--suffix {
+            input {
+                height: 20px !important;
+            }
+        }
+
+        .el-tag.el-tag--info.el-tag--mini {
+            float: left;
+
+            &:first-child {
+                margin-top: 5px;
+
+                & .el-select__tags-text {
+                    max-width: 110px !important;
+                    width: 110px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    display: inline-block;
+                }
+
+                & .el-tag__close {
+                    top: -5px !important;
+                }
+            }
+
+            &:last-child {
+                margin: 6px 0 2px 6px;
+                display: inline-block;
+
+                & .el-select__tags-text {}
+            }
+        }
     }
 }
 

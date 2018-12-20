@@ -3,24 +3,24 @@
         <div class="box">
             <el-form ref="form" :inline="true" :model="form" class="contain" size="mini">
                 <el-form-item label="部门:" label-width="50px" prop="region">
-                    <el-select v-model="form.region" multiple collapse-tags placeholder="请选择部门" size="mini" style="width: 220px;">
-                        <el-option v-for="item in deptList" :key="item.dept_name" :label="item.dept_name" :value="item.dept_name" style="width: 220px">
+                    <el-select v-model="form.region" multiple filterable collapse-tags placeholder="请选择部门" size="mini" style="width: 251px;">
+                        <el-option v-for="item in deptList" :key="item.dept_name" :label="item.dept_name" :value="item.dept_name" style="width: 251px;">
                         </el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="职级:" size="mini" class="zhiji" prop="rankname">
-                    <el-select v-model="form.rankname" multiple collapse-tags placeholder="请选择职级" size="mini">
-                        <el-option v-for="item in this.rankOptions" :key="item" :label=item :value=item>
-                        </el-option>
+                    <el-select v-model="form.rankname" multiple collapse-tags placeholder="请选择职级" size="mini" style="width: 251px;">
+                        <el-option v-for="item in this.rankOptions" :key="item.name" :label=item.name :value=item.name :disabled="item.disabled">
+                            </el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="查询时间:" prop="date">
                     <el-col :span="8" style="width:120px;">
-                        <el-date-picker size="mini" type="month" :placeholder=initTime value-format="yyyy-MM" @change="changeTime(form.date.date1)" v-model="form.date.date1" style="width: 100%;"></el-date-picker>
+                        <el-date-picker size="mini" type="month" :placeholder=initTime value-format="yyyy-MM"  v-model="form.date.date1" style="width: 100%;"></el-date-picker>
                     </el-col>
                     <el-col class="line" :span="1">-</el-col>
                     <el-col style="width:120px;display: inline-block">
-                        <el-date-picker size="mini" type="month" :placeholder=initTime @change="changeEndTime(form.date.date2)" value-format="yyyy-MM" :picker-options="pickerOptions" v-model="form.date.date2" style="width: 100%;">
+                        <el-date-picker size="mini" type="month" :placeholder=initTime  value-format="yyyy-MM" :picker-options="pickerOptions" v-model="form.date.date2" style="width: 100%;">
                         </el-date-picker>
                     </el-col>
                 </el-form-item>
@@ -147,12 +147,12 @@ export default {
                     xAxisIndex: [0],
                     filterMode: 'filter'
                 }, ],
-                grid: {
-                    left: '3%',
-                    right: '4%',
-                    bottom: '46',
-                    containLabel: true
-                },
+                // grid: {
+                //     left: '3%',
+                //     right: '4%',
+                //     bottom: '46',
+                //     containLabel: true
+                // },
                 xAxis: {
                     type: 'category',
                     splitLine: { show: false }, //横轴的线
@@ -247,9 +247,9 @@ export default {
                     },
                 },
                 grid: {
-                    left: '3%',
-                    right: '4%',
-                    bottom: '46',
+                    // left: '3%',
+                    // right: '4%',
+                    // bottom: '46',
                     containLabel: true
                 },
                 xAxis: {
@@ -339,9 +339,9 @@ export default {
                     },
                 },
                 grid: {
-                    left: '3%',
-                    right: '4%',
-                    bottom: '46',
+                    // left: '3%',
+                    // right: '4%',
+                    // bottom: '46',
                     containLabel: true
                 },
                 xAxis: {
@@ -431,9 +431,9 @@ export default {
                     filterMode: 'filter'
                 }, ],
                 grid: {
-                    left: '3%',
-                    right: '4%',
-                    bottom: '46',
+                    // left: '3%',
+                    // right: '4%',
+                    // bottom: '46',
                     containLabel: true
                 },
                 xAxis: {
@@ -524,9 +524,9 @@ export default {
                     filterMode: 'filter'
                 }, ],
                 grid: {
-                    left: '3%',
-                    right: '4%',
-                    bottom: '46',
+                    // left: '3%',
+                    // right: '4%',
+                    // bottom: '46',
                     containLabel: true
                 },
                 xAxis: {
@@ -623,9 +623,9 @@ export default {
                     },
                 },
                 grid: {
-                    left: '3%',
-                    right: '4%',
-                    bottom: '46',
+                    // left: '3%',
+                    // right: '4%',
+                    // bottom: '46',
                     containLabel: true
                 },
                 xAxis: {
@@ -716,7 +716,23 @@ export default {
             initTime: this.updateTime, //初始化的时间
             startTimeUnix: 0,
             //deptList: [],
-            rankOptions: ["21-24", "15-20", "10-14", "05-09", "01-04"],
+           rankOptions: [{
+                name:'21-24',
+                disabled:false
+            },{
+                name:'15-20',
+                disabled:false
+            },{
+                name:'10-14',
+                disabled:true
+            },{
+                name:'05-09',
+                disabled:true
+            },
+            {
+                name:'01-04',
+                disabled:true
+            }],
             form: {
                 rankname: '', //职级
                 region: [], //部门
@@ -727,7 +743,7 @@ export default {
             },
             pickerOptions: {
                 disabledDate: (time) => {
-                    return new Date(time) < this.startTimeUnix;
+                    return this.$moment(time).isBefore(this.form.date.date1);
                 }
             },
             orderList: [], // 订单列表
@@ -910,14 +926,15 @@ export default {
         },
         //结束时间选择改变的函数
         changeEndTime(startDateTime) {
-            if (startDateTime) {
-                let enddate = startDateTime.getTime();
-                let dateEnd = new Date(enddate);
-                let Y = dateEnd.getFullYear() + '-';
-                let M = (dateEnd.getMonth() + 1 < 10 ? '0' + (dateEnd.getMonth() + 1) : dateEnd.getMonth() + 1);
-                enddate = Y + M;
-                return enddate;
-            }
+            // if (startDateTime) {
+            //     startDateTime += '-01 00:00:00';
+            //     let enddate = startDateTime.getTime();
+            //     let dateEnd = new Date(enddate);
+            //     let Y = dateEnd.getFullYear() + '-';
+            //     let M = (dateEnd.getMonth() + 1 < 10 ? '0' + (dateEnd.getMonth() + 1) : dateEnd.getMonth() + 1);
+            //     enddate = Y + M;
+            //     return enddate;
+            // }
         },
         exportExl(type) {
             let data = [],
@@ -996,8 +1013,8 @@ export default {
 }
 
 .chart-box {
-    width: 530px;
-    float: left;
+    width: 50%;
+    float: left;    
     position: relative;
     background: url('../../../assets/img/no-data.png') no-repeat;
     background-position: 50% 50%;
@@ -1012,13 +1029,17 @@ export default {
 }
 
 .relationShipChart {
-    width: 530px;
+    width: 100%;
     height: 330px;
-    margin-top: 4px;
+    display: flex;
+    justify-content: center;
+    padding:10px;
+    /* margin-top: 4px;
     margin-bottom: 20px;
-    margin-right: 30px;
+    margin-right: 30px; */
     position: relative;
     display: inline-block;
+
 }
 
 /*.download {

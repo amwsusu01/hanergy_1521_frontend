@@ -1,26 +1,26 @@
 <template>
     <div class="canteen-history-order">
         <div class="box">
-            <el-form :inline="true" :model="form" class="contain">
+            <el-form :inline="true" :model="form" ref="form" class="contain">
                 <el-form-item label="部门:" label-width="50px" prop="region">
-                    <el-select v-model="form.region" multiple collapse-tags placeholder="请选择部门" size="mini" style="width: 220px;">
-                        <el-option v-for="item in deptList" :key="item.dept_name" :label="item.dept_name" :value="item.dept_name" style="width: 220px">
+                    <el-select v-model="form.region" multiple collapse-tags placeholder="请选择部门" size="mini" style="width: 251px;">
+                        <el-option v-for="item in deptList" :key="item.dept_name" :label="item.dept_name" :value="item.dept_name" style="width: 251px;">
                         </el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="职级:" size="mini" class="zhiji" prop="rankname">
-                    <el-select v-model="form.rankname" multiple collapse-tags placeholder="请选择职级" size="mini">
-                        <el-option v-for="item in this.rankOptions" :key="item" :label=item :value=item>
-                        </el-option>
+                    <el-select v-model="form.rankname" multiple collapse-tags placeholder="请选择职级" size="mini" style="width: 251px;">
+                        <el-option v-for="item in this.rankOptions" :key="item.name" :label=item.name :value=item.name :disabled="item.disabled">
+                            </el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="查询时间:" prop="date">
                     <el-col :span="8" style="width:120px;">
-                        <el-date-picker size="mini" type="month" :placeholder=initTime value-format="yyyy-MM" @change="changeTime(form.date.startTime)" v-model="form.date.startTime" style="width: 100%;"></el-date-picker>
+                        <el-date-picker size="mini" type="month" :placeholder=initTime value-format="yyyy-MM" v-model="form.date.startTime" style="width: 100%;"></el-date-picker>
                     </el-col>
                     <el-col class="line" :span="1">-</el-col>
                     <el-col style="width:120px;display: inline-block">
-                        <el-date-picker size="mini" type="month" value-format="yyyy-MM" :placeholder=initTime @change="changeEndTime(form.date.endTime)" :picker-options="pickerOptions" v-model="form.date.endTime" style="width: 100%;">
+                        <el-date-picker size="mini" type="month" value-format="yyyy-MM" :placeholder=initTime :picker-options="pickerOptions" v-model="form.date.endTime" style="width: 100%;">
                         </el-date-picker>
                     </el-col>
                 </el-form-item>
@@ -260,7 +260,23 @@ export default {
             initTime: this.updateTime, //初始化的时间
             startTimeUnix: 0,
             //deptList: [],
-            rankOptions: ['21-24', '15-20', '10-14', '05-09', '01-04'],
+            rankOptions: [{
+                name:'21-24',
+                disabled:false
+            },{
+                name:'15-20',
+                disabled:false
+            },{
+                name:'10-14',
+                disabled:true
+            },{
+                name:'05-09',
+                disabled:true
+            },
+            {
+                name:'01-04',
+                disabled:true
+            }],
             form: {
                 rankname: '', //职级
                 region: [], //部门
@@ -279,7 +295,7 @@ export default {
             },
             pickerOptions: {
                 disabledDate: (time) => {
-                    return new Date(time) < this.startTimeUnix
+                    return this.$moment(time).isBefore(this.form.date.startTime);
                 }
             }
         }
@@ -371,6 +387,7 @@ export default {
             this.$api.canteen.getDetailList1(params).then(res => {
                 this.page1.totalNumber = res.count
                 let cgsc = JSON.parse(res.list)
+                //不要屏蔽,这个转时间
                 cgsc.map((item) => {
                     item.inputtime = formatChange(item.inputtime, 2)
                     return item
@@ -446,10 +463,10 @@ export default {
             this.$api.canteen.getDetailList4(params).then(res => {
                 this.page4.totalNumber = res.count
                 let jdzq = JSON.parse(res.list)
-                jdzq.map((item) => {
-                    item.inputtime = formatChange(item.inputtime, 2)
-                    return item
-                })
+                // jdzq.map((item) => {
+                //     item.inputtime = formatChange(item.inputtime, 2)
+                //     return item
+                // })
                 this.tableData4 = jdzq;
                 this.originForm = Object.assign({}, this.form);
             })
@@ -471,10 +488,10 @@ export default {
             this.$api.canteen.getDetailList5(params).then(res => {
                 this.page5.totalNumber = res.count
                 let sedzq = JSON.parse(res.list)
-                sedzq.map((item) => {
-                    item.inputtime = formatChange(item.inputtime, 2)
-                    return item
-                })
+                // sedzq.map((item) => {
+                //     item.inputtime = formatChange(item.inputtime, 2)
+                //     return item
+                // })
                 this.tableData5 = sedzq;
                 this.originForm = Object.assign({}, this.form);
             })
