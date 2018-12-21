@@ -4,16 +4,18 @@
             <div class="box">
                 <el-form :inline="true" :model="form" ref="form" class="contain">
                     <el-form-item label="部门:" label-width="50px" prop="region">
-                        <el-select v-model="form.region" style="width: 251px;" filterable multiple collapse-tags placeholder="请选择部门" size="mini">
+                        <dept-select :deptList="deptList" ref="deptSelect"></dept-select>
+                        <!-- <el-select v-model="form.region" style="width: 251px;" filterable multiple collapse-tags placeholder="请选择部门" size="mini">
                             <el-option v-for="item in deptList" :key="item.dept_name" :label="item.dept_name" :value="item.dept_name" style="width: 251px;">
                             </el-option>
-                        </el-select>
+                        </el-select> -->
                     </el-form-item>
                     <el-form-item label="职级:" size="mini" class="zhiji" prop="rankname">
-                        <el-select v-model="form.rankname" style="width: 251px;" multiple collapse-tags placeholder="请选择职级" size="mini">
+                        <rank-select />
+                        <!-- <el-select v-model="form.rankname" style="width: 251px;" multiple collapse-tags placeholder="请选择职级" size="mini">
                             <el-option v-for="item in this.rankOptions" :key="item.name" :label=item.name :value=item.name :disabled="item.disabled">
                             </el-option>
-                        </el-select>
+                        </el-select> -->
                     </el-form-item>
                     <el-form-item label="查询时间:" prop="date">
                         <el-col :span="8" style="width:120px;">
@@ -44,7 +46,7 @@
                             </el-table-column>
                             <el-table-column prop="empname" label="员工姓名" min-width="10%">
                             </el-table-column>
-                            <el-table-column prop="deptname" label="部门" min-width="15%"show-overflow-tooltip>
+                            <el-table-column prop="deptname" label="部门" min-width="15%" show-overflow-tooltip>
                             </el-table-column>
                             <el-table-column prop="sol_pro" label="提报内容" min-width="45%" show-overflow-tooltip>
                             </el-table-column>
@@ -84,8 +86,17 @@
 </template>
 <script>
 import { exportExl } from '../../../utils';
+import deptSelect from '../../../components/common/dept-select.vue';
+import rankSelect from '../../../components/common/rank-select.vue';
+
+
+
 export default {
     name: 'canteen-cart-big',
+    components: {
+        deptSelect,
+        rankSelect
+    },
     data() {
         return {
             tableDataQuestion: [], //问题明细
@@ -102,26 +113,25 @@ export default {
             },
             initTime: this.updateTime, //初始化的时间
             startTimeUnix: 0,
-            //deptList: [],
-            rankOptions: [{
-                name:'21-24',
-                disabled:false
-            },{
-                name:'15-20',
-                disabled:false
-            },{
-                name:'10-14',
-                disabled:true
-            },{
-                name:'05-09',
-                disabled:true
-            },
-            {
-                name:'01-04',
-                disabled:true
-            }],
+            // rankOptions: [{
+            //     name:'21-24',
+            //     disabled:false
+            // },{
+            //     name:'15-20',
+            //     disabled:false
+            // },{
+            //     name:'10-14',
+            //     disabled:true
+            // },{
+            //     name:'05-09',
+            //     disabled:true
+            // },
+            // {
+            //     name:'01-04',
+            //     disabled:true
+            // }],
             originForm: {
-                rankname: '', //职级
+                rankname: [], //职级
                 region: [], //部门
                 date: { //时间
                     startTime: '',
@@ -129,7 +139,7 @@ export default {
                 }
             },
             form: {
-                rankname: '', //职级
+                rankname: [], //职级
                 region: [], //部门
                 date: { //时间
                     startTime: '',
@@ -144,8 +154,8 @@ export default {
         }
     },
     mounted() {
-         this.initTime = this.updateTime? this.$moment(this.updateTime).format('YYYY-MM'):'';
-         this.initData();
+        this.initTime = this.updateTime ? this.$moment(this.updateTime).format('YYYY-MM') : '';
+        this.initData();
     },
     watch: {
         'updateTime': function(newval, oldval) {
@@ -205,12 +215,18 @@ export default {
                 this.form.date.startTime = this.initTime //默认显示时间
                 this.form.date.endTime = this.initTime //默认显示时间
                 this.form.region = this.deptList.map((a) => a.dept_name);
+                if (this.$refs['deptSelect']) {
+                    this.$refs['deptSelect'].values = this.form.region.concat();
+                }
                 this.init()
             }
         },
         init() {
             this.getIssueDetail();
             this.getIntrospectionDetail();
+        },
+        rankChanged(res) {
+            this.selectedRank = res;
         },
         exportExl(type) {
             let count = 0;
@@ -238,7 +254,7 @@ export default {
         exportExlOk(type) {
             let params = {
                 type: `type` + type,
-                dept: this.originForm.region.join(','),
+                dept: this.getDepts(), //部门,
                 jobGrade: this.originForm.rankname,
                 beginDate: this.originForm.date.startTime,
                 endDate: this.originForm.date.endTime
@@ -256,16 +272,39 @@ export default {
             })
 
         },
-        //初始化表格数据-----部门问题明细
-        getIssueDetail() {
+
+        getDepts() {
+            if (this.$refs['deptSelect']) {
+                this.form.region = this.$refs['deptSelect'].values.concat();
+            }
+            let resDepts = '';
+            if (this.form.region.length > 0) {
+                resDepts = this.form.region.join(',');
+            } else {
+                let deptNames = this.deptList.map((a) => {
+                    return a.dept_name;
+                })
+
+                resDepts = deptNames.join(',');
+            }
+            return resDepts;
+        },
+        getParams(page) {
             let params = {
-                dept: this.form.region.join(','), //部门
+                dept: this.getDepts(), //部门
                 jobGrade: this.form.rankname.join(','), //值级
                 beginDate: this.form.date.startTime,
                 endDate: this.form.date.endTime,
-                page: this.page1.currentPage,
-                pageSize: this.page1.pageShowNum
+                page: page.currentPage,
+                pageSize: page.pageShowNum
             }
+
+            return params;
+        },
+        //初始化表格数据-----部门问题明细
+        getIssueDetail() {
+            let params = this.getParams(this.page1);
+
             this.$api.canteen.getIssueDetail(params).then(res => {
                 this.page1.totalNumber = res.count
                 let qusetionData = JSON.parse(res.list)
@@ -281,14 +320,7 @@ export default {
         },
         //部门反省明细
         getIntrospectionDetail() {
-            let params = {
-                dept: this.form.region.join(','), //部门
-                jobGrade: this.form.rankname.join(','), //值级
-                beginDate: this.form.date.startTime,
-                endDate: this.form.date.endTime,
-                page: this.page2.currentPage,
-                pageSize: this.page2.pageShowNum
-            }
+            let params = this.getParams(this.page2);
             this.$api.canteen.getIntrospectionDetail(params).then(res => {
                 this.page2.totalNumber = res.count
                 let qusetionData = JSON.parse(res.list)
@@ -312,27 +344,15 @@ export default {
             this.$refs.form.resetFields()
             this.form.date.startTime = this.initTime //默认显示时间
             this.form.date.endTime = this.initTime //默认显示时间
+            if(this.$refs['deptSelect']) {
+                this.$refs['deptSelect'].values = this.form.region.concat();
+            }
+            if(this.$refs['rankSelect']) {
+                this.$refs['rankSelect'].values = this.form.rankname.concat();
+            }
+             this.init();
             // this.getIssueDetail();
             // this.getIntrospectionDetail();
-        },
-        //开始时间选择改变的函数
-        changeTime(startDateTime) {
-            if (startDateTime) {
-                let changeTimechuo = startDateTime + '-01 00:00:00'
-                changeTimechuo = Date.parse(startDateTime.replace(/-/g, '/'))
-                this.startTimeUnix = changeTimechuo
-            }
-        },
-        //结束时间选择改变的函数
-        changeEndTime(startDateTime) {
-            if (startDateTime) {
-                let etime = startDateTime.getTime();
-                let dateEnd = new Date(etime)
-                let Y = dateEnd.getFullYear() + '-'
-                let M = (dateEnd.getMonth() + 1 < 10 ? '0' + (dateEnd.getMonth() + 1) : dateEnd.getMonth() + 1)
-                etime = Y + M
-                return etime
-            }
         }
     }
 }

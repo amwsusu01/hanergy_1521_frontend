@@ -3,16 +3,14 @@
         <div class="box">
             <el-form :inline="true" :model="form" ref="form" class="contain">
                 <el-form-item label="部门:" label-width="50px" prop="region">
-                    <el-select v-model="form.region" multiple filterable collapse-tags placeholder="请选择部门" size="mini" style="width: 251px;">
+                    <dept-select :deptList="deptList" ref="deptSelect"></dept-select>
+                    <!-- <el-select v-model="form.region" multiple filterable collapse-tags placeholder="请选择部门" size="mini" style="width: 251px;">
                         <el-option v-for="item in deptList" :key="item.dept_name" :label="item.dept_name" :value="item.dept_name" style="width: 251px;">
                         </el-option>
-                    </el-select>
+                    </el-select> -->
                 </el-form-item>
                 <el-form-item label="职级:" size="mini" class="zhiji" prop="rankname">
-                    <el-select v-model="form.rankname" multiple collapse-tags placeholder="请选择职级" size="mini" style="width: 251px;">
-                        <el-option v-for="item in this.rankOptions" :key="item.name" :label=item.name :value=item.name :disabled="item.disabled">
-                            </el-option>
-                    </el-select>
+                    <rank-select ref="rankSelect" />
                 </el-form-item>
                 <el-form-item label="查询时间:" prop="date">
                     <el-col :span="8" style="width:120px;">
@@ -207,11 +205,15 @@
 import { formatChange } from '../../../assets/js/util'
 import Paging from '../../../components/common/Paging'
 import { exportExl } from '../../../utils';
+import deptSelect from '../../../components/common/dept-select.vue';
+import rankSelect from '../../../components/common/rank-select.vue';
 
 export default {
     name: 'canteenHistoryOrder',
     components: {
-        Paging
+        Paging,
+        deptSelect,
+        rankSelect
     },
     data() {
         return {
@@ -261,24 +263,25 @@ export default {
             startTimeUnix: 0,
             //deptList: [],
             rankOptions: [{
-                name:'21-24',
-                disabled:false
-            },{
-                name:'15-20',
-                disabled:false
-            },{
-                name:'10-14',
-                disabled:true
-            },{
-                name:'05-09',
-                disabled:true
-            },
-            {
-                name:'01-04',
-                disabled:true
-            }],
+                    name: '21-24',
+                    disabled: false
+                }, {
+                    name: '15-20',
+                    disabled: false
+                }, {
+                    name: '10-14',
+                    disabled: true
+                }, {
+                    name: '05-09',
+                    disabled: true
+                },
+                {
+                    name: '01-04',
+                    disabled: true
+                }
+            ],
             form: {
-                rankname: '', //职级
+                rankname: [], //职级
                 region: [], //部门
                 date: { //时间
                     startTime: '',
@@ -362,6 +365,9 @@ export default {
                 this.form.date.startTime = this.initTime; //默认显示时间
                 this.form.date.endTime = this.initTime //默认显示时间
                 this.form.region = this.deptList.map((a) => a.dept_name);
+                if (this.$refs['deptSelect']) {
+                    this.$refs['deptSelect'].values = this.form.region.concat();
+                }
                 this.init();
             }
         },
@@ -374,16 +380,40 @@ export default {
             this.getTabledata6()
             this.getTabledata7()
         },
-        //表格初始化数据---超过四次
-        getTabledata1() {
+        getDepts() {
+            if (this.$refs['deptSelect']) {
+                this.form.region = this.$refs['deptSelect'].values.concat();
+            }
+            if (this.$refs['rankSelect']) {
+                this.form.rankname = this.$refs['rankSelect'].values.concat();
+            }
+            let resDepts = '';
+            if (this.form.region.length > 0) {
+                resDepts = this.form.region.join(',');
+            } else {
+                let deptNames = this.deptList.map((a) => {
+                    return a.dept_name;
+                })
+
+                resDepts = deptNames.join(',');
+            }
+            return resDepts;
+        },
+        getParams(page) {
             let params = {
-                dept: this.form.region.join(','), //部门
+                dept: this.getDepts(), //部门
                 jobGrade: this.form.rankname.join(','), //值级
                 beginDate: this.form.date.startTime,
                 endDate: this.form.date.endTime,
-                page: this.page1.currentPage,
-                pageSize: this.page1.pageShowNum
+                page: page.currentPage,
+                pageSize: page.pageShowNum
             }
+
+            return params;
+        },
+        //表格初始化数据---超过四次
+        getTabledata1() {
+            let params = this.getParams(this.page1);
             this.$api.canteen.getDetailList1(params).then(res => {
                 this.page1.totalNumber = res.count
                 let cgsc = JSON.parse(res.list)
@@ -402,14 +432,7 @@ export default {
         },
         //-----条数小于5
         getTabledata2() {
-            let params = {
-                dept: this.form.region.join(','), //部门
-                jobGrade: this.form.rankname.join(','), //值级
-                beginDate: this.form.date.startTime,
-                endDate: this.form.date.endTime,
-                page: this.page2.currentPage,
-                pageSize: this.page2.pageShowNum
-            }
+            let params = this.getParams(this.page2);
             this.$api.canteen.getDetailList2(params).then(res => {
                 this.page2.totalNumber = res.count
                 let tsxyw = JSON.parse(res.list)
@@ -427,14 +450,7 @@ export default {
         },
         //-----字数小于5
         getTabledata3() {
-            let params = {
-                dept: this.form.region.join(','), //部门
-                jobGrade: this.form.rankname.join(','), //值级
-                beginDate: this.form.date.startTime,
-                endDate: this.form.date.endTime,
-                page: this.page3.currentPage,
-                pageSize: this.page3.pageShowNum
-            }
+            let params = this.getParams(this.page3);
             this.$api.canteen.getDetailList3(params).then(res => {
                 this.page3.totalNumber = res.count
                 let zsxyw = JSON.parse(res.list)
@@ -452,14 +468,7 @@ export default {
         },
         //-----九点之前
         getTabledata4() {
-            let params = {
-                dept: this.form.region.join(','), //部门
-                jobGrade: this.form.rankname.join(','), //值级
-                beginDate: this.form.date.startTime,
-                endDate: this.form.date.endTime,
-                page: this.page4.currentPage,
-                pageSize: this.page4.pageShowNum
-            }
+            let params = this.getParams(this.page4);
             this.$api.canteen.getDetailList4(params).then(res => {
                 this.page4.totalNumber = res.count
                 let jdzq = JSON.parse(res.list)
@@ -477,14 +486,7 @@ export default {
         },
         //十二点之前
         getTabledata5() {
-            let params = {
-                dept: this.form.region.join(','), //部门
-                jobGrade: this.form.rankname.join(','), //值级
-                beginDate: this.form.date.startTime,
-                endDate: this.form.date.endTime,
-                page: this.page5.currentPage,
-                pageSize: this.page5.pageShowNum
-            }
+            let params = this.getParams(this.page5);
             this.$api.canteen.getDetailList5(params).then(res => {
                 this.page5.totalNumber = res.count
                 let sedzq = JSON.parse(res.list)
@@ -502,14 +504,7 @@ export default {
         },
         //重复超过六次汇总
         getTabledata6() {
-            let params = {
-                dept: this.form.region.join(','), //部门
-                jobGrade: this.form.rankname.join(','), //值级
-                beginDate: this.form.date.startTime,
-                endDate: this.form.date.endTime,
-                page: this.page6.currentPage,
-                pageSize: this.page6.pageShowNum
-            }
+            let params = this.getParams(this.page6);
             this.$api.canteen.getDetailList6(params).then(res => {
                 this.page6.totalNumber = res.count
                 let cglhz = JSON.parse(res.list)
@@ -527,14 +522,7 @@ export default {
         },
         //重复超过六次明细
         getTabledata7() {
-            let params = {
-                dept: this.form.region.join(','), //部门
-                jobGrade: this.form.rankname.join(','), //值级
-                beginDate: this.form.date.startTime,
-                endDate: this.form.date.endTime,
-                page: this.page7.currentPage,
-                pageSize: this.page7.pageShowNum
-            }
+            let params = this.getParams(this.page7);
             this.$api.canteen.getDetailList7(params).then(res => {
                 this.page7.totalNumber = res.count
                 let cglmx = JSON.parse(res.list)
@@ -567,6 +555,13 @@ export default {
             this.form.region = [];
             this.form.date.startTime = this.initTime; //默认显示时间
             this.form.date.endTime = this.initTime //默认显示时间
+            if(this.$refs['deptSelect']) {
+                this.$refs['deptSelect'].values = this.form.region.concat();
+            }
+            if(this.$refs['rankSelect']) {
+                this.$refs['rankSelect'].values = this.form.rankname.concat();
+            }
+             this.init();
         },
         //开始时间选择改变的函数
         changeTime(startDateTime) {
@@ -611,7 +606,6 @@ export default {
                 case 9:
                     count = this.page7.totalNumber;
                     break;
-
             }
 
             if (count >= 10000) {
@@ -630,7 +624,7 @@ export default {
         exportExlOk(type) {
             let params = {
                 type: `type` + type,
-                dept: this.originForm.region.join(','),
+                dept: this.getDepts(),
                 jobGrade: this.originForm.rankname,
                 beginDate: this.originForm.date.startTime,
                 endDate: this.originForm.date.endTime

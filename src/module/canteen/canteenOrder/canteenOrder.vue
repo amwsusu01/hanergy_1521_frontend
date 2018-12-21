@@ -3,24 +3,18 @@
         <div class="box">
             <el-form ref="form" :inline="true" :model="form" class="contain" size="mini">
                 <el-form-item label="部门:" label-width="50px" prop="region">
-                    <el-select v-model="form.region" multiple filterable collapse-tags placeholder="请选择部门" size="mini" style="width: 251px;">
-                        <el-option v-for="item in deptList" :key="item.dept_name" :label="item.dept_name" :value="item.dept_name" style="width: 251px;">
-                        </el-option>
-                    </el-select>
+                    <dept-select :deptList="deptList" ref="deptSelect"></dept-select>
                 </el-form-item>
                 <el-form-item label="职级:" size="mini" class="zhiji" prop="rankname">
-                    <el-select v-model="form.rankname" multiple collapse-tags placeholder="请选择职级" size="mini" style="width: 251px;">
-                        <el-option v-for="item in this.rankOptions" :key="item.name" :label=item.name :value=item.name :disabled="item.disabled">
-                            </el-option>
-                    </el-select>
+                    <rank-select ref="rankSelect" />
                 </el-form-item>
                 <el-form-item label="查询时间:" prop="date">
                     <el-col :span="8" style="width:120px;">
-                        <el-date-picker size="mini" type="month" :placeholder=initTime value-format="yyyy-MM"  v-model="form.date.date1" style="width: 100%;"></el-date-picker>
+                        <el-date-picker size="mini" type="month" :placeholder=initTime value-format="yyyy-MM" v-model="form.date.date1" style="width: 100%;"></el-date-picker>
                     </el-col>
                     <el-col class="line" :span="1">-</el-col>
                     <el-col style="width:120px;display: inline-block">
-                        <el-date-picker size="mini" type="month" :placeholder=initTime  value-format="yyyy-MM" :picker-options="pickerOptions" v-model="form.date.date2" style="width: 100%;">
+                        <el-date-picker size="mini" type="month" :placeholder=initTime value-format="yyyy-MM" :picker-options="pickerOptions" v-model="form.date.date2" style="width: 100%;">
                         </el-date-picker>
                     </el-col>
                 </el-form-item>
@@ -31,7 +25,7 @@
             </el-form>
         </div>
         <div>
-            <div class="chart-box" >
+            <div class="chart-box">
                 <el-button v-if="buttons['64']==true" class="exp-btn" plain size="small" @click="exportExl('64')">导出</el-button>
                 <div id="assemblyChart" class="relationShipChart" :style="{background:cnt.length>0?'white':'transparent'}"></div>
             </div>
@@ -59,13 +53,15 @@
     </div>
 </template>
 <script>
-import Paging from '../../../components/common/Paging';
 import { exportCsv } from '../../../utils';
+import deptSelect from '../../../components/common/dept-select.vue';
+import rankSelect from '../../../components/common/rank-select.vue';
 
 export default {
     name: "canteenOrder",
     components: {
-        //Paging
+        deptSelect,
+        rankSelect
     },
     computed: {
         buttons: {
@@ -714,27 +710,8 @@ export default {
             per6: [],
             in_month6: [],
             initTime: this.updateTime, //初始化的时间
-            startTimeUnix: 0,
-            //deptList: [],
-           rankOptions: [{
-                name:'21-24',
-                disabled:false
-            },{
-                name:'15-20',
-                disabled:false
-            },{
-                name:'10-14',
-                disabled:true
-            },{
-                name:'05-09',
-                disabled:true
-            },
-            {
-                name:'01-04',
-                disabled:true
-            }],
             form: {
-                rankname: '', //职级
+                rankname: [], //职级
                 region: [], //部门
                 date: {
                     date1: "2018-03",
@@ -748,16 +725,10 @@ export default {
             },
             orderList: [], // 订单列表
             response: false, // 加载完成
-            page: {
-                pageShowNum: 10, // 每页展示多少条
-                totalNumber: '', // 总条数
-                thisPage: 1, // 当前第几页
-                thisTotalNumber: '', // 当前页总条数
-            }
         }
     },
     mounted() {
-        this.initTime = this.updateTime? this.$moment(this.updateTime).format('YYYY-MM'):'';
+        this.initTime = this.updateTime ? this.$moment(this.updateTime).format('YYYY-MM') : '';
 
         this.initData();
     },
@@ -767,6 +738,9 @@ export default {
                 this.form.date.date1 = '2018-03'; //默认显示时间
                 this.form.date.date2 = this.initTime; //默认显示时间
                 this.form.region = this.deptList.map((a) => a.dept_name);
+                if (this.$refs['deptSelect']) {
+                    this.$refs['deptSelect'].values = this.form.region.concat();
+                }
                 this.init();
             }
         },
@@ -800,7 +774,7 @@ export default {
         //点击查询调用接口
         queryList() {
             var params = {
-                dept: this.form.region.join(','), //部门
+                dept: this.getDepts(), //部门
                 jobGrade: this.form.rankname.join(','), //值级
                 beginDate: this.form.date.date1,
                 endDate: this.form.date.date2,
@@ -915,6 +889,13 @@ export default {
             this.$refs.form.resetFields();
             this.form.date.date1 = '2018-03'; //默认显示时间
             this.form.date.date2 = this.initTime; //默认显示时间
+            if(this.$refs['deptSelect']) {
+                this.$refs['deptSelect'].values = this.form.region.concat();
+            }
+            if(this.$refs['rankSelect']) {
+                this.$refs['rankSelect'].values = this.form.rankname.concat();
+            }
+             this.init();
         },
         //开始时间选择改变的函数
         changeTime(startDateTime) {
@@ -935,6 +916,27 @@ export default {
             //     enddate = Y + M;
             //     return enddate;
             // }
+        },
+        getDepts() {
+            if (this.$refs['deptSelect']) {
+                this.form.region = this.$refs['deptSelect'].values.concat();
+            }
+
+            if (this.$refs['rankSelect']) {
+                this.form.rankname = this.$refs['rankSelect'].values.concat();
+            }
+
+            let resDepts = '';
+            if (this.form.region.length > 0) {
+                resDepts = this.form.region.join(',');
+            } else {
+                let deptNames = this.deptList.map((a) => {
+                    return a.dept_name;
+                })
+
+                resDepts = deptNames.join(',');
+            }
+            return resDepts;
         },
         exportExl(type) {
             let data = [],
@@ -1014,7 +1016,7 @@ export default {
 
 .chart-box {
     width: 50%;
-    float: left;    
+    float: left;
     position: relative;
     background: url('../../../assets/img/no-data.png') no-repeat;
     background-position: 50% 50%;
@@ -1033,7 +1035,7 @@ export default {
     height: 330px;
     display: flex;
     justify-content: center;
-    padding:10px;
+    padding: 10px;
     /* margin-top: 4px;
     margin-bottom: 20px;
     margin-right: 30px; */

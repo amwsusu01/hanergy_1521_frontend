@@ -3,10 +3,17 @@
         <div class="box">
             <el-form ref="form" :inline="true" :model="form" class="contain" size="mini">
                 <el-form-item label="部门:" label-width="50px" prop="region">
-                     <el-select v-model="form.region" multiple filterable collapse-tags placeholder="请选择部门" size="mini" style="width: 251px;">
-                        <el-option v-for="item in deptList" :key="item.dept_name" :label="item.dept_name" :value="item.dept_name" style="width: 251px">
+                    <dept-select :deptList="deptList" ref="deptSelect"></dept-select>
+                    <!-- <el-select v-model="form.region" multiple filterable collapse-tags placeholder="无限制" size="mini" style="width: 251px;">
+                        <el-option-group                          
+                          v-for="group in deptGroup"
+                          :key="group.label"
+                          :label="group.label"
+                          @click.native="checkAllOpts">
+                        <el-option v-for="item in group.groups" :key="item.dept_name" :label="item.dept_name" :value="item.dept_name" style="width: 251px">
                         </el-option>
-                    </el-select>
+                                         </el-option-group>
+                                         </el-select> -->
                 </el-form-item>
                 <el-form-item label="查询时间:" prop="date">
                     <el-col :span="8" style="width:150px;">
@@ -34,10 +41,13 @@
 import { timeDiff } from '../../../assets/js/util'
 import testImg from '../../../assets/img/no-data.png';
 import { getMaxFreq, exportCsv } from '../../../utils';
+import deptSelect from '../../../components/common/dept-select.vue';
 
 export default {
     name: "canteenReceiverOrder",
-    components: {},
+    components: {
+        deptSelect
+    },
 
     data() {
         return {
@@ -48,6 +58,7 @@ export default {
                     date1: "",
                 }
             },
+            checkAll: true, //选中当前所有的部门
             deptName: "",
             initTime: this.updateTime, //初始化的时间
             //deptList: [],
@@ -110,6 +121,14 @@ export default {
                 this.$store.commit('setDeptments', val);
             }
         },
+        deptGroup: {
+            get() {
+                return [{
+                    label: '全部',
+                    groups: this.deptList
+                }]
+            }
+        },
         updateTime: {
             get() {
                 return this.$store.state.common.updateTime;
@@ -120,32 +139,54 @@ export default {
     methods: {
         initHotword() {
             if (this.initTime && this.deptList.length > 0) {
-                this.form.date.date1 = '2018-03'; //默认显示时间
+                this.form.date.date1 = this.initTime; //默认显示时间
                 this.form.region = this.deptList.map((a) => a.dept_name);
+                if(this.$refs['deptSelect']) {
+                    this.$refs['deptSelect'].values = this.form.region.concat();
+                }
                 this.Hotword();
             }
         },
-        //点击查询调用接口
-        Hotword() {
+        getDepts() {
+            if (this.$refs['deptSelect']) {
+                this.form.region = this.$refs['deptSelect'].values.concat();
+            }
+
+            let resDepts = '';
+            if (this.form.region.length > 0) {
+                resDepts = this.form.region.join(',');
+            } else {
+                let deptNames = this.deptList.map((a) => {
+                    return a.dept_name;
+                })
+
+                resDepts = deptNames.join(',');
+            }
+            return resDepts;
+        },
+        Hotword() {          
+
             //热词接口
             let params = {
                 //部门
-                dept: this.form.region.join(','),
+                dept: this.getDepts(),
                 beginDate: this.form.date.date1,
             }
             this.$api.canteen.getHotWord(params).then(res => {
                 // let rc = JSON.parse(res);
-                let hasData = [],
-                    nodata = [];
-                for (let i = 0; i < res.rs.length; i++) {
-                    if (res.rs[i].value.length > 0) {
-                        hasData.push(res.rs[i]);
-                    } else {
-                        nodata.push(res.rs[i])
-                    }
-                }
+                /* let hasData = [],
+                     nodata = [];
+                 for (let i = 0; i < res.rs.length; i++) {
+                     if (res.rs[i].value.length > 0) {
+                         hasData.push(res.rs[i]);
+                     } else {
+                         nodata.push(res.rs[i])
+                     }
+                 }
 
-                this.rcdata = hasData.concat(nodata);
+                 this.rcdata = hasData.concat(nodata);*/
+
+                this.rcdata = res.rs;
 
                 this.$nextTick(() => {
 
@@ -223,8 +264,11 @@ export default {
         // 表单重置
         resetForm() {
             this.$refs.form.resetFields();
+            if(this.$refs['deptSelect']) {
+                this.$refs['deptSelect'].values = this.form.region.concat();
+            }
             this.form.date.date1 = this.initTime; //默认显示时间
-            this.form.date.date2 = this.initTime; //默认显示时间
+            this.Hotword();
         },
         exportExl(type, name) {
             if (!this.rcdata[type]) return;

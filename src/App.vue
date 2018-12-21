@@ -49,8 +49,8 @@ export default {
                 margin-top: 5px;
 
                 & .el-select__tags-text {
-                    max-width: 110px !important;
-                    width: 110px;
+                    max-width: 80px !important;
+                    width: 80px;
                     overflow: hidden;
                     text-overflow: ellipsis;
                     white-space: nowrap;
@@ -68,6 +68,11 @@ export default {
 
                 & .el-select__tags-text {}
             }
+        }
+
+        & .el-select__input.is-mini {
+            max-width: 50px !important;
+            width:50px;
         }
     }
 }
