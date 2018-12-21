@@ -81,7 +81,7 @@ export default {
     methods: {
         init() {
             if (this.$route.name == 'login') {
-                _setTitle('1521系统');
+                _setTitle('登录');
             }
             this.clearForm();
         },

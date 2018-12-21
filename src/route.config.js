@@ -114,6 +114,15 @@ var Routers= [
                 },
                 meta: { keepAlive: false }
             },
+            //系统日志
+            {
+                path: '/logs',
+                name: 'logs',
+                component: function(resolve) {
+                    require(['./module/logs.vue'], resolve)
+                },
+                meta: { keepAlive: false }
+            }
         ]
     },
 ]
@@ -122,7 +131,8 @@ import Router from 'vue-router'
 
 // 并且配置路由规则
 const router = new Router({
-  mode: 'hash',
+  mode: 'history',
+  base:'/BigdataPlatform/',
   routes: Routers
 })
 

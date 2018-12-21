@@ -18,7 +18,7 @@ const common = {
     setActiveMenu(state,id) {
       state.curMenuID = id;
     },
-    setMenuData(state,data){
+    setMenuData(state,data) {
       if(data && data.length > 0) {
             data[0].icon="el-icon-tickets";
         }

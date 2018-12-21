@@ -1,7 +1,7 @@
 <template>
     <div class="menu-wrapper">
         <template v-for="(item,index) in menu">
-            <el-menu-item v-if="item.list.length===0 || item.type ==1" :index="item.menuId" @click="open(item)" :key="item.menuId">
+            <el-menu-item v-if="(item.list.length===0 || item.type ==1) " :index="item.menuId" @click="open(item)" :key="item.menuId">
                 <i :class="item.icon"></i>
                 <span slot="title">{{item.name}}</span>
             </el-menu-item>

@@ -723,7 +723,6 @@ export default {
                     return this.$moment(time).isBefore(this.form.date.date1);
                 }
             },
-            orderList: [], // 订单列表
             response: false, // 加载完成
         }
     },
