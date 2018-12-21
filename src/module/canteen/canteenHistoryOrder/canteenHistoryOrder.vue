@@ -3,7 +3,7 @@
         <div class="box">
             <el-form :inline="true" :model="form" ref="form" class="contain">
                 <el-form-item label="部门:" label-width="50px" prop="region">
-                    <el-select v-model="form.region" multiple collapse-tags placeholder="请选择部门" size="mini" style="width: 251px;">
+                    <el-select v-model="form.region" multiple filterable collapse-tags placeholder="请选择部门" size="mini" style="width: 251px;">
                         <el-option v-for="item in deptList" :key="item.dept_name" :label="item.dept_name" :value="item.dept_name" style="width: 251px;">
                         </el-option>
                     </el-select>
@@ -58,17 +58,17 @@
                     <el-table-column prop="date" label="提报月平均条数小于5明细表" label-class-name="table-title">
                         <el-table-column prop="in_month" label="月份" min-width="10%">
                         </el-table-column>
-                        <el-table-column prop="in_date" label="日期" min-width="15%">
+                        <el-table-column prop="in_date" label="日期" min-width="10%">
                         </el-table-column>
                         <el-table-column prop="in_datetime" label="提报时间" min-width="15%">
                         </el-table-column>
-                        <el-table-column prop="employeeID" label="员工工号" min-width="15%">
+                        <el-table-column prop="employeeID" label="员工工号" min-width="10%">
                         </el-table-column>
-                        <el-table-column prop="empname" label="员工姓名" min-width="15%">
+                        <el-table-column prop="empname" label="员工姓名" min-width="10%">
                         </el-table-column>
                         <el-table-column prop="departmentname" label="部门" show-overflow-tooltip min-width="15%">
                         </el-table-column>
-                        <el-table-column prop="content_new" label="提报内容" show-overflow-tooltip min-width="15%">
+                        <el-table-column prop="content_new" label="提报内容" show-overflow-tooltip min-width="30%">
                         </el-table-column>
                     </el-table-column>
                 </el-table>
@@ -83,17 +83,17 @@
                     <el-table-column prop="date" label="提报月平均字数小于5明细表" label-class-name="table-title">
                         <el-table-column prop="in_month" label="月份" min-width="10%">
                         </el-table-column>
-                        <el-table-column prop="in_date" label="日期" min-width="15%">
+                        <el-table-column prop="in_date" label="日期" min-width="10%">
                         </el-table-column>
                         <el-table-column prop="in_datetime" label="提报时间" min-width="15%">
                         </el-table-column>
-                        <el-table-column prop="employeeID" label="员工工号" min-width="15%">
+                        <el-table-column prop="employeeID" label="员工工号" min-width="10%">
                         </el-table-column>
-                        <el-table-column prop="empname" label="员工姓名" min-width="15%">
+                        <el-table-column prop="empname" label="员工姓名" min-width="10%">
                         </el-table-column>
                         <el-table-column prop="departmentname" label="部门" show-overflow-tooltip min-width="15%">
                         </el-table-column>
-                        <el-table-column prop="content_new" label="提报内容" show-overflow-tooltip min-width="15%">
+                        <el-table-column prop="content_new" label="提报内容" show-overflow-tooltip min-width="30%">
                         </el-table-column>
                     </el-table-column>
                 </el-table>
@@ -108,17 +108,17 @@
                     <el-table-column prop="date" label="9点之前提报数据明细表" label-class-name="table-title">
                         <el-table-column prop="month" label="月份" min-width="10%">
                         </el-table-column>
-                        <el-table-column prop="day" label="日期" min-width="15%">
+                        <el-table-column prop="day" label="日期" min-width="10%">
                         </el-table-column>
                         <el-table-column prop="inputtime" label="提报时间" min-width="15%">
                         </el-table-column>
-                        <el-table-column prop="employeeID" label="员工工号" min-width="15%">
+                        <el-table-column prop="employeeID" label="员工工号" min-width="10%">
                         </el-table-column>
-                        <el-table-column prop="emp_name" label="员工姓名" min-width="15%">
+                        <el-table-column prop="emp_name" label="员工姓名" min-width="10%">
                         </el-table-column>
                         <el-table-column prop="dept_name" label="部门" show-overflow-tooltip min-width="15%">
                         </el-table-column>
-                        <el-table-column prop="content_new" label="提报内容" show-overflow-tooltip min-width="15%">
+                        <el-table-column prop="content_new" label="提报内容" show-overflow-tooltip min-width="30%">
                         </el-table-column>
                     </el-table-column>
                 </el-table>
@@ -133,17 +133,17 @@
                     <el-table-column prop="date" label="12点之前提报数据明细表" label-class-name="table-title">
                         <el-table-column prop="month" label="月份" min-width="10%">
                         </el-table-column>
-                        <el-table-column prop="day" label="日期" min-width="15%">
+                        <el-table-column prop="day" label="日期" min-width="10%">
                         </el-table-column>
                         <el-table-column prop="inputtime" label="提报时间" min-width="15%">
                         </el-table-column>
-                        <el-table-column prop="employeeID" label="员工工号" min-width="15%">
+                        <el-table-column prop="employeeID" label="员工工号" min-width="10%">
                         </el-table-column>
-                        <el-table-column prop="emp_name" label="员工姓名" min-width="15%">
+                        <el-table-column prop="emp_name" label="员工姓名" min-width="10%">
                         </el-table-column>
-                        <el-table-column prop="dept_name" label="部门" show-overflow-tooltip min-width="15%">
+                        <el-table-column prop="dept_name" label="部门" show-overflow-tooltip min-width="10%">
                         </el-table-column>
-                        <el-table-column prop="content_new" label="提报内容" show-overflow-tooltip min-width="15%">
+                        <el-table-column prop="content_new" label="提报内容" show-overflow-tooltip min-width="30%">
                         </el-table-column>
                     </el-table-column>
                 </el-table>
@@ -158,17 +158,17 @@
                     <el-table-column prop="date" label="提报内容重复超6次(含)汇总表" label-class-name="table-title">
                         <el-table-column prop="month" label="月份" min-width="10%">
                         </el-table-column>
-                        <el-table-column prop="day" label="日期" min-width="15%">
+                        <el-table-column prop="day" label="日期" min-width="10%">
                         </el-table-column>
-                        <el-table-column prop="employeeID" label="员工工号" min-width="15%">
+                        <el-table-column prop="employeeID" label="员工工号" min-width="10%">
                         </el-table-column>
-                        <el-table-column prop="empname" label="员工姓名" min-width="15%">
+                        <el-table-column prop="empname" label="员工姓名" min-width="10%">
                         </el-table-column>
-                        <el-table-column prop="deptname" label="部门" show-overflow-tooltip min-width="15%">
+                        <el-table-column prop="deptname" label="部门" show-overflow-tooltip min-width="10%">
                         </el-table-column>
                         <el-table-column prop="ts" label="重复次数" width="80" min-width="5%">
                         </el-table-column>
-                        <el-table-column prop="content" label="提报内容" show-overflow-tooltip min-width="10%">
+                        <el-table-column prop="content" label="提报内容" show-overflow-tooltip min-width="35%">
                         </el-table-column>
                     </el-table-column>
                 </el-table>
@@ -183,15 +183,15 @@
                     <el-table-column prop="month" label="提报内容重复超6次(含)明细表" label-class-name="table-title">
                         <el-table-column prop="month" label="月份" min-width="10%">
                         </el-table-column>
-                        <el-table-column prop="day1" label="日期" min-width="15%">
+                        <el-table-column prop="day1" label="日期" min-width="10%">
                         </el-table-column>
-                        <el-table-column prop="employeeID" label="员工工号" min-width="15%">
+                        <el-table-column prop="employeeID" label="员工工号" min-width="10%">
                         </el-table-column>
-                        <el-table-column prop="empname" label="员工姓名" min-width="15%">
+                        <el-table-column prop="empname" label="员工姓名" min-width="10%">
                         </el-table-column>
                         <el-table-column prop="deptname" label="部门" show-overflow-tooltip min-width="15%">
                         </el-table-column>
-                        <el-table-column prop="content_new" label="提报内容" show-overflow-tooltip min-width="15%">
+                        <el-table-column prop="content_new" label="提报内容" show-overflow-tooltip min-width="35%">
                         </el-table-column>
                     </el-table-column>
                 </el-table>

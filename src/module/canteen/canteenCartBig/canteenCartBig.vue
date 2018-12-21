@@ -4,7 +4,7 @@
             <div class="box">
                 <el-form :inline="true" :model="form" ref="form" class="contain">
                     <el-form-item label="部门:" label-width="50px" prop="region">
-                        <el-select v-model="form.region" style="width: 251px;" multiple collapse-tags placeholder="请选择部门" size="mini">
+                        <el-select v-model="form.region" style="width: 251px;" filterable multiple collapse-tags placeholder="请选择部门" size="mini">
                             <el-option v-for="item in deptList" :key="item.dept_name" :label="item.dept_name" :value="item.dept_name" style="width: 251px;">
                             </el-option>
                         </el-select>
@@ -38,15 +38,15 @@
                         <el-table-column label="部门问题明细表" label-class-name="table-title">
                             <el-table-column prop="month" label="月份" min-width="10%">
                             </el-table-column>
-                            <el-table-column prop="day" label="日期" min-width="15%">
+                            <el-table-column prop="day" label="日期" min-width="10%">
                             </el-table-column>
-                            <el-table-column prop="employeeID" label="员工工号" min-width="15%">
+                            <el-table-column prop="employeeID" label="员工工号" min-width="10%">
                             </el-table-column>
-                            <el-table-column prop="empname" label="员工姓名" min-width="15%">
+                            <el-table-column prop="empname" label="员工姓名" min-width="10%">
                             </el-table-column>
                             <el-table-column prop="deptname" label="部门" min-width="15%"show-overflow-tooltip>
                             </el-table-column>
-                            <el-table-column prop="sol_pro" label="提报内容" min-width="30%" show-overflow-tooltip>
+                            <el-table-column prop="sol_pro" label="提报内容" min-width="45%" show-overflow-tooltip>
                             </el-table-column>
                         </el-table-column>
                     </el-table>
@@ -61,15 +61,15 @@
                         <el-table-column label="部门反省明细表" label-class-name="table-title">
                             <el-table-column prop="month" label="月份" min-width="10%">
                             </el-table-column>
-                            <el-table-column prop="day" label="日期" min-width="15%">
+                            <el-table-column prop="day" label="日期" min-width="10%">
                             </el-table-column>
-                            <el-table-column prop="employeeID" label="员工工号" min-width="15%">
+                            <el-table-column prop="employeeID" label="员工工号" min-width="10%">
                             </el-table-column>
-                            <el-table-column prop="empname" label="员工姓名" min-width="15%">
+                            <el-table-column prop="empname" label="员工姓名" min-width="10%">
                             </el-table-column>
                             <el-table-column prop="deptname" label="部门" show-overflow-tooltip min-width="15%">
                             </el-table-column>
-                            <el-table-column prop="introspect" label="提报内容" show-overflow-tooltip min-width="30%">
+                            <el-table-column prop="introspect" label="提报内容" show-overflow-tooltip min-width="45%">
                             </el-table-column>
                         </el-table-column>
                     </el-table>
