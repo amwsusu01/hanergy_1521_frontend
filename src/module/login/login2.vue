@@ -16,10 +16,16 @@
                 </el-form-item>
             </el-form>
         </div>
+        <div class="footer-container">
+            <p>请使用IE浏览器11.0以上版本，360浏览器10.0以上版本，火狐浏览器，谷歌浏览器</p>
+            <p>Copyright ©汉能控股集团有限公司</p>
+        </div>
     </div>
 </template>
 <script>
-import { _setTitle, getQueryStringHr, sessionId, _sessionStorage, calcuMD5 } from '../../assets/js/util'
+import { _setTitle, getQueryStringHr, sessionId, _sessionStorage, calcuMD5 } from '../../assets/js/util';
+
+import {compressToEncodedURIComponent} from 'lz-string';
 
 export default {
     data() {
@@ -97,8 +103,8 @@ export default {
         }, // 点击登录
         loginAjax() {
             let param = {
-                user: this.formLogin.username,
-                password: this.formLogin.password,
+                jobNumber: this.formLogin.username,
+                password: compressToEncodedURIComponent(this.formLogin.password),
                 corpCode: 'Hanergy',
                 menuId: 48
             };
@@ -214,6 +220,18 @@ export default {
             font-size: 16px;
             color: #6699FF;
             margin-top: 63px;
+        }
+    }
+
+    .footer-container {
+        position: absolute;
+        bottom: 20px;
+        text-align:center;
+            width: 100%;
+    left: 0;
+        p {
+            color:#a3b2b9;
+            font-size:14px;
         }
     }
 }

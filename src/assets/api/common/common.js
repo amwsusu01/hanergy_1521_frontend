@@ -9,12 +9,13 @@ const apiURL = {
     sidebar: '/admin/api/v1/user/roles', //无用了。
 
     updateDate:'/return/getDate',
-    exportExcel:'/return/printExcel'
+    exportExcel:'/return/printExcel',
+    userList:'/admin/api/v1/user/getUserList'
 }
 
 export default {
     login(obj) {
-        return Api.get(`${configM.tempComUrl}${apiURL.login}`, obj);
+        return Api.post(`${configM.tempComUrl}${apiURL.login}`, obj);
     },
     logout(obj) {
         return Api.get(apiURL.logout, obj)
@@ -27,5 +28,8 @@ export default {
     },
     exportExcel(obj) {
         return Api.exportGet(apiURL.exportExcel,obj);
+    },
+    getUserList() {
+        return Api.get(`${configM.otherComUrl}${apiURL.userList}`,{corpCode:'Hanergy','menuId':48});
     }
 }

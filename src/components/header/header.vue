@@ -2,8 +2,8 @@
     <div class="clearfix header-box">
         <div class="header-logo fl"><img :src="logoUrl"></img></div>
         <div class="header-title fl" @click="childClick">
-            <img :src="baobiao" style="margin-top: -11px; width: 40px;" class="home-icon"></img>
-            <span class="home-title" style="display: block;margin-top: -28px;">{{title}}</span>
+            <!-- <img :src="baobiao" style="margin-top: -11px; width: 40px;" class="home-icon"></img> -->
+            <span class="home-title" style="display: block;">{{title}}</span>
         </div>
         <div class="header-subtitle fl">{{subtitle}}</div>
         <div class="header-quit fr" @click="quit()">退出</div>
@@ -115,7 +115,7 @@ export default {
     .header-title {
         cursor: pointer;
         font-family: FZZZHONGJW--GB1-0;
-        font-size: 14px;
+        font-size: 16px;
         color: #FFFFFF;
         margin-left: 62px;
         text-align: center;

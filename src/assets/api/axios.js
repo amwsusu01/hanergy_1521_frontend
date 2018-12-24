@@ -196,10 +196,10 @@ function post(url, body) {
     return new Call((resolve, reject) => {
         Axios.post(url, body)
             .then(response => {
-                if(response.meta.code == '200001'){
-                    console.log('response.meta.code == 200001')
+                //错误提示！
+                if(response.status == 1){
                     vm.$message.error({
-                        message: response.meta.message,
+                        message: response.msg,
                         duration: 1000,
                         center: true
                     });

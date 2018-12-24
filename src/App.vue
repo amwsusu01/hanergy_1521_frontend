@@ -270,6 +270,11 @@ input[type=number]::-webkit-outer-spin-button {
     color: #515e65;
 }
 
+.title-th {
+    background: #6f8cf5 !important;
+    color:white !important;
+}
+
 .contain.el-form {
     .el-form-item {
         margin-bottom: 10px;

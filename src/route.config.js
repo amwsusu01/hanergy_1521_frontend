@@ -122,7 +122,35 @@ var Routers= [
                     require(['./module/logs.vue'], resolve)
                 },
                 meta: { keepAlive: false }
-            }
+            },
+            //系统日志
+            {
+                path: '/roles',
+                name: 'roles',
+                component: function(resolve) {
+                    require(['./module/roles.vue'], resolve)
+                },
+                meta: { keepAlive: false }
+            },
+            //产供销一体化明细
+            {
+                path: '/details',
+                name: 'details',
+                component: function(resolve) {
+                    require(['./module/product-provide-market/detail.vue'], resolve)
+                },
+                meta: { keepAlive: false }
+            },
+            //产供销一体化图标
+            {
+                path: '/ealywarning',
+                name: 'ealywarning',
+                component: function(resolve) {
+                    require(['./module/product-provide-market/early-warning.vue'], resolve)
+                },
+                meta: { keepAlive: false }
+            },
+
         ]
     },
 ]
@@ -132,7 +160,7 @@ import Router from 'vue-router'
 // 并且配置路由规则
 const router = new Router({
   mode: 'history',
-  base:'/BigdataPlatform/',
+  //base:'/BigdataPlatform/', //生产环境下需要配置
   routes: Routers
 })
 

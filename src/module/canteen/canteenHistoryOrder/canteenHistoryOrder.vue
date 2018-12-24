@@ -415,7 +415,7 @@ export default {
         getTabledata1() {
             let params = this.getParams(this.page1);
             this.$api.canteen.getDetailList1(params).then(res => {
-                this.page1.totalNumber = res.count
+                this.page1.totalNumber = res.count;
                 let cgsc = JSON.parse(res.list)
                 //不要屏蔽,这个转时间
                 cgsc.map((item) => {

@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "babel-runtime": "^6.0.0",
+    "echarts": "^4.1.0",
     "element-ui": "^2.4.6",
     "good-storage": "^1.0.1",
     "lodash": "^4.17.5",
@@ -19,8 +20,7 @@
     "vue-quill-editor": "^3.0.6",
     "vue-quill-editor-upload": "^1.1.0",
     "vue-validator": "^3.0.0-alpha.2",
-    "vuex": "^3.0.1",
-    "echarts": "^4.1.0"
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "axios": "^0.16.2",
@@ -59,6 +59,7 @@
     "json-loader": "^0.5.4",
     "less": "^2.7.2",
     "less-loader": "^2.2.3",
+    "lz-string": "^1.4.4",
     "moment": "^2.23.0",
     "nightwatch": "^0.9.16",
     "node-sass": "^4.0.0",
