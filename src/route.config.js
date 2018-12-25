@@ -134,8 +134,8 @@ var Routers= [
             },
             //产供销一体化明细
             {
-                path: '/details',
-                name: 'details',
+                path: '/Supplychaindetails',
+                name: 'Supplychaindetails',
                 component: function(resolve) {
                     require(['./module/product-provide-market/detail.vue'], resolve)
                 },
@@ -143,8 +143,8 @@ var Routers= [
             },
             //产供销一体化图标
             {
-                path: '/earlywarning',
-                name: 'earlywarning',
+                path: '/Supplychainwarning',
+                name: 'Supplychainwarning',
                 component: function(resolve) {
                     require(['./module/product-provide-market/early-warning.vue'], resolve)
                 },

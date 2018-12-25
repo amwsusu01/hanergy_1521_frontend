@@ -6,7 +6,7 @@
         <el-container :style="{ 'height': documentClientHeight-70 + 'px'}">
             <el-scrollbar style="height: 100%;width: 100%;" ref="globalScrollbar">
                 <div class="sidebar-container" :class="{'is-active':isCollapse}" @mouseenter="hanldeMouseenter(false)" @mouseleave="hanldeMouseenter(true)">
-                    <el-menu unique-opened :default-active="53" :collapse="isCollapse" class="el-menu-vertical-demo" mode="vertical" :show-timeout="200" @open="handleOpen" @close="handleClose">
+                    <el-menu :default-active="53" :collapse="isCollapse" class="el-menu-vertical-demo" mode="vertical" :show-timeout="200" @open="handleOpen" @close="handleClose">
                         <sidebar-item :menu="menuData" :isCollapse="isCollapse"></sidebar-item>
                     </el-menu>
                 </div>

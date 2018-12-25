@@ -24,6 +24,7 @@ export default {
 </script>
 <style lang="less">
 @import "../static/font/iconfont.css";
+
 .el-main {
     // padding-left: 40px !important;
 }
