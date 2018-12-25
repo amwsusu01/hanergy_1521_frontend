@@ -52,7 +52,8 @@ export default {
         },
         menuData: {
             get() {
-                return this.$store.state.common.menuData;
+                let data = this.$store.state.common.menuItemData;               
+                return data;
             },
             set(val) {
                 this.$store.commit('setMenuData', val);
@@ -172,29 +173,7 @@ export default {
                     res[i].buttons.push(list[i]);
                 }
             }
-        },
-        //调用菜单接口
-        getSidebarList() {
-            let param = { // corpCode=Hanergy&user=12345678901&password=123456&menuId=48
-                corpCode: 'Hanergy',
-                user: '12345678901', //用户名
-                password: '123456', //密码
-                menuId: '48',
-            };
-            this.$api.common.sidebar(param).then(res => {
-                if (res.status == 0) {
-                    this.sysTitle = res.data[0].menus[0].name;
-                    this.menuData = res.data[0].menus[0].list; // 存储菜单
-                } else {
-                    this.$message.error({
-                        message: res.message,
-                        duration: 1000,
-                        center: true
-                    });
-                }
-            })
-
-        },
+        }
     }
 }
 </script>

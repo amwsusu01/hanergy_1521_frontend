@@ -143,8 +143,8 @@ var Routers= [
             },
             //产供销一体化图标
             {
-                path: '/ealywarning',
-                name: 'ealywarning',
+                path: '/earlywarning',
+                name: 'earlywarning',
                 component: function(resolve) {
                     require(['./module/product-provide-market/early-warning.vue'], resolve)
                 },

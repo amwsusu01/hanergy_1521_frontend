@@ -1,4 +1,4 @@
-import {_sessionStorage} from "../../assets/js/util";
+import {_sessionStorage,getMenuData} from "../../assets/js/util";
 const common = {
   state: {
     isCollapse: false,
@@ -10,7 +10,8 @@ const common = {
     breadcrumbMenu:['1521日志分析报表','1521数据汇总统计'],
     sysTitle:_sessionStorage("sysTitle")||'',
     updateTime:'',
-    deptments:[]
+    deptments:[],
+    menuItemData:_sessionStorage("menuData")?getMenuData(JSON.parse(_sessionStorage("menuData")),[]):[]
   },
   actions: {
   },
@@ -22,7 +23,11 @@ const common = {
       if(data && data.length > 0) {
             data[0].icon="el-icon-tickets";
         }
+
+      let menu = [];
+      let _menu = getMenuData(data,menu);
       state.menuData = data;
+      state.menuItemData = _menu;
     },
     updateDocumentClientHeight(state, height) {
       state.documentClientHeight = height

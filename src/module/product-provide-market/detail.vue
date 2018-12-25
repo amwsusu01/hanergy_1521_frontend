@@ -190,30 +190,30 @@
                         </el-form-item>
                     </el-col>
                 </el-row>
-                <el-form-item>
+                <!-- <el-form-item>
                     <el-button type="primary" @click.prevent="filterData">查询</el-button>
-                </el-form-item>
+                </el-form-item> -->
             </el-form>
             <div style="width:100%;max-width: 1200px;position: relative;" class="table-container">
                 <el-button class="exp-btn" plain size="small" @click="exportExl('67')">导出</el-button>
-                <el-table :data="data" border style="width: 100%">
+                <el-table :data="data" border style="width: 100%" height="200" max-height="700">
                    <!--  <el-table-column label="明细表" fixed  label-class-name="table-title title-th"> -->
-                        <el-table-column label='' fixed label-class-name="title-th">
-                            <el-table-column prop="jobNumber" fixed label-class-name="title-th" label="序号" width="50">
+                        <el-table-column label='' fixed label-class-name="title-th" width="800">
+                            <el-table-column prop="jobNumber" label-class-name="title-th" label="序号" width="50">
                             </el-table-column>
-                            <el-table-column prop="username" fixed label-class-name="title-th" label="产品系列" width="150">
+                            <el-table-column prop="username" label-class-name="title-th" label="产品系列" width="150">
                             </el-table-column>
-                            <el-table-column prop="department" fixed label-class-name="title-th" label="采购申请号" width="100">
+                            <el-table-column prop="department" label-class-name="title-th" label="采购申请号" width="100">
                             </el-table-column>
-                            <el-table-column prop="jobNumber" fixed label-class-name="title-th" label="事业部" width="100">
+                            <el-table-column prop="jobNumber" label-class-name="title-th" label="事业部" width="100">
                             </el-table-column>
-                            <el-table-column prop="email" fixed label-class-name="title-th" label="物料号" show-overflow-tooltip width="100">
+                            <el-table-column prop="email" label-class-name="title-th" label="物料号" show-overflow-tooltip width="100">
                             </el-table-column>
-                            <el-table-column prop="email" fixed label-class-name="title-th" label="物料描述" show-overflow-tooltip width="100">
+                            <el-table-column prop="email" label-class-name="title-th" label="物料描述" show-overflow-tooltip width="100">
                             </el-table-column>
-                            <el-table-column prop="email" fixed label-class-name="title-th" label="提交人" show-overflow-tooltip width="100">
+                            <el-table-column prop="email" label-class-name="title-th" label="提交人" show-overflow-tooltip width="100">
                             </el-table-column>
-                            <el-table-column prop="email" fixed label-class-name="title-th"  label="预警" show-overflow-tooltip width="100">
+                            <el-table-column prop="email" label-class-name="title-th"  label="预警" show-overflow-tooltip width="100">
                             </el-table-column>
                         </el-table-column>
                         <el-table-column label='PR' label-class-name="title-th">

@@ -5,14 +5,16 @@ import appConfig from '../../app.config'
 import md5 from 'js-md5'
 import Vue from 'vue';
 
-export function deepCopy(source) {
+import {cloneDeep} from 'lodash';
+
+/*export function deepCopy(source) {
     var result = {};
     for (var key in source) {
         result[key] = typeof source[key] === 'object' ? this.deepCopy(source[key]) : source[key];
     }
 
     return result;
-}
+}*/
 
 /**
  * 设置页面标题
@@ -72,10 +74,10 @@ export function sessionId(sessionId) {
 }
 
 export function sessionData(key, value) {
-    if(value) {
+    if (value) {
         value = JSON.stringify(value);
         sessionStorage.setItem(key, value)
-    }else {
+    } else {
         let value = sessionStorage.getItem(key);
         value = JSON.parse(value);
         // sessionStorage.removeItem(key)
@@ -96,7 +98,7 @@ export function restrictedCharacter(elmID, characterInterva) {
     if (navigator.userAgent.indexOf("MSIE") != -1) {
         bind_name = 'propertychange';
     }
-    $('#' + elmID).bind(bind_name, function () {
+    $('#' + elmID).bind(bind_name, function() {
         // $('#'+elmID).text($(this).val());
         // console.log($(this).val());
         var str = input.value;
@@ -121,7 +123,7 @@ export function textareaMaxLength(elmID, characterInterva) {
     if (navigator.userAgent.indexOf("MSIE") != -1) {
         bind_name = 'propertychange';
     }
-    $('#' + elmID).bind(bind_name, function () {
+    $('#' + elmID).bind(bind_name, function() {
         // $('#'+elmID).text($(this).val());
         // console.log($(this).val());
         var str = input.value;
@@ -320,7 +322,7 @@ export function formatChange(timestamp, flag) {
  * @param formatType 格式
  * @param isShort 是否是短的
  */
-Vue.filter('analyseTime', function (timestamp, formatType, isShort) {
+Vue.filter('analyseTime', function(timestamp, formatType, isShort) {
     if (timestamp == '' || timestamp == undefined || timestamp == 'undefined' || timestamp == null) {
         return '';
     }
@@ -330,8 +332,8 @@ Vue.filter('analyseTime', function (timestamp, formatType, isShort) {
     }
 
     var dateTime = new Date(parseInt(timestamp));
-    if(isShort){
-        dateTime= new Date(parseInt(timestamp * 1000))
+    if (isShort) {
+        dateTime = new Date(parseInt(timestamp * 1000))
     }
     var backTime = "";
     var year = dateTime.getFullYear(); // 获取年
@@ -380,8 +382,34 @@ function zeroFill(num) {
     return num;
 }
 
-export function scroll2Top () {
+export function scroll2Top() {
     setTimeout(() => {
         window.scroll(0, 0)
     }, 0)
 }
+
+export function getMenuData(data, menu) {
+    let obj = {};
+    for (let i = 0; i < data.length; i++) {
+
+        //如果是叶子家电
+        if (data[i].type == 2) {
+        } else {
+            let _menu = cloneDeep(data[i]);
+            _menu.list = [];
+            menu.push(_menu);
+
+            if(data[i].list.length == 0) {
+                continue;
+            } else {
+                getMenuData(data[i].list, menu[menu.length-1].list);
+            }
+        };
+    }
+
+    return menu;
+}
+
+/*let testmenu = JSON.parse(_sessionStorage("menuData"));
+let testdata = getMenuData(testmenu,[]);
+console.log('aa',testdata);*/

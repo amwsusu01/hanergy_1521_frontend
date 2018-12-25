@@ -22,6 +22,7 @@
                     <div class="left-line-chart">
                         <div class="top-box">
                             <p>一级预警次数</p>
+                            <h5>1000</h5>
                         </div>
                         <div class="line-chart-level" id="lineChart1"></div>
                     </div>
@@ -30,6 +31,7 @@
                     <div class="left-line-chart">
                         <div class="top-box">
                             <p>二级预警次数</p>
+                            <h5>1000</h5>
                         </div>
                         <div class="line-chart-level" id="lineChart2"></div>
                     </div>
@@ -38,22 +40,28 @@
                     <div class="left-line-chart">
                         <div class="top-box">
                             <p>二级预警次数</p>
+                            <h5>1000</h5>
                         </div>
                         <div class="line-chart-level" id="lineChart3"></div>
                     </div>
                 </el-col>
                 <el-col :span="9">
-                    <div>
+                    <!-- <div>
                         <label style="font-size: 14px;color: #606266;">预警节点</label>
-                        <el-select v-model="selectLevel" multiple size="mini" :collapse-tags="true">
+                        <el-select v-model="selectLevel" multiple size="mini" placeholder="无限制" :collapse-tags="true">
                             <el-option v-for="item in options.levels" :label="item" :value="item"></el-option>
                         </el-select>
+                    </div> -->
+                    <div size="small" class="radio-button-groups">
+                        <span :class="{'tab-span':true,'active':selectLevel==1}" @click="selectLevel=1" >一级预警</span>
+                        <span :class="{'tab-span':true,'active':selectLevel==2}" @click="selectLevel=2">二级预警</span>
+                        <span :class="{'tab-span':true,'active':selectLevel==3}" @click="selectLevel=3">三级预警</span>
                     </div>
                     <div class="right-line-chart" id="rightLineChart1"></div>
                 </el-col>
             </el-row>
             <div style="width:100%;max-width: 1200px;position: relative;">
-                 <el-button class="exp-btn" plain size="small" @click="exportExl('67')">导出</el-button>
+                <el-button class="exp-btn" plain size="small" @click="exportExl('67')">导出</el-button>
                 <el-table :data="data" border style="width: 100%">
                     <el-table-column prop="month" label="到期明细表" label-class-name="table-title title-th">
                         <el-table-column prop="username" label="采购申请" label-class-name="title-th" min-width="30%" show-overflow-tooltip>
@@ -62,7 +70,7 @@
                         </el-table-column>
                         <el-table-column prop="jobNumber" label="物料号" label-class-name="title-th" min-width="10%">
                         </el-table-column>
-                        <el-table-column prop="email" label="物料描述"  label-class-name="title-th" show-overflow-tooltip min-width="10%">
+                        <el-table-column prop="email" label="物料描述" label-class-name="title-th" show-overflow-tooltip min-width="10%">
                         </el-table-column>
                         <el-table-column prop="email" label="提交人" label-class-name="title-th" show-overflow-tooltip min-width="10%">
                         </el-table-column>
@@ -110,40 +118,46 @@ export default {
                 }],
                 levels: ['10%', '30%', '50%']
             },
-            selectLevel: '',
+            selectLevel: 1,
 
             chartDataOption: {
-                xAxis: {
+                xAxis: [{
                     type: 'category',
                     //position: 'bottom',
-                    nameRotate: 45,
-                    //axisLabel:{show:true,rorate:45},
+                    //nameRotate: 45,
+                    //interval:0,
+                    axisLabel: {
+                        rotate: 45,
+                    },
                     data: ['2018-12-18', '2018-12-19', '2018-12-20']
-                },
+                }],
                 yAxis: {
                     type: 'value',
                     min: 0,
                     max: 6,
                     splitNumber: 2
                 },
-                legend:{
-                    data:['预警数'],
-                    top:20
+                grid: {
+                    x: 20
+                },
+                legend: {
+                    data: ['预警数'],
+                    top: 20
                 },
                 series: [{
-                    name:'预警数',
+                    name: '预警数',
                     data: [0, 1, 3],
                     type: 'line'
                 }]
             },
             lineChartOption: {
                 title: {
-                    text: '50% 预警订单延迟点',
-                    textStyle: {
-                        fontSize: 14,
-                        color: '#606266',
-                        fontWeight:'normal'
-                    }
+                    // text: '预警订单延迟点',
+                    // textStyle: {
+                    //     fontSize: 14,
+                    //     color: '#606266',
+                    //     fontWeight: 'normal'
+                    // }
                 },
                 legend: { //图例位置
                     data: ['数量', '百分比'],
@@ -170,20 +184,20 @@ export default {
                 xAxis: {
                     type: 'category',
                     splitLine: { show: false }, //横轴的线
-                    data: ['采购合同签署','预付款','生产','提货款','交付']
+                    data: ['采购合同签署', '预付款', '生产', '提货款', '交付']
                 },
                 yAxis: [{
                         type: 'value',
                         name: '数量',
-                        min:0,
-                        max:1,
+                        min: 0,
+                        max: 1,
                         splitLine: { show: true }, //纵轴的线
                     },
                     {
                         type: 'value',
                         name: '百分比(%)',
-                        min:-1,
-                        max:7,
+                        min: -1,
+                        max: 7,
                         splitLine: { show: false }, //纵轴的线
                     }
                 ],
@@ -207,7 +221,7 @@ export default {
                                 return colorList[params.dataIndex];
                             },
                         },
-                        data: [0,1,0,0,0]
+                        data: [0, 1, 0, 0, 0]
                     },
                     {
                         name: '百分比',
@@ -226,7 +240,7 @@ export default {
                         lineStyle: {
                             color: '#7a70c2'
                         },
-                        data:  [0.2,5.88,0.3,0.8,0.9]
+                        data: [0.2, 5.88, 0.3, 0.8, 0.9]
                     }
                 ]
             }
@@ -242,29 +256,37 @@ export default {
         },
         getData() {
             let oneOption = Object.assign(this.chartDataOption, {
-                title: {
+                /*title: {
                     text: '一级预警趋势',
                     show: true,
                     textStyle: {
                         fontSize: 14,
                         color: '#606266',
-                        fontWeight:'normal'
+                        fontWeight: 'normal'
                     }
-                }
+                }*/
             });
             let twoOption = Object.assign(this.chartDataOption, {
-                title: { text: '二级预警趋势', show: true,textStyle: {
+                /*title: {
+                    text: '二级预警趋势',
+                    show: true,
+                    textStyle: {
                         fontSize: 14,
                         color: '#606266',
-                        fontWeight:'normal'
-                    } }
+                        fontWeight: 'normal'
+                    }
+                }*/
             })
             let threeOption = Object.assign(this.chartDataOption, {
-                title: { text: '三级预警趋势', show: true,textStyle: {
+                /*title: {
+                    text: '三级预警趋势',
+                    show: true,
+                    textStyle: {
                         fontSize: 14,
                         color: '#606266',
-                        fontWeight:'normal'
-                    } }
+                        fontWeight: 'normal'
+                    }
+                }*/
             })
             this.oneLevelChart = this.echarts.init(document.getElementById('lineChart1'));
             this.oneLevelChart.setOption(oneOption, true);
@@ -274,7 +296,7 @@ export default {
             this.threeLevelChart.setOption(threeOption, true);
 
             this.lineChart = this.echarts.init(document.getElementById('rightLineChart1'));
-            this.lineChart.setOption(this.lineChartOption,true);
+            this.lineChart.setOption(this.lineChartOption, true);
         }
     },
     mounted() {
@@ -282,8 +304,6 @@ export default {
     }
 }
 </script>
-<style lang="less">
-</style>
 <style lang="scss" scoped>
 .block {
     text-align: right;
@@ -296,25 +316,56 @@ export default {
     .top-box {
         width: 80%;
         margin: 0 10%;
-        padding: 0 10%;
+        padding: 5%;
         height: 80px;
-        font-size: 16px;
-        color: #606266;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: yellow;
+
+        /* background: yellow; */
+        & p {
+            font-size: 14px;
+            color: #444444;
+        }
+
+        & h5 {
+            margin-top: 5px;
+            font-size: 24px;
+            color: #1c8ffe;
+        }
     }
 
     .line-chart-level {
-        height: 220px;
+        height: 240px;
     }
 }
+
 .right-line-chart {
-    height: 270px;
+    height: 290px;
     width: 100%;
-    margin-top:3px;
+    margin-top: 3px;
 }
+
+.box {
+    /deep/ .radio-button-groups {
+        width: 100%;
+        text-align:center;
+        .tab-span {
+            display: inline-block;
+            font-size:14px;
+            color:#666666;
+            width:73px;
+            height: 24px;
+            line-height: 24px;
+            border-radius: 12px;
+            cursor: pointer;
+
+            &.active,&:hover {
+                background-color: rgba(30,144,254,0.1);
+                color: #1e90fe;
+            }
+        }
+
+    }
+}
+
 .exp-btn {
     position: absolute;
     right: 15px;
@@ -323,6 +374,6 @@ export default {
 }
 
 .table-title {
-    color:white;
+    color: white;
 }
 </style>
