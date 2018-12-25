@@ -10,13 +10,13 @@
                 </el-form-item>
             </el-form>
             <el-table :data="userList" border style="width: 100%">
-                <el-table-column prop="month" label="用户操作日志" label-class-name="table-title">
+                <el-table-column prop="month" label="用户列表" label-class-name="table-title">
                     <el-table-column prop="jobNumber" label="员工工号" min-width="15%">
                     </el-table-column>
                     <el-table-column prop="username" label="用户名" min-width="15%">
                     </el-table-column>
-                    <el-table-column prop="department" label="部门" min-width="15%">
-                    </el-table-column>
+                    <!-- <el-table-column prop="department" label="部门" min-width="15%">
+                    </el-table-column> -->
                     <el-table-column prop="jobNumber" label="登录名" min-width="15%">
                     </el-table-column>
                     <el-table-column prop="email" label="邮箱" show-overflow-tooltip min-width="25%">

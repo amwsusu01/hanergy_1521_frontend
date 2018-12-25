@@ -160,20 +160,20 @@ export default {
         handleClose(key, keyPath) {
             console.log(key, keyPath);
         },
-        getMenu(list, res) {
-            for (let i = 0; i < list.length; i++) {
-                if (list[i].type != 2) {
-                    if (list[i].list && list[i].list.length > 0) {
-                        this.getMenu(list[i].list, res);
-                    } else {
-                        res[i].list = list[i];
-                    }
-                } else {
-                    if (!res.buttons) res.buttons = [];
-                    res[i].buttons.push(list[i]);
-                }
-            }
-        }
+        // getMenu(list, res) {
+        //     for (let i = 0; i < list.length; i++) {
+        //         if (list[i].type != 2) {
+        //             if (list[i].list && list[i].list.length > 0) {
+        //                 this.getMenu(list[i].list, res);
+        //             } else {
+        //                 res[i].list = list[i];
+        //             }
+        //         } else {
+        //             if (!res.buttons) res.buttons = [];
+        //             res[i].buttons.push(list[i]);
+        //         }
+        //     }
+        // }
     }
 }
 </script>
