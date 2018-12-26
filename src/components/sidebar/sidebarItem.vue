@@ -3,7 +3,7 @@
         <template v-for="(item,index) in menu">
             <el-menu-item v-if="item.list.length===0" :index="item.menuId" @click="open(item)" :key="item.menuId">
                 <i :class="item.icon"></i>
-                <span slot="title">{{item.menuId}}{{item.name}}</span>
+                <span slot="title">{{item.name}}</span>
             </el-menu-item>
             <el-submenu v-else :index="`${item.menuId}`" :key="item.menuId" :class="{'el-submenu--display':isCollapse}">
                 <template slot="title">

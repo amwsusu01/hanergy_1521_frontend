@@ -118,12 +118,10 @@ export default {
             oneLevel: "",
             twoLevel: "",
             threeLevel: "",
-            process: [], //阶段
+            process: ['采购合同签署','预付款','生产','提货款','交付'], //阶段
             sumCount: [], //数量
             processCount: [], //百分比
             warningType: "",
-            dataChart: [],
-            warnChart: [],
             chartDataOption: {
                 xAxis: [{
                     type: 'category',
@@ -185,7 +183,7 @@ export default {
                         rotate: 45,
                     },
                     splitLine: { show: false }, //横轴的线
-                    data: this.process
+                    data: ['采购合同签署','预付款','生产','提货款','交付'], //阶段
                 },
                 yAxis: [{
                         type: 'value',
@@ -237,7 +235,7 @@ export default {
                         lineStyle: {
                             color: '#7a70c2'
                         },
-                        data: this.processCount
+                        data: []
                     }
                 ]
             }
@@ -279,39 +277,9 @@ export default {
             this.getWarningDetailed();
         },
         getData() {
-            let oneOption = Object.assign(this.chartDataOption, {
-                /*title: {
-                    text: '一级预警趋势',
-                    show: true,
-                    textStyle: {
-                        fontSize: 14,
-                        color: '#606266',
-                        fontWeight: 'normal'
-                    }
-                }*/
-            });
-            let twoOption = Object.assign(this.chartDataOption, {
-                /*title: {
-                    text: '二级预警趋势',
-                    show: true,
-                    textStyle: {
-                        fontSize: 14,
-                        color: '#606266',
-                        fontWeight: 'normal'
-                    }
-                }*/
-            })
-            let threeOption = Object.assign(this.chartDataOption, {
-                /*title: {
-                    text: '三级预警趋势',
-                    show: true,
-                    textStyle: {
-                        fontSize: 14,
-                        color: '#606266',
-                        fontWeight: 'normal'
-                    }
-                }*/
-            })
+            let oneOption = Object.assign(this.chartDataOption, {});
+            let twoOption = Object.assign(this.chartDataOption, {})
+            let threeOption = Object.assign(this.chartDataOption, {})
             this.oneLevelChart = this.echarts.init(document.getElementById('lineChart1'));
             this.oneLevelChart.setOption(oneOption, true);
             this.twoLevelChart = this.echarts.init(document.getElementById('lineChart2'));
@@ -408,21 +376,25 @@ export default {
                 //this.lineChart.setOption(this.lineChartOption, true);
 
                 let yjjd = JSON.parse(res.yjjd) //预警节点柱状图
-                this.process = [];
-                this.sumCount = [];
-                this.processCount = [];
-                for (let i in yjjd) {
-                    this.process.push(yjjd[i].process) //阶段
-                    this.sumCount.push(yjjd[i]['sum(process_count)']) //数量
-                    this.processCount.push(yjjd[i]['sum(process_count)/sum(all_count)']) //百分比
+                //this.process = [];
+                ////排序，根据process
+                let sumCount = [],processCount=[];
+                for(let index =0; index < this.process.length; index++) {
+                    let item = this.process[index];
+                    let filterItem = yjjd.find((a)=>a.process==item);
+                    if(filterItem) {
+                        sumCount.push(filterItem['sum(process_count)']); //数量
+                        processCount.push(filterItem['sum(process_count)/sum(all_count)']); //百分比
+                    }
                 }
+
+                //console.log('count',Array.from(sumCount),Array.from(processCount));
                 var temp = this.lineChartOption;
-                temp.xAxis.data = this.process;
-                temp.series[0].data = this.sumCount;
-                temp.series[1].data = this.processCount;
+                //temp.xAxis.data = this.process;
+                temp.series[0].data = sumCount;
+                temp.series[1].data = processCount;
                 this.lineChart = this.echarts.init(document.getElementById('rightLineChart1'));
                 this.lineChart.setOption(temp, true);
-
             })
         },
         getWarningDetailed() {
