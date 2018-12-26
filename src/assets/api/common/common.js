@@ -10,7 +10,10 @@ const apiURL = {
 
     updateDate:'/return/getDate',
     exportExcel:'/return/printExcel',
-    userList:'/admin/api/v1/user/getUserList'
+    userList:'/admin/api/v1/user/getUserList',
+    psmDimension:'psm/dimension',
+    psmWarning: 'psm/getWarning',
+    warningDetailed: 'psm/warningDetailed',
 }
 
 export default {
@@ -31,5 +34,14 @@ export default {
     },
     getUserList() {
         return Api.get(`${configM.otherComUrl}${apiURL.userList}`,{corpCode:'Hanergy','menuId':48});
-    }
+    },
+    getDimension(){
+        return Api.get(apiURL.psmDimension,{})
+    },
+    getWarning(obj){
+        return Api.get(apiURL.psmWarning,obj)
+    },
+    warningDetailed(obj) {
+        return Api.post(apiURL.warningDetailed, obj);
+    },
 }

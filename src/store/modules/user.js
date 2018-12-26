@@ -22,6 +22,7 @@ import {
 import { encryption } from '@/util/util'
 const user = {
   state: {
+
     userInfo: getStore({
       name: 'userInfo'
     }) || {},

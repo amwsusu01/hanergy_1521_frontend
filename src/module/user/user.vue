@@ -90,11 +90,33 @@ export default {
             set(val) {
                 this.$store.commit('setDeptments', val);
             }
-        }
+        },
+        setPsmDept: {
+            set(val) {
+                this.$store.commit('setPsmDept', val);
+            }
+        },
+        setPsmProduct: {
+            get() {
+                return this.$store.state.common.product;
+            },
+            set(val) {
+                this.$store.commit('setPsmProduct', val);
+            }
+        },
+        setPsmUser: {
+            get() {
+                return this.$store.state.common.psmuser;
+            },
+            set(val) {
+                this.$store.commit('setPsmUser', val);
+            }
+        },
     },
     mounted() {
         this.init();
         this.resetDocumentClientHeight();
+        this.getDimension();
     },
     watch: {
         '$route'(to, from) {
@@ -102,6 +124,13 @@ export default {
         }
     },
     methods: {
+        getDimension(){
+            this.$api.common.getDimension().then(res => {
+                this.setPsmDept = JSON.parse(res.dept)
+                this.setPsmProduct = JSON.parse(res.product)
+                this.setPsmUser = JSON.parse(res.user)
+            })
+        },
         isIE() {
             if (!!window.ActiveXObject || "ActiveXObject" in window)
                 return true;

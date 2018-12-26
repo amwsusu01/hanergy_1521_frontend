@@ -12,9 +12,10 @@
                 <el-row>
                     <el-col :span="5">
                         <el-form-item class="contain-form-item" prop="xilie" label="产品系列" :label-width="shortLabel">
-                            <el-select v-model="form.xilie" placeholder="无限制" style="width: 100%">
-                                <el-option v-for="item in options.options1" :label="item.label" :value="item.value"></el-option>
-                            </el-select>
+                            <el-input></el-input>
+                            <!--<el-select v-model="form.xilie" placeholder="无限制" style="width: 100%">-->
+                                <!--<el-option v-for="item in options.options1" :label="item.label" :value="item.value"></el-option>-->
+                            <!--</el-select>-->
                         </el-form-item>
                     </el-col>
                     <el-col :span="5">

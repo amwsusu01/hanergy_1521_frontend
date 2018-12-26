@@ -11,7 +11,10 @@ const common = {
         sysTitle: _sessionStorage("sysTitle") || '',
         updateTime: '',
         deptments: [],
-        menuItemData: _sessionStorage("menuData") ? getMenuData(JSON.parse(_sessionStorage("menuData")), []) : []
+        menuItemData: _sessionStorage("menuData") ? getMenuData(JSON.parse(_sessionStorage("menuData")), []) : [],
+        dept:[],
+        product: [],
+        psmUser: []
     },
     actions: {},
     mutations: {
@@ -49,7 +52,16 @@ const common = {
         },
         setDeptments(state, data) {
             state.deptments = data;
-        }
+        },
+        setPsmDept(state, data) {
+            state.dept = data;
+        },
+        setPsmProduct(state, data) {
+            state.product = data;
+        },
+        setPsmUser(state, data) {
+            state.psmuser = data;
+        },
     }
 }
 export default common

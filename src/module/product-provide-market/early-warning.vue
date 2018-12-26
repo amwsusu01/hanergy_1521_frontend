@@ -4,15 +4,16 @@
             <el-form ref="form" label-position="left" :inline="true" :model="form" :label-width="shortLabel" class="contain" size="mini" @submit.native.prevent>
                 <el-row>
                     <el-col :span="8">
-                        <el-form-item prop="xilie" label="产品系列" :label-width="shortLabel">
-                            <el-select v-model="form.xilie" placeholder="无限制" style="width: 100%">
-                                <el-option v-for="item in options.options1" :label="item.label" :value="item.value"></el-option>
-                            </el-select>
+                        <el-form-item prop="product" label="产品系列" :label-width="shortLabel">
+                            <product-select :productList="productList" ref="productList"></product-select>
+                            <!--<el-select v-model="form.product" placeholder="无限制" style="width: 100%">-->
+                                <!--<el-option v-for="item in options.options1" :label="item.label" :value="item.value"></el-option>-->
+                            <!--</el-select>-->
                         </el-form-item>
                     </el-col>
                     <el-col :span="8">
                         <el-form-item prop="date" label="日期" :label-width="shortLabel">
-                            <el-date-picker type="date" placeholder="无限制" v-model="form.date" style="width: 100%;"></el-date-picker>
+                            <el-date-picker type="date" placeholder="无限制" v-model="form.date" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -22,7 +23,7 @@
                     <div class="left-line-chart">
                         <div class="top-box">
                             <p>一级预警次数</p>
-                            <h5>1000</h5>
+                            <h5>{{oneLevel}}</h5>
                         </div>
                         <div class="line-chart-level" id="lineChart1"></div>
                     </div>
@@ -31,7 +32,7 @@
                     <div class="left-line-chart">
                         <div class="top-box">
                             <p>二级预警次数</p>
-                            <h5>1000</h5>
+                            <h5>{{twoLevel}}</h5>
                         </div>
                         <div class="line-chart-level" id="lineChart2"></div>
                     </div>
@@ -39,8 +40,8 @@
                 <el-col :span="5">
                     <div class="left-line-chart">
                         <div class="top-box">
-                            <p>二级预警次数</p>
-                            <h5>1000</h5>
+                            <p>三级预警次数</p>
+                            <h5>{{threeLevel}}</h5>
                         </div>
                         <div class="line-chart-level" id="lineChart3"></div>
                     </div>
@@ -53,32 +54,32 @@
                         </el-select>
                     </div> -->
                     <div size="small" class="radio-button-groups">
-                        <span :class="{'tab-span':true,'active':selectLevel==1}" @click="selectLevel=1" >一级预警</span>
-                        <span :class="{'tab-span':true,'active':selectLevel==2}" @click="selectLevel=2">二级预警</span>
-                        <span :class="{'tab-span':true,'active':selectLevel==3}" @click="selectLevel=3">三级预警</span>
+                        <span :class="{'tab-span':true,'active':selectLevel==1}" @click="handelSelectLevel(1,'10%')" >一级预警</span>
+                        <span :class="{'tab-span':true,'active':selectLevel==2}" @click="handelSelectLevel(2,'30%')">二级预警</span>
+                        <span :class="{'tab-span':true,'active':selectLevel==3}" @click="handelSelectLevel(3,'50%')">三级预警</span>
                     </div>
                     <div class="right-line-chart" id="rightLineChart1"></div>
                 </el-col>
             </el-row>
             <div style="width:100%;max-width: 1200px;position: relative;">
                 <el-button class="exp-btn" plain size="small" @click="exportExl('67')">导出</el-button>
-                <el-table :data="data" border style="width: 100%">
+                <el-table :data="dataList" border style="width: 100%">
                     <el-table-column prop="month" label="到期明细表" label-class-name="table-title title-th">
-                        <el-table-column prop="username" label="采购申请" label-class-name="title-th" min-width="30%" show-overflow-tooltip>
+                        <el-table-column prop="FD_CAIGOUSHENQING" label="采购申请" label-class-name="title-th" min-width="30%" show-overflow-tooltip>
                         </el-table-column>
-                        <el-table-column prop="department" label="事业部" label-class-name="title-th" min-width="10%" width="100px">
+                        <el-table-column prop="fd_shiyebu" label="事业部" label-class-name="title-th" min-width="10%" width="100px">
                         </el-table-column>
-                        <el-table-column prop="jobNumber" label="物料号" label-class-name="title-th" min-width="10%">
+                        <el-table-column prop="FD_WULIAOBIANHAO" label="物料号" label-class-name="title-th" min-width="10%">
                         </el-table-column>
-                        <el-table-column prop="email" label="物料描述" label-class-name="title-th" show-overflow-tooltip min-width="10%">
+                        <el-table-column prop="FD_WULIAOMIAOSHU" label="物料描述" label-class-name="title-th" show-overflow-tooltip min-width="10%">
                         </el-table-column>
-                        <el-table-column prop="email" label="提交人" label-class-name="title-th" show-overflow-tooltip min-width="10%">
+                        <el-table-column prop="fd_name" label="提交人" label-class-name="title-th" show-overflow-tooltip min-width="10%">
                         </el-table-column>
-                        <el-table-column prop="email" label="最新阶段" label-class-name="title-th" show-overflow-tooltip min-width="10%">
+                        <el-table-column prop="new_stage" label="最新阶段" label-class-name="title-th" show-overflow-tooltip min-width="10%">
                         </el-table-column>
-                        <el-table-column prop="email" label="最新计划" label-class-name="title-th" show-overflow-tooltip min-width="10%">
+                        <el-table-column prop="new_jihua" label="最新计划" label-class-name="title-th" show-overflow-tooltip min-width="10%">
                         </el-table-column>
-                        <el-table-column prop="email" label="到期预警" label-class-name="title-th" show-overflow-tooltip min-width="10%">
+                        <el-table-column prop="daoqi" label="到期预警" label-class-name="title-th" show-overflow-tooltip min-width="10%">
                         </el-table-column>
                     </el-table-column>
                 </el-table>
@@ -91,54 +92,52 @@
     </div>
 </template>
 <script type="text/javascript">
-export default {
+    import productSelect from '../../components/common/product-select';
+
+    export default {
     name: 'early-warning',
     data() {
         return {
-            data: [],
+            dataList: [],
             page: {
                 pagesize: 5, // 每页展示多少条
                 totalNumber: 0, // 总条数
                 currentPage: 1 // 当前页
             },
             form: {
-                keyword: ''
+                keyword: '',
+                product: [],
             },
             shortLabel: 80,
-            options: {
-                options1: [{
-                    label: '全部',
-                    value: 1
-                }, {
-                    label: '全部',
-                    value: 2
-                }, {
-                    label: '全部',
-                    value: 3
-                }],
-                levels: ['10%', '30%', '50%']
-            },
+            // options: {
+            //     options1: [],
+            //     levels: ['10%', '30%', '50%']
+            // },
             selectLevel: 1,
-
+            oneLevel: "",
+            twoLevel: "",
+            threeLevel: "",
+            process: [],//阶段
+            sumCount: [], //数量
+            processCount: [],//百分比
+            dataChart: [],
+            warnChart: [],
             chartDataOption: {
                 xAxis: [{
                     type: 'category',
-                    //position: 'bottom',
-                    //nameRotate: 45,
-                    //interval:0,
                     axisLabel: {
                         rotate: 45,
                     },
-                    data: ['2018-12-18', '2018-12-19', '2018-12-20']
+                    data: this.dataChart
                 }],
                 yAxis: {
                     type: 'value',
-                    min: 0,
-                    max: 6,
+                    // min: 0,
+                    // max: 6,
                     splitNumber: 2
                 },
                 grid: {
-                    x: 20
+                    x: 25
                 },
                 legend: {
                     data: ['预警数'],
@@ -146,7 +145,7 @@ export default {
                 },
                 series: [{
                     name: '预警数',
-                    data: [0, 1, 3],
+                    data: this.warnChart,
                     type: 'line'
                 }]
             },
@@ -169,35 +168,28 @@ export default {
                         type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
                     },
                 },
-                // dataZoom: [{
-                //     id: 'dataZoomX',
-                //     type: 'slider',
-                //     xAxisIndex: [0],
-                //     filterMode: 'filter'
-                // }, ],
-                // grid: {
-                //     left: '3%',
-                //     right: '4%',
-                //     bottom: '46',
-                //     containLabel: true
-                // },
+                dataZoom: [{
+                    id: 'dataZoomX',
+                    type: 'slider',
+                    xAxisIndex: [0],
+                    filterMode: 'filter'
+                }, ],
+                grid: {
+                    containLabel: true
+                },
                 xAxis: {
                     type: 'category',
                     splitLine: { show: false }, //横轴的线
-                    data: ['采购合同签署', '预付款', '生产', '提货款', '交付']
+                    data: this.process
                 },
                 yAxis: [{
                         type: 'value',
                         name: '数量',
-                        min: 0,
-                        max: 1,
                         splitLine: { show: true }, //纵轴的线
                     },
                     {
                         type: 'value',
                         name: '百分比(%)',
-                        min: -1,
-                        max: 7,
                         splitLine: { show: false }, //纵轴的线
                     }
                 ],
@@ -221,7 +213,7 @@ export default {
                                 return colorList[params.dataIndex];
                             },
                         },
-                        data: [0, 1, 0, 0, 0]
+                        data: this.sumCount
                     },
                     {
                         name: '百分比',
@@ -240,19 +232,26 @@ export default {
                         lineStyle: {
                             color: '#7a70c2'
                         },
-                        data: [0.2, 5.88, 0.3, 0.8, 0.9]
+                        data: this.processCount
                     }
                 ]
             }
         }
     },
+        components: {
+            productSelect,
+        },
     methods: {
+        handelSelectLevel(type,per){
+            this.selectLevel = type;
+            this.getWarning();
+        },
         filterData() {
             return res;
         },
         CurrentChange(val) {
             this.page.currentPage = val
-
+             this.getWarningDetailed();
         },
         getData() {
             let oneOption = Object.assign(this.chartDataOption, {
@@ -297,10 +296,181 @@ export default {
 
             this.lineChart = this.echarts.init(document.getElementById('rightLineChart1'));
             this.lineChart.setOption(this.lineChartOption, true);
+        },
+        getWarning(){
+            let warning = "10%"
+            switch (this.selectLevel){
+                case 1:
+                    warning = '10%';
+                    break;
+                case 2:
+                    warning = '30%';
+                    break;
+                case 3:
+                    warning = '50%';
+                    break;
+            }
+            let params = {
+                Product: this.getProduct(),
+                Date: this.form.date,
+                Warning: warning
+            }
+            //预警统计图
+            this.$api.common.getWarning(params).then(res => {
+                let yjcs =  JSON.parse(res.yjcs) || [];  //预警次数
+                this.oneLevel = yjcs[0].one_count;
+                this.twoLevel = yjcs[0].two_count;
+                this.threeLevel = yjcs[0].three_count;
+
+                let yjqs =  JSON.parse(res.yjqs) || []; //预警趋势图
+                var dataChart= [];
+                var warnChart1 = [];
+                var warnChart2 = [];
+                var warnChart3 = [];
+                for(let i = 0; i< yjqs.length; i++){
+                    warnChart1.push(yjqs[i].one_count);
+                    warnChart2.push(yjqs[i].two_count);
+                    warnChart3.push(yjqs[i].three_count);
+                    dataChart.push(this.$moment(yjqs[i].in_date_qs).format("YYYY-MM-DD"));
+                }
+                this.oneLevelChart = this.echarts.init(document.getElementById('lineChart1'));
+                this.oneLevelChart.setOption(Object.assign(this.chartDataOption,
+                    {series: [{
+                            name: '预警数',
+                            data: warnChart1,
+                            type: 'line'
+                        }],
+                        xAxis: [{
+                            type: 'category',
+                            axisLabel: {
+                                rotate: 45,
+                            },
+                            data: dataChart
+                        }],
+                    }), true);
+
+                this.twoLevelChart = this.echarts.init(document.getElementById('lineChart2'));
+                this.twoLevelChart.setOption(Object.assign(this.chartDataOption,
+                    {
+                        series: [{
+                            name: '预警数',
+                            data: warnChart2,
+                            type: 'line'
+                        }],
+                        xAxis: [{
+                            type: 'category',
+                            axisLabel: {
+                                rotate: 45,
+                            },
+                            data: dataChart
+                        }],
+                    }), true);
+
+                this.threeLevelChart = this.echarts.init(document.getElementById('lineChart3'));
+                this.threeLevelChart.setOption(Object.assign(this.chartDataOption,
+                    {
+                        series: [{
+                            name: '预警数',
+                            data: warnChart3,
+                            type: 'line'
+                        }],
+                        xAxis: [{
+                            type: 'category',
+                            axisLabel: {
+                                rotate: 45,
+                            },
+                            data: dataChart
+                        }],
+                    }), true);
+                this.lineChart.setOption(this.lineChartOption, true);
+
+
+                let yjjd = JSON.parse(res.yjjd) //预警节点柱状图
+                this.process = [];
+                this.sumCount = [];
+                this.processCount = [];
+                for (let i in yjjd) {
+                    this.process.push(yjjd[i].process) //阶段
+                    this.sumCount.push(yjjd[i]['sum(process_count)']) //数量
+                    this.processCount.push(yjjd[i]['sum(process_count)/sum(all_count)']) //百分比
+                }
+                var temp = this.lineChartOption;
+                temp.xAxis.data = this.process;
+                temp.series[0].data = this.sumCount;
+                temp.series[1].data = this.processCount
+                this.lineChart.setOption(temp, true);
+            })
+        },
+        getWarningDetailed(){
+            let param = {
+                countDate: this.form.date,//统计日期
+                products: this.getProduct(),// 产品列
+                type: "", // 预警类型 // yujing1: 一级 yujing2: 二级 yujing3: 三级
+                page: this.page.currentPage,	//分页
+                pageSize: this.page.pagesize  //   分页
         }
+            //预警详细
+            this.$api.common.warningDetailed(param).then(res => {
+                this.dataList = res.list || [];
+                this.page.totalNumber = res.count;
+            })
+        },
+        getProduct() {
+            if (this.$refs['productSelect']) {
+                this.form.product = this.$refs['productSelect'].values.concat();
+            }
+            let resProducts = '';
+            if (this.form.product.length > 0) {
+                resProducts = this.form.product.join(',');
+            } else {
+                let productNames = this.productList.map((a) => {
+                    return a.chanpin_name;
+                })
+
+                resProducts = productNames.join(',');
+            }
+            return resProducts;
+        },
+        init(){
+            if (this.productList.length > 0) {
+                this.form.product = this.productList.map((a) => a.chanpin_name);
+                if (this.$refs['productList']) {
+                    this.$refs['productList'].values = this.form.product.concat();
+                }
+            }
+        }
+    },
+    computed: {
+        setPsmDept: {
+            get() {
+                return this.$store.state.common.dept;
+            },
+            set(val) {
+                this.$store.commit('setPsmDept', val);
+            }
+        },
+        productList: {
+            get() {
+                return this.$store.state.common.product;
+            },
+            set(val) {
+                this.$store.commit('productList', val);
+            }
+        },
+        setPsmUser: {
+            get() {
+                return this.$store.state.common.psmuser;
+            },
+            set(val) {
+                this.$store.commit('setPsmUser', val);
+            }
+        },
     },
     mounted() {
         this.getData();
+        this.init(); //产品/事业/提交人表
+        this.getWarning(); //预警接口
+        this.getWarningDetailed(); //预警明细
     }
 }
 </script>
