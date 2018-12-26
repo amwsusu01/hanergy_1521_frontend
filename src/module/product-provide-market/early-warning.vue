@@ -5,7 +5,7 @@
                 <el-row>
                     <el-col :span="8">
                         <el-form-item prop="product" label="产品系列" :label-width="shortLabel">
-                            <product-select :productList="productList" ref="productList"></product-select>
+                            <product-select :productList="productList" ref="productList" @getWarningDetailed="getWarningDetailed()"></product-select>
                             <!--<el-select v-model="form.product" placeholder="无限制" style="width: 100%">-->
                                 <!--<el-option v-for="item in options.options1" :label="item.label" :value="item.value"></el-option>-->
                             <!--</el-select>-->
@@ -13,7 +13,7 @@
                     </el-col>
                     <el-col :span="8">
                         <el-form-item prop="date" label="日期" :label-width="shortLabel">
-                            <el-date-picker type="date" placeholder="无限制" v-model="form.date" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
+                            <el-date-picker type="date" placeholder="无限制" @change="changeDate" v-model="form.date" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -23,7 +23,7 @@
                     <div class="left-line-chart">
                         <div class="top-box">
                             <p>一级预警次数</p>
-                            <h5>{{oneLevel}}</h5>
+                            <h5 @click="earlyWarning(1)">{{oneLevel}}</h5>
                         </div>
                         <div class="line-chart-level" id="lineChart1"></div>
                     </div>
@@ -32,7 +32,7 @@
                     <div class="left-line-chart">
                         <div class="top-box">
                             <p>二级预警次数</p>
-                            <h5>{{twoLevel}}</h5>
+                            <h5  @click="earlyWarning(2)">{{twoLevel}}</h5>
                         </div>
                         <div class="line-chart-level" id="lineChart2"></div>
                     </div>
@@ -41,7 +41,7 @@
                     <div class="left-line-chart">
                         <div class="top-box">
                             <p>三级预警次数</p>
-                            <h5>{{threeLevel}}</h5>
+                            <h5  @click="earlyWarning(3)">{{threeLevel}}</h5>
                         </div>
                         <div class="line-chart-level" id="lineChart3"></div>
                     </div>
@@ -107,6 +107,7 @@
             form: {
                 keyword: '',
                 product: [],
+                date: ""
             },
             shortLabel: 80,
             // options: {
@@ -120,6 +121,7 @@
             process: [],//阶段
             sumCount: [], //数量
             processCount: [],//百分比
+            warningType: "",
             dataChart: [],
             warnChart: [],
             chartDataOption: {
@@ -245,6 +247,26 @@
         handelSelectLevel(type,per){
             this.selectLevel = type;
             this.getWarning();
+        },
+        changeDate(val){
+            this.form.date = val
+            this.getWarning();
+            this.getWarningDetailed();
+
+        },
+        earlyWarning(type){
+            switch(type){
+                case 1:
+                    this.warningType = "yujing1";
+                    break;
+                case 2:
+                    this.warningType = "yujing2";
+                    break;
+                case 3:
+                    this.warningType = "yujing3";
+                    break;
+            }
+            this.getWarningDetailed();
         },
         filterData() {
             return res;
@@ -402,10 +424,11 @@
             })
         },
         getWarningDetailed(){
+            debugger;
             let param = {
                 countDate: this.form.date,//统计日期
                 products: this.getProduct(),// 产品列
-                type: "", // 预警类型 // yujing1: 一级 yujing2: 二级 yujing3: 三级
+                type: this.warningType, // 预警类型 // yujing1: 一级 yujing2: 二级 yujing3: 三级
                 page: this.page.currentPage,	//分页
                 pageSize: this.page.pagesize  //   分页
         }
@@ -499,6 +522,7 @@
             margin-top: 5px;
             font-size: 24px;
             color: #1c8ffe;
+            cursor: pointer;
         }
     }
 

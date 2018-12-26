@@ -1,5 +1,5 @@
 <template>
-    <el-select v-model="values" multiple filterable collapse-tags placeholder="无限制" size="mini" style="width: 251px;">
+    <el-select v-model="values"   @change="changeSelect(val)" multiple filterable collapse-tags placeholder="无限制" size="mini" style="width: 251px;">
         <el-option-group v-for="product in productGroup" :key="product.label" :label="product.label" @click.native="checkAllOpts">
             <el-option v-for="item in product.products" :key="item.chanpin_name" :label="item.chanpin_name" :value="item.chanpin_name" style="width: 251px">
             </el-option>
@@ -46,6 +46,10 @@
                     this.checkAll = true;
                 }
             },
+            changeSelect(val){
+                this.values = val
+                this.$emit('getWarningDetailed')
+            }
         }
     }
 </script>
