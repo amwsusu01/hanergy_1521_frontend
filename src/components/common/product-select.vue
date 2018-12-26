@@ -47,7 +47,7 @@
                 }
             },
             changeSelect(val){
-                this.values = val
+                this.values = val;
                 this.$emit('getWarningDetailed')
             }
         }

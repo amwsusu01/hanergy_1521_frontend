@@ -107,7 +107,7 @@
             form: {
                 keyword: '',
                 product: [],
-                date: ""
+                date: this.$moment().subtract(1,'days').format('YYYY-MM-DD')
             },
             shortLabel: 80,
             // options: {
@@ -121,7 +121,7 @@
             process: [],//阶段
             sumCount: [], //数量
             processCount: [],//百分比
-            warningType: "",
+            warningType: "yujing1",
             dataChart: [],
             warnChart: [],
             chartDataOption: {
@@ -424,7 +424,6 @@
             })
         },
         getWarningDetailed(){
-            debugger;
             let param = {
                 countDate: this.form.date,//统计日期
                 products: this.getProduct(),// 产品列
@@ -439,8 +438,8 @@
             })
         },
         getProduct() {
-            if (this.$refs['productSelect']) {
-                this.form.product = this.$refs['productSelect'].values.concat();
+            if (this.$refs['productList']) {
+                this.form.product = this.$refs['productList'].values.concat();
             }
             let resProducts = '';
             if (this.form.product.length > 0) {
@@ -474,7 +473,7 @@
         },
         productList: {
             get() {
-                return this.$store.state.common.product;
+                return this.$store.state.common.product||[];
             },
             set(val) {
                 this.$store.commit('productList', val);
@@ -490,11 +489,25 @@
         },
     },
     mounted() {
-        this.getData();
-        this.init(); //产品/事业/提交人表
-        this.getWarning(); //预警接口
-        this.getWarningDetailed(); //预警明细
-    }
+        //this.getData();
+        //this.init(); //产品/事业/提交人表
+
+        this.$nextTick(()=>{
+            if(this.productList.length > 0) {
+                this.getWarning(); //预警接口
+                this.getWarningDetailed(); //预警明细
+            }
+        })
+    },
+        watch:{
+        'productList':function (newVal,oldVal) {
+            if(newVal.length>0 && oldVal && oldVal.length ==0 ) {
+
+                this.getWarning(); //预警接口
+                this.getWarningDetailed(); //预警明细
+            }
+        }
+        }
 }
 </script>
 <style lang="scss" scoped>
