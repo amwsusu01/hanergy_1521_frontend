@@ -7,7 +7,7 @@
                         <el-form-item prop="product" label="产品系列" :label-width="shortLabel">
                             <product-select :productList="productList" ref="productList" @getWarningDetailed="getWarningDetailed()"></product-select>
                             <!--<el-select v-model="form.product" placeholder="无限制" style="width: 100%">-->
-                                <!--<el-option v-for="item in options.options1" :label="item.label" :value="item.value"></el-option>-->
+                            <!--<el-option v-for="item in options.options1" :label="item.label" :value="item.value"></el-option>-->
                             <!--</el-select>-->
                         </el-form-item>
                     </el-col>
@@ -92,9 +92,9 @@
     </div>
 </template>
 <script type="text/javascript">
-    import productSelect from '../../components/common/product-select';
+import productSelect from '../../components/common/product-select';
 
-    export default {
+export default {
     name: 'early-warning',
     data() {
         return {
@@ -107,7 +107,7 @@
             form: {
                 keyword: '',
                 product: [],
-                date: this.$moment().subtract(1,'days').format('YYYY-MM-DD')
+                date: this.$moment().subtract(1, 'days').format('YYYY-MM-DD')
             },
             shortLabel: 80,
             // options: {
@@ -118,10 +118,10 @@
             oneLevel: "",
             twoLevel: "",
             threeLevel: "",
-            process: [],//阶段
+            process: [], //阶段
             sumCount: [], //数量
-            processCount: [],//百分比
-            warningType: "yujing1",
+            processCount: [], //百分比
+            warningType: "",
             dataChart: [],
             warnChart: [],
             chartDataOption: {
@@ -170,17 +170,20 @@
                         type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
                     },
                 },
-                dataZoom: [{
-                    id: 'dataZoomX',
-                    type: 'slider',
-                    xAxisIndex: [0],
-                    filterMode: 'filter'
-                }, ],
+                // dataZoom: [{
+                //     id: 'dataZoomX',
+                //     type: 'slider',
+                //     xAxisIndex: [0],
+                //     filterMode: 'filter'
+                // }, ],
                 grid: {
-                    containLabel: true
+                    //containLabel: true
                 },
                 xAxis: {
                     type: 'category',
+                    axisLabel: {
+                        rotate: 45,
+                    },
                     splitLine: { show: false }, //横轴的线
                     data: this.process
                 },
@@ -240,22 +243,22 @@
             }
         }
     },
-        components: {
-            productSelect,
-        },
+    components: {
+        productSelect,
+    },
     methods: {
-        handelSelectLevel(type,per){
+        handelSelectLevel(type, per) {
             this.selectLevel = type;
             this.getWarning();
         },
-        changeDate(val){
+        changeDate(val) {
             this.form.date = val
             this.getWarning();
             this.getWarningDetailed();
 
         },
-        earlyWarning(type){
-            switch(type){
+        earlyWarning(type) {
+            switch (type) {
                 case 1:
                     this.warningType = "yujing1";
                     break;
@@ -273,7 +276,7 @@
         },
         CurrentChange(val) {
             this.page.currentPage = val
-             this.getWarningDetailed();
+            this.getWarningDetailed();
         },
         getData() {
             let oneOption = Object.assign(this.chartDataOption, {
@@ -319,9 +322,9 @@
             this.lineChart = this.echarts.init(document.getElementById('rightLineChart1'));
             this.lineChart.setOption(this.lineChartOption, true);
         },
-        getWarning(){
+        getWarning() {
             let warning = "10%"
-            switch (this.selectLevel){
+            switch (this.selectLevel) {
                 case 1:
                     warning = '10%';
                     break;
@@ -339,73 +342,70 @@
             }
             //预警统计图
             this.$api.common.getWarning(params).then(res => {
-                let yjcs =  JSON.parse(res.yjcs) || [];  //预警次数
+                let yjcs = JSON.parse(res.yjcs) || []; //预警次数
                 this.oneLevel = yjcs[0].one_count;
                 this.twoLevel = yjcs[0].two_count;
                 this.threeLevel = yjcs[0].three_count;
 
-                let yjqs =  JSON.parse(res.yjqs) || []; //预警趋势图
-                var dataChart= [];
+                let yjqs = JSON.parse(res.yjqs) || []; //预警趋势图
+                var dataChart = [];
                 var warnChart1 = [];
                 var warnChart2 = [];
                 var warnChart3 = [];
-                for(let i = 0; i< yjqs.length; i++){
+                for (let i = 0; i < yjqs.length; i++) {
                     warnChart1.push(yjqs[i].one_count);
                     warnChart2.push(yjqs[i].two_count);
                     warnChart3.push(yjqs[i].three_count);
                     dataChart.push(this.$moment(yjqs[i].in_date_qs).format("YYYY-MM-DD"));
                 }
                 this.oneLevelChart = this.echarts.init(document.getElementById('lineChart1'));
-                this.oneLevelChart.setOption(Object.assign(this.chartDataOption,
-                    {series: [{
-                            name: '预警数',
-                            data: warnChart1,
-                            type: 'line'
-                        }],
-                        xAxis: [{
-                            type: 'category',
-                            axisLabel: {
-                                rotate: 45,
-                            },
-                            data: dataChart
-                        }],
-                    }), true);
+                this.oneLevelChart.setOption(Object.assign(this.chartDataOption, {
+                    series: [{
+                        name: '预警数',
+                        data: warnChart1,
+                        type: 'line'
+                    }],
+                    xAxis: [{
+                        type: 'category',
+                        axisLabel: {
+                            rotate: 45,
+                        },
+                        data: dataChart
+                    }],
+                }), true);
 
                 this.twoLevelChart = this.echarts.init(document.getElementById('lineChart2'));
-                this.twoLevelChart.setOption(Object.assign(this.chartDataOption,
-                    {
-                        series: [{
-                            name: '预警数',
-                            data: warnChart2,
-                            type: 'line'
-                        }],
-                        xAxis: [{
-                            type: 'category',
-                            axisLabel: {
-                                rotate: 45,
-                            },
-                            data: dataChart
-                        }],
-                    }), true);
+                this.twoLevelChart.setOption(Object.assign(this.chartDataOption, {
+                    series: [{
+                        name: '预警数',
+                        data: warnChart2,
+                        type: 'line'
+                    }],
+                    xAxis: [{
+                        type: 'category',
+                        axisLabel: {
+                            rotate: 45,
+                        },
+                        data: dataChart
+                    }],
+                }), true);
 
                 this.threeLevelChart = this.echarts.init(document.getElementById('lineChart3'));
-                this.threeLevelChart.setOption(Object.assign(this.chartDataOption,
-                    {
-                        series: [{
-                            name: '预警数',
-                            data: warnChart3,
-                            type: 'line'
-                        }],
-                        xAxis: [{
-                            type: 'category',
-                            axisLabel: {
-                                rotate: 45,
-                            },
-                            data: dataChart
-                        }],
-                    }), true);
-                this.lineChart.setOption(this.lineChartOption, true);
-
+                this.threeLevelChart.setOption(Object.assign(this.chartDataOption, {
+                    series: [{
+                        name: '预警数',
+                        data: warnChart3,
+                        type: 'line'
+                    }],
+                    xAxis: [{
+                        type: 'category',
+                        axisLabel: {
+                            rotate: 45,
+                        },
+                        data: dataChart
+                    }],
+                }), true);
+                //this.lineChart.setOption(this.lineChartOption, true);
 
                 let yjjd = JSON.parse(res.yjjd) //预警节点柱状图
                 this.process = [];
@@ -419,18 +419,20 @@
                 var temp = this.lineChartOption;
                 temp.xAxis.data = this.process;
                 temp.series[0].data = this.sumCount;
-                temp.series[1].data = this.processCount
+                temp.series[1].data = this.processCount;
+                this.lineChart = this.echarts.init(document.getElementById('rightLineChart1'));
                 this.lineChart.setOption(temp, true);
+
             })
         },
-        getWarningDetailed(){
+        getWarningDetailed() {
             let param = {
-                countDate: this.form.date,//统计日期
-                products: this.getProduct(),// 产品列
+                countDate: this.form.date, //统计日期
+                products: this.getProduct(), // 产品列
                 type: this.warningType, // 预警类型 // yujing1: 一级 yujing2: 二级 yujing3: 三级
-                page: this.page.currentPage,	//分页
-                pageSize: this.page.pagesize  //   分页
-        }
+                page: this.page.currentPage, //分页
+                pageSize: this.page.pagesize //   分页
+            }
             //预警详细
             this.$api.common.warningDetailed(param).then(res => {
                 this.dataList = res.list || [];
@@ -453,7 +455,7 @@
             }
             return resProducts;
         },
-        init(){
+        init() {
             if (this.productList.length > 0) {
                 this.form.product = this.productList.map((a) => a.chanpin_name);
                 if (this.$refs['productList']) {
@@ -473,7 +475,7 @@
         },
         productList: {
             get() {
-                return this.$store.state.common.product||[];
+                return this.$store.state.common.product || [];
             },
             set(val) {
                 this.$store.commit('productList', val);
@@ -492,22 +494,22 @@
         //this.getData();
         //this.init(); //产品/事业/提交人表
 
-        this.$nextTick(()=>{
-            if(this.productList.length > 0) {
+        this.$nextTick(() => {
+            if (this.productList.length > 0) {
                 this.getWarning(); //预警接口
                 this.getWarningDetailed(); //预警明细
             }
         })
     },
-        watch:{
-        'productList':function (newVal,oldVal) {
-            if(newVal.length>0 && oldVal && oldVal.length ==0 ) {
+    watch: {
+        'productList': function(newVal, oldVal) {
+            if (newVal.length > 0 && oldVal && oldVal.length == 0) {
 
                 this.getWarning(); //预警接口
                 this.getWarningDetailed(); //预警明细
             }
         }
-        }
+    }
 }
 </script>
 <style lang="scss" scoped>
@@ -553,19 +555,21 @@
 .box {
     /deep/ .radio-button-groups {
         width: 100%;
-        text-align:center;
+        text-align: center;
+
         .tab-span {
             display: inline-block;
-            font-size:14px;
-            color:#666666;
-            width:73px;
+            font-size: 14px;
+            color: #666666;
+            width: 73px;
             height: 24px;
             line-height: 24px;
             border-radius: 12px;
             cursor: pointer;
 
-            &.active,&:hover {
-                background-color: rgba(30,144,254,0.1);
+            &.active,
+            &:hover {
+                background-color: rgba(30, 144, 254, 0.1);
                 color: #1e90fe;
             }
         }
