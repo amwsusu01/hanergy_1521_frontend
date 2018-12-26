@@ -185,6 +185,35 @@ function exportGet(url, params) {
             })
     })
 }
+/**
+ * @description 统一 Post 请求
+ * @param url
+ * @param params --> Post 请求参数（***?name=walid&age=25）
+ */
+function exportPost(url, params) {
+    Axios.defaults.responseType = 'blob';
+    return new Call((resolve, reject) => {
+        //给get请求后面追加时间戳
+        let timestamp = (new Date()).valueOf();
+        params.timestamp = timestamp
+
+        Axios.post(url,params,{ responseType: 'blob'})
+            .then(response => {
+
+                resolve(response) //res直接返回数据 无code 无data
+            })
+            .catch(error => {
+
+                console.log(url,'网络超时的URL',error);
+                vm.$message.error({
+                    message: '网络超时，请稍后重试',
+                    duration: 1000,
+                    center: true
+                });
+                reject(error)
+            })
+    })
+}
 
 /**
  * @description 统一 POST 请求
@@ -226,5 +255,5 @@ function direct(url) {
 }
 
 export default {
-    get, post, direct, get2,exportGet
+    get, post, direct, get2,exportGet,exportPost
 }

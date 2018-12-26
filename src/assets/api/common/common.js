@@ -44,4 +44,7 @@ export default {
     warningDetailed(obj) {
         return Api.post(apiURL.warningDetailed, obj);
     },
+    warningExportGet(obj) {
+        return Api.exportPost(apiURL.warningDetailed, obj);
+    },
 }

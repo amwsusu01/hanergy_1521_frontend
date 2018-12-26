@@ -93,6 +93,7 @@
 </template>
 <script type="text/javascript">
 import productSelect from '../../components/common/product-select';
+import { exportExl } from '../../utils';
 
 export default {
     name: 'early-warning',
@@ -376,7 +377,6 @@ export default {
                 //this.lineChart.setOption(this.lineChartOption, true);
 
                 let yjjd = JSON.parse(res.yjjd) //预警节点柱状图
-                //this.process = [];
                 ////排序，根据process
                 let sumCount = [],processCount=[];
                 for(let index =0; index < this.process.length; index++) {
@@ -403,7 +403,7 @@ export default {
                 products: this.getProduct(), // 产品列
                 type: this.warningType, // 预警类型 // yujing1: 一级 yujing2: 二级 yujing3: 三级
                 page: this.page.currentPage, //分页
-                pageSize: this.page.pagesize //   分页
+                pageSize: this.page.pagesize, //   分页
             }
             //预警详细
             this.$api.common.warningDetailed(param).then(res => {
@@ -434,6 +434,46 @@ export default {
                     this.$refs['productList'].values = this.form.product.concat();
                 }
             }
+        },
+        exportExl(type) {
+            let count = 0;
+            switch (type) {
+                case '67':
+                    count = this.page.totalNumber;
+                    break;
+            }
+            if (count >= 10000) {
+                this.$confirm('当前导出行数超过1万行， 是否继续?', '提示', {
+                    confirmButtonText: '继续',
+                    cancelButtonText: '取消',
+                    type: 'info'
+                }).then(() => {
+                    this.exportExlOk(type);
+                }).catch(() => {});
+            } else {
+                this.exportExlOk(type);
+            }
+        },
+
+        exportExlOk(type) {
+            let filename = '';
+            switch (type) {
+                case '67':
+                    filename = "到期明细表.xls";
+                    break;
+            }
+            let params = {
+                countDate: this.form.date, //统计日期
+                products: this.getProduct(), // 产品列
+                type: this.warningType, // 预警类型 // yujing1: 一级 yujing2: 二级 yujing3: 三级
+                page: this.page.currentPage, //分页
+                pageSize: this.page.pagesize, //   分页
+                isExprot: '1'
+            }
+            this.$api.common.warningExportGet(params).then(res => {
+                console.log(res,"========")
+                 exportExl(res, filename);
+            })
         }
     },
     computed: {

@@ -139,7 +139,8 @@ var Routers= [
                 component: function(resolve) {
                     require(['./module/product-provide-market/detail.vue'], resolve)
                 },
-                meta: { keepAlive: false }
+                meta: { keepAlive: false,
+                    title:'供应链明细表'}
             },
             //产供销一体化图标
             {
@@ -148,7 +149,8 @@ var Routers= [
                 component: function(resolve) {
                     require(['./module/product-provide-market/early-warning.vue'], resolve)
                 },
-                meta: { keepAlive: false }
+                meta: { keepAlive: false ,
+                    title:'预警订单延迟点'}
             },
 
         ]
