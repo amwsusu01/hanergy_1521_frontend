@@ -365,19 +365,19 @@
         //产供销一体化明细报表 接口
         getProductDetailed() {
             let params = {
-                CountDate: this.form.date1,	//#统计时间
-                Products: this.getProduct(), //#产品系列
-                CAIGOUSHENQING: this.form.caigoushenqing,//#采购申请
-                SHIYEBU: this.getSubmitter(),     	//#事业部
-                WULIAOMIAOSHU: this.form.wuliaomiaoshu,  	//#物料描述
-                NAME: this.getBusiness(), //	#提交人
-                PRJIHUA: this.form.date2, PRJIHUAEND: this.form.date3,	//#PR计划区间
-                PRSHIJI: this.form.date4, PRSHIJIEND: this.form.date5, //#PR实际区间
-                CAIGOUJIHUA: this.form.date6, CAIGOUJIHUAEND: this.form.date7, //#采购合同签署计划区间
-                CAIGOUSHIJI: this.form.date8, CAIGOUSHIJIEND: this.form.date9,   //#采购合同签署实际区间
+                countDate: this.form.date1,	//#统计时间
+                products: this.getProduct(), //#产品系列
+                caigoushenqing: this.form.caigoushenqing,//#采购申请
+                shiyebu: this.getBusiness(),     	//#事业部
+                wuliaomiaoshu: this.form.wuliaomiaoshu,  	//#物料描述
+                name: this.getSubmitter(), //	#提交人
+                prjihua: this.form.date2, prjihuaend: this.form.date3,	//#PR计划区间
+                prshiji: this.form.date4, prshijiend: this.form.date5, //#PR实际区间
+                caigoujihua: this.form.date6, caigoujihuaend: this.form.date7, //#采购合同签署计划区间
+                CAIGOUSHIJI: this.form.date8, caigoushijiend: this.form.date9,   //#采购合同签署实际区间
 
-                YUFUKUANJIHUA: this.form.date10, YUFUKUANJIHUAEND: this.form.date11,  //#预付款计划区间
-                YUFUKUANSHIJI: this.form.date12, YUFUKUANSHIJIEND: this.form.date13, //#预付款实际区间
+                yufukuanjihua: this.form.date10, YUFUKUANJIHUAEND: this.form.date11,  //#预付款计划区间
+                yufukuanshiji: this.form.date12, YUFUKUANSHIJIEND: this.form.date13, //#预付款实际区间
 
                 SHENGCHANJIHUA: this.form.date14, SHENGCHANJIHUAEND: this.form.date15,//#生产完成计划区间
                 SHENGCHANSHIJI: this.form.date16, SHENGCHANSHIJIEND: this.form.date17, //#生产完成实际区间
@@ -387,8 +387,8 @@
 
                 JIAOFUJIHUA:  this.form.date22, JIAOFUJIHUAEND: this.form.date23,//#交付计划区间
                 JIAOFUBIANGENG: this.form.date24, JIAOFUBIANGENGEND:  this.form.date25,//#交付实际区间
-                page: this.page.pagesize,
-                pageSize: this.page.currentPage,
+                page: this.page.currentPage,
+                pageSize: this.page.pagesize,
 
         };
             this.$api.common.getProductDetailed(params).then(res => {
@@ -424,6 +424,9 @@
             this.$refs['productList'].values = [];
             this.$refs['businessList'].values = [];
             this.$refs['submitterList'].values = [];
+            this.$nextTick(() => {
+                this.getProductDetailed();
+            })
         },
         getProduct() {
             if (this.$refs['productList']) {
@@ -501,12 +504,12 @@
                     break;
             }
             let params = {
-                CountDate: this.form.date1,	//#统计时间
+                countDate: this.form.date1,	//#统计时间
                 Products: this.getProduct(), //#产品系列
                 CAIGOUSHENQING: this.form.caigoushenqing,//#采购申请
-                SHIYEBU: this.getSubmitter(),     	//#事业部
-                WULIAOMIAOSHU: this.form.wuliaomiaoshu,  	//#物料描述
-                NAME: this.getBusiness(), //	#提交人
+                shiyebu: this.getBusiness(),     	//#事业部
+                wuliaomiaoshu: this.form.wuliaomiaoshu,  	//#物料描述
+                name: this.getSubmitter(), //	#提交人
                 PRJIHUA: this.form.date2, PRJIHUAEND: this.form.date3,	//#PR计划区间
                 PRSHIJI: this.form.date4, PRSHIJIEND: this.form.date5, //#PR实际区间
                 CAIGOUJIHUA: this.form.date6, CAIGOUJIHUAEND: this.form.date7, //#采购合同签署计划区间
@@ -523,8 +526,8 @@
 
                 JIAOFUJIHUA:  this.form.date22, JIAOFUJIHUAEND: this.form.date23,//#交付计划区间
                 JIAOFUBIANGENG: this.form.date24, JIAOFUBIANGENGEND:  this.form.date25,//#交付实际区间
-                page: this.page.pagesize,
-                pageSize: this.page.currentPage,
+                page: this.page.currentPage,
+                pageSize: this.page.pagesize,
                 isExprot: '1'
             };
             this.$api.common.getProductExportDetailed(params).then(res => {

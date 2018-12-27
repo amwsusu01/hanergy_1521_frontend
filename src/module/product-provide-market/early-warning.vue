@@ -11,12 +11,12 @@
                             <!--</el-select>-->
                         </el-form-item>
                     </el-col>
-                    <el-col :span="8">
+                    <el-col :span="7">
                         <el-form-item prop="date" label="日期" :label-width="shortLabel">
                             <el-date-picker type="date" placeholder="无限制" @change="changeDate" v-model="form.date" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
                         </el-form-item>
                     </el-col>
-                    <el-col :span="8" style="text-align: center">
+                    <el-col :span="9" style="text-align: left">
                         <el-button size="mini" type="primary"  @click="querySelect()">查询</el-button>
                         <el-button size="mini" type="primary" @click="resetForm('form')">重置</el-button>
                     </el-col>
