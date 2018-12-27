@@ -6,7 +6,7 @@
         <el-container :style="{ 'height': documentClientHeight-70 + 'px'}">
             <el-scrollbar style="height: 100%;width: 100%;" ref="globalScrollbar">
                 <div class="sidebar-container" :class="{'is-active':isCollapse}" @mouseenter="hanldeMouseenter(false)" @mouseleave="hanldeMouseenter(true)">
-                    <el-menu :default-active="53" :collapse="isCollapse" class="el-menu-vertical-demo" mode="vertical" :show-timeout="200" @open="handleOpen" @close="handleClose">
+                    <el-menu :default-active="is1521Sys" :collapse="isCollapse" class="el-menu-vertical-demo" mode="vertical" :show-timeout="200" @open="handleOpen" @close="handleClose">
                         <sidebar-item :menu="menuData" :isCollapse="isCollapse"></sidebar-item>
                     </el-menu>
                 </div>
@@ -15,7 +15,7 @@
                         <el-breadcrumb-item>{{breadMenu[0]}}</el-breadcrumb-item>
                         <el-breadcrumb-item>{{breadMenu[1]}}</el-breadcrumb-item>
                     </el-breadcrumb>
-                    <div class="rightline">更新时间: {{updateTime}}</div>
+                    <div class="rightline" v-show="is1521Sys==true">更新时间: {{updateTime}}</div>
                     <router-view></router-view>
                 </el-main>
             </el-scrollbar>
@@ -42,6 +42,22 @@ export default {
         };
     },
     computed: {
+        is1521Sys:{
+            get(){
+                if (this.$route.name == 'canteenCartBig' || this.$route.name == 'canteenOrder' || this.$router.name == 'canteenHistoryOrder' || this.$router.name == 'canteenReceiverOrder' || this.$router.name == '') {
+                    return true;
+                } else return false;
+            }
+        },
+        activeFirstMenuID:{
+            get(){
+                if(this.is1521Sys == true) {
+                    return '53';
+                } else {
+                    return '102';
+                }
+            }
+        },
         sysTitle: {
             get() {
                 return this.$store.state.common.sysTitle;
@@ -127,7 +143,7 @@ export default {
         }
     },
     methods: {
-        getDimension(){
+        getDimension() {
             this.$api.common.getDimension().then(res => {
                 this.setPsmDept = JSON.parse(res.dept)
                 this.setPsmProduct = JSON.parse(res.product)
@@ -141,20 +157,25 @@ export default {
                 return false;
         },
         hanldeMouseenter(value) {
-            if(!this.isIE()) {
+            if (!this.isIE()) {
                 this.isCollapse = value;
             }
         },
         init() {
-            this.$api.common.getUpdateData().then(res => {
-                if (res.Date) {
-                    this.updateTime = res.Date;
-                } else {
-                    this.updateTime = '';
-                }
-            })
+            if(!this.is1521Sys) return;
+            //只在1521系统时请求
+            if (this.$route.name == 'canteenPurchase' || this.$route.name == 'canteenOrder' || this.$router.name == 'canteenHistoryOrder' || this.$router.name == 'canteenReceiverOrder' || this.$router.name == '') {
+                this.$api.common.getUpdateData().then(res => {
+                    if (res.Date) {
+                        this.updateTime = res.Date;
+                    } else {
+                        this.updateTime = '';
+                    }
 
-            this.getSelectPermission();
+                    this.getSelectPermission();
+
+                })
+            }
         },
 
         //部门接口
@@ -218,20 +239,23 @@ export default {
 .el-main {
     overflow-x: hidden;
 }
-    .openMenu{
-        margin-left: 64px;
-    }
-    .closeMenu{
-        margin-left: 220px;
-    }
+
+.openMenu {
+    margin-left: 64px;
+}
+
+.closeMenu {
+    margin-left: 220px;
+}
 </style>
 <style lang="less">
 .sidebar-container {
-        position: fixed;
-        top: 60px;
-        left: 0px;
-        z-index: 9999;
+    position: fixed;
+    top: 60px;
+    left: 0px;
+    z-index: 9999;
 }
+
 .el-container {
     .el-scrollbar__wrap {
         overflow-x: hidden;

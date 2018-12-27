@@ -19,14 +19,7 @@ var Routers= [
         meta: { keepAlive: false },
         children: [
             // 报表 首页
-            {
-                path: '/homehh',
-                name: 'canteenPurchase',
-                component: function(resolve) {
-                    require(['./module/canteen/canteenPurchase/canteenPurchase.vue'], resolve)
-                },
-                meta: { keepAlive: true }
-            }, // 1521数据汇总统计
+            // 1521数据汇总统计
             {
                 path: '/Logsummarystatistics',
                 name: 'canteenOrder',
@@ -144,8 +137,7 @@ var Routers= [
                     require(['./module/product-provide-market/early-warning.vue'], resolve)
                 },
                 meta: { keepAlive: false}
-            },
-
+            }
         ]
     },
 ]
@@ -155,7 +147,7 @@ import Router from 'vue-router'
 // 并且配置路由规则
 const router = new Router({
   mode: 'history',
-  // base:'/BigdataPlatform/', //生产环境下需要配置
+ // base:'/BigdataPlatform/', //生产环境下需要配置
   routes: Routers
 })
 

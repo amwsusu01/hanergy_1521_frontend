@@ -22,13 +22,13 @@ const common = {
             state.curMenuID = id;
         },
         setMenuData(state, data) {
-            if (data && data.length > 0) {
-                data[0].icon = "el-icon-tickets";
+            // if (data && data.length > 0) {
+            //     data[0].icon = "el-icon-tickets";
 
-                if(data.length > 1) {
-                    data[1].icon = 'iconfont icon-gongyinglianzhineng';
-                }
-            }
+            //     if(data.length > 1) {
+            //         data[1].icon = 'iconfont icon-gongyinglianzhineng';
+            //     }
+            // }
 
             let menu = [];
             let _menu = getMenuData(data, menu);
