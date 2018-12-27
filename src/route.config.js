@@ -33,9 +33,7 @@ var Routers= [
                 component: function(resolve) {
                     require(['./module/canteen/canteenOrder/canteenOrder.vue'], resolve)
                 },
-                meta: { keepAlive: false,
-                    title:'1521数据汇总统计'
-                 }
+                meta: { keepAlive: false}
             }, // 1521明细统计
             {
                 path: '/Logdetailstatistics',
@@ -43,8 +41,7 @@ var Routers= [
                 component: function(resolve) {
                     require(['./module/canteen/canteenHistoryOrder/canteenHistoryOrder.vue'], resolve)
                 },
-                meta: { keepAlive: false,
-                title:'1521明细统计' }
+                meta: { keepAlive: false}
             }, //部门热词
             {
                 path: '/Departmentofhotword',
@@ -52,8 +49,7 @@ var Routers= [
                 component: function(resolve) {
                     require(['./module/canteen/canteenReceiverOrder/canteenReceiverOrder.vue'], resolve)
                 },
-                meta: { keepAlive: false,
-                title:'部门热词' }
+                meta: { keepAlive: false}
             }, // 1521问题和反省明细
             {
                 path: '/Theproblemtoreflect',
@@ -61,8 +57,7 @@ var Routers= [
                 component: function(resolve) {
                     require(['./module/canteen/canteenCartBig/canteenCartBig.vue'], resolve)
                 },
-                meta: { keepAlive: false,
-                title:'1521问题和反省明细' }
+                meta: { keepAlive: false}
             },
             // // 离职人员汇总统计
             // {
@@ -139,8 +134,7 @@ var Routers= [
                 component: function(resolve) {
                     require(['./module/product-provide-market/detail.vue'], resolve)
                 },
-                meta: { keepAlive: false,
-                    title:'供应链明细表'}
+                meta: { keepAlive: false}
             },
             //产供销一体化图标
             {
@@ -149,8 +143,7 @@ var Routers= [
                 component: function(resolve) {
                     require(['./module/product-provide-market/early-warning.vue'], resolve)
                 },
-                meta: { keepAlive: false ,
-                    title:'预警订单延迟点'}
+                meta: { keepAlive: false}
             },
 
         ]

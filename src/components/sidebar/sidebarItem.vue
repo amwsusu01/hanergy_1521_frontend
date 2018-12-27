@@ -23,6 +23,8 @@
 </template>
 <script>
 //import { resolveUrlPath } from "@/util/util";
+import { _setTitle} from '../../assets/js/util';
+
 export default {
     name: "sidebar-item",
     data() {
@@ -45,6 +47,7 @@ export default {
         },
         open(item) {
             if (item.url != '' && item.url != "‘’") {
+                _setTitle(item.name)
                 this.$store.commit('setBreadcrumbMenu', [this.name||'', item.name]);
                 this.$router.push({
                     name: item.url
