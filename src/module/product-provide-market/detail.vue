@@ -4,263 +4,261 @@
             <el-form ref="form" label-position="left" :inline="true" :model="form" label-width="130px" class="contain" size="mini" @submit.native.prevent>
                 <el-row>
                     <el-col :span="24">
-                        <el-form-item prop="date" label="统计日期">
-                            <el-date-picker type="date" placeholder="统计日期" v-model="form.date" style="width: 100%;"></el-date-picker>
+                        <el-form-item prop="date1" label="统计日期">
+                            <el-date-picker type="date" placeholder="统计日期" v-model="form.date1" value-format="yyyy-MM-dd"  style="width: 100%;"></el-date-picker>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="5">
                         <el-form-item class="contain-form-item" prop="xilie" label="产品系列" :label-width="shortLabel">
-                            <el-input></el-input>
-                            <!--<el-select v-model="form.xilie" placeholder="无限制" style="width: 100%">-->
-                                <!--<el-option v-for="item in options.options1" :label="item.label" :value="item.value"></el-option>-->
-                            <!--</el-select>-->
+                            <product-select :productList="productList" ref="productList"></product-select>
                         </el-form-item>
                     </el-col>
                     <el-col :span="5">
                         <el-form-item class="contain-form-item" prop="caigoushenqing" label="采购申请" :label-width="shortLabel">
-                            <el-select v-model="form.caigoushenqing" placeholder="无限制">
-                                <el-option v-for="item in options.options1" :label="item.label" :value="item.value"></el-option>
-                            </el-select>
+                            <el-input v-model="form.caigoushenqing"  placeholder="无限制"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :span="4">
                         <el-form-item class="contain-form-item" prop="shiyebu" label="事业部" :label-width="shortLabel">
                             <el-select v-model="form.shiyebu" placeholder="无限制">
-                                <el-option v-for="item in options.options1" :label="item.label" :value="item.value"></el-option>
+                                <el-option v-for="item in option.options2" :label="item.label" :value="item.value"></el-option>
                             </el-select>
                         </el-form-item>
                     </el-col>
                     <el-col :span="5">
                         <el-form-item class="contain-form-item" prop="wuliaomiaoshu" label="物料描述" :label-width="shortLabel">
-                            <el-select v-model="form.wuliaomiaoshu" placeholder="无限制">
-                                <el-option v-for="item in options.options1" :label="item.label" :value="item.value"></el-option>
-                            </el-select>
+                            <el-input v-model="form.wuliaomiaoshu"  placeholder="无限制"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :span="5">
                         <el-form-item class="contain-form-item" prop="tijiaoren" label="提交人" :label-width="shortLabel">
                             <el-select v-model="form.tijiaoren" placeholder="无限制">
-                                <el-option v-for="item in options.options1" :label="item.label" :value="item.value"></el-option>
+                                <el-option v-for="item in option.options3" :label="item.label" :value="item.value"></el-option>
                             </el-select>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="PR计划区间" class="contain-time-form-item">
+                        <el-form-item label="PR计划区间"  prop="date2" class="contain-time-form-item">
                             <el-col :span="11">
-                                <el-date-picker type="date" placeholder="无限制" v-model="form.date1" style="width: 100%;"></el-date-picker>
+                                <el-date-picker type="date" placeholder="无限制" v-model="form.date2" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
                             </el-col>
                             <el-col class="line" :span="2">-</el-col>
                             <el-col :span="11">
-                                <el-date-picker type="date" placeholder="无限制" v-model="form.date2" style="width: 100%;"></el-date-picker>
+                                <el-date-picker type="date" placeholder="无限制" v-model="form.date3" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
                             </el-col>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="PR实际区间" class="contain-time-form-item">
+                        <el-form-item label="PR实际区间"  prop="date4" class="contain-time-form-item">
                             <el-col :span="11">
-                                <el-date-picker type="date" placeholder="无限制" v-model="form.date3" style="width: 100%;"></el-date-picker>
+                                <el-date-picker type="date" placeholder="无限制" v-model="form.date4" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
                             </el-col>
                             <el-col class="line" :span="2">-</el-col>
                             <el-col :span="11">
-                                <el-date-picker type="date" placeholder="无限制" v-model="form.date4" style="width: 100%;"></el-date-picker>
+                                <el-date-picker type="date" placeholder="无限制" v-model="form.date5" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
                             </el-col>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="采购合同计划区间" class="contain-time-form-item">
+                        <el-form-item label="采购合同计划区间"  prop="date6" class="contain-time-form-item">
                             <el-col :span="11">
-                                <el-date-picker type="date" placeholder="无限制" v-model="form.date1" style="width: 100%;"></el-date-picker>
+                                <el-date-picker type="date" placeholder="无限制" v-model="form.date6" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
                             </el-col>
                             <el-col class="line" :span="2">-</el-col>
                             <el-col :span="11">
-                                <el-date-picker type="date" placeholder="无限制" v-model="form.date2" style="width: 100%;"></el-date-picker>
+                                <el-date-picker type="date" placeholder="无限制" v-model="form.date7" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
                             </el-col>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="采购合同实际区间" class="contain-time-form-item">
+                        <el-form-item label="采购合同实际区间"  prop="date8"  class="contain-time-form-item">
                             <el-col :span="11">
-                                <el-date-picker type="date" placeholder="无限制" v-model="form.date3" style="width: 100%;"></el-date-picker>
+                                <el-date-picker type="date" placeholder="无限制" v-model="form.date8" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
                             </el-col>
                             <el-col class="line" :span="2">-</el-col>
                             <el-col :span="11">
-                                <el-date-picker type="date" placeholder="无限制" v-model="form.date4" style="width: 100%;"></el-date-picker>
+                                <el-date-picker type="date" placeholder="无限制" v-model="form.date9" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
                             </el-col>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="预付款计划区间" class="contain-time-form-item">
+                        <el-form-item label="预付款计划区间"  prop="date10"  class="contain-time-form-item">
                             <el-col :span="11">
-                                <el-date-picker type="date" placeholder="无限制" v-model="form.date5" style="width: 100%;"></el-date-picker>
+                                <el-date-picker type="date" placeholder="无限制" v-model="form.date10" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
                             </el-col>
                             <el-col class="line" :span="2">-</el-col>
                             <el-col :span="11">
-                                <el-date-picker type="date" placeholder="无限制" v-model="form.date6" style="width: 100%;"></el-date-picker>
+                                <el-date-picker type="date" placeholder="无限制" v-model="form.date11" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
                             </el-col>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="预付款实际区间" class="contain-time-form-item">
+                        <el-form-item label="预付款实际区间"  prop="date12"  class="contain-time-form-item">
                             <el-col :span="11">
-                                <el-date-picker type="date" placeholder="无限制" v-model="form.date7" style="width: 100%;"></el-date-picker>
+                                <el-date-picker type="date" placeholder="无限制" v-model="form.date12" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
                             </el-col>
                             <el-col class="line" :span="2">-</el-col>
                             <el-col :span="11">
-                                <el-date-picker type="date" placeholder="无限制" v-model="form.date8" style="width: 100%;"></el-date-picker>
+                                <el-date-picker type="date" placeholder="无限制" v-model="form.date13" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
                             </el-col>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="生产计划区间" class="contain-time-form-item">
+                        <el-form-item label="生产计划区间"  prop="date14"  class="contain-time-form-item">
                             <el-col :span="11">
-                                <el-date-picker type="date" placeholder="无限制" v-model="form.date41" style="width: 100%;"></el-date-picker>
+                                <el-date-picker type="date" placeholder="无限制" v-model="form.date14" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
                             </el-col>
                             <el-col class="line" :span="2">-</el-col>
                             <el-col :span="11">
-                                <el-date-picker type="date" placeholder="无限制" v-model="form.date42" style="width: 100%;"></el-date-picker>
+                                <el-date-picker type="date" placeholder="无限制" v-model="form.date15" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
                             </el-col>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="生产实际区间" class="contain-time-form-item">
+                        <el-form-item label="生产实际区间"  prop="date16"  class="contain-time-form-item">
                             <el-col :span="11">
-                                <el-date-picker type="date" placeholder="无限制" v-model="form.date43" style="width: 100%;"></el-date-picker>
+                                <el-date-picker type="date" placeholder="无限制" v-model="form.date16" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
                             </el-col>
                             <el-col class="line" :span="2">-</el-col>
                             <el-col :span="11">
-                                <el-date-picker type="date" placeholder="无限制" v-model="form.date44" style="width: 100%;"></el-date-picker>
+                                <el-date-picker type="date" placeholder="无限制" v-model="form.date17" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
                             </el-col>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="提货款计划区间" class="contain-time-form-item">
+                        <el-form-item label="提货款计划区间"  prop="date18"  class="contain-time-form-item">
                             <el-col :span="11">
-                                <el-date-picker type="date" placeholder="无限制" v-model="form.date51" style="width: 100%;"></el-date-picker>
+                                <el-date-picker type="date" placeholder="无限制" v-model="form.date18" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
                             </el-col>
                             <el-col class="line" :span="2">-</el-col>
                             <el-col :span="11">
-                                <el-date-picker type="date" placeholder="无限制" v-model="form.date52" style="width: 100%;"></el-date-picker>
+                                <el-date-picker type="date" placeholder="无限制" v-model="form.date19" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
                             </el-col>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="提货款实际区间" class="contain-time-form-item">
+                        <el-form-item label="提货款实际区间"  prop="date20"  class="contain-time-form-item">
                             <el-col :span="11">
-                                <el-date-picker type="date" placeholder="无限制" v-model="form.date53" style="width: 100%;"></el-date-picker>
+                                <el-date-picker type="date" placeholder="无限制" v-model="form.date20" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
                             </el-col>
                             <el-col class="line" :span="2">-</el-col>
                             <el-col :span="11">
-                                <el-date-picker type="date" placeholder="无限制" v-model="form.date54" style="width: 100%;"></el-date-picker>
+                                <el-date-picker type="date" placeholder="无限制" v-model="form.date21" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
                             </el-col>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="交付计划区间" class="contain-time-form-item">
+                        <el-form-item label="交付计划区间" prop="date22"  class="contain-time-form-item">
                             <el-col :span="11">
-                                <el-date-picker type="date" placeholder="无限制" v-model="form.date51" style="width: 100%;"></el-date-picker>
+                                <el-date-picker type="date" placeholder="无限制" v-model="form.date22" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
                             </el-col>
                             <el-col class="line" :span="2">-</el-col>
                             <el-col :span="11">
-                                <el-date-picker type="date" placeholder="无限制" v-model="form.date52" style="width: 100%;"></el-date-picker>
+                                <el-date-picker type="date" placeholder="无限制" v-model="form.date23" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
                             </el-col>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="交付实际区间" class="contain-time-form-item">
+                        <el-form-item label="交付实际区间"  prop="date24" class="contain-time-form-item">
                             <el-col :span="11">
-                                <el-date-picker type="date" placeholder="无限制" v-model="form.date53" style="width: 100%;"></el-date-picker>
+                                <el-date-picker type="date" placeholder="无限制" v-model="form.date24" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
                             </el-col>
                             <el-col class="line" :span="2">-</el-col>
                             <el-col :span="11">
-                                <el-date-picker type="date" placeholder="无限制" v-model="form.date54" style="width: 100%;"></el-date-picker>
+                                <el-date-picker type="date" placeholder="无限制" v-model="form.date25" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
                             </el-col>
                         </el-form-item>
                     </el-col>
                 </el-row>
-                <!-- <el-form-item>
-                    <el-button type="primary" @click.prevent="filterData">查询</el-button>
-                </el-form-item> -->
+                <el-row>
+                    <el-form-item>
+                        <el-col :span="8"><el-button type="primary" size="mini" @click.prevent="querySelect()">查询</el-button></el-col>
+                        <el-col :span="8"><el-button type="primary" size="mini" @click.prevent="resetForm('form')">重置</el-button></el-col>
+                    </el-form-item>
+                </el-row>
             </el-form>
             <div style="width:100%;max-width: 1200px;position: relative;" class="table-container">
                 <el-button class="exp-btn" plain size="small" @click="exportExl('67')">导出</el-button>
                 <el-table :data="data" border style="width: 100%" height="200" max-height="700">
                    <!--  <el-table-column label="明细表" fixed  label-class-name="table-title title-th"> -->
-                        <el-table-column label='' fixed label-class-name="title-th" width="800">
-                            <el-table-column prop="jobNumber" label-class-name="title-th" label="序号" width="50">
+                        <el-table-column label='' fixed label-class-name="title-th">
+                            <el-table-column prop="index" label-class-name="title-th" label="序号" width="50">
                             </el-table-column>
-                            <el-table-column prop="username" label-class-name="title-th" label="产品系列" width="150">
+                            <el-table-column prop="CHANPIN_NAME" label-class-name="title-th" label="产品系列" width="150">
                             </el-table-column>
-                            <el-table-column prop="department" label-class-name="title-th" label="采购申请号" width="100">
+
+                            <el-table-column prop="FD_CAIGOUSHENQING" label-class-name="title-th" label="采购申请号" width="100">
                             </el-table-column>
-                            <el-table-column prop="jobNumber" label-class-name="title-th" label="事业部" width="100">
+                            <el-table-column prop="FD_SHIYEBU" label-class-name="title-th" label="事业部" width="100">
                             </el-table-column>
-                            <el-table-column prop="email" label-class-name="title-th" label="物料号" show-overflow-tooltip width="100">
+                            <el-table-column prop="FD_WULIAOBIANHAO" label-class-name="title-th" label="物料号" show-overflow-tooltip width="100">
                             </el-table-column>
-                            <el-table-column prop="email" label-class-name="title-th" label="物料描述" show-overflow-tooltip width="100">
+                            <el-table-column prop="FD_WULIAOMIAOSHU" label-class-name="title-th" label="物料描述" show-overflow-tooltip width="100">
                             </el-table-column>
-                            <el-table-column prop="email" label-class-name="title-th" label="提交人" show-overflow-tooltip width="100">
+
+                            <el-table-column prop="CHANPIN_NAME" label-class-name="title-th" label="提交人" show-overflow-tooltip width="100">
                             </el-table-column>
-                            <el-table-column prop="email" label-class-name="title-th"  label="预警" show-overflow-tooltip width="100">
+                            <el-table-column prop="CHANPIN_NAME" label-class-name="title-th"  label="预警" show-overflow-tooltip width="100">
                             </el-table-column>
                         </el-table-column>
                         <el-table-column label='PR' label-class-name="title-th">
-                            <el-table-column prop="email" label="计划" label-class-name="title-th" show-overflow-tooltip width="100">
+                            <el-table-column prop="CHANPIN_NAME" label="计划" label-class-name="title-th" show-overflow-tooltip width="100">
                             </el-table-column>
-                            <el-table-column prop="email" label="实际" label-class-name="title-th" show-overflow-tooltip width="100">
+                            <el-table-column prop="CHANPIN_NAME" label="实际" label-class-name="title-th" show-overflow-tooltip width="100">
                             </el-table-column>
                         </el-table-column>
                         <el-table-column label='采购合同' label-class-name="title-th">
-                            <el-table-column prop="email" label="签署计划" label-class-name="title-th" show-overflow-tooltip width="100">
+                            <el-table-column prop="CHANPIN_NAME" label="签署计划" label-class-name="title-th" show-overflow-tooltip width="100">
                             </el-table-column>
-                            <el-table-column prop="email" label="签署变更" label-class-name="title-th" show-overflow-tooltip width="100">
+                            <el-table-column prop="CHANPIN_NAME" label="签署变更" label-class-name="title-th" show-overflow-tooltip width="100">
                             </el-table-column>
-                            <el-table-column prop="email" label="签署实际" label-class-name="title-th" show-overflow-tooltip width="100">
+                            <el-table-column prop="CHANPIN_NAME" label="签署实际" label-class-name="title-th" show-overflow-tooltip width="100">
                             </el-table-column>
                         </el-table-column>
                         <el-table-column label='预付款' label-class-name="title-th">
-                            <el-table-column prop="email" label="计划" label-class-name="title-th" show-overflow-tooltip width="100">
+                            <el-table-column prop="CHANPIN_NAME" label="计划" label-class-name="title-th" show-overflow-tooltip width="100">
                             </el-table-column>
-                            <el-table-column prop="email" label="变更" label-class-name="title-th" show-overflow-tooltip width="100">
+                            <el-table-column prop="CHANPIN_NAME" label="变更" label-class-name="title-th" show-overflow-tooltip width="100">
                             </el-table-column>
-                            <el-table-column prop="email" label="实际" label-class-name="title-th" show-overflow-tooltip width="100">
+                            <el-table-column prop="CHANPIN_NAME" label="实际" label-class-name="title-th" show-overflow-tooltip width="100">
                             </el-table-column>
                         </el-table-column>
                         <el-table-column label='生产' label-class-name="title-th">
-                            <el-table-column prop="email" label="计划" label-class-name="title-th" show-overflow-tooltip width="100">
+                            <el-table-column prop="CHANPIN_NAME" label="计划" label-class-name="title-th" show-overflow-tooltip width="100">
                             </el-table-column>
-                            <el-table-column prop="email" label="变更"  label-class-name="title-th" show-overflow-tooltip width="100">
+                            <el-table-column prop="CHANPIN_NAME" label="变更"  label-class-name="title-th" show-overflow-tooltip width="100">
                             </el-table-column>
-                            <el-table-column prop="email" label="实际" label-class-name="title-th" show-overflow-tooltip width="100">
+                            <el-table-column prop="CHANPIN_NAME" label="实际" label-class-name="title-th" show-overflow-tooltip width="100">
                             </el-table-column>
                         </el-table-column>
                         <el-table-column label='提货款' label-class-name="title-th">
-                            <el-table-column prop="email" label="计划" label-class-name="title-th" show-overflow-tooltip width="100">
+                            <el-table-column prop="CHANPIN_NAME" label="计划" label-class-name="title-th" show-overflow-tooltip width="100">
                             </el-table-column>
-                            <el-table-column prop="email" label="变更"  label-class-name="title-th" show-overflow-tooltip width="100">
+                            <el-table-column prop="CHANPIN_NAME" label="变更"  label-class-name="title-th" show-overflow-tooltip width="100">
                             </el-table-column>
-                            <el-table-column prop="email" label="实际" label-class-name="title-th" show-overflow-tooltip width="100">
+                            <el-table-column prop="CHANPIN_NAME" label="实际" label-class-name="title-th" show-overflow-tooltip width="100">
                             </el-table-column>
                         </el-table-column>
                         <el-table-column label='交付' label-class-name="title-th">
-                            <el-table-column prop="email" label="计划" label-class-name="title-th" show-overflow-tooltip width="100">
+                            <el-table-column prop="CHANPIN_NAME" label="计划" label-class-name="title-th" show-overflow-tooltip width="100">
                             </el-table-column>
-                            <el-table-column prop="email" label="变更" label-class-name="title-th" show-overflow-tooltip width="100">
+                            <el-table-column prop="CHANPIN_NAME" label="变更" label-class-name="title-th" show-overflow-tooltip width="100">
                             </el-table-column>
-                            <el-table-column prop="email" label="实际" label-class-name="title-th" show-overflow-tooltip width="100">
+                            <el-table-column prop="CHANPIN_NAME" label="实际" label-class-name="title-th" show-overflow-tooltip width="100">
                             </el-table-column>
                         </el-table-column>
                     <!-- </el-table-column> -->
@@ -274,7 +272,9 @@
     </div>
 </template>
 <script type="text/javascript">
-export default {
+    import { exportExl } from '../../utils';
+    import productSelect from '../../components/common/product-select';
+    export default {
     name: 'detail',
     data() {
         return {
@@ -285,7 +285,61 @@ export default {
                 currentPage: 1 // 当前页
             },
             form: {
-                keyword: ''
+                date1: this.$moment().subtract(1, 'days').format('YYYY-MM-DD'),
+                date2: "",
+                date3: "",
+                date4: "",
+                date5: "",
+                date6: "",
+                date7: "",
+                date8: "",
+                date9: "",
+                date10: "",
+                date11: "",
+                date12: "",
+                date13: "",
+                date14: "",
+                date15: "",
+                date16: "",
+                date17: "",
+                date18: "",
+                date19: "",
+                date20: "",
+                date21: "",
+                date22: "",
+                date23: "",
+                date24: "",
+                date25: "",
+                tijiaoren: "",
+                xilie: "",
+                shiyebu: "",
+                caigoushenqing:"",
+                wuliaomiaoshu: ""
+            },
+            option: {
+                options1: [
+                    {
+                        label: '全部',
+                        value: 1
+                    }, {
+                        label: '全部',
+                        value: 2
+                    }, {
+                        label: '全部',
+                        value: 3
+                    }],
+                options2: [
+                    {
+                        label: '全部',
+                        value: 1
+                    }, {
+                        label: '全部',
+                        value: 2
+                    }, {
+                        label: '全部',
+                        value: 3
+                    }],
+                options3: []
             },
             shortLabel: 70,
             pickerOptions: {
@@ -293,55 +347,165 @@ export default {
                     return this.$moment(time).isBefore(this.form.date.startTime);
                 }
             },
-            options: {
-                options1: [{
-                    label: '全部',
-                    value: 1
-                }, {
-                    label: '全部',
-                    value: 2
-                }, {
-                    label: '全部',
-                    value: 3
-                }],
-                options2: [{
-                    label: '全部',
-                    value: 1
-                }, {
-                    label: '全部',
-                    value: 2
-                }, {
-                    label: '全部',
-                    value: 3
-                }],
-                options3: [{
-                    label: '全部',
-                    value: 1
-                }, {
-                    label: '全部',
-                    value: 2
-                }, {
-                    label: '全部',
-                    value: 3
-                }],
-
-            }
         }
+    },
+    components: {
+        productSelect,
+    },
+    computed: {
+        setPsmDept: {
+            get() {
+                return this.$store.state.common.dept;
+            },
+            set(val) {
+                this.$store.commit('setPsmDept', val);
+            }
+        },
+        productList: {
+            get() {
+                return this.$store.state.common.product || [];
+            },
+            set(val) {
+                this.$store.commit('productList', val);
+            }
+        },
+        setPsmUser: {
+            get() {
+                return this.$store.state.common.psmuser;
+            },
+            set(val) {
+                this.$store.commit('setPsmUser', val);
+            }
+        },
     },
     methods: {
         filterData() {
             return res;
         },
         CurrentChange(val) {
-            this.page.currentPage = val
+            this.page.currentPage = val;
+            this.getProductDetailed();
+        },
+        //产供销一体化明细报表 接口
+        getProductDetailed() {
+            let params = {
+                CountDate: this.form.date1,	//#统计时间
+                Products: this.form.xilie, //#产品系列
+                CAIGOUSHENQING: "",//#采购申请
+                SHIYEBU: this.form.shiyebu,     	//#事业部
+                WULIAOMIAOSHU: "",  	//#物料描述
+                NAME: this.form.tijiaoren, //	#提交人
+                PRJIHUA: this.form.date2, PRJIHUAEND: this.form.date3,	//#PR计划区间
+                PRSHIJI: this.form.date4, PRSHIJIEND: this.form.date5, //#PR实际区间
+                CAIGOUJIHUA: this.form.date6, CAIGOUJIHUAEND: this.form.date7, //#采购合同签署计划区间
+                CAIGOUSHIJI: this.form.date8, CAIGOUSHIJIEND: this.form.date9,   //#采购合同签署实际区间
+
+                YUFUKUANJIHUA: this.form.date10, YUFUKUANJIHUAEND: this.form.date11,  //#预付款计划区间
+                YUFUKUANSHIJI: this.form.date12, YUFUKUANSHIJIEND: this.form.date13, //#预付款实际区间
+
+                SHENGCHANJIHUA: this.form.date14, SHENGCHANJIHUAEND: this.form.date15,//#生产完成计划区间
+                SHENGCHANSHIJI: this.form.date16, SHENGCHANSHIJIEND: this.form.date17, //#生产完成实际区间
+
+                TIHUOKUANJIHUA: this.form.date18, TIHUOKUANJIHUAEND: this.form.date19, //#提货款计划区间
+                TIHUOKUANSHIJI: this.form.date20, TIHUOKUANSHIJIEND: this.form.date21,  //#提货款实际区间
+
+                JIAOFUJIHUA:  this.form.date22, JIAOFUJIHUAEND: this.form.date23,//#交付计划区间
+                JIAOFUBIANGENG: this.form.date24, JIAOFUBIANGENGEND:  this.form.date25,//#交付实际区间
+                page: this.page.pagesize,
+                pageSize: this.page.currentPage,
+
+        };
+            this.$api.common.getProductDetailed(params).then(res => {
+                    console.log(res,"===lkljoj===")
+                this.page.totalNumber = res.count;
+                    this.data = res.list || [];
+            })
 
         },
-        getData() {
+        //查询
+        querySelect(){
+            this.getProductDetailed();
+        },
+        //重置
+        resetForm(){
+            let _this = this;
+            _this.$refs.form.resetFields();
+            _this.form.date3 = "";
+            _this.form.date5 = "";
+            _this.form.date7 = "";
+            _this.form.date9 = "";
+            _this.form.date11 = "";
+            _this.form.date13 = "";
+            _this.form.date15 = "";
+            _this.form.date17 = "";
+            _this.form.date19 = "";
+            _this.form.date21 = "";
+            _this.form.date23 = "";
+            _this.form.date25 = "";
+        },
+        exportExl(type) {
+            let count = 0;
+            switch (type) {
+                case '67':
+                    count = this.page.totalNumber;
+                    break;
+            }
+            if (count >= 10000) {
+                this.$confirm('当前导出行数超过1万行， 是否继续?', '提示', {
+                    confirmButtonText: '继续',
+                    cancelButtonText: '取消',
+                    type: 'info'
+                }).then(() => {
+                    this.exportExlOk(type);
+                }).catch(() => {});
+            } else {
+                this.exportExlOk(type);
+            }
+        },
 
+        exportExlOk(type) {
+            let filename = '';
+            switch (type) {
+                case '67':
+                    filename = "产供销一体化明细表.xls";
+                    break;
+            }
+            let params = {
+                CountDate: this.form.date1,	//#统计时间
+                Products: this.form.xilie, //#产品系列
+                CAIGOUSHENQING: "",//#采购申请
+                SHIYEBU: this.form.shiyebu,     	//#事业部
+                WULIAOMIAOSHU: "",  	//#物料描述
+                NAME: this.form.tijiaoren, //	#提交人
+                PRJIHUA: this.form.date2, PRJIHUAEND: this.form.date3,	//#PR计划区间
+                PRSHIJI: this.form.date4, PRSHIJIEND: this.form.date5, //#PR实际区间
+                CAIGOUJIHUA: this.form.date6, CAIGOUJIHUAEND: this.form.date7, //#采购合同签署计划区间
+                CAIGOUSHIJI: this.form.date8, CAIGOUSHIJIEND: this.form.date9,   //#采购合同签署实际区间
+
+                YUFUKUANJIHUA: this.form.date10, YUFUKUANJIHUAEND: this.form.date11,  //#预付款计划区间
+                YUFUKUANSHIJI: this.form.date12, YUFUKUANSHIJIEND: this.form.date13, //#预付款实际区间
+
+                SHENGCHANJIHUA: this.form.date14, SHENGCHANJIHUAEND: this.form.date15,//#生产完成计划区间
+                SHENGCHANSHIJI: this.form.date16, SHENGCHANSHIJIEND: this.form.date17, //#生产完成实际区间
+
+                TIHUOKUANJIHUA: this.form.date18, TIHUOKUANJIHUAEND: this.form.date19, //#提货款计划区间
+                TIHUOKUANSHIJI: this.form.date20, TIHUOKUANSHIJIEND: this.form.date21,  //#提货款实际区间
+
+                JIAOFUJIHUA:  this.form.date22, JIAOFUJIHUAEND: this.form.date23,//#交付计划区间
+                JIAOFUBIANGENG: this.form.date24, JIAOFUBIANGENGEND:  this.form.date25,//#交付实际区间
+                page: this.page.pagesize,
+                pageSize: this.page.currentPage,
+                isExprot: '1'
+            };
+            this.$api.common.getProductDetailed(params).then(res => {
+                this.page.totalNumber = res.count;
+                this.data = res.list || [];
+                exportExl(res, filename);
+            })
         }
     },
     mounted() {
-        this.getData();
+        this.resetForm(); //表单重置
     }
 }
 </script>

@@ -5,7 +5,7 @@
                 <el-row>
                     <el-col :span="8">
                         <el-form-item prop="product" label="产品系列" :label-width="shortLabel">
-                            <product-select :productList="productList" ref="productList" @getWarningDetailed="getWarningDetailed()"></product-select>
+                            <product-select :productList="productList" ref="productList" @getWarningDetailed="getWarningDetailed()" style="width: 100%;"></product-select>
                             <!--<el-select v-model="form.product" placeholder="无限制" style="width: 100%">-->
                             <!--<el-option v-for="item in options.options1" :label="item.label" :value="item.value"></el-option>-->
                             <!--</el-select>-->
@@ -79,7 +79,7 @@
                         </el-table-column>
                         <el-table-column prop="new_jihua" label="最新计划" label-class-name="title-th" show-overflow-tooltip min-width="10%">
                         </el-table-column>
-                        <el-table-column prop="daoqi" label="到期预警" label-class-name="title-th" show-overflow-tooltip min-width="10%">
+                        <el-table-column prop="daoqi" label="到期" label-class-name="title-th" show-overflow-tooltip min-width="10%">
                         </el-table-column>
                     </el-table-column>
                 </el-table>

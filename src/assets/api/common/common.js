@@ -14,6 +14,7 @@ const apiURL = {
     psmDimension:'psm/dimension',
     psmWarning: 'psm/getWarning',
     warningDetailed: 'psm/warningDetailed',
+    productDetailed: 'psm/getProductDetailed'
 }
 
 export default {
@@ -46,5 +47,8 @@ export default {
     },
     warningExportGet(obj) {
         return Api.exportPost(apiURL.warningDetailed, obj);
+    },
+    getProductDetailed(obj) {
+        return Api.post(apiURL.productDetailed, obj);
     },
 }
