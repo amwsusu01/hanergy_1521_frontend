@@ -504,8 +504,7 @@ export default {
     },
     mounted() {
         //this.getData();
-        //this.init(); //产品/事业/提交人表
-
+        this.init(); //产品/事业/提交人表
         this.$nextTick(() => {
             if (this.productList.length > 0) {
                 this.getWarning(); //预警接口
@@ -516,7 +515,6 @@ export default {
     watch: {
         'productList': function(newVal, oldVal) {
             if (newVal.length > 0 && oldVal && oldVal.length == 0) {
-
                 this.getWarning(); //预警接口
                 this.getWarningDetailed(); //预警明细
             }

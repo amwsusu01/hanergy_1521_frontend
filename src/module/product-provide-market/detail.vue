@@ -11,7 +11,7 @@
                 </el-row>
                 <el-row>
                     <el-col :span="5">
-                        <el-form-item class="contain-form-item" prop="xilie" label="产品系列" :label-width="shortLabel">
+                        <el-form-item class="contain-form-item" prop="product" label="产品系列" :label-width="shortLabel">
                             <product-select :productList="productList" ref="productList"></product-select>
                         </el-form-item>
                     </el-col>
@@ -21,10 +21,8 @@
                         </el-form-item>
                     </el-col>
                     <el-col :span="4">
-                        <el-form-item class="contain-form-item" prop="shiyebu" label="事业部" :label-width="shortLabel">
-                            <el-select v-model="form.shiyebu" placeholder="无限制">
-                                <el-option v-for="item in option.options2" :label="item.label" :value="item.value"></el-option>
-                            </el-select>
+                        <el-form-item class="contain-form-item" prop="business" label="事业部" :label-width="shortLabel">
+                            <business-select :businessList="businessList" ref="businessList"></business-select>
                         </el-form-item>
                     </el-col>
                     <el-col :span="5">
@@ -33,10 +31,8 @@
                         </el-form-item>
                     </el-col>
                     <el-col :span="5">
-                        <el-form-item class="contain-form-item" prop="tijiaoren" label="提交人" :label-width="shortLabel">
-                            <el-select v-model="form.tijiaoren" placeholder="无限制">
-                                <el-option v-for="item in option.options3" :label="item.label" :value="item.value"></el-option>
-                            </el-select>
+                        <el-form-item class="contain-form-item" prop="submitter" label="提交人" :label-width="shortLabel">
+                            <submitter-select :submitterList="submitterList" ref="submitterList"></submitter-select>
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -274,6 +270,8 @@
 <script type="text/javascript">
     import { exportExl } from '../../utils';
     import productSelect from '../../components/common/product-select';
+    import businessSelect from "../../components/common/business-select";
+    import submitterSelect from "../../components/common/submitter-select";
     export default {
     name: 'detail',
     data() {
@@ -310,9 +308,9 @@
                 date23: "",
                 date24: "",
                 date25: "",
-                tijiaoren: "",
-                xilie: "",
-                shiyebu: "",
+                submitter: "",
+                business: "",
+                product: "",
                 caigoushenqing:"",
                 wuliaomiaoshu: ""
             },
@@ -350,10 +348,12 @@
         }
     },
     components: {
+        businessSelect,
+        submitterSelect,
         productSelect,
     },
     computed: {
-        setPsmDept: {
+        businessList: {
             get() {
                 return this.$store.state.common.dept;
             },
@@ -369,7 +369,7 @@
                 this.$store.commit('productList', val);
             }
         },
-        setPsmUser: {
+        submitterList: {
             get() {
                 return this.$store.state.common.psmuser;
             },
@@ -390,11 +390,11 @@
         getProductDetailed() {
             let params = {
                 CountDate: this.form.date1,	//#统计时间
-                Products: this.form.xilie, //#产品系列
+                Products: this.getProduct(), //#产品系列
                 CAIGOUSHENQING: "",//#采购申请
-                SHIYEBU: this.form.shiyebu,     	//#事业部
+                SHIYEBU: this.getSubmitter(),     	//#事业部
                 WULIAOMIAOSHU: "",  	//#物料描述
-                NAME: this.form.tijiaoren, //	#提交人
+                NAME: this.getBusiness(), //	#提交人
                 PRJIHUA: this.form.date2, PRJIHUAEND: this.form.date3,	//#PR计划区间
                 PRSHIJI: this.form.date4, PRSHIJIEND: this.form.date5, //#PR实际区间
                 CAIGOUJIHUA: this.form.date6, CAIGOUJIHUAEND: this.form.date7, //#采购合同签署计划区间
@@ -416,7 +416,6 @@
 
         };
             this.$api.common.getProductDetailed(params).then(res => {
-                    console.log(res,"===lkljoj===")
                 this.page.totalNumber = res.count;
                     this.data = res.list || [];
             })
@@ -442,6 +441,55 @@
             _this.form.date21 = "";
             _this.form.date23 = "";
             _this.form.date25 = "";
+            _this.form.date1= this.$moment().subtract(1, 'days').format('YYYY-MM-DD');
+        },
+        getProduct() {
+            if (this.$refs['productList']) {
+                this.form.product = this.$refs['productList'].values.concat();
+            }
+            let resProducts = '';
+            if (this.form.product.length > 0) {
+                resProducts = this.form.product.join(',');
+            } else {
+                let productNames = this.productList.map((a) => {
+                    return a.chanpin_name;
+                })
+
+                resProducts = productNames.join(',');
+            }
+            return resProducts;
+        },
+        getBusiness() {
+            if (this.$refs['businessList']) {
+                this.form.business = this.$refs['businessList'].values.concat();
+            }
+            let resProducts = '';
+            if (this.form.business.length > 0) {
+                resProducts = this.form.business.join(',');
+            } else {
+                let productNames = this.businessList.map((a) => {
+                    return a.shiyebu_name;
+                })
+
+                resProducts = productNames.join(',');
+            }
+            return resProducts;
+        },
+        getSubmitter() {
+            if (this.$refs['submitterList']) {
+                this.form.submitter = this.$refs['submitterList'].values.concat();
+            }
+            let resProducts = '';
+            if (this.form.submitter.length > 0) {
+                resProducts = this.form.submitter.join(',');
+            } else {
+                let productNames = this.submitterList.map((a) => {
+                    return a.FD_NAME;
+                });
+
+                resProducts = productNames.join(',');
+            }
+            return resProducts;
         },
         exportExl(type) {
             let count = 0;
@@ -502,11 +550,54 @@
                 this.data = res.list || [];
                 exportExl(res, filename);
             })
+        },
+        init(){
+            if (this.productList.length > 0) {
+                this.form.product = this.productList.map((a) => a.chanpin_name);
+                if (this.$refs['productList']) {
+                    this.$refs['productList'].values = this.form.product.concat();
+                }
+            }
+            if (this.submitterList.length > 0) {
+                this.form.submitter = this.submitterList.map((a) => a.FD_NAME);
+                if (this.$refs['submitterList']) {
+                    this.$refs['submitterList'].values = this.form.submitter.concat();
+                }
+            }
+            if (this.businessList.length > 0) {
+                this.form.business = this.businessList.map((a) => a.shiyebu_name);
+                if (this.$refs['businessList']) {
+                    this.$refs['businessList'].values = this.form.business.concat();
+                }
+            }
         }
     },
     mounted() {
+        this.init();
+        this.$nextTick(() => {
+            if (this.productList.length > 0 || this.submitterList.length > 0 || this.businessList.length > 0) {
+                this.getProductDetailed();
+            }
+        });
         this.resetForm(); //表单重置
-    }
+    },
+        watch: {
+            'productList': function(newVal, oldVal) {
+                if (newVal.length > 0 && oldVal && oldVal.length == 0) {
+                    this.getProductDetailed();
+                }
+            },
+            'submitterList': function(newVal, oldVal) {
+                if (newVal.length > 0 && oldVal && oldVal.length == 0) {
+                    this.getProductDetailed();
+                }
+            },
+            'businessList': function(newVal, oldVal) {
+                if (newVal.length > 0 && oldVal && oldVal.length == 0) {
+                    this.getProductDetailed();
+                }
+            }
+        }
 }
 </script>
 <style lang="less">

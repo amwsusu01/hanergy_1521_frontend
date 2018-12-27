@@ -92,6 +92,9 @@ export default {
             }
         },
         setPsmDept: {
+            // get() {
+            //     return this.$store.state.common.product;
+            // },
             set(val) {
                 this.$store.commit('setPsmDept', val);
             }
@@ -169,6 +172,7 @@ export default {
             this.$api.canteen.getSelectPermission(params).then(res => {
                 let user = JSON.parse(res.user) || [];
                 this.depts = user;
+
                 // for (let j = 0; j < user.length; j++) {
                 //     let deptName = user[j].dept_name
                 //     this.deptList.push(deptName)
