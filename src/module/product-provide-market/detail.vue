@@ -191,7 +191,7 @@
             </el-form>
             <div style="width:100%;max-width: 1200px;position: relative;" class="table-container">
                 <el-button class="exp-btn" plain size="small" @click="exportExl('67')">导出</el-button>
-                <el-table :data="dataList" border style="width: 100%" height="200" max-height="700">
+                <el-table :data="dataList" border style="width: 100%" height="370" max-height="700">
                    <!--  <el-table-column label="明细表" fixed  label-class-name="table-title title-th"> -->
                         <el-table-column label='' label-class-name="title-th">
                             <el-table-column prop="index" label-class-name="title-th" label="序号" width="50">
@@ -374,22 +374,21 @@
                 prjihua: this.form.date2, prjihuaend: this.form.date3,	//#PR计划区间
                 prshiji: this.form.date4, prshijiend: this.form.date5, //#PR实际区间
                 caigoujihua: this.form.date6, caigoujihuaend: this.form.date7, //#采购合同签署计划区间
-                CAIGOUSHIJI: this.form.date8, caigoushijiend: this.form.date9,   //#采购合同签署实际区间
+                caigoushiji: this.form.date8, caigoushijiend: this.form.date9,   //#采购合同签署实际区间
 
-                yufukuanjihua: this.form.date10, YUFUKUANJIHUAEND: this.form.date11,  //#预付款计划区间
-                yufukuanshiji: this.form.date12, YUFUKUANSHIJIEND: this.form.date13, //#预付款实际区间
+                yufukuanjihua: this.form.date10, yufukuanjihuaend: this.form.date11,  //#预付款计划区间
+                yufukuanshiji: this.form.date12, yufukuanshijiend: this.form.date13, //#预付款实际区间
 
-                SHENGCHANJIHUA: this.form.date14, SHENGCHANJIHUAEND: this.form.date15,//#生产完成计划区间
-                SHENGCHANSHIJI: this.form.date16, SHENGCHANSHIJIEND: this.form.date17, //#生产完成实际区间
+                shengchanjihua: this.form.date14, shengchanjihuaend: this.form.date15,//#生产完成计划区间
+                shengchanshiji: this.form.date16, shengchanshijiend: this.form.date17, //#生产完成实际区间
 
-                TIHUOKUANJIHUA: this.form.date18, TIHUOKUANJIHUAEND: this.form.date19, //#提货款计划区间
-                TIHUOKUANSHIJI: this.form.date20, TIHUOKUANSHIJIEND: this.form.date21,  //#提货款实际区间
+                tihuokuanjihua: this.form.date18, tihuokuanjihuaend: this.form.date19, //#提货款计划区间
+                tihuokuanshiji: this.form.date20, tihuokuanshijiend: this.form.date21,  //#提货款实际区间
 
-                JIAOFUJIHUA:  this.form.date22, JIAOFUJIHUAEND: this.form.date23,//#交付计划区间
-                JIAOFUBIANGENG: this.form.date24, JIAOFUBIANGENGEND:  this.form.date25,//#交付实际区间
+                jiaofujihua:  this.form.date22, jiaofujihuaend: this.form.date23,//#交付计划区间
+                jiaofubiangeng: this.form.date24, jiaofubiangengend:  this.form.date25,//#交付实际区间
                 page: this.page.currentPage,
                 pageSize: this.page.pagesize,
-
         };
             this.$api.common.getProductDetailed(params).then(res => {
                 this.page.totalNumber = res.count;
@@ -505,27 +504,27 @@
             }
             let params = {
                 countDate: this.form.date1,	//#统计时间
-                Products: this.getProduct(), //#产品系列
-                CAIGOUSHENQING: this.form.caigoushenqing,//#采购申请
+                products: this.getProduct(), //#产品系列
+                caigoushenqing: this.form.caigoushenqing,//#采购申请
                 shiyebu: this.getBusiness(),     	//#事业部
                 wuliaomiaoshu: this.form.wuliaomiaoshu,  	//#物料描述
                 name: this.getSubmitter(), //	#提交人
-                PRJIHUA: this.form.date2, PRJIHUAEND: this.form.date3,	//#PR计划区间
-                PRSHIJI: this.form.date4, PRSHIJIEND: this.form.date5, //#PR实际区间
-                CAIGOUJIHUA: this.form.date6, CAIGOUJIHUAEND: this.form.date7, //#采购合同签署计划区间
-                CAIGOUSHIJI: this.form.date8, CAIGOUSHIJIEND: this.form.date9,   //#采购合同签署实际区间
+                prjihua: this.form.date2, prjihuaend: this.form.date3,	//#PR计划区间
+                prshiji: this.form.date4, prshijiend: this.form.date5, //#PR实际区间
+                caigoujihua: this.form.date6, caigoujihuaend: this.form.date7, //#采购合同签署计划区间
+                caigoushiji: this.form.date8, caigoushijiend: this.form.date9,   //#采购合同签署实际区间
 
-                YUFUKUANJIHUA: this.form.date10, YUFUKUANJIHUAEND: this.form.date11,  //#预付款计划区间
-                YUFUKUANSHIJI: this.form.date12, YUFUKUANSHIJIEND: this.form.date13, //#预付款实际区间
+                yufukuanjihua: this.form.date10, yufukuanjihuaend: this.form.date11,  //#预付款计划区间
+                yufukuanshiji: this.form.date12, yufukuanshijiend: this.form.date13, //#预付款实际区间
 
-                SHENGCHANJIHUA: this.form.date14, SHENGCHANJIHUAEND: this.form.date15,//#生产完成计划区间
-                SHENGCHANSHIJI: this.form.date16, SHENGCHANSHIJIEND: this.form.date17, //#生产完成实际区间
+                shengchanjihua: this.form.date14, shengchanjihuaend: this.form.date15,//#生产完成计划区间
+                shengchanshiji: this.form.date16, shengchanshijiend: this.form.date17, //#生产完成实际区间
 
-                TIHUOKUANJIHUA: this.form.date18, TIHUOKUANJIHUAEND: this.form.date19, //#提货款计划区间
-                TIHUOKUANSHIJI: this.form.date20, TIHUOKUANSHIJIEND: this.form.date21,  //#提货款实际区间
+                tihuokuanjihua: this.form.date18, tihuokuanjihuaend: this.form.date19, //#提货款计划区间
+                tihuokuanshiji: this.form.date20, tihuokuanshijiend: this.form.date21,  //#提货款实际区间
 
-                JIAOFUJIHUA:  this.form.date22, JIAOFUJIHUAEND: this.form.date23,//#交付计划区间
-                JIAOFUBIANGENG: this.form.date24, JIAOFUBIANGENGEND:  this.form.date25,//#交付实际区间
+                jiaofujihua:  this.form.date22, jiaofujihuaend: this.form.date23,//#交付计划区间
+                jiaofubiangeng: this.form.date24, jiaofubiangengend:  this.form.date25,//#交付实际区间
                 page: this.page.currentPage,
                 pageSize: this.page.pagesize,
                 isExprot: '1'

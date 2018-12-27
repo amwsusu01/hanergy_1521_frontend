@@ -219,7 +219,7 @@ export default {
     overflow-x: hidden;
 }
     .openMenu{
-        margin-left: 60px;
+        margin-left: 64px;
     }
     .closeMenu{
         margin-left: 220px;

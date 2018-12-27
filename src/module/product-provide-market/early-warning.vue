@@ -248,7 +248,7 @@ export default {
         resetForm(form){
             this.$refs[form].resetFields();
             this.form.date =  this.$moment().subtract(1, 'days').format('YYYY-MM-DD')
-            this.$refs['productList'].values = [];
+            this.$refs['productList'].value = [];
             this.$nextTick(() => {
                 this.getWarning(); //预警接口
                 this.getWarningDetailed(); //预警明细
