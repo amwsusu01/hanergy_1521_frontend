@@ -67,7 +67,7 @@
             </el-row>
             <div style="width:100%;max-width: 1200px;position: relative;">
                 <el-button class="exp-btn" plain size="small" @click="exportExl('67')">导出</el-button>
-                <el-table :data="dataList" border style="width: 100%">
+                <el-table :data="dataList" border style="width: 100%" >
                     <el-table-column prop="month" label="到期明细表" label-class-name="table-title title-th">
                         <el-table-column prop="FD_CAIGOUSHENQING" label="采购申请" label-class-name="title-th" min-width="30%" show-overflow-tooltip>
                         </el-table-column>
@@ -83,7 +83,11 @@
                         </el-table-column>
                         <el-table-column prop="new_jihua" label="最新计划" label-class-name="title-th" show-overflow-tooltip min-width="10%">
                         </el-table-column>
-                        <el-table-column prop="daoqi" label="到期" label-class-name="title-th" show-overflow-tooltip min-width="10%">
+                        <el-table-column prop="daoqi" label="到期（天）" label-class-name="title-th" show-overflow-tooltip min-width="10%">
+                            <template slot-scope="scope">
+                                <font v-if="scope.row.daoqi < 0">{{scope.row.daoqi}}</font>
+                                <font color="#ff0000" v-if="scope.row.daoqi >= 0">{{scope.row.daoqi}}</font>
+                            </template>
                         </el-table-column>
                     </el-table-column>
                 </el-table>
