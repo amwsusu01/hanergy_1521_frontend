@@ -191,7 +191,7 @@
             </el-form>
             <div style="width:100%;max-width: 1200px;position: relative;" class="table-container">
                 <el-button class="exp-btn" plain size="small" @click="exportExl('67')">导出</el-button>
-                <el-table :data="dataList" border style="width: 100%" height="370" max-height="700">
+                <el-table :data="dataList" border style="width: 100%" height="355" max-height="700">
                    <!--  <el-table-column label="明细表" fixed  label-class-name="table-title title-th"> -->
                         <el-table-column label='' label-class-name="title-th">
                             <el-table-column prop="index" label-class-name="title-th" label="序号" width="50">
