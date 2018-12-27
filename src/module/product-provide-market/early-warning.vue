@@ -5,7 +5,7 @@
                 <el-row>
                     <el-col :span="8">
                         <el-form-item prop="product" label="产品系列" :label-width="shortLabel">
-                            <product-select :productList="productList" ref="productList" @getWarningDetailed="getWarningDetailed()" style="width: 100%;"></product-select>
+                            <product-select :productList="productList" ref="productList" style="width: 100%;"></product-select>
                             <!--<el-select v-model="form.product" placeholder="无限制" style="width: 100%">-->
                             <!--<el-option v-for="item in options.options1" :label="item.label" :value="item.value"></el-option>-->
                             <!--</el-select>-->
@@ -13,7 +13,7 @@
                     </el-col>
                     <el-col :span="7">
                         <el-form-item prop="date" label="日期" :label-width="shortLabel">
-                            <el-date-picker type="date" placeholder="无限制" @change="changeDate" v-model="form.date" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
+                            <el-date-picker type="date" placeholder="无限制" v-model="form.date" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
                         </el-form-item>
                     </el-col>
                     <el-col :span="9" style="text-align: left">
@@ -83,7 +83,7 @@
                         </el-table-column>
                         <el-table-column prop="new_jihua" label="最新计划" label-class-name="title-th" show-overflow-tooltip min-width="10%">
                         </el-table-column>
-                        <el-table-column prop="daoqi" label="到期（天）" label-class-name="title-th" show-overflow-tooltip min-width="10%">
+                        <el-table-column prop="daoqi" label="超期（天）" label-class-name="title-th" show-overflow-tooltip min-width="10%">
                             <template slot-scope="scope">
                                 <font v-if="scope.row.daoqi < 0">{{scope.row.daoqi}}</font>
                                 <font color="#ff0000" v-if="scope.row.daoqi >= 0">{{scope.row.daoqi}}</font>
@@ -251,13 +251,16 @@ export default {
     methods: {
         resetForm(form){
             this.$refs[form].resetFields();
-            this.form.date =  this.$moment().subtract(1, 'days').format('YYYY-MM-DD')
+            this.form.date =  this.$moment().subtract(1, 'days').format('YYYY-MM-DD');
+            this.page.currentPage = 1;
+            this.selectLevel = 1;
+            this.warningType='';
+
             this.$refs['productList'].values = [];
             this.$nextTick(() => {
                 this.getWarning(); //预警接口
                 this.getWarningDetailed(); //预警明细
-            })
-
+            });
         },
         querySelect(){
             this.$nextTick(() => {

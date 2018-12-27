@@ -198,7 +198,7 @@
                             </el-table-column>
                             <el-table-column prop="CHANPIN_NAME" label-class-name="title-th" label="产品系列" width="150">
                             </el-table-column>
-                            <el-table-column prop="FD_CAIGOUSHENQING" label-class-name="title-th" label="采购申请号" width="100">
+                            <el-table-column prop="FD_CAIGOUSHENQING" label-class-name="title-th" label="采购申请号" show-overflow-tooltip width="100">
                             </el-table-column>
                             <el-table-column prop="FD_SHIYEBU" label-class-name="title-th" label="事业部" width="100">
                             </el-table-column>
