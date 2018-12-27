@@ -65,4 +65,5 @@ export default {
 .el-submenu--display .el-submenu__icon-arrow {
     display: none !important;
 }
+
 </style>

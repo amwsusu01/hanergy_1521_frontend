@@ -10,7 +10,7 @@
                         <sidebar-item :menu="menuData" :isCollapse="isCollapse"></sidebar-item>
                     </el-menu>
                 </div>
-                <el-main>
+                <el-main :class="this.isCollapse ? 'openMenu': 'closeMenu'">
                     <el-breadcrumb separator="/" class="order-breadcrumb">
                         <el-breadcrumb-item>{{breadMenu[0]}}</el-breadcrumb-item>
                         <el-breadcrumb-item>{{breadMenu[1]}}</el-breadcrumb-item>
@@ -52,7 +52,7 @@ export default {
         },
         menuData: {
             get() {
-                let data = this.$store.state.common.menuItemData;               
+                let data = this.$store.state.common.menuItemData;
                 return data;
             },
             set(val) {
@@ -218,12 +218,20 @@ export default {
 .el-main {
     overflow-x: hidden;
 }
+    .openMenu{
+        margin-left: 60px;
+    }
+    .closeMenu{
+        margin-left: 220px;
+    }
 </style>
 <style lang="less">
 .sidebar-container {
-    float: left;
+        position: fixed;
+        top: 60px;
+        left: 0px;
+        z-index: 9999;
 }
-
 .el-container {
     .el-scrollbar__wrap {
         overflow-x: hidden;
