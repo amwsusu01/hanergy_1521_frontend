@@ -4,33 +4,35 @@
             <el-form ref="form" label-position="left" :inline="true" :model="form" label-width="130px" class="contain" size="mini" @submit.native.prevent>
                 <el-row>
                     <el-col :span="24">
-                        <el-form-item prop="date1" label="统计日期">
+                        <el-form-item prop="date1" label="统计日期"  :label-width="shortLabel">
                             <el-date-picker type="date" placeholder="统计日期" v-model="form.date1" value-format="yyyy-MM-dd"  style="width: 100%;"></el-date-picker>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
-                    <el-col :span="5">
-                        <el-form-item class="contain-form-item" prop="product" label="产品系列" :label-width="shortLabel">
-                            <product-select :productList="productList" ref="productList"></product-select>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="5">
+                    <el-col :span="12" style="width: 450px;">
                         <el-form-item class="contain-form-item" prop="caigoushenqing" label="采购申请" :label-width="shortLabel">
-                            <el-input v-model="form.caigoushenqing"  placeholder="无限制"></el-input>
+                            <el-input v-model="form.caigoushenqing"  placeholder="请填写采购申请" style="width: 350px;"></el-input>
                         </el-form-item>
                     </el-col>
-                    <el-col :span="4">
+                    <el-col :span="12">
+                        <el-form-item class="contain-form-item" prop="wuliaomiaoshu" label="物料描述" :label-width="shortLabel">
+                            <el-input v-model="form.wuliaomiaoshu"  placeholder="请填写物料描述"  style="width: 350px;" ></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="8">
+                        <el-form-item class="contain-form-item" prop="product" label="产品系列" :label-width="shortLabel">
+                            <product-select :productList="productList" ref="productList" style="width: 251px;"></product-select>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
                         <el-form-item class="contain-form-item" prop="business" label="事业部" :label-width="shortLabel">
                             <business-select :businessList="businessList" ref="businessList"></business-select>
                         </el-form-item>
                     </el-col>
-                    <el-col :span="5">
-                        <el-form-item class="contain-form-item" prop="wuliaomiaoshu" label="物料描述" :label-width="shortLabel">
-                            <el-input v-model="form.wuliaomiaoshu"  placeholder="无限制"></el-input>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="5">
+                    <el-col :span="8">
                         <el-form-item class="contain-form-item" prop="submitter" label="提交人" :label-width="shortLabel">
                             <submitter-select :submitterList="submitterList" ref="submitterList"></submitter-select>
                         </el-form-item>
