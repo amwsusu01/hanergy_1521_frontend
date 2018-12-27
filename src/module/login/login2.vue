@@ -118,8 +118,13 @@ export default {
                     _sessionStorage("menuData", JSON.stringify(this.menuData));
                     _sessionStorage("sysTitle", this.sysTitle);
 
+                    debugger
+                    let firstPage = 'canteenOrder';
+                    if(this.menuData.length > 0 && this.menuData[0].list.length > 0) {
+                        firstPage = this.menuData[0].list[0].url;
+                    }
                     this.$router.push({
-                        name: 'canteenOrder'
+                        name: firstPage
                     });
                     this.clearForm();
                 } else {

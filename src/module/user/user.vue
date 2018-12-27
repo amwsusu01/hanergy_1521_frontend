@@ -127,7 +127,7 @@ export default {
         }
     },
     methods: {
-        getDimension(){
+        getDimension() {
             this.$api.common.getDimension().then(res => {
                 this.setPsmDept = JSON.parse(res.dept)
                 this.setPsmProduct = JSON.parse(res.product)
@@ -141,20 +141,24 @@ export default {
                 return false;
         },
         hanldeMouseenter(value) {
-            if(!this.isIE()) {
+            if (!this.isIE()) {
                 this.isCollapse = value;
             }
         },
         init() {
-            this.$api.common.getUpdateData().then(res => {
-                if (res.Date) {
-                    this.updateTime = res.Date;
-                } else {
-                    this.updateTime = '';
-                }
-            })
+            //只在1521系统时请求
+            if (this.$route.name == 'canteenPurchase' || this.$route.name == 'canteenOrder' || this.$router.name == 'canteenHistoryOrder' || this.$router.name == 'canteenReceiverOrder' || this.$router.name == '') {
+                this.$api.common.getUpdateData().then(res => {
+                    if (res.Date) {
+                        this.updateTime = res.Date;
+                    } else {
+                        this.updateTime = '';
+                    }
 
-            this.getSelectPermission();
+                    this.getSelectPermission();
+
+                })
+            }
         },
 
         //部门接口
@@ -218,20 +222,23 @@ export default {
 .el-main {
     overflow-x: hidden;
 }
-    .openMenu{
-        margin-left: 64px;
-    }
-    .closeMenu{
-        margin-left: 220px;
-    }
+
+.openMenu {
+    margin-left: 64px;
+}
+
+.closeMenu {
+    margin-left: 220px;
+}
 </style>
 <style lang="less">
 .sidebar-container {
-        position: fixed;
-        top: 60px;
-        left: 0px;
-        z-index: 9999;
+    position: fixed;
+    top: 60px;
+    left: 0px;
+    z-index: 9999;
 }
+
 .el-container {
     .el-scrollbar__wrap {
         overflow-x: hidden;
