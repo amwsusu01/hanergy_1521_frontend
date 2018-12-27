@@ -92,9 +92,9 @@ export default {
             }
         },
         setPsmDept: {
-            // get() {
-            //     return this.$store.state.common.product;
-            // },
+            get() {
+                return this.$store.state.common.dept;
+            },
             set(val) {
                 this.$store.commit('setPsmDept', val);
             }

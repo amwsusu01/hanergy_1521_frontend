@@ -49,6 +49,9 @@ export default {
         return Api.exportPost(apiURL.warningDetailed, obj);
     },
     getProductDetailed(obj) {
+        return Api.post(apiURL.productDetailed, obj);
+    },
+    getProductExportDetailed(obj) {
         return Api.exportPost(apiURL.productDetailed, obj);
     },
 }

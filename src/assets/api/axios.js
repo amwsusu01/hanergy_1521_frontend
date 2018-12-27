@@ -193,13 +193,12 @@ function exportGet(url, params) {
 function exportPost(url, params) {
     Axios.defaults.responseType = 'blob';
     return new Call((resolve, reject) => {
-        //给get请求后面追加时间戳
+        //给请求后面追加时间戳
         let timestamp = (new Date()).valueOf();
         params.timestamp = timestamp
 
         Axios.post(url,params,{ responseType: 'blob'})
             .then(response => {
-
                 resolve(response) //res直接返回数据 无code 无data
             })
             .catch(error => {

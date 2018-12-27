@@ -10,31 +10,31 @@
                     </el-col>
                 </el-row>
                 <el-row>
-                    <el-col :span="12" style="width: 450px;">
+                    <el-col :span="8">
                         <el-form-item class="contain-form-item" prop="caigoushenqing" label="采购申请" :label-width="shortLabel">
-                            <el-input v-model="form.caigoushenqing"  placeholder="请填写采购申请" style="width: 350px;"></el-input>
+                            <el-input v-model="form.caigoushenqing"  placeholder="请填写采购申请" style="width: 251px;"></el-input>
                         </el-form-item>
                     </el-col>
-                    <el-col :span="12">
+                    <el-col :span="8">
                         <el-form-item class="contain-form-item" prop="wuliaomiaoshu" label="物料描述" :label-width="shortLabel">
-                            <el-input v-model="form.wuliaomiaoshu"  placeholder="请填写物料描述"  style="width: 350px;" ></el-input>
+                            <el-input v-model="form.wuliaomiaoshu"  placeholder="请填写物料描述"  style="width: 251px;" ></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="8">
                         <el-form-item class="contain-form-item" prop="product" label="产品系列" :label-width="shortLabel">
-                            <product-select :productList="productList" ref="productList" style="width: 251px;"></product-select>
+                            <product-select :productList="productList" ref="productList" @getProductDetailed="getProductDetailed()" style="width: 251px;"></product-select>
                         </el-form-item>
                     </el-col>
                     <el-col :span="8">
                         <el-form-item class="contain-form-item" prop="business" label="事业部" :label-width="shortLabel">
-                            <business-select :businessList="businessList" ref="businessList"></business-select>
+                            <business-select :businessList="businessList" ref="businessList" @getProductDetailed="getProductDetailed()" ></business-select>
                         </el-form-item>
                     </el-col>
                     <el-col :span="8">
                         <el-form-item class="contain-form-item" prop="submitter" label="提交人" :label-width="shortLabel">
-                            <submitter-select :submitterList="submitterList" ref="submitterList"></submitter-select>
+                            <submitter-select :submitterList="submitterList" ref="submitterList" @getProductDetailed="getProductDetailed()" ></submitter-select>
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -191,14 +191,13 @@
             </el-form>
             <div style="width:100%;max-width: 1200px;position: relative;" class="table-container">
                 <el-button class="exp-btn" plain size="small" @click="exportExl('67')">导出</el-button>
-                <el-table :data="data" border style="width: 100%" height="200" max-height="700">
+                <el-table :data="dataList" border style="width: 100%" height="200" max-height="700">
                    <!--  <el-table-column label="明细表" fixed  label-class-name="table-title title-th"> -->
-                        <el-table-column label='' fixed label-class-name="title-th">
+                        <el-table-column label='' label-class-name="title-th">
                             <el-table-column prop="index" label-class-name="title-th" label="序号" width="50">
                             </el-table-column>
                             <el-table-column prop="CHANPIN_NAME" label-class-name="title-th" label="产品系列" width="150">
                             </el-table-column>
-
                             <el-table-column prop="FD_CAIGOUSHENQING" label-class-name="title-th" label="采购申请号" width="100">
                             </el-table-column>
                             <el-table-column prop="FD_SHIYEBU" label-class-name="title-th" label="事业部" width="100">
@@ -207,56 +206,56 @@
                             </el-table-column>
                             <el-table-column prop="FD_WULIAOMIAOSHU" label-class-name="title-th" label="物料描述" show-overflow-tooltip width="100">
                             </el-table-column>
+                            <el-table-column prop="FD_NAME" label-class-name="title-th" label="提交人" show-overflow-tooltip width="100">
+                            </el-table-column>
 
-                            <el-table-column prop="CHANPIN_NAME" label-class-name="title-th" label="提交人" show-overflow-tooltip width="100">
-                            </el-table-column>
-                            <el-table-column prop="CHANPIN_NAME" label-class-name="title-th"  label="预警" show-overflow-tooltip width="100">
+                            <el-table-column prop="WARNING" label-class-name="title-th"  label="预警" show-overflow-tooltip width="100">
                             </el-table-column>
                         </el-table-column>
-                        <el-table-column label='PR' label-class-name="title-th">
-                            <el-table-column prop="CHANPIN_NAME" label="计划" label-class-name="title-th" show-overflow-tooltip width="100">
+                        <el-table-column label='PR'  align="center"     label-class-name="title-th">
+                            <el-table-column prop="PRJIHUA" label="计划" label-class-name="title-th" show-overflow-tooltip width="100">
                             </el-table-column>
-                            <el-table-column prop="CHANPIN_NAME" label="实际" label-class-name="title-th" show-overflow-tooltip width="100">
-                            </el-table-column>
-                        </el-table-column>
-                        <el-table-column label='采购合同' label-class-name="title-th">
-                            <el-table-column prop="CHANPIN_NAME" label="签署计划" label-class-name="title-th" show-overflow-tooltip width="100">
-                            </el-table-column>
-                            <el-table-column prop="CHANPIN_NAME" label="签署变更" label-class-name="title-th" show-overflow-tooltip width="100">
-                            </el-table-column>
-                            <el-table-column prop="CHANPIN_NAME" label="签署实际" label-class-name="title-th" show-overflow-tooltip width="100">
+                            <el-table-column prop="PRSHIJI" label="实际" label-class-name="title-th" show-overflow-tooltip width="100">
                             </el-table-column>
                         </el-table-column>
-                        <el-table-column label='预付款' label-class-name="title-th">
-                            <el-table-column prop="CHANPIN_NAME" label="计划" label-class-name="title-th" show-overflow-tooltip width="100">
+                        <el-table-column label='采购合同' align="center" label-class-name="title-th">
+                            <el-table-column prop="CAIGOUJIHUA" label="签署计划" label-class-name="title-th" show-overflow-tooltip width="100">
                             </el-table-column>
-                            <el-table-column prop="CHANPIN_NAME" label="变更" label-class-name="title-th" show-overflow-tooltip width="100">
+                            <el-table-column prop="CAIGOUBIANGENG" label="签署变更" label-class-name="title-th" show-overflow-tooltip width="100">
                             </el-table-column>
-                            <el-table-column prop="CHANPIN_NAME" label="实际" label-class-name="title-th" show-overflow-tooltip width="100">
-                            </el-table-column>
-                        </el-table-column>
-                        <el-table-column label='生产' label-class-name="title-th">
-                            <el-table-column prop="CHANPIN_NAME" label="计划" label-class-name="title-th" show-overflow-tooltip width="100">
-                            </el-table-column>
-                            <el-table-column prop="CHANPIN_NAME" label="变更"  label-class-name="title-th" show-overflow-tooltip width="100">
-                            </el-table-column>
-                            <el-table-column prop="CHANPIN_NAME" label="实际" label-class-name="title-th" show-overflow-tooltip width="100">
+                            <el-table-column prop="CAIGOUSHIJI" label="签署实际" label-class-name="title-th" show-overflow-tooltip width="100">
                             </el-table-column>
                         </el-table-column>
-                        <el-table-column label='提货款' label-class-name="title-th">
-                            <el-table-column prop="CHANPIN_NAME" label="计划" label-class-name="title-th" show-overflow-tooltip width="100">
+                        <el-table-column label='预付款'  align="center"  label-class-name="title-th">
+                            <el-table-column prop="YUFUKUANJIHUA" label="计划" label-class-name="title-th" show-overflow-tooltip width="100">
                             </el-table-column>
-                            <el-table-column prop="CHANPIN_NAME" label="变更"  label-class-name="title-th" show-overflow-tooltip width="100">
+                            <el-table-column prop="YUFUKUANBIANGENG" label="变更" label-class-name="title-th" show-overflow-tooltip width="100">
                             </el-table-column>
-                            <el-table-column prop="CHANPIN_NAME" label="实际" label-class-name="title-th" show-overflow-tooltip width="100">
+                            <el-table-column prop="YUFUKUANSHIJI" label="实际" label-class-name="title-th" show-overflow-tooltip width="100">
                             </el-table-column>
                         </el-table-column>
-                        <el-table-column label='交付' label-class-name="title-th">
-                            <el-table-column prop="CHANPIN_NAME" label="计划" label-class-name="title-th" show-overflow-tooltip width="100">
+                        <el-table-column label='生产'  align="center" label-class-name="title-th">
+                            <el-table-column prop="SHENGCHANJIHUA" label="计划" label-class-name="title-th" show-overflow-tooltip width="100">
                             </el-table-column>
-                            <el-table-column prop="CHANPIN_NAME" label="变更" label-class-name="title-th" show-overflow-tooltip width="100">
+                            <el-table-column prop="SHENGCHANBIANGENG" label="变更"  label-class-name="title-th" show-overflow-tooltip width="100">
                             </el-table-column>
-                            <el-table-column prop="CHANPIN_NAME" label="实际" label-class-name="title-th" show-overflow-tooltip width="100">
+                            <el-table-column prop="SHENGCHANSHIJI" label="实际" label-class-name="title-th" show-overflow-tooltip width="100">
+                            </el-table-column>
+                        </el-table-column>
+                        <el-table-column label='提货款'  align="center" label-class-name="title-th">
+                            <el-table-column prop="TIHUOKUANJIHUA" label="计划" label-class-name="title-th" show-overflow-tooltip width="100">
+                            </el-table-column>
+                            <el-table-column prop="TIHUOKUANBIANGENG" label="变更"  label-class-name="title-th" show-overflow-tooltip width="100">
+                            </el-table-column>
+                            <el-table-column prop="TIHUOKUANSHIJI" label="实际" label-class-name="title-th" show-overflow-tooltip width="100">
+                            </el-table-column>
+                        </el-table-column>
+                        <el-table-column label='交付'  align="center"  label-class-name="title-th">
+                            <el-table-column prop="JIAOFUJIHUA" label="计划" label-class-name="title-th" show-overflow-tooltip width="100">
+                            </el-table-column>
+                            <el-table-column prop="JIAOFUBIANGENG" label="变更" label-class-name="title-th" show-overflow-tooltip width="100">
+                            </el-table-column>
+                            <el-table-column prop="JIAOFUSHIJI" label="实际" label-class-name="title-th" show-overflow-tooltip width="100">
                             </el-table-column>
                         </el-table-column>
                     <!-- </el-table-column> -->
@@ -275,10 +274,10 @@
     import businessSelect from "../../components/common/business-select";
     import submitterSelect from "../../components/common/submitter-select";
     export default {
-    name: 'detail',
+        name: 'detail',
     data() {
         return {
-            data: [],
+            dataList: [],
             page: {
                 pagesize: 5, // 每页展示多少条
                 totalNumber: 0, // 总条数
@@ -316,31 +315,6 @@
                 caigoushenqing:"",
                 wuliaomiaoshu: ""
             },
-            option: {
-                options1: [
-                    {
-                        label: '全部',
-                        value: 1
-                    }, {
-                        label: '全部',
-                        value: 2
-                    }, {
-                        label: '全部',
-                        value: 3
-                    }],
-                options2: [
-                    {
-                        label: '全部',
-                        value: 1
-                    }, {
-                        label: '全部',
-                        value: 2
-                    }, {
-                        label: '全部',
-                        value: 3
-                    }],
-                options3: []
-            },
             shortLabel: 70,
             pickerOptions: {
                 disabledDate: (time) => {
@@ -357,7 +331,7 @@
     computed: {
         businessList: {
             get() {
-                return this.$store.state.common.dept;
+                return this.$store.state.common.dept || [];
             },
             set(val) {
                 this.$store.commit('setPsmDept', val);
@@ -368,12 +342,12 @@
                 return this.$store.state.common.product || [];
             },
             set(val) {
-                this.$store.commit('productList', val);
+                this.$store.commit('setPsmProduct', val);
             }
         },
         submitterList: {
             get() {
-                return this.$store.state.common.psmuser;
+                return this.$store.state.common.psmuser || [];
             },
             set(val) {
                 this.$store.commit('setPsmUser', val);
@@ -393,9 +367,9 @@
             let params = {
                 CountDate: this.form.date1,	//#统计时间
                 Products: this.getProduct(), //#产品系列
-                CAIGOUSHENQING: "",//#采购申请
+                CAIGOUSHENQING: this.form.caigoushenqing,//#采购申请
                 SHIYEBU: this.getSubmitter(),     	//#事业部
-                WULIAOMIAOSHU: "",  	//#物料描述
+                WULIAOMIAOSHU: this.form.wuliaomiaoshu,  	//#物料描述
                 NAME: this.getBusiness(), //	#提交人
                 PRJIHUA: this.form.date2, PRJIHUAEND: this.form.date3,	//#PR计划区间
                 PRSHIJI: this.form.date4, PRSHIJIEND: this.form.date5, //#PR实际区间
@@ -419,7 +393,10 @@
         };
             this.$api.common.getProductDetailed(params).then(res => {
                 this.page.totalNumber = res.count;
-                    this.data = res.list || [];
+                    this.dataList = res.list || [];
+                    for(let i in this.dataList){
+                        this.dataList[i].index = Number(i)+1
+                    }
             })
 
         },
@@ -444,6 +421,9 @@
             _this.form.date23 = "";
             _this.form.date25 = "";
             _this.form.date1= this.$moment().subtract(1, 'days').format('YYYY-MM-DD');
+            this.$refs['productList'].values = [];
+            this.$refs['businessList'].values = [];
+            this.$refs['submitterList'].values = [];
         },
         getProduct() {
             if (this.$refs['productList']) {
@@ -522,11 +502,11 @@
             }
             let params = {
                 CountDate: this.form.date1,	//#统计时间
-                Products: this.form.xilie, //#产品系列
-                CAIGOUSHENQING: "",//#采购申请
-                SHIYEBU: this.form.shiyebu,     	//#事业部
-                WULIAOMIAOSHU: "",  	//#物料描述
-                NAME: this.form.tijiaoren, //	#提交人
+                Products: this.getProduct(), //#产品系列
+                CAIGOUSHENQING: this.form.caigoushenqing,//#采购申请
+                SHIYEBU: this.getSubmitter(),     	//#事业部
+                WULIAOMIAOSHU: this.form.wuliaomiaoshu,  	//#物料描述
+                NAME: this.getBusiness(), //	#提交人
                 PRJIHUA: this.form.date2, PRJIHUAEND: this.form.date3,	//#PR计划区间
                 PRSHIJI: this.form.date4, PRSHIJIEND: this.form.date5, //#PR实际区间
                 CAIGOUJIHUA: this.form.date6, CAIGOUJIHUAEND: this.form.date7, //#采购合同签署计划区间
@@ -547,9 +527,7 @@
                 pageSize: this.page.currentPage,
                 isExprot: '1'
             };
-            this.$api.common.getProductDetailed(params).then(res => {
-                this.page.totalNumber = res.count;
-                this.data = res.list || [];
+            this.$api.common.getProductExportDetailed(params).then(res => {
                 exportExl(res, filename);
             })
         },
@@ -577,11 +555,10 @@
     mounted() {
         this.init();
         this.$nextTick(() => {
-            if (this.productList.length > 0 || this.submitterList.length > 0 || this.businessList.length > 0) {
+            if (this.productList.length > 0 && this.submitterList.length > 0 && this.businessList.length > 0) {
                 this.getProductDetailed();
             }
         });
-        this.resetForm(); //表单重置
     },
         watch: {
             'productList': function(newVal, oldVal) {

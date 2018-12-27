@@ -16,6 +16,10 @@
                             <el-date-picker type="date" placeholder="无限制" @change="changeDate" v-model="form.date" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
                         </el-form-item>
                     </el-col>
+                    <el-col :span="8" style="text-align: center">
+                        <el-button size="mini" type="primary"  @click="querySelect()">查询</el-button>
+                        <el-button size="mini" type="primary" @click="resetForm('form')">重置</el-button>
+                    </el-col>
                 </el-row>
             </el-form>
             <el-row>
@@ -106,15 +110,10 @@ export default {
                 currentPage: 1 // 当前页
             },
             form: {
-                keyword: '',
                 product: [],
                 date: this.$moment().subtract(1, 'days').format('YYYY-MM-DD')
             },
             shortLabel: 80,
-            // options: {
-            //     options1: [],
-            //     levels: ['10%', '30%', '50%']
-            // },
             selectLevel: 1,
             oneLevel: "",
             twoLevel: "",
@@ -246,6 +245,22 @@ export default {
         productSelect,
     },
     methods: {
+        resetForm(form){
+            this.$refs[form].resetFields();
+            this.form.date =  this.$moment().subtract(1, 'days').format('YYYY-MM-DD')
+            this.$refs['productList'].values = [];
+            this.$nextTick(() => {
+                this.getWarning(); //预警接口
+                this.getWarningDetailed(); //预警明细
+            })
+
+        },
+        querySelect(){
+            this.$nextTick(() => {
+                    this.getWarning(); //预警接口
+                    this.getWarningDetailed(); //预警明细
+            })
+        },
         handelSelectLevel(type, per) {
             this.selectLevel = type;
             this.getWarning();
@@ -522,79 +537,63 @@ export default {
     }
 }
 </script>
-<style lang="scss" scoped>
-.block {
-    text-align: right;
-    margin-top: 10px;
-    margin-right: 100px;
-    margin-bottom: 30px;
-}
-
-.left-line-chart {
-    .top-box {
+<style scoped>
+    .block {
+        text-align: right;
+        margin-top: 10px;
+        margin-right: 100px;
+        margin-bottom: 30px;
+    }
+    .left-line-chart .top-box {
         width: 80%;
         margin: 0 10%;
         padding: 5%;
         height: 80px;
-
-        /* background: yellow; */
-        & p {
-            font-size: 14px;
-            color: #444444;
-        }
-
-        & h5 {
-            margin-top: 5px;
-            font-size: 24px;
-            color: #1c8ffe;
-            cursor: pointer;
-        }
     }
-
+    .top-box p {
+          font-size: 14px;
+          color: #444444;
+      }
+    .top-box h5 {
+          margin-top: 5px;
+          font-size: 24px;
+          color: #1c8ffe;
+          cursor: pointer;
+      }
     .line-chart-level {
         height: 240px;
     }
-}
-
-.right-line-chart {
-    height: 290px;
-    width: 100%;
-    margin-top: 3px;
-}
-
-.box {
-    /deep/ .radio-button-groups {
+    .radio-button-groups {
         width: 100%;
         text-align: center;
-
-        .tab-span {
-            display: inline-block;
-            font-size: 14px;
-            color: #666666;
-            width: 73px;
-            height: 24px;
-            line-height: 24px;
-            border-radius: 12px;
-            cursor: pointer;
-
-            &.active,
-            &:hover {
-                background-color: rgba(30, 144, 254, 0.1);
-                color: #1e90fe;
-            }
-        }
-
     }
-}
+    .tab-span {
+        display: inline-block;
+        font-size: 14px;
+        color: #666666;
+        width: 73px;
+        height: 24px;
+        line-height: 24px;
+        border-radius: 12px;
+        cursor: pointer;
+    }
+   .active{
+         background-color: rgba(30, 144, 254, 0.1);
+         color: #1e90fe;
+     }
+    .right-line-chart {
+        height: 290px;
+        width: 100%;
+        margin-top: 3px;
+    }
 
-.exp-btn {
-    position: absolute;
-    right: 15px;
-    z-index: 1000;
-    top: 8px;
-}
-
-.table-title {
-    color: white;
-}
+    .exp-btn {
+        position: absolute;
+        right: 15px;
+        z-index: 1000;
+        top: 8px;
+    }
+    .table-title {
+        color: white;
+    }
 </style>
