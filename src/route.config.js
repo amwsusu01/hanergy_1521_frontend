@@ -129,14 +129,14 @@ var Routers= [
                 },
                 meta: { keepAlive: false }
             },
-            {
-                path: '/lookRoles',
-                name: 'lookRoles',
-                component: function(resolve) {
-                    require(['./module/lookRoles.vue'], resolve)
-                },
-                meta: { keepAlive: false }
-            },
+            // {
+            //     path: '/lookRoles',
+            //     name: 'lookRoles',
+            //     component: function(resolve) {
+            //         require(['./module/lookRoles.vue'], resolve)
+            //     },
+            //     meta: { keepAlive: false }
+            // },
             //产供销一体化明细
             {
                 path: '/Supplychaindetails',
