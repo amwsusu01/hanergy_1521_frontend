@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="box">
         <el-row class="staff">
             <el-col :span="12">员工工号: {{jobNumber}}</el-col>
             <el-col :span="12">用户名: {{username}}</el-col>
@@ -10,10 +10,14 @@
             <el-col :span="12">邮箱: {{email}}</el-col>
         </el-row>
        <div class="data-jurisdiction">数据权限:</div>
-        <el-input
-                placeholder="输入关键字进行过滤"
-                v-model="filterText">
-        </el-input>
+        <el-row>
+            <el-col :span="8">
+                <el-input
+                    placeholder="输入关键字进行过滤"
+                    v-model="filterText">
+            </el-input>
+            </el-col>
+        </el-row>
         <el-tree
                 class="filter-tree"
                 :data="allDataList"
@@ -46,6 +50,7 @@
                 username: "",
                 email: "",
                 selectDeptIds:[],
+                selectNewDeptIds:[],
                 checkAll: false,
                 isIndeterminate: true
             };
@@ -64,20 +69,26 @@
                 if(checked == true){
                     this.selectDeptIds.push(data.id);
                 }else{
-                    let index = this.checkId.indexOf(data.id);
-                    if(index >= 0){
-                        this.selectDeptIds.splice(index,1)
+                    let index = this.selectDeptIds.indexOf(data.id);
+                    if(index >= 0) {
+                        this.selectDeptIds.splice(index,1);
                     }
                 }
             },
             //修改
             modification(){
+                this.selectNewDeptIds = [...new Set(this.selectDeptIds)]
                 let params = {
                     userCode: this.$route.query.jobNumber,
-                    deptids: this.selectDeptIds.join(",")
+                    deptids: this.selectNewDeptIds.join(",")
                 };
                 this.$api.common.updateSelectDeptList(params).then(res => {
-                    this.$router.push({name: "roles"})
+                    this.$message({
+                        message: '修改成功',
+                        type: 'success'
+                    });
+                    this.getCheckedData();
+                    // this.$router.push({name: "roles"})
                 })
             },
             //返回
@@ -92,11 +103,24 @@
                 this.$api.common.getSelectPermission(param).then(res =>{
                     let user = JSON.parse(res.user) || [];
                     this.checkId=[];
+                    this.selectDeptIds= [];
                     for(var i = 0; i< user.length; i++){
                         let id = user[i].dept_id+'';
                         this.checkId.push(id);
                     }
                 });
+            },
+            getAllCheckData(){
+                let params = {};
+                //获取所有部门的权限
+                this.$api.common.getSelectDeptList(params).then(res =>{
+                    let deptList = res.deptList || [];
+                    this.allDataList = [];
+                    for(var i = 0; i< deptList.length; i++){
+                        this.allDataList.push({id:deptList[i].dept_id+'',label:deptList[i].dept_name,children:[]})
+                    }
+                    this.getCheckedData();
+                })
             }
         },
         activated(){
@@ -110,22 +134,21 @@
 
             this.$nextTick(() =>{
                 // 在这里面去获取DOM
-                let params = {};
-                //获取所有部门的权限
-                this.$api.common.getSelectDeptList(params).then(res =>{
-                    let deptList = res.deptList || [];
-                    this.allDataList = [];
-                    for(var i = 0; i< deptList.length; i++){
-                        this.allDataList.push({id:deptList[i].dept_id+'',label:deptList[i].dept_name,children:[]})
-                    }
-                    this.getCheckedData();
-                })
+                this.getAllCheckData();
             })
         },
     }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
+    .box{
+       .el-input__inner  {
+            position: relative;
+            font-size: 14px;
+            display: inline-block;
+            width: 28% ;
+        }
+    }
 .staff{
     margin-top:20px;
     margin-bottom:15px;
@@ -140,4 +163,5 @@
     line-height: 34px;
     color: #3c3c3c;
 }
+
 </style>

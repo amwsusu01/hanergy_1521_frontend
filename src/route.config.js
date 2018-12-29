@@ -122,10 +122,18 @@ var Routers= [
             },
             //系统日志-编辑
             {
-                path: '/compileJurisdiction',
-                name: 'compileJurisdiction',
+                path: '/editorRoles',
+                name: 'editorRoles',
                 component: function(resolve) {
-                    require(['./module/compileJurisdiction.vue'], resolve)
+                    require(['./module/editorRoles.vue'], resolve)
+                },
+                meta: { keepAlive: false }
+            },
+            {
+                path: '/lookRoles',
+                name: 'lookRoles',
+                component: function(resolve) {
+                    require(['./module/lookRoles.vue'], resolve)
                 },
                 meta: { keepAlive: false }
             },

@@ -13,7 +13,7 @@
                 <el-table-column prop="month" label="用户列表" label-class-name="table-title">
                     <el-table-column prop="jobNumber" label="员工工号" min-width="15%">
                     </el-table-column>
-                    <el-table-column prop="username" label="用户名" min-width="15%">
+                    <el-table-column prop="name" label="用户名" min-width="15%">
                     </el-table-column>
                     <!-- <el-table-column prop="department" label="部门" min-width="15%">
                     </el-table-column> -->
@@ -23,7 +23,7 @@
                     </el-table-column>
                     <el-table-column prop="type" label="权限管理" min-width="15%">
                         <template slot-scope="scope">
-                            <el-button type="text">查看</el-button>
+                            <el-button type="text" @click="editorModal(scope.row)">查看</el-button>
                             <el-button type="text" @click="editorModal(scope.row)">编辑</el-button>
                         </template>
                     </el-table-column>
@@ -102,8 +102,8 @@ export default {
                 email:obj.email
             };
             _sessionStorage("sessionObj",sessionObj);
-            this.$router.push({path: '/compileJurisdiction',query:{jobNumber:jobNumber}})
-        }
+            this.$router.push({path: '/editorRoles',query:{jobNumber:jobNumber}})
+        },
     },
     mounted() {
         this.getUserList();
