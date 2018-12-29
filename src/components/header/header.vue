@@ -1,10 +1,10 @@
 <template>
     <div class="clearfix header-box">
         <div class="header-logo fl"><img :src="logoUrl"></img></div>
-        <div class="header-title fl" @click="childClick">
-            <!-- <img :src="baobiao" style="margin-top: -11px; width: 40px;" class="home-icon"></img> -->
-            <!-- <i class="iconfont icon-baobiao"></i> //可以用~~~-->
-            <!--<span class="home-title" style="display: block;">{{title}}</span>-->
+        <div class="header-title fl">
+           <!--  <img :src="baobiao" style="margin-top: -11px; width: 40px;" class="home-icon"></img>
+             <i class="iconfont icon-baobiao"></i> //可以用~~~-->
+            <span class="home-title" style="display: block;">{{title}}</span>
         </div>
         <div class="header-subtitle fl">{{subtitle}}</div>
         <div class="header-quit fr" @click="quit()">退出</div>

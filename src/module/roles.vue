@@ -24,7 +24,7 @@
                     <el-table-column prop="type" label="权限管理" min-width="15%">
                         <template slot-scope="scope">
                             <el-button type="text">查看</el-button>
-                            <el-button type="text">编辑</el-button>
+                            <el-button type="text" @click="editorModal(scope.row)">编辑</el-button>
                         </template>
                     </el-table-column>
                 </el-table-column>
@@ -37,6 +37,7 @@
     </div>
 </template>
 <script type="text/javascript">
+    import {_sessionStorage} from "../assets/js/util";
 export default {
     name: 'roles',
     data() {
@@ -90,6 +91,18 @@ export default {
 
                 }
             })
+        },
+        editorModal(obj){
+            let jobNumber = obj.jobNumber;
+            let username = obj.username;
+            let email = obj.email;
+            let sessionObj = {
+                jobNumber: obj.jobNumber,
+                username: obj.username,
+                email:obj.email
+            };
+            _sessionStorage("sessionObj",sessionObj);
+            this.$router.push({path: '/compileJurisdiction',query:{jobNumber:jobNumber}})
         }
     },
     mounted() {

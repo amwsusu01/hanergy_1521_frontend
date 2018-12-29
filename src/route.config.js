@@ -120,6 +120,15 @@ var Routers= [
                 },
                 meta: { keepAlive: false }
             },
+            //系统日志-编辑
+            {
+                path: '/compileJurisdiction',
+                name: 'compileJurisdiction',
+                component: function(resolve) {
+                    require(['./module/compileJurisdiction.vue'], resolve)
+                },
+                meta: { keepAlive: false }
+            },
             //产供销一体化明细
             {
                 path: '/Supplychaindetails',
@@ -137,6 +146,24 @@ var Routers= [
                     require(['./module/product-provide-market/early-warning.vue'], resolve)
                 },
                 meta: { keepAlive: false}
+            },
+            //管理控制台-供应链一体化-预警管理
+            {
+                path: '/forewarningManage',
+                name: 'forewarningManage',
+                component: function(resolve) {
+                    require(['./module/supervisor-console/forewarningManage.vue'], resolve)
+                },
+                meta: { keepAlive: false}
+            },
+            //管理控制台-供应链一体化-预警记录
+            {
+                path: '/forewarningRecord',
+                name: 'forewarningRecord',
+                component: function(resolve) {
+                    require(['./module/supervisor-console/forewarningRecord.vue'], resolve)
+                },
+                meta: { keepAlive: false}
             }
         ]
     },
@@ -147,7 +174,7 @@ import Router from 'vue-router'
 // 并且配置路由规则
 const router = new Router({
   mode: 'history',
-  base:'/BigdataPlatform/', //生产环境下需要配置
+  //base:'/BigdataPlatform/', //生产环境下需要配置
   routes: Routers
 })
 

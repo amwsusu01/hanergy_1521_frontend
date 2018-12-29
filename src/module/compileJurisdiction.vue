@@ -1,0 +1,143 @@
+<template>
+    <div>
+        <el-row class="staff">
+            <el-col :span="12">员工工号: {{jobNumber}}</el-col>
+            <el-col :span="12">用户名: {{username}}</el-col>
+            <!--<el-col :span="6">部门:{{department}}</el-col>-->
+        </el-row>
+        <el-row  class="staff">
+            <el-col :span="12">登录名: {{jobNumber}}</el-col>
+            <el-col :span="12">邮箱: {{email}}</el-col>
+        </el-row>
+       <div class="data-jurisdiction">数据权限:</div>
+        <el-input
+                placeholder="输入关键字进行过滤"
+                v-model="filterText">
+        </el-input>
+        <el-tree
+                class="filter-tree"
+                :data="allDataList"
+                show-checkbox
+                node-key="id"
+                :default-checked-keys="checkId"
+                @check-change="handleCheckChange"
+                default-expand-all
+                :filter-node-method="filterNode"
+                ref="tree">
+        </el-tree>
+        <div style="margin-left:23px;margin-top:20px;">
+            <el-button type="primary" size="mini" @click="modification()">修改</el-button>
+            <el-button type="primary" size="mini" @click="goPrevious()">返回</el-button>
+        </div>
+    </div>
+</template>
+
+<script>
+    import {_sessionStorage} from "../assets/js/util";
+    export default {
+        name: "compile-jurisdiction",
+        data() {
+            return {
+                filterText: '',
+                dataList: [],
+                checkId: [],
+                allDataList:[],
+                jobNumber: "",
+                username: "",
+                email: "",
+                selectDeptIds:[],
+                checkAll: false,
+                isIndeterminate: true
+            };
+        },
+        watch: {
+            filterText(val) {
+                this.$refs.tree.filter(val);
+            }
+        },
+        methods: {
+            filterNode(value, data) {
+                if (!value) return true;
+                return data.label.indexOf(value) !== -1;
+            },
+            handleCheckChange(data, checked) {
+                if(checked == true){
+                    this.selectDeptIds.push(data.id);
+                }else{
+                    let index = this.checkId.indexOf(data.id);
+                    if(index >= 0){
+                        this.selectDeptIds.splice(index,1)
+                    }
+                }
+            },
+            //修改
+            modification(){
+                let params = {
+                    userCode: this.$route.query.jobNumber,
+                    deptids: this.selectDeptIds.join(",")
+                };
+                this.$api.common.updateSelectDeptList(params).then(res => {
+                    this.$router.push({name: "roles"})
+                })
+            },
+            //返回
+            goPrevious(){
+                this.$router.push({name: 'roles'})
+            },
+            //获取当前用户的权限
+            getCheckedData(){
+                let param = {
+                    userCode: this.$route.query.jobNumber
+                };
+                this.$api.common.getSelectPermission(param).then(res =>{
+                    let user = JSON.parse(res.user) || [];
+                    this.checkId=[];
+                    for(var i = 0; i< user.length; i++){
+                        let id = user[i].dept_id+'';
+                        this.checkId.push(id);
+                    }
+                });
+            }
+        },
+        activated(){
+           this.getCheckedData();
+        },
+        mounted(){
+            let sessionObj = _sessionStorage("sessionObj");
+            this.jobNumber = this.$route.query.jobNumber;
+            this.username = sessionObj.username;
+            this.email = sessionObj.email;
+
+            this.$nextTick(() =>{
+                // 在这里面去获取DOM
+                let params = {};
+                //获取所有部门的权限
+                this.$api.common.getSelectDeptList(params).then(res =>{
+                    let deptList = res.deptList || [];
+                    this.allDataList = [];
+                    for(var i = 0; i< deptList.length; i++){
+                        this.allDataList.push({id:deptList[i].dept_id+'',label:deptList[i].dept_name,children:[]})
+                    }
+                    this.getCheckedData();
+                })
+            })
+        },
+    }
+</script>
+
+<style scoped>
+.staff{
+    margin-top:20px;
+    margin-bottom:15px;
+    font-size: 14px;
+    line-height: 34px;
+    color: #575758;
+}
+.data-jurisdiction{
+    margin-top:20px;
+    margin-bottom:10px;
+    font-size: 16px;
+    line-height: 34px;
+    color: #3c3c3c;
+}
+</style>

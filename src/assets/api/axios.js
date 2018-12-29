@@ -12,8 +12,9 @@ import {_sessionStorage} from "../js/util";
 
 var urls = configM.comUrl;//'http://172.28.27.69:8082'//
 var otherUrls = configM.otherComUrl;//'http://172.28.27.69:8082'//
+var permissonUrls = configM.permissonComUrl;//'http://172.28.27.69:8082'//
 
-Axios.defaults.baseURL = urls || otherUrls;
+Axios.defaults.baseURL = urls || otherUrls || permissonUrls;
 
 
 Axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';

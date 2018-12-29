@@ -14,8 +14,11 @@ const apiURL = {
     psmDimension:'psm/dimension',
     psmWarning: 'psm/getWarning',
     warningDetailed: 'psm/warningDetailed',
-    productDetailed: 'psm/getProductDetailed'
-}
+    productDetailed: 'psm/getProductDetailed',
+    selectPermission:"/userPermission/selectPermission",
+    selectDeptList:"/userPermission/selectDeptList",
+    updatePermission:"/userPermission/updatePermission"
+};
 
 export default {
     login(obj) {
@@ -53,5 +56,14 @@ export default {
     },
     getProductExportDetailed(obj) {
         return Api.exportPost(apiURL.productDetailed, obj);
+    },
+    getSelectPermission(obj) {
+        return Api.get(apiURL.selectPermission,obj);
+    },
+    getSelectDeptList() {
+        return Api.get(apiURL.selectDeptList,{});
+    },
+    updateSelectDeptList(obj) {
+        return Api.get(apiURL.updatePermission,obj);
     },
 }

@@ -9,7 +9,7 @@
                     <el-input maxlength="50" v-model.trim="formLogin.username" placeholder="账号/邮箱前缀"></el-input>
                 </el-form-item>
                 <el-form-item prop="password">
-                    <el-input maxlength="15" type="password" @keyup.enter.native="loginButton()" onpaste="return false" v-model.trim="formLogin.password" placeholder="请输入密码"></el-input>
+                    <el-input maxlength="50" type="password" @keyup.enter.native="loginButton()" onpaste="return false" v-model.trim="formLogin.password" placeholder="请输入密码"></el-input>
                 </el-form-item>
                 <el-form-item class="btn-item">
                     <el-button type="primary" @click="loginButton()">登&nbsp;&nbsp;录</el-button>
@@ -160,7 +160,7 @@ export default {
         position: absolute;
         /*top: 169px;*/
         /*left: 387px;*/
-        top: 15.6%;
+        top: 9.6%;
         bottom: 17.3%;
         left: 60.2%;
         right: 51.4%;
@@ -229,7 +229,7 @@ export default {
 
     .footer-container {
         position: absolute;
-        bottom: 20px;
+        bottom: 30px;
         text-align:center;
             width: 100%;
     left: 0;
