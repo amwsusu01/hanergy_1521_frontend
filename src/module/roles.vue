@@ -94,11 +94,11 @@ export default {
         },
         editorModal(obj){
             let jobNumber = obj.jobNumber;
-            let username = obj.username;
+            let name = obj.name;
             let email = obj.email;
             let sessionObj = {
                 jobNumber: obj.jobNumber,
-                username: obj.username,
+                name: obj.name,
                 email:obj.email
             };
             _sessionStorage("sessionObj",sessionObj);

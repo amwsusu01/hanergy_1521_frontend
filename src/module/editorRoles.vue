@@ -2,7 +2,7 @@
     <div class="box">
         <el-row class="staff">
             <el-col :span="12">员工工号: {{jobNumber}}</el-col>
-            <el-col :span="12">用户名: {{username}}</el-col>
+            <el-col :span="12">用户名: {{name}}</el-col>
             <!--<el-col :span="6">部门:{{department}}</el-col>-->
         </el-row>
         <el-row  class="staff">
@@ -47,7 +47,7 @@
                 checkId: [],
                 allDataList:[],
                 jobNumber: "",
-                username: "",
+                name: "",
                 email: "",
                 selectDeptIds:[],
                 selectNewDeptIds:[],
@@ -129,7 +129,7 @@
         mounted(){
             let sessionObj = _sessionStorage("sessionObj");
             this.jobNumber = this.$route.query.jobNumber;
-            this.username = sessionObj.username;
+            this.name = sessionObj.name;
             this.email = sessionObj.email;
 
             this.$nextTick(() =>{
