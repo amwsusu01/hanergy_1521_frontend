@@ -1,10 +1,10 @@
 <template>
     <div class="clearfix header-box">
         <div class="header-logo fl"><img :src="logoUrl"></img></div>
-        <div class="header-title fl">
+        <div :class="{'header-title':true, 'fl':true,'active':activeIndex==index}" v-for="(tl,index) in title" @click="switchMenu(index)">
            <!--  <img :src="baobiao" style="margin-top: -11px; width: 40px;" class="home-icon"></img>
              <i class="iconfont icon-baobiao"></i> //可以用~~~-->
-            <span class="home-title" style="display: block;">{{title}}</span>
+            <span class="home-title" style="display: block;" >{{tl}}</span>
         </div>
         <div class="header-subtitle fl">{{subtitle}}</div>
         <div class="header-quit fr" @click="quit()">退出</div>
@@ -26,7 +26,6 @@ export default {
         return {
             subtitle: '',
             response: false,
-            //user: 'admin',
             sidebar: {
                 childValue: true,
                 systemValue: false
@@ -54,6 +53,9 @@ export default {
                     });
                 }, 3000);
             }
+        },
+        switchMenu(index) {
+            this.$emit('switchMenu',index)
         },
         quit() {
             this.$confirm('确定退出吗?', '提示', {
@@ -93,7 +95,8 @@ export default {
         }
     },
     props: {
-        title: String
+        title: Array,
+        activeIndex:Number
     }
     /* watch:{
          '$route' (to, from) {
@@ -108,18 +111,24 @@ export default {
 .header-box {
     color: #ffffff;
 
-    .header-logo {
-        margin-top: 7px;
+    .header-logo {        
         margin-right: 15px;
+        & img {
+            margin-top: 15px;
+        }
     }
 
-    .header-title {
+    /deep/ .header-title {
         cursor: pointer;
         font-family: FZZZHONGJW--GB1-0;
         font-size: 16px;
         color: #FFFFFF;
-        margin-left: 62px;
+        padding:0 31px;
         text-align: center;
+
+        &:hover,&.active {
+            background:#de2525;
+        }
     }
 
     .header-line {
@@ -134,6 +143,7 @@ export default {
         font-family: FZZZHONGJW--GB1-0;
         font-size: 24px;
         color: #FFFFFF;
+        line-height: 60px;
     }
 
     .header-img {
@@ -141,11 +151,13 @@ export default {
         height: 36px;
         border-radius: 100%;
         margin-right: 20px;
+        padding-top: 13px;
 
         img {
             border-radius: 100%;
             width: 100%;
             height: auto;
+
         }
     }
 
@@ -160,11 +172,12 @@ export default {
         -o-transform: rotate(36deg);
         -moz-transform: rotate(36deg);
         -webkit-transform: rotate(36deg);
-        margin: 10px 14px;
+        margin: 23px 14px;
         opacity: 0.4;
         background: #FFFFFF;
         height: 16px;
         width: 2px;
+        line-height: 60px;
     }
 
     .header-quit {

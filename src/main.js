@@ -6,17 +6,17 @@ import router from './route.config'
 // import Api from './assets/api/axios'
 import globalConfig from './assets/js/global-config'
 import App from './App'
-import {sessionId,number_format,_sessionStorage} from './assets/js/util'
+//import {sessionId,number_format,_sessionStorage} from './assets/js/util'
 import ErrorPage from './components/ErrorPage/index'
 import appConfig from './app.config'
-import  VueQuillEditor from 'vue-quill-editor'
+// import  VueQuillEditor from 'vue-quill-editor'
 // require styles 引入样式
-import 'quill/dist/quill.core.css'
+/*import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
-import 'quill/dist/quill.bubble.css'
+import 'quill/dist/quill.bubble.css'*/
 
 // Vue.use(VueQuillEditor)
-import '../theme/index.css'
+/*import '../theme/index.css'*/
 import ElementUI from 'element-ui';
 
 import Echarts from 'echarts';
@@ -25,7 +25,7 @@ Vue.use(Echarts);
 import "../src/assets/js/echarts-wordcloud"
 import "../src/assets/js/echarts-wordcloud.min"
 
-import md5 from 'js-md5';
+//import md5 from 'js-md5';
 //import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
 

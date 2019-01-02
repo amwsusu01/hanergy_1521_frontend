@@ -33,6 +33,7 @@ export default {
 
 .el-form-item__content {
     width: 255px !important;
+    position: relative;
 
     .line {
         text-align: center;
@@ -165,10 +166,9 @@ export default {
 
 // 公共头部
 .el-header {
-    padding: 13px 40px 13px 30px !important;
     background: #cf5246;
     height: 60px !important;
-    line-height: 36px;
+    line-height: 60px;
 }
 
 .el-container {
@@ -279,6 +279,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .contain.el-form {
+    position: relative;
     .el-form-item {
         margin-bottom: 10px;
     }

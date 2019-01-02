@@ -1,7 +1,7 @@
 <template>
     <el-container class="container">
         <el-header>
-            <Header :title="sysTitle"></Header>
+            <Header :title="titles" @switchMenu="switchMenu" :activeIndex="activeIndex"></Header>
         </el-header>
         <el-container :style="{ 'height': documentClientHeight-70 + 'px'}">
             <el-scrollbar style="height: 100%;width: 100%;" ref="globalScrollbar">
@@ -38,6 +38,7 @@ export default {
     data() {
         return {
             isCollapse: false,
+            activeIndex:0
             //sysTitle: '报表'
         };
     },
@@ -64,6 +65,16 @@ export default {
             },
             set(val) {
                 this.$store.commit('setSysTitle', val);
+            }
+        },
+        titles:{
+            get(){
+                return this.allMenu.map((a)=>a.name);
+            }
+        },
+        allMenu:{
+            get() {
+                return this.$store.state.common.allMenu;
             }
         },
         menuData: {
@@ -143,6 +154,19 @@ export default {
         }
     },
     methods: {
+        switchMenu(index) {
+            this.activeIndex = index;
+            this.menuData = this.allMenu[index].list;
+            _sessionStorage("menuData", JSON.stringify(this.menuData));
+            let firstPage = 'canteenOrder';
+            if(this.menuData.length > 0 && this.menuData[0].list.length > 0) {
+                firstPage = this.menuData[0].list[0].url;
+            }
+            this.$router.push({
+                name: firstPage
+            });
+            console.log(index);
+        },
         getDimension() {
             this.$api.common.getDimension().then(res => {
                 this.setPsmDept = JSON.parse(res.dept)
@@ -245,10 +269,12 @@ export default {
 
 .openMenu {
     margin-left: 64px;
+    position: relative;
 }
 
 .closeMenu {
     margin-left: 220px;
+    position: relative;
 }
 </style>
 <style lang="less">

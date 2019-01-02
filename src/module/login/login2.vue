@@ -75,6 +75,14 @@ export default {
                 this.$store.commit('setMenuData', val);
             }
         },
+        allMenu:{
+            get() {
+              return this.$store.state.common.allMenu;
+            },
+            set(val) {
+                this.$store.commit('setAllMenuData', val);
+            }
+        },
         sysTitle: {
             get() {
                 return this.$store.state.common.sysTitle;
@@ -113,9 +121,11 @@ export default {
                     this.$store.commit('setUser', res.user);
                     this.sysTitle = res.data[0].menus[0].name;
                     this.menuData = res.data[0].menus[0].list;
+                    this.allMenu = res.data[0].menus;
 
                     _sessionStorage("loggeduser", JSON.stringify(res.user));
                     _sessionStorage("menuData", JSON.stringify(this.menuData));
+                    _sessionStorage("allMenu", JSON.stringify(this.allMenu));
                     _sessionStorage("sysTitle", this.sysTitle);
 
                     let firstPage = 'canteenOrder';
