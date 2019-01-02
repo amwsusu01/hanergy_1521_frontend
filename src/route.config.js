@@ -129,7 +129,7 @@ var Routers= [
                 },
                 meta: { keepAlive: false }
             },
-            },            //产供销一体化明细
+            //产供销一体化明细
             {
                 path: '/Supplychaindetails',
                 name: 'Supplychaindetails',
