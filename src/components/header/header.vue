@@ -45,10 +45,11 @@ export default {
                     message: '未登录，3s后返回登录页',
                     type: 'error'
                 });
+                let _this = this;
                 setTimeout(function() {
-                    this.$store.commit('setUser', null);
+                    _this.$store.commit('setUser', null);
                     sessionStorage.removeItem('loggeduser');
-                    this.$router.push({
+                    _this.$router.push({
                         'name': 'login',
                     });
                 }, 3000);
@@ -58,14 +59,16 @@ export default {
             this.$emit('switchMenu',index)
         },
         quit() {
+            let _this = this;
             this.$confirm('确定退出吗?', '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(() => {
-                this.$store.commit('setUser', null);
+                if(_this.$store)
+                _this.$store.commit('setUser', null);
                 sessionStorage.removeItem('loggeduser');
-                this.$router.push({
+                _this.$router.push({
                     'name': 'login',
                 });
             }).catch(() => {});
