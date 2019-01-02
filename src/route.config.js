@@ -157,19 +157,19 @@ var Routers= [
             },
             //管理控制台-供应链一体化-预警管理
             {
-                path: '/forewarningManage',
-                name: 'forewarningManage',
+                path: '/forewarnManage',
+                name: 'forewarnManage',
                 component: function(resolve) {
-                    require(['./module/supervisor-console/forewarningManage.vue'], resolve)
+                    require(['./module/manage-control/forewarnManage.vue'], resolve)
                 },
                 meta: { keepAlive: false}
             },
             //管理控制台-供应链一体化-预警记录
             {
-                path: '/forewarningRecord',
-                name: 'forewarningRecord',
+                path: '/forewarnRecord',
+                name: 'forewarnRecord',
                 component: function(resolve) {
-                    require(['./module/supervisor-console/forewarningRecord.vue'], resolve)
+                    require(['./module/manage-control/forewarnRecord.vue'], resolve)
                 },
                 meta: { keepAlive: false}
             }

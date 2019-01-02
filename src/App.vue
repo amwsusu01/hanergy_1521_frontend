@@ -24,7 +24,9 @@ export default {
 </script>
 <style lang="less">
 @import "../static/font/iconfont.css";
-
+#app{
+    position: relative;
+}
 .el-main {
     // padding-left: 40px !important;
 }
@@ -95,14 +97,14 @@ export default {
     .el-breadcrumb__item {
         font-family: PingFangSC-Medium;
         font-size: 14px;
-        color: #76A4C9 !important;
+        color: #ea2828  !important;
         line-height: 20px;
         font-weight: normal;
 
         span {
             font-family: PingFangSC-Medium;
             font-size: 14px;
-            color: #76A4C9 !important;
+            color: #ea2828 !important;
             line-height: 20px;
             font-weight: normal;
         }

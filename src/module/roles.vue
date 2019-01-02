@@ -88,7 +88,6 @@ export default {
                     this.originData = this.data;
                     this.page.totalNumber = this.data.length;
                     this.userList = this.data.slice((this.page.currentPage - 1) * this.page.pagesize, this.page.currentPage * this.page.pagesize);
-
                 }
             })
         },

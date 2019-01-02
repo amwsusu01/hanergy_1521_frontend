@@ -14,10 +14,14 @@ const common = {
         menuItemData: _sessionStorage("menuData") ? getMenuData(JSON.parse(_sessionStorage("menuData")), []) : [],
         dept:[],
         product: [],
-        psmUser: []
+        psmUser: [],
+        templateId: "1000001"
     },
     actions: {},
     mutations: {
+        saveTemplateId(state, templateId){
+            state.templateId = templateId;
+        },
         setActiveMenu(state, id) {
             state.curMenuID = id;
         },

@@ -17,7 +17,11 @@ const apiURL = {
     productDetailed: 'psm/getProductDetailed',
     selectPermission:"/userPermission/selectPermission",
     selectDeptList:"/userPermission/selectDeptList",
-    updatePermission:"/userPermission/updatePermission"
+    updatePermission:"/userPermission/updatePermission",
+    getMailNotifierList: "/mail/mailNotifierList",
+    addNotifier: "/mail/addNotifier",
+    updateNotifier: "/mail/updateNotifier",
+    mailRecordList: "/mail/mailRecordList",
 };
 
 export default {
@@ -65,5 +69,17 @@ export default {
     },
     updateSelectDeptList(obj) {
         return Api.get(apiURL.updatePermission,obj);
+    },
+    getMailNotifierList(obj) {
+        return Api.get(apiURL.getMailNotifierList,obj);
+    },
+    addNotifier(obj) {
+        return Api.get(apiURL.addNotifier,obj);
+    },
+    updateNotifier(obj) {
+        return Api.get(apiURL.updateNotifier,obj);
+    },
+    mailRecordList(obj) {
+        return Api.get(apiURL.mailRecordList,obj);
     },
 }

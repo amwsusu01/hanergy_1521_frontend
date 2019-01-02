@@ -1,5 +1,5 @@
 <template>
-    <el-container>
+    <el-container class="container">
         <el-header>
             <Header :title="sysTitle"></Header>
         </el-header>
@@ -232,6 +232,9 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+.container{
+    position: relative;
+}
 .el-breadcrumb {
     margin-bottom: 20px;
 }
@@ -253,7 +256,7 @@ export default {
     position: fixed;
     top: 60px;
     left: 0px;
-    z-index: 9999;
+    z-index: 11;
 }
 
 .el-container {

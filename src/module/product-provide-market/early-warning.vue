@@ -65,7 +65,7 @@
                     <div class="right-line-chart" id="rightLineChart1"></div>
                 </el-col>
             </el-row>
-            <div style="width:100%;max-width: 1200px;position: relative;">
+            <div style="width:100%;max-width: 1200px;position: relative;margin-top:20px;">
                 <el-button class="exp-btn" plain size="small" @click="exportExl('67')">导出</el-button>
                 <el-table :data="dataList" border style="width: 100%" >
                     <el-table-column prop="month" label="到期明细表" label-class-name="table-title title-th">
@@ -292,9 +292,6 @@ export default {
             }
             this.getWarningDetailed();
         },
-        filterData() {
-            return res;
-        },
         CurrentChange(val) {
             this.page.currentPage = val
             this.getWarningDetailed();
@@ -409,7 +406,6 @@ export default {
                         processCount.push(filterItem['sum(process_count)/sum(all_count)']); //百分比
                     }
                 }
-
                 //console.log('count',Array.from(sumCount),Array.from(processCount));
                 var temp = this.lineChartOption;
                 //temp.xAxis.data = this.process;
@@ -493,7 +489,6 @@ export default {
                 isExprot: '1'
             }
             this.$api.common.warningExportGet(params).then(res => {
-                console.log(res,"========")
                  exportExl(res, filename);
             })
         }
