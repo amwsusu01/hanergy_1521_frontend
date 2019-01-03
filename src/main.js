@@ -15,6 +15,8 @@ import appConfig from './app.config'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'*/
 
+@import "~element-ui/packages/theme-chalk/src/index";
+
 // Vue.use(VueQuillEditor)
 /*import '../theme/index.css'*/
 import ElementUI from 'element-ui';
@@ -22,6 +24,7 @@ import ElementUI from 'element-ui';
 import Echarts from 'echarts';
 Vue.prototype.echarts = Echarts;
 Vue.use(Echarts);
+
 import "../src/assets/js/echarts-wordcloud"
 import "../src/assets/js/echarts-wordcloud.min"
 
@@ -36,9 +39,9 @@ Object.defineProperty(Vue.prototype, '$moment', { value: moment });
 Vue.use(Router)
 Vue.use(globalConfig)
 
-Vue.config.debug = true
+/*Vue.config.debug = true
 Vue.config.devtools = false
-Vue.config.silent = true
+Vue.config.silent = true*/
 
 import store from './store';
 
@@ -54,7 +57,7 @@ router.beforeEach((to, from, next) => {
 })
 
 router.afterEach(route  => {
-  $(".no-data-msg").css("top","0px");
+  //$(".no-data-msg").css("top","0px");
   $("input").blur();
   //解决 其他页面加载更多的问题
   //Util.moreAndMoreOnscroll(false);
@@ -68,82 +71,82 @@ window.vm = new Vue({
   render: h => h(App)
 }).$mount('#app')
 
-/**
- * 数字字符串补零
- * @param num
- * @returns {*}
- */
-function zeroFill (num) {
-  if (num > 0 && num < 10 || num.toString().length == 1 && num == 0) {
-    return '0' + num;
-  }
-  return num;
-}
-/**
- * 格式化日期
- */
-Vue.filter('DateFormat',function(timestamp,formatType){
-  if(timestamp =='' || timestamp == undefined ||timestamp =='undefined' || timestamp == null){
-    return "";
-  }
-  var backtime = '';
-  var dateTime = new Date(parseInt(timestamp));
-  var year = dateTime.getFullYear();  //获取年
-  var month = dateTime.getMonth()+1;  //获取月份
-  var date = dateTime.getDate();      //获取日
-  var day = dateTime.getDay();        //获取星期
-  var hour = dateTime.getHours();     //获取小时
-  var minute = dateTime.getMinutes(); //获取分钟
-  var second = dateTime.getSeconds(); //获取秒
-  switch (formatType){
-    case 1:
-      backtime = year +"年" + zeroFill(month) +"月" + zeroFill(date) +"日";
-      break;
-    case 2:
-      backtime = year +"-" + zeroFill(month) +"-" + zeroFill(date) +" " +zeroFill(hour) +":" +zeroFill(minute) +":" + zeroFill(second);
-      break;
-    case 3:
-      backtime = year +"-" + zeroFill(month) +"-" + zeroFill(date);
-      break;
-    case 4:
-      backtime = year +"-" + zeroFill(month) +"-" + zeroFill(date) +" " +zeroFill(hour) +":" +zeroFill(minute);
-      break;
-    default:
-      backtime = year + "-" + month + "-" + date;
-      break;
-  }
-  return backtime;
-});
-Vue.filter('textLength',function(val ,num){
-  var length = val.replace(/[\r\n]/g,'**').length;
-  if(length>num){
-    length =num;
-  }
-  return length;
-});
-/**
- * 超过字数用省略号代替
- */
-Vue.filter('textEllipsis',function(content,max){
-    let str;
-    if(content&&content.length > max){
-      str = content.replace(/[\r\n]/g,'').trim().substr(0,max)+ "…";
-    }else{
-      str = content;
-    }
-    return str;
-})
+// /**
+//  * 数字字符串补零
+//  * @param num
+//  * @returns {*}
+//  */
+// function zeroFill (num) {
+//   if (num > 0 && num < 10 || num.toString().length == 1 && num == 0) {
+//     return '0' + num;
+//   }
+//   return num;
+// }
+// /**
+//  * 格式化日期
+//  */
+// Vue.filter('DateFormat',function(timestamp,formatType){
+//   if(timestamp =='' || timestamp == undefined ||timestamp =='undefined' || timestamp == null){
+//     return "";
+//   }
+//   var backtime = '';
+//   var dateTime = new Date(parseInt(timestamp));
+//   var year = dateTime.getFullYear();  //获取年
+//   var month = dateTime.getMonth()+1;  //获取月份
+//   var date = dateTime.getDate();      //获取日
+//   var day = dateTime.getDay();        //获取星期
+//   var hour = dateTime.getHours();     //获取小时
+//   var minute = dateTime.getMinutes(); //获取分钟
+//   var second = dateTime.getSeconds(); //获取秒
+//   switch (formatType){
+//     case 1:
+//       backtime = year +"年" + zeroFill(month) +"月" + zeroFill(date) +"日";
+//       break;
+//     case 2:
+//       backtime = year +"-" + zeroFill(month) +"-" + zeroFill(date) +" " +zeroFill(hour) +":" +zeroFill(minute) +":" + zeroFill(second);
+//       break;
+//     case 3:
+//       backtime = year +"-" + zeroFill(month) +"-" + zeroFill(date);
+//       break;
+//     case 4:
+//       backtime = year +"-" + zeroFill(month) +"-" + zeroFill(date) +" " +zeroFill(hour) +":" +zeroFill(minute);
+//       break;
+//     default:
+//       backtime = year + "-" + month + "-" + date;
+//       break;
+//   }
+//   return backtime;
+// });
+// Vue.filter('textLength',function(val ,num){
+//   var length = val.replace(/[\r\n]/g,'**').length;
+//   if(length>num){
+//     length =num;
+//   }
+//   return length;
+// });
+// /**
+//  * 超过字数用省略号代替
+//  */
+// Vue.filter('textEllipsis',function(content,max){
+//     let str;
+//     if(content&&content.length > max){
+//       str = content.replace(/[\r\n]/g,'').trim().substr(0,max)+ "…";
+//     }else{
+//       str = content;
+//     }
+//     return str;
+// })
 
-Vue.filter('mailStatus',function(obj){
-  let mailNo = obj.mailNo;
-  let mailStatus = obj.mailStatus;
-  let className = {};
-  if (mailStatus == 0 || mailStatus == 'AS1' || mailStatus == 'AS2' || mailStatus == 'AS3' || mailStatus == 'AS4') {
-    className['send-status-1'] = true;
-  } else if (mailStatus==1 || (mailNo && (mailStatus == '00' || mailStatus == '30' || mailStatus == '40' || mailStatus == '41' || mailStatus == '50' || mailStatus == '51'))) {
-    className['send-status-2'] = true;
-  } else {
-    className['send-status-3'] = true;
-  }
-  return className
-})
+// Vue.filter('mailStatus',function(obj){
+//   let mailNo = obj.mailNo;
+//   let mailStatus = obj.mailStatus;
+//   let className = {};
+//   if (mailStatus == 0 || mailStatus == 'AS1' || mailStatus == 'AS2' || mailStatus == 'AS3' || mailStatus == 'AS4') {
+//     className['send-status-1'] = true;
+//   } else if (mailStatus==1 || (mailNo && (mailStatus == '00' || mailStatus == '30' || mailStatus == '40' || mailStatus == '41' || mailStatus == '50' || mailStatus == '51'))) {
+//     className['send-status-2'] = true;
+//   } else {
+//     className['send-status-3'] = true;
+//   }
+//   return className
+// })
