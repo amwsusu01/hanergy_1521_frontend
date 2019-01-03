@@ -1,7 +1,7 @@
 <template>
     <div class="menu-wrapper">
         <template v-for="(item,index) in menu">
-            <el-menu-item v-if="item.list.length===0" :index="item.menuId" @click="open(item)" :key="item.menuId">
+            <el-menu-item v-if="item.list.length===0" :index="`${item.menuId}`" @click="open(item)" :key="item.menuId">
                 <i :class="item.icon"></i>
                 <span slot="title">{{item.name}}</span>
             </el-menu-item>
@@ -49,6 +49,8 @@ export default {
             if (item.url != '' && item.url != "‘’") {
                 _setTitle(item.name)
                 this.$store.commit('setBreadcrumbMenu', [this.name||'', item.name]);
+                this.$store.commit('setActiveMenuId', item.menuId);
+
                 this.$router.push({
                     name: item.url
                 });

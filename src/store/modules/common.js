@@ -1,4 +1,5 @@
 import { _sessionStorage, getMenuData } from "../../assets/js/util";
+
 const common = {
     state: {
         isCollapse: false,
@@ -8,7 +9,7 @@ const common = {
         allMenu:_sessionStorage("allMenu") ? JSON.parse(_sessionStorage("allMenu")) : [],
         menuData: _sessionStorage("menuData") ? JSON.parse(_sessionStorage("menuData")) : [],
         user: _sessionStorage("loggeduser") ? JSON.parse(_sessionStorage("loggeduser")) : {},
-        breadcrumbMenu: ['1521日志分析报表', '1521数据汇总统计'],
+        breadcrumbMenu: _sessionStorage("breadcrumbMenu") ? JSON.parse(_sessionStorage("breadcrumbMenu")) : [],
         sysTitle: _sessionStorage("sysTitle") || '',
         updateTime: '',
         deptments: [],
@@ -16,7 +17,8 @@ const common = {
         dept:[],
         product: [],
         psmUser: [],
-        templateId: "1000001"
+        templateId: "1000001",
+        activeMenuId:_sessionStorage("activeMenuId") ? JSON.parse(_sessionStorage("activeMenuId")) : ''
     },
     actions: {},
     mutations: {
@@ -27,14 +29,6 @@ const common = {
             state.curMenuID = id;
         },
         setMenuData(state, data) {
-            // if (data && data.length > 0) {
-            //     data[0].icon = "el-icon-tickets";
-
-            //     if(data.length > 1) {
-            //         data[1].icon = 'iconfont icon-gongyinglianzhineng';
-            //     }
-            // }
-
             let menu = [];
             let _menu = getMenuData(data, menu);
             state.menuData = data;
@@ -47,7 +41,12 @@ const common = {
             state.user = data;
         },
         setBreadcrumbMenu(state, data) {
+            _sessionStorage("breadcrumbMenu",JSON.stringify(data));
             state.breadcrumbMenu = data;
+        },
+        setActiveMenuId(state, data) {
+            _sessionStorage("activeMenuId",data);
+            state.activeMenuId = data;
         },
         setSysTitle(state, data) {
             state.sysTitle = data;

@@ -1,7 +1,7 @@
 <template>
     <div class="clearfix header-box">
-        <div class="header-logo fl"><img :src="logoUrl"></img></div>
-        <div :class="{'header-title':true, 'fl':true,'active':activeIndex==index}" v-for="(tl,index) in title" @click="switchMenu(index)">
+        <div class="header-logo fl"><img :src="logoUrl" /></div>
+        <div :class="{'header-title':true, 'fl':true,'active':activeIndex==index}" v-for="(tl,index) in title" @click="switchMenu(index)" >
            <!--  <img :src="baobiao" style="margin-top: -11px; width: 40px;" class="home-icon"></img>
              <i class="iconfont icon-baobiao"></i> //可以用~~~-->
             <span class="home-title" style="display: block;" >{{tl}}</span>
@@ -11,12 +11,11 @@
         <div class="header-oblique-line fr"></div>
         <div class="header-user fr">您好，{{user.name}}</div>
         <div class="header-img fr">
-            <img src="../../assets/img/userIcon.png">
+            <img src="../../assets/img/userIcon.png" />
         </div>
-        </div>
+    </div>
 </template>
 <script>
-import { _sessionStorage } from '../../assets/js/util';
 import logo from '../../assets/img/logo.png';
 import baobiao from '../../assets/img/baobiao.png';
 

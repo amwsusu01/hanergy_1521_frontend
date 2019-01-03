@@ -128,10 +128,14 @@ export default {
                     _sessionStorage("allMenu", JSON.stringify(this.allMenu));
                     _sessionStorage("sysTitle", this.sysTitle);
 
-                    let firstPage = 'canteenOrder';
+                    let firstPage = 'canteenOrder',firstName='',defaultMenuId='';
                     if(this.menuData.length > 0 && this.menuData[0].list.length > 0) {
                         firstPage = this.menuData[0].list[0].url;
+                        firstName = this.menuData[0].list[0].name;
+                        defaultMenuId = this.menuData[0].list[0].menuId;
                     }
+                    this.$store.commit('setBreadcrumbMenu', [this.menuData[0].name||'', firstName]);
+                    this.$store.commit('setActiveMenuId', defaultMenuId);
                     this.$router.push({
                         name: firstPage
                     });

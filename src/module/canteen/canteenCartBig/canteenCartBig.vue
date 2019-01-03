@@ -2,7 +2,7 @@
     <div>
         <div class="canteen-history-order">
             <div class="box">
-                <el-form :inline="true" :model="form" ref="form" class="contain">
+                <el-form :inline="true" :model="form" ref="form" class="contain" size="mini" >
                     <el-form-item label="部门:" label-width="50px" prop="region">
                         <dept-select :deptList="deptList" ref="deptSelect"></dept-select>
                         <!-- <el-select v-model="form.region" style="width: 251px;" filterable multiple collapse-tags placeholder="请选择部门" size="mini">
@@ -10,26 +10,26 @@
                             </el-option>
                         </el-select> -->
                     </el-form-item>
-                    <el-form-item label="职级:" size="mini" class="zhiji" prop="rankname">
+                    <el-form-item label="职级:" prop="rankname">
                         <rank-select />
-                        <!-- <el-select v-model="form.rankname" style="width: 251px;" multiple collapse-tags placeholder="请选择职级" size="mini">
+                        <!-- <el-select v-model="form.rankname" style="width: 251px;" multiple collapse-tags placeholder="请选择职级">
                             <el-option v-for="item in this.rankOptions" :key="item.name" :label=item.name :value=item.name :disabled="item.disabled">
                             </el-option>
                         </el-select> -->
                     </el-form-item>
                     <el-form-item label="查询时间:" prop="date">
                         <el-col :span="8" style="width:120px;">
-                            <el-date-picker size="mini" type="month" :placeholder=initTime value-format="yyyy-MM" v-model="form.date.startTime" style="width: 100%;"></el-date-picker>
+                            <el-date-picker type="month" :placeholder=initTime value-format="yyyy-MM" v-model="form.date.startTime" style="width: 100%;"></el-date-picker>
                         </el-col>
                         <el-col class="line" :span="1">-</el-col>
                         <el-col style="width:120px;display: inline-block">
-                            <el-date-picker size="mini" type="month" value-format="yyyy-MM" :placeholder=initTime :picker-options="pickerOptions" v-model="form.date.endTime" style="width: 100%;">
+                            <el-date-picker type="month" value-format="yyyy-MM" :placeholder=initTime :picker-options="pickerOptions" v-model="form.date.endTime" style="width: 100%;">
                             </el-date-picker>
                         </el-col>
                     </el-form-item>
                     <el-form-item class="operate">
-                        <el-button size="mini" type="primary" class="query" @click="queryList()">查询</el-button>
-                        <el-button size="mini" type="primary" class="reset" @click="resetForm()">重置</el-button>
+                        <el-button type="primary" class="query" @click="queryList()">查询</el-button>
+                        <el-button type="primary" class="reset" @click="resetForm()">重置</el-button>
                     </el-form-item>
                 </el-form>
             </div>
@@ -103,12 +103,12 @@ export default {
             tableDataIntro: [], //反省明细
             page1: {
                 pageShowNum: 5, // 每页展示多少条
-                totalNumber: '', // 总条数
+                totalNumber: 0, // 总条数
                 currentPage: 1 // 当前页
             },
             page2: {
                 pageShowNum: 5, // 每页展示多少条
-                totalNumber: '', // 总条数
+                totalNumber: 0, // 总条数
                 currentPage: 1 // 当前页
             },
             initTime: this.updateTime, //初始化的时间

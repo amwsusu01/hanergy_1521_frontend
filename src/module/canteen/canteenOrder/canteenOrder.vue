@@ -2,10 +2,10 @@
     <div>
         <div class="box">
             <el-form ref="form" :inline="true" :model="form" class="contain" size="mini">
-                <el-form-item label="部门:" label-width="50px" prop="region">
+                <el-form-item label="部门:" size="mini" label-width="50px" prop="region">
                     <dept-select :deptList="deptList" ref="deptSelect"></dept-select>
                 </el-form-item>
-                <el-form-item label="职级:" size="mini" class="zhiji" prop="rankname">
+                <el-form-item label="职级:" size="mini" prop="rankname">
                     <rank-select ref="rankSelect" />
                 </el-form-item>
                 <el-form-item label="查询时间:" prop="date">

@@ -6,7 +6,7 @@
         <el-container :style="{ 'height': documentClientHeight-70 + 'px'}">
             <el-scrollbar style="height: 100%;width: 100%;" ref="globalScrollbar">
                 <div class="sidebar-container" :class="{'is-active':isCollapse}" @mouseenter="hanldeMouseenter(false)" @mouseleave="hanldeMouseenter(true)">
-                    <el-menu :default-active="is1521Sys" :collapse="isCollapse" class="el-menu-vertical-demo" mode="vertical" :show-timeout="200" @open="handleOpen" @close="handleClose">
+                    <el-menu :default-active="activeFirstMenuID" :collapse="isCollapse" class="el-menu-vertical-demo" mode="vertical" :show-timeout="200" @open="handleOpen" @close="handleClose">
                         <sidebar-item :menu="menuData" :isCollapse="isCollapse"></sidebar-item>
                     </el-menu>
                 </div>
@@ -38,25 +38,21 @@ export default {
     data() {
         return {
             isCollapse: false,
-            activeIndex:0
+            activeIndex: 0
             //sysTitle: '报表'
         };
     },
     computed: {
-        is1521Sys:{
-            get(){
-                if (this.$route.name == 'canteenCartBig' || this.$route.name == 'canteenOrder' || this.$router.name == 'canteenHistoryOrder' || this.$router.name == 'canteenReceiverOrder' || this.$router.name == '') {
+        is1521Sys: {
+            get() {
+                if (this.$route.name == 'canteenCartBig' || this.$route.name == 'canteenOrder' || this.$route.name == 'canteenHistoryOrder' || this.$route.name == 'canteenReceiverOrder' || this.$router.name == '') {
                     return true;
                 } else return false;
             }
         },
-        activeFirstMenuID:{
-            get(){
-                if(this.is1521Sys == true) {
-                    return '53';
-                } else {
-                    return '102';
-                }
+        activeFirstMenuID: {
+            get() {
+                return this.$store.state.common.activeMenuId + ''
             }
         },
         sysTitle: {
@@ -67,12 +63,12 @@ export default {
                 this.$store.commit('setSysTitle', val);
             }
         },
-        titles:{
-            get(){
-                return this.allMenu.map((a)=>a.name);
+        titles: {
+            get() {
+                return this.allMenu.map((a) => a.name);
             }
         },
-        allMenu:{
+        allMenu: {
             get() {
                 return this.$store.state.common.allMenu;
             }
@@ -150,7 +146,7 @@ export default {
     },
     watch: {
         '$route'(to, from) {
-            // this.showActive(this.$route.name);
+           this.init();
         }
     },
     methods: {
@@ -158,10 +154,17 @@ export default {
             this.activeIndex = index;
             this.menuData = this.allMenu[index].list;
             _sessionStorage("menuData", JSON.stringify(this.menuData));
-            let firstPage = 'canteenOrder';
-            if(this.menuData.length > 0 && this.menuData[0].list.length > 0) {
+            let firstPage = 'canteenOrder',
+                firstName = '',
+                defaultMenuId = '';
+            if (this.menuData.length > 0 && this.menuData[0].list.length > 0) {
                 firstPage = this.menuData[0].list[0].url;
+                firstName = this.menuData[0].list[0].name;
+                defaultMenuId = this.menuData[0].list[0].menuId;
             }
+            this.$store.commit('setBreadcrumbMenu', [this.menuData[0].name || '', firstName]);
+            this.$store.commit('setActiveMenuId', defaultMenuId);
+
             this.$router.push({
                 name: firstPage
             });
@@ -186,20 +189,18 @@ export default {
             }
         },
         init() {
-            if(!this.is1521Sys) return;
+            if (!this.is1521Sys) return;
             //只在1521系统时请求
-            if (this.$route.name == 'canteenPurchase' || this.$route.name == 'canteenOrder' || this.$router.name == 'canteenHistoryOrder' || this.$router.name == 'canteenReceiverOrder' || this.$router.name == '') {
-                this.$api.common.getUpdateData().then(res => {
-                    if (res.Date) {
-                        this.updateTime = res.Date;
-                    } else {
-                        this.updateTime = '';
-                    }
+            this.$api.common.getUpdateData().then(res => {
+                if (res.Date) {
+                    this.updateTime = res.Date;
+                } else {
+                    this.updateTime = '';
+                }
 
-                    this.getSelectPermission();
+                this.getSelectPermission();
 
-                })
-            }
+            })
         },
 
         //部门接口
@@ -256,9 +257,10 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-.container{
+.container {
     position: relative;
 }
+
 .el-breadcrumb {
     margin-bottom: 20px;
 }

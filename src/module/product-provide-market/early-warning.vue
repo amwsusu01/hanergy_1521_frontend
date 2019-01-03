@@ -12,7 +12,7 @@
                         </el-form-item>
                     </el-col>
                     <el-col :span="7">
-                        <el-form-item prop="date" label="日期" :label-width="shortLabel">
+                        <el-form-item prop="date" label="日期" label-width="60px">
                             <el-date-picker type="date" placeholder="无限制" v-model="form.date" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
                         </el-form-item>
                     </el-col>
@@ -117,7 +117,7 @@ export default {
                 product: [],
                 date: this.$moment().subtract(1, 'days').format('YYYY-MM-DD')
             },
-            shortLabel: 80,
+            shortLabel: '80px',
             selectLevel: 1,
             oneLevel: "",
             twoLevel: "",

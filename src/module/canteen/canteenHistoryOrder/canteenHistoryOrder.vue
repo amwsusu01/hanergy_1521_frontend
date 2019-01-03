@@ -1,7 +1,7 @@
 <template>
     <div class="canteen-history-order">
         <div class="box">
-            <el-form :inline="true" :model="form" ref="form" class="contain">
+            <el-form :inline="true" :model="form" ref="form" class="contain" size="mini">
                 <el-form-item label="部门:" label-width="50px" prop="region">
                     <dept-select :deptList="deptList" ref="deptSelect"></dept-select>
                     <!-- <el-select v-model="form.region" multiple filterable collapse-tags placeholder="请选择部门" size="mini" style="width: 251px;">
@@ -9,7 +9,7 @@
                         </el-option>
                     </el-select> -->
                 </el-form-item>
-                <el-form-item label="职级:" size="mini" class="zhiji" prop="rankname">
+                <el-form-item label="职级:" size="mini" prop="rankname">
                     <rank-select ref="rankSelect" />
                 </el-form-item>
                 <el-form-item label="查询时间:" prop="date">
@@ -226,37 +226,37 @@ export default {
             tableData7: [],
             page1: {
                 pageShowNum: 5, // 每页展示多少条
-                totalNumber: '', // 总条数
+                totalNumber: 0, // 总条数
                 currentPage: 1 // 当前页
             },
             page2: {
                 pageShowNum: 5, // 每页展示多少条
-                totalNumber: '', // 总条数
+                totalNumber: 0, // 总条数
                 currentPage: 1 // 当前页
             },
             page3: {
                 pageShowNum: 5, // 每页展示多少条
-                totalNumber: '', // 总条数
+                totalNumber: 0, // 总条数
                 currentPage: 1 // 当前页
             },
             page4: {
                 pageShowNum: 5, // 每页展示多少条
-                totalNumber: '', // 总条数
+                totalNumber: 0, // 总条数
                 currentPage: 1 // 当前页
             },
             page5: {
                 pageShowNum: 5, // 每页展示多少条
-                totalNumber: '', // 总条数
+                totalNumber: 0, // 总条数
                 currentPage: 1 // 当前页
             },
             page6: {
                 pageShowNum: 5, // 每页展示多少条
-                totalNumber: '', // 总条数
+                totalNumber: 0, // 总条数
                 currentPage: 1 // 当前页
             },
             page7: {
                 pageShowNum: 5, // 每页展示多少条
-                totalNumber: '', // 总条数
+                totalNumber: 0, // 总条数
                 currentPage: 1 // 当前页
             },
             initTime: this.updateTime, //初始化的时间

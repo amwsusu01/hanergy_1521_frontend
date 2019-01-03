@@ -15,10 +15,10 @@ import appConfig from './app.config'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'*/
 
-@import "~element-ui/packages/theme-chalk/src/index";
+//import "element-ui/packages/theme-chalk/src/index.scss";
 
 // Vue.use(VueQuillEditor)
-/*import '../theme/index.css'*/
+//import '../theme/index.css'
 import ElementUI from 'element-ui';
 
 import Echarts from 'echarts';
