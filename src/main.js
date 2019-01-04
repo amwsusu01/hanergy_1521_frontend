@@ -45,17 +45,6 @@ Vue.config.silent = true*/
 
 import store from './store';
 
-router.beforeEach((to, from, next) => {
-  if (!navigator.onLine) {
-    Toast({
-      message: '无网络连接，请稍后重试',
-      duration: 1000, // 持续时间，默认3000毫秒
-    });
-    return;
-  }
-  next();
-})
-
 router.afterEach(route  => {
   //$(".no-data-msg").css("top","0px");
   $("input").blur();
