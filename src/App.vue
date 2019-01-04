@@ -30,7 +30,18 @@ export default {
 .el-main {
     // padding-left: 40px !important;
 }
+.header-title {
+    cursor: pointer;
+    font-family: FZZZHONGJW--GB1-0;
+    font-size: 16px;
+    color: #FFFFFF;
+    padding:0 31px;
+    text-align: center;
 
+    &:hover,&.active {
+        background:#de2525;
+    }
+}
 .el-form-item__content {
     width: 255px !important;
     position: relative;
@@ -98,14 +109,14 @@ export default {
     .el-breadcrumb__item {
         font-family: PingFangSC-Medium;
         font-size: 14px;
-        color: #ea2828  !important;
+        color: #409EFF !important;
         line-height: 20px;
         font-weight: normal;
 
         span {
             font-family: PingFangSC-Medium;
             font-size: 14px;
-            color: #ea2828 !important;
+            color: #409EFF !important;
             line-height: 20px;
             font-weight: normal;
         }

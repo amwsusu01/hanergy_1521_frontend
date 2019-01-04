@@ -36,7 +36,7 @@
                 </el-table>
             </div>
             <div class="block">
-                <el-pagination layout="total, prev, pager, next" @current-change="CurrentChange" :current-page="page.currentPage" :total="page.totalNumber">
+                <el-pagination layout="total, prev, pager, next" @current-change="CurrentChange" :current-page="page.currentPage" :total="page.totalNumber" :page-size="page.pageShowNum" >
                 </el-pagination>
             </div>
         </div>
