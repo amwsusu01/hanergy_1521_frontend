@@ -47,7 +47,7 @@
                 </el-table>
             </div>
             <div class="block">
-                <el-pagination layout="total, prev, pager, next" @current-change="CurrentChange1" :current-page="page1.currentPage" :total="page1.totalNumber">
+                <el-pagination layout="total, prev, pager, next" @current-change="CurrentChange1" :current-page="page1.currentPage" :total="page1.totalNumber" :page-size="page1.pageShowNum">
                 </el-pagination>
             </div>
             <div class="table">
@@ -72,8 +72,9 @@
                 </el-table>
             </div>
             <div class="block">
-                <el-pagination layout="total, prev, pager, next" @current-change="CurrentChange2" :current-page="page2.currentPage" :total="page2.totalNumber">
-                </el-pagination>
+                <!--<el-pagination layout="total, prev, pager, next" @current-change="CurrentChange2" :current-page="page2.currentPage" :total="page2.totalNumber"></el-pagination>-->
+                <el-pagination layout="total, prev, pager, next" :total="page2.totalNumber" @size-change="handleSizeChange" @current-change="CurrentChange2"  :current-page="page2.currentPage" :page-size="page2.pageShowNum"></el-pagination>
+
             </div>
             <div class="table">
                 <el-button class="exp-btn" v-if="buttons['72']==true" plain size="small" @click="exportExl(5)">导出</el-button>
@@ -97,7 +98,7 @@
                 </el-table>
             </div>
             <div class="block">
-                <el-pagination layout="total, prev, pager, next" @current-change="CurrentChange3" :current-page="page3.currentPage" :total="page3.totalNumber">
+                <el-pagination layout="total, prev, pager, next" :page-size="page3.pageShowNum" @current-change="CurrentChange3" :current-page="page3.currentPage" :total="page3.totalNumber">
                 </el-pagination>
             </div>
             <div class="table">
@@ -122,7 +123,7 @@
                 </el-table>
             </div>
             <div class="block">
-                <el-pagination layout="total, prev, pager, next" @current-change="CurrentChange4" :current-page="page4.currentPage" :total="page4.totalNumber">
+                <el-pagination layout="total, prev, pager, next" :page-size="page4.pageShowNum" @current-change="CurrentChange4" :current-page="page4.currentPage" :total="page4.totalNumber">
                 </el-pagination>
             </div>
             <div class="table">
@@ -147,7 +148,7 @@
                 </el-table>
             </div>
             <div class="block">
-                <el-pagination layout="total, prev, pager, next" @current-change="CurrentChange5" :current-page="page5.currentPage" :total="page5.totalNumber">
+                <el-pagination layout="total, prev, pager, next" :page-size="page5.pageShowNum" @current-change="CurrentChange5" :current-page="page5.currentPage" :total="page5.totalNumber">
                 </el-pagination>
             </div>
             <div class="table">
@@ -172,7 +173,7 @@
                 </el-table>
             </div>
             <div class="block">
-                <el-pagination layout="total, prev, pager, next" @current-change="CurrentChange6" :current-page="page6.currentPage" :total="page6.totalNumber">
+                <el-pagination layout="total, prev, pager, next" :page-size="page6.pageShowNum" @current-change="CurrentChange6" :current-page="page6.currentPage" :total="page6.totalNumber">
                 </el-pagination>
             </div>
             <div class="table">
@@ -195,8 +196,7 @@
                 </el-table>
             </div>
             <div class="block">
-                <el-pagination layout="total, prev, pager, next" @current-change="CurrentChange7" :current-page="page7.currentPage" :total="page7.totalNumber">
-                </el-pagination>
+                <el-pagination layout="total, prev, pager, next" @current-change="CurrentChange7" :current-page="page7.currentPage" :total="page7.totalNumber" :page-size="page7.pageShowNum"></el-pagination>
             </div>
         </div>
     </div>
@@ -447,6 +447,11 @@ export default {
         CurrentChange2(val) {
             this.page2.currentPage = val
             this.getTabledata2()
+        },
+        handleSizeChange(val) {
+            this.page2.pageShowNum = val;
+            // console.log(`每页 ${val} 条`);
+            this.getTabledata2();
         },
         //-----字数小于5
         getTabledata3() {

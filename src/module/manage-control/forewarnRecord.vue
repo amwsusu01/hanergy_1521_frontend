@@ -51,7 +51,7 @@
             </el-table-column>
         </el-table>
         <div class="block">
-            <el-pagination layout="total, prev, pager, next" @current-change="currentChange" :current-page="page.currentPage" :total="page.totalNumber">
+            <el-pagination layout="total, prev, pager, next"  :page-size="page.pagesize" @current-change="currentChange" :current-page="page.currentPage" :total="page.totalNumber">
             </el-pagination>
         </div>
 

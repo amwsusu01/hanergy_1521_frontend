@@ -54,7 +54,7 @@
                     </el-table>
                 </div>
                 <div class="block">
-                    <el-pagination layout="total, prev, pager, next" @current-change="CurrentChange1" :current-page="page1.currentPage" :total="page1.totalNumber">
+                    <el-pagination layout="total, prev, pager, next"   :page-size="page1.pageShowNum"  @current-change="CurrentChange1" :current-page="page1.currentPage" :total="page1.totalNumber">
                     </el-pagination>
                 </div>
                 <div class="table">
@@ -77,7 +77,7 @@
                     </el-table>
                 </div>
                 <div class="block">
-                    <el-pagination layout="total, prev, pager, next" @current-change="CurrentChange2" :current-page="page2.currentPage" :total="page2.totalNumber">
+                    <el-pagination layout="total, prev, pager, next"  :page-size="page2.pageShowNum" @current-change="CurrentChange2" :current-page="page2.currentPage" :total="page2.totalNumber">
                     </el-pagination>
                 </div>
             </div>
