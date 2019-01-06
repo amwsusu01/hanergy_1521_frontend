@@ -994,7 +994,9 @@ export default {
 </script>
 <style scoped>
 .box {}
-
+.buttons{
+    width: 134px;
+}
 .contain {
     display: inline-block;
 }

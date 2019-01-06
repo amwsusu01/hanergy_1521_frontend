@@ -1,17 +1,21 @@
 <template>
-    <div class="clearfix header-box">
-        <div class="header-logo fl"><img :src="logoUrl" /></div>
-        <div :class="{'header-title':true, 'fl':true,'active':activeIndex==index}" v-for="(tl,index) in title" @click="switchMenu(index)" >
-           <!--  <img :src="baobiao" style="margin-top: -11px; width: 40px;" class="home-icon"></img>
-             <i class="iconfont icon-baobiao"></i> //可以用~~~-->
-            <span class="home-title" style="display: block;" >{{tl}}</span>
+    <div class="header-box">
+        <div class="header-logo"><img :src="logoUrl" /></div>
+        <div class="header-marginTitle">
+            <div :class="{'header-title':true,'active':activeIndex==index}" v-for="(tl,index) in title" @click="switchMenu(index)" >
+                <!--  <img :src="baobiao" style="margin-top: -11px; width: 40px;" class="home-icon"></img>
+                  <i class="iconfont icon-baobiao"></i> //可以用~~~-->
+                <span class="home-title" style="display: block">{{tl}}</span>
+            </div>
         </div>
-        <div class="header-subtitle fl">{{subtitle}}</div>
-        <div class="header-quit fr" @click="quit()">退出</div>
-        <div class="header-oblique-line fr"></div>
-        <div class="header-user fr">您好，{{user.name}}</div>
-        <div class="header-img fr">
+
+        <div class="positionRight">
+             <span class="header-img">
             <img src="../../assets/img/userIcon.png" />
+        </span>
+            <span class="header-user">您好，{{user.name}}</span>
+            <span class="header-oblique-line">/</span>
+            <span class="header-quit" @click="quit()">退出</span>
         </div>
     </div>
 </template>
@@ -112,14 +116,24 @@ export default {
 <style lang="less" scoped>
 .header-box {
     color: #ffffff;
+    display: inline-block;
 
     .header-logo {        
         margin-right: 15px;
+        display: inline-block;
+        position: absolute;
+        top:0;
+        left:20px;
+        margin-right: 140px;
         & img {
             margin-top: 15px;
         }
     }
 
+    .header-marginTitle{
+        margin-left: 140px;
+        display: inline-block;
+    }
     /deep/ .header-title {
         cursor: pointer;
         font-family: FZZZHONGJW--GB1-0;
@@ -127,12 +141,18 @@ export default {
         color: #FFFFFF;
         padding:0 31px;
         text-align: center;
+        display: inline-block;
 
         &:hover,&.active {
             background:#de2525;
         }
     }
-
+    .positionRight{
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        right: 64px;
+    }
     .header-line {
         height: 20px;
         width: 2px;
@@ -149,17 +169,14 @@ export default {
     }
 
     .header-img {
-        width: 36px;
-        height: 36px;
-        border-radius: 100%;
-        margin-right: 20px;
-        padding-top: 13px;
-
         img {
-            border-radius: 100%;
-            width: 100%;
-            height: auto;
-
+            width: 36px;
+            height: 36px;
+            line-height: 36px;
+            margin-right: 20px;
+            position: absolute;
+            top: 11px;
+            right: 155px;
         }
     }
 
@@ -176,9 +193,6 @@ export default {
         -webkit-transform: rotate(36deg);
         margin: 23px 14px;
         opacity: 0.4;
-        background: #FFFFFF;
-        height: 16px;
-        width: 2px;
         line-height: 60px;
     }
 
