@@ -1,7 +1,7 @@
 <template>
     <el-container class="container">
         <el-header>
-            <Header :title="titles" @switchMenu="switchMenu" :activeIndex="activeIndex"></Header>
+            <HeaderTop :title="titles" @switchMenu="switchMenu" :activeIndex="activeIndex"></HeaderTop>
         </el-header>
         <el-container :style="{ 'height': documentClientHeight-70 + 'px'}">
             <!--<el-scrollbar style="height: 100%;width: 100%;" ref="globalScrollbar">-->
@@ -26,13 +26,13 @@
 import '../../assets/css/reset.css'
 import '../../assets/css/common.css'
 import { _sessionStorage } from '../../assets/js/util'
-import Header from '../../components/header/header';
+import HeaderTop from '../../components/headerTop/headerTop';
 import SidebarItem from '../../components/sidebar/sidebarItem.vue';
 
 export default {
     name: 'canteenHome',
     components: {
-        Header,
+        HeaderTop,
         SidebarItem
     },
     data() {

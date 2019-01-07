@@ -24,7 +24,7 @@ import logo from '../../assets/img/logo.png';
 import baobiao from '../../assets/img/baobiao.png';
 
 export default {
-    name: "header",
+    name: "headerTop",
     data() {
         return {
             subtitle: '',

@@ -6,9 +6,6 @@
                     <el-col :span="8">
                         <el-form-item prop="product" label="产品系列" :label-width="shortLabel">
                             <product-select :productList="productList" ref="productList" style="width: 100%;"></product-select>
-                            <!--<el-select v-model="form.product" placeholder="无限制" style="width: 100%">-->
-                            <!--<el-option v-for="item in options.options1" :label="item.label" :value="item.value"></el-option>-->
-                            <!--</el-select>-->
                         </el-form-item>
                     </el-col>
                     <el-col :span="7">
@@ -51,12 +48,6 @@
                     </div>
                 </el-col>
                 <el-col :span="9">
-                    <!-- <div>
-                        <label style="font-size: 14px;color: #606266;">预警节点</label>
-                        <el-select v-model="selectLevel" multiple size="mini" placeholder="无限制" :collapse-tags="true">
-                            <el-option v-for="item in options.levels" :label="item" :value="item"></el-option>
-                        </el-select>
-                    </div> -->
                     <div size="small" class="radio-button-groups">
                         <span :class="{'tab-span':true,'active':selectLevel==1}" @click="handelSelectLevel(1,'10%')" >一级预警</span>
                         <span :class="{'tab-span':true,'active':selectLevel==2}" @click="handelSelectLevel(2,'30%')">二级预警</span>

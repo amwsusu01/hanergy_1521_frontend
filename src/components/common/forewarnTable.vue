@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-button type="primary" @click="handleAdd()" size="mini">新建</el-button>
+        <el-button type="primary" @click="handleAdd()" size="mini" style="margin-top:15px;">新建</el-button>
         <div>
             <el-table
                     v-if="tableData.length>0"
@@ -31,8 +31,7 @@
         </div>
         <el-dialog
                 :visible.sync="dialogVisible"
-                width="30%"
-                show-close="false">
+                width="30%">
             <el-form ref="form" :model="form" :rules="rules" label-width="80px">
                 <el-form-item label="姓名:"  prop="name">
                     <el-input size="small" v-model="form.name"></el-input>
@@ -143,24 +142,25 @@
             },
             //添加关联人员
             addNotifier(){
-                let form = Object.assign(this.form,{
-                    templateId: this.templateId
+                var _this = this;
+                let form = Object.assign(_this.form,{
+                    templateId: _this.templateId
                 });
-                this.$api.common.addNotifier(form).then(res => {
-                    if(res && res.status == '0'){
-                        this.$message({
+                _this.$api.common.addNotifier(form).then(res => {
+                    if(res && res.status == 0){
+                        _this.$message({
                             message: res.msg,
                             type: 'success'
-                        });
-                     this.getUserList();
-                     this.dialogVisible = false;
+                        })
+                        _this.getUserList();
+                        _this.dialogVisible = false;
                     }
                 })
             },
             //修改删除关联人员
             oprateNotifier(obj){
                 this.$api.common.updateNotifier(obj).then(res => {
-                    if(res && res.status == '0'){
+                    if(res && res.status == 0){
                         this.$message({
                             message: res.msg,
                             type: 'success'

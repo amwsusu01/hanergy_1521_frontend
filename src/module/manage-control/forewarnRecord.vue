@@ -1,25 +1,40 @@
 <template>
     <div>
+        <el-form ref="form" label-position="left" :inline="true" :model="form" :label-width="shortLabel" class="contain" size="mini" @submit.native.prevent>
         <el-row>
+            <el-col :span="8">
+                <el-form-item prop="warningLevel" label="预警等级:" :label-width="shortLabel">
+
+                    <el-select v-model="form.warningLevel"  multiple filterable collapse-tags placeholder="无限制" size="mini" style="width: 251px;">
+                        <el-option-group v-for="LevelList in warningLevelGroup" :key="LevelList.label" :label="LevelList.label"  @click.native="checkAllOpts">
+                            <el-option v-for="wl in LevelList.warningLevels" :key="wl.label" :label="wl.label" :value="wl.label">
+                            </el-option>
+                        </el-option-group>
+                    </el-select>
+
+                </el-form-item>
+            </el-col>
             <el-col :span="2" class="query-time"> 查询时间:</el-col>
-            <el-col :span="10"> <el-date-picker
-                    size="mini"
-                    v-model="startTime"
-                    type="datetime"
-                    placeholder="请选择时间">
-            </el-date-picker>
+            <el-col :span="10">
+                    <el-date-picker
+                            size="mini"
+                            v-model="form.beginDate"
+                            type="date"
+                            placeholder="选择日期">
+                    </el-date-picker>
                 <span> - </span>
                 <el-date-picker
                         size="mini"
-                        v-model="endTime"
-                        type="datetime"
-                        placeholder="请选择时间">
+                        v-model="form.endDate"
+                        type="date"
+                        placeholder="选择日期">
                 </el-date-picker>
             </el-col>
             <el-col :span="4">
-                <el-button @click="queryList()" type="primary" size="mini">查询</el-button>
+                <el-button @click.native.prevent="queryList" type="primary" size="mini">查询</el-button>
             </el-col>
         </el-row>
+        </el-form>
         <el-table
                 :data="tableData"
                 style="width: 100%;margin-top: 30px;">
@@ -29,24 +44,29 @@
                     width="180">
             </el-table-column>
             <el-table-column
-                    prop="content"
+                    prop="warning_level"
+                    label="预警等级"
+                    width="180">
+            </el-table-column>
+            <el-table-column
+                    prop="sendEmail"
                     label="邮箱"
                     width="200">
             </el-table-column>
             <el-table-column
-                    prop="content"
+                    prop="title"
                     label="邮件标题">
             </el-table-column>
             <el-table-column
                     label="发送结果"
                     width="200">
                 <template slot-scope="scope">
-                    <el-button v-if="scope.row.is_send>0" type="text" size="small">
+                    <span v-if="scope.row.is_send>0">
                             <font color="#00ff00">成功</font>
-                        </el-button>
-                    <el-button v-else type="text" size="small">
+                        </span>
+                    <span v-else>
                         <font color="#ff0000">失败</font>
-                    </el-button>
+                    </span>
                 </template>
             </el-table-column>
         </el-table>
@@ -63,8 +83,13 @@
         name: "forewarning-record",
         data(){
             return {
-                startTime: "",
-                endTime: "",
+                shortLabel: '80px',
+                form: {
+                    warningLevel: [],
+                    beginDate: this.$moment(this.beginDate).format('YYYY-MM-DD'),
+                    endDate: this.$moment(this.endDate).format('YYYY-MM-DD'),
+                },
+                checkAll: true, //选中当前所有
                 tableData:[],
                 page: {
                     pagesize: 5, // 每页展示多少条
@@ -73,15 +98,39 @@
                 },
             }
         },
+        computed: {
+            warningLevelGroup: {
+                get() {
+                    return [{
+                        label: '全部',
+                        warningLevels: [
+                        {label: '一级预警', id: 1000001},
+                        {label: '二级预警', id: 1000002},
+                        {label: '三级预警', id: 1000003}
+                        ],
+                    }]
+                }
+            },
+        },
         methods:{
+                checkAllOpts() {
+                    if (this.checkAll == true) {
+                        this.form.warningLevel = [];
+                        this.checkAll = false;
+                    } else {
+                        let group = this.warningLevelGroup.map((a) => a.warningLevels);
+                        this.form.warningLevel = group[0].map((a) => a.label).concat();
+                        this.checkAll = true;
+                    }
+                },
             queryList() {
-                let params = {
-                    warningLevel: "",// 预警等级（一级预警，二级预警，三级预警）
-                    beginDate: this.$moment(this.startTime).format('YYYY-MM-DD HH:MM:SS'),//起始时间
-                    endDate: this.$moment(this.endTime).format('YYYY-MM-DD HH:MM:SS'),//结束时间
+                let params = Object.assign({},this.form,{
+                    warningLevel: this.form.warningLevel.join(','),
                     page: this.page.currentPage,//当前页
                     pagesize: this.page.pagesize//每页展示多少条
-                };
+                });
+                console.log(params.warningLevel,' params.warningLevel',this.form)
+
                 this.$api.common.mailRecordList(params).then(res => {
                     if (res && res.status == '0') {
                         this.tableData = res.list || [];
@@ -95,6 +144,10 @@
             }
         },
         mounted(){
+            if(this.warningLevelGroup.length>0){
+                let group = this.warningLevelGroup[0].warningLevels;
+                this.form.warningLevel = group.map((a) => a.label);
+            }
         }
     }
 </script>
