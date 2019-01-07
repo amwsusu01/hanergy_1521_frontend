@@ -27,6 +27,17 @@ export default {
 #app{
     position: relative;
 }
+.el-message {
+    min-width: 380px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #ebeef5;
+    position: fixed;
+    left: 50%;
+    top: 60px;
+}
 .el-main {
     // padding-left: 40px !important;
 }

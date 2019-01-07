@@ -118,8 +118,8 @@
                         this.form.warningLevel = [];
                         this.checkAll = false;
                     } else {
-                        let group = this.warningLevelGroup.map((a) => a.warningLevels);
-                        this.form.warningLevel = group[0].map((a) => a.label).concat();
+                        let group = this.warningLevelGroup[0].warningLevels;
+                        this.form.warningLevel = group.map((a) => a.label).concat();
                         this.checkAll = true;
                     }
                 },
@@ -129,8 +129,6 @@
                     page: this.page.currentPage,//当前页
                     pagesize: this.page.pagesize//每页展示多少条
                 });
-                console.log(params.warningLevel,' params.warningLevel',this.form)
-
                 this.$api.common.mailRecordList(params).then(res => {
                     if (res && res.status == '0') {
                         this.tableData = res.list || [];
