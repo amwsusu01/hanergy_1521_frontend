@@ -139,8 +139,8 @@ function get(url, params) {
     Axios.defaults.responseType = '';
     return new Call((resolve, reject) => {
         //给get请求后面追加时间戳
-        let timestamp = (new Date()).valueOf();
-        params.timestamp = timestamp
+        // let timestamp = (new Date()).valueOf();
+        // params.timestamp = timestamp
         Axios.get(url, {params: params})
             .then(response => {
                 resolve(response) //res直接返回数据 无code 无data

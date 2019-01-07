@@ -1,10 +1,10 @@
 <template>
     <el-container class="container">
         <el-header>
-            <Header :title="titles" @switchMenu="switchMenu" :activeIndex="activeIndex"></Header>
+            <HeaderTop :title="titles" @switchMenu="switchMenu" :activeIndex="activeIndex"></HeaderTop>
         </el-header>
         <el-container :style="{ 'height': documentClientHeight-70 + 'px'}">
-            <el-scrollbar style="height: 100%;width: 100%;" ref="globalScrollbar">
+            <!--<el-scrollbar style="height: 100%;width: 100%;" ref="globalScrollbar">-->
                 <div class="sidebar-container" :class="{'is-active':isCollapse}" @mouseenter="hanldeMouseenter(false)" @mouseleave="hanldeMouseenter(true)">
                     <el-menu :default-active="activeFirstMenuID" :collapse="isCollapse" class="el-menu-vertical-demo" mode="vertical" :show-timeout="200" @open="handleOpen" @close="handleClose">
                         <sidebar-item :menu="menuData" :isCollapse="isCollapse"></sidebar-item>
@@ -18,7 +18,7 @@
                     <div class="rightline" v-show="is1521Sys==true">更新时间: {{updateTime}}</div>
                     <router-view></router-view>
                 </el-main>
-            </el-scrollbar>
+            <!--</el-scrollbar>-->
         </el-container>
     </el-container>
 </template>
@@ -26,13 +26,13 @@
 import '../../assets/css/reset.css'
 import '../../assets/css/common.css'
 import { _sessionStorage } from '../../assets/js/util'
-import Header from '../../components/header/header';
+import HeaderTop from '../../components/headerTop/headerTop';
 import SidebarItem from '../../components/sidebar/sidebarItem.vue';
 
 export default {
     name: 'canteenHome',
     components: {
-        Header,
+        HeaderTop,
         SidebarItem
     },
     data() {
@@ -259,6 +259,13 @@ export default {
 <style lang="less" scoped>
 .container {
     position: relative;
+
+    & .el-header {
+        position:relative;
+        top:0;
+        left:0;
+        z-index:3000;
+    }
 }
 
 .el-breadcrumb {
