@@ -163,7 +163,7 @@
                     if(res && res.status == 0){
                         this.$message({
                             message: res.msg,
-                            type: 'success'
+                            type: 'success',
                         });
                       this.getUserList();
                     }
