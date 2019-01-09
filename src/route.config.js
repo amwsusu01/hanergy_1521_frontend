@@ -160,7 +160,7 @@ import Router from 'vue-router'
 // 并且配置路由规则
 const router = new Router({
     mode: 'history',
-    //base:'/BigdataPlatform/', //生产环境下需要配置
+    base:'/BigdataPlatform/', //生产环境下需要配置
     routes: Routers
 })
 
