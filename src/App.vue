@@ -50,7 +50,7 @@ export default {
     text-align: center;
 
     &:hover,&.active {
-        background:#de2525;
+
     }
 }
 .el-form-item__content {
@@ -215,13 +215,9 @@ export default {
         border: none;
     }
 
-    .el-menu-item,
     .el-submenu__title {
-        font-family: PingFangSC-Medium;
-        font-size: 20px;
-        color: #7FA3C6;
-        padding: 0 20px;
-
+        text-align: center;
+        margin-left: -20px;
         img {
             width: 22px;
             height: 22px;
@@ -249,6 +245,17 @@ export default {
     min-height: 400px;
 }
 
+.menu-wrapper .el-submenu__title>i {
+    color: #909399;
+    margin-left: 4px;
+}
+.el-submenu.is-active .el-submenu__title {
+    color: #409EFF;
+    border-bottom-color: #409EFF;
+    i{
+        color: #409EFF;
+    }
+}
 // 暂无数据
 .no-list {
     text-align: center;

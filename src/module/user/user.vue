@@ -1,11 +1,11 @@
 <template>
     <el-container class="container">
         <el-header>
-            <HeaderTop :title="titles" @switchMenu="switchMenu" :activeIndex="activeIndex"></HeaderTop>
+            <HeaderTop :title="titles"  :isCollapse="isCollapse" @switchMenu="switchMenu" @showCollapse="showCollapse" :activeIndex="activeIndex"></HeaderTop>
         </el-header>
         <el-container :style="{ 'height': documentClientHeight-70 + 'px'}">
             <!--<el-scrollbar style="height: 100%;width: 100%;" ref="globalScrollbar">-->
-                <div class="sidebar-container" :class="{'is-active':isCollapse}" @mouseenter="hanldeMouseenter(false)" @mouseleave="hanldeMouseenter(true)">
+            <div class="sidebar-container"><!--  :class="{'is-active':isCollapse}" @mouseenter="hanldeMouseenter(false)" @mouseleave="hanldeMouseenter(true)"-->
                     <el-menu :default-active="activeFirstMenuID" :collapse="isCollapse" class="el-menu-vertical-demo" mode="vertical" :show-timeout="200" @open="handleOpen" @close="handleClose">
                         <sidebar-item :menu="menuData" :isCollapse="isCollapse"></sidebar-item>
                     </el-menu>
@@ -33,7 +33,7 @@ export default {
     name: 'canteenHome',
     components: {
         HeaderTop,
-        SidebarItem
+        SidebarItem,
     },
     data() {
         return {
@@ -170,6 +170,9 @@ export default {
             });
             console.log(index);
         },
+        showCollapse(){
+          this.isCollapse = !this.isCollapse;
+        },
         getDimension() {
             this.$api.common.getDimension().then(res => {
                 this.setPsmDept = JSON.parse(res.dept)
@@ -293,7 +296,6 @@ export default {
     left: 0px;
     z-index: 11;
 }
-
 .el-container {
     .el-scrollbar__wrap {
         overflow-x: hidden;

@@ -1,11 +1,15 @@
 <template>
     <div class="header-box">
+        <div class="tags-breadcrumb"  @click="showCollapse()" style="cursor: pointer">
+            <i class="iconfont icon-caidan"></i>
+        </div>
         <div class="header-logo"><img :src="logoUrl" /></div>
         <div class="header-marginTitle">
             <div :class="{'header-title':true,'active':activeIndex==index}" v-for="(tl,index) in title" @click="switchMenu(index)" >
                 <!--  <img :src="baobiao" style="margin-top: -11px; width: 40px;" class="home-icon"></img>
                   <i class="iconfont icon-baobiao"></i> //可以用~~~-->
-                <span class="home-title" style="display: block">{{tl}}</span>
+                <div class="home-title">{{tl}}</div>
+                <div :class="{'active-line':activeIndex==index}"></div>
             </div>
         </div>
 
@@ -32,7 +36,7 @@ export default {
             sidebar: {
                 childValue: true,
                 systemValue: false
-            }
+            },
         }
     },
     activated() {
@@ -60,6 +64,9 @@ export default {
         },
         switchMenu(index) {
             this.$emit('switchMenu',index)
+        },
+        showCollapse(){
+            this.$emit('showCollapse') //点击菜单展开收起
         },
         quit() {
             let _this = this;
@@ -123,15 +130,25 @@ export default {
         display: inline-block;
         position: absolute;
         top:0;
-        left:20px;
-        margin-right: 140px;
+        left: 92px;
+        margin-right: 170px;
         & img {
             margin-top: 15px;
         }
     }
-
+    .tags-breadcrumb {
+        position: absolute;
+        top: -3px;
+        left: 0px;
+        background-color: #de2525;
+        text-align: center;
+        width: 63px;
+    }
+    .tags-breadcrumb .tag-collapse_right {
+        transform: rotate(90deg);
+    }
     .header-marginTitle{
-        margin-left: 140px;
+        margin-left: 200px;
         display: inline-block;
     }
     /deep/ .header-title {
@@ -142,10 +159,18 @@ export default {
         padding:0 31px;
         text-align: center;
         display: inline-block;
-
         &:hover,&.active {
-            background:#de2525;
+
         }
+        .active-line{
+            width: 30px;
+            border-bottom: 2px solid #ffffff;
+            margin-top: -6px;
+        }
+    }
+    /deep/ .el-submenu__title {
+        text-align: center;
+        margin-left: -20px;
     }
     .positionRight{
         display: inline-block;

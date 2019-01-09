@@ -30,6 +30,7 @@
             </el-pagination>
         </div>
         <el-dialog
+                :close-on-click-modal="false"
                 :visible.sync="dialogVisible"
                 width="30%">
             <el-form ref="form" :model="form" :rules="rules" label-width="80px">
@@ -70,7 +71,7 @@
                     ],
                 },
                 tableData: [],
-                updateForm: {},
+                addaddUpdateForm: {},
                 page: {
                     pagesize: 5, // 每页展示多少条
                     totalNumber: 0, // 总条数
@@ -81,24 +82,23 @@
         methods:{
             //新建
             handleAdd() {
-                     this.updateForm = Object.assign(this.form,{
-                        templateId: this.templateId,
-                    });
+                this.$nextTick(() => {
+                    this.form.name = "";
+                    this.form.email = "";
+                });
+                this.addUpdateForm = Object.assign(this.form,{templateId: this.templateId,});
                 this.add = true;
                 this.update = false;
                 this.dialogVisible = true;
-                if(this.$refs['form']){
-                    this.$refs['form'].resetFields();
-                }
             },
             //编辑
             handleEditor(row,type) {
                     this.form.name = row.name;
                     this.form.email = row.email;
-                     this.updateForm = Object.assign(this.form,{
-                        templateId: this.templateId,
-                        userId: row.id,
-                        type: type //2修改
+                     this.addUpdateForm = Object.assign(this.form,{
+                         templateId: this.templateId,
+                         userId: row.id,
+                         type: type //2修改
                     });
                 this.add = false;
                 this.update = true;
@@ -133,7 +133,7 @@
                     this.$refs[form].validate((valid) => {
                         if (valid) {
                             //修改
-                            this.oprateNotifier(this.updateForm);
+                            this.oprateNotifier(this.addUpdateForm);
                         } else {
                             return false;
                         }
