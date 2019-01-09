@@ -15,7 +15,7 @@
                 </el-form-item>
             </el-col>
             <el-col :span="2" class="query-time"> 查询时间:</el-col>
-            <el-col :span="10">
+            <el-col :span="11">
                     <el-date-picker
                             size="mini"
                             v-model="form.beginDate"
@@ -30,7 +30,7 @@
                         placeholder="选择日期">
                 </el-date-picker>
             </el-col>
-            <el-col :span="4">
+            <el-col :span="3">
                 <el-button @click.native.prevent="queryList" type="primary" size="mini">查询</el-button>
             </el-col>
         </el-row>
@@ -61,7 +61,7 @@
                     label="发送结果"
                     width="200">
                 <template slot-scope="scope">
-                    <span v-if="scope.row.is_send>0">
+                    <span v-if="scope.row.is_send>'0'">
                             <font color="#00ff00">成功</font>
                         </span>
                     <span v-else>
@@ -71,7 +71,7 @@
             </el-table-column>
         </el-table>
         <div class="block">
-            <el-pagination layout="total, prev, pager, next"  :page-size="page.pagesize" @current-change="currentChange" :current-page="page.currentPage" :total="page.totalNumber">
+            <el-pagination layout="total, prev, pager, next" @current-change="currentChange" :current-page="page.currentPage" :total="page.totalNumber" :page-size="page.pagesize">
             </el-pagination>
         </div>
 
@@ -86,9 +86,11 @@
                 shortLabel: '80px',
                 form: {
                     warningLevel: [],
-                    beginDate: this.$moment(this.beginDate).format('YYYY-MM-DD'),
-                    endDate: this.$moment(this.endDate).format('YYYY-MM-DD'),
-                },
+                    // beginDate: this.$moment(this.beginDate).format('YYYY-MM-DD'),
+                    // endDate:this.$moment(this.endDate).format('YYYY-MM-DD')
+                    beginDate:  this.$moment().subtract('days', 7).format('YYYY-MM-DD'),
+                    endDate: this.$moment().subtract('days', 1).format('YYYY-MM-DD') ,
+                 },
                 checkAll: true, //选中当前所有
                 tableData:[],
                 page: {
@@ -129,6 +131,9 @@
                     page: this.page.currentPage,//当前页
                     pagesize: this.page.pagesize//每页展示多少条
                 });
+                this.emailList(params);
+            },
+            emailList(params){
                 this.$api.common.mailRecordList(params).then(res => {
                     if (res && res.status == '0') {
                         this.tableData = res.list || [];
@@ -146,6 +151,14 @@
                 let group = this.warningLevelGroup[0].warningLevels;
                 this.form.warningLevel = group.map((a) => a.label);
             }
+            let params = Object.assign({},this.form,{
+                beginDate:  this.$moment().subtract('days', 7).format('YYYY-MM-DD'),
+                endDate: this.$moment().subtract('days', 1).format('YYYY-MM-DD') ,
+                warningLevel: this.form.warningLevel.join(','),
+                page: this.page.currentPage,//当前页
+                pagesize: this.page.pagesize//每页展示多少条
+            });
+            this.emailList(params);
         }
     }
 </script>
