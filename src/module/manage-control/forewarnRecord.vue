@@ -129,7 +129,7 @@
                 let params = Object.assign({},this.form,{
                     warningLevel: this.form.warningLevel.join(','),
                     page: this.page.currentPage,//当前页
-                    pagesize: this.page.pagesize//每页展示多少条
+                    pageSize: this.page.pagesize//每页展示多少条
                 });
                 this.emailList(params);
             },
@@ -156,7 +156,7 @@
                 endDate: this.$moment().subtract('days', 1).format('YYYY-MM-DD') ,
                 warningLevel: this.form.warningLevel.join(','),
                 page: this.page.currentPage,//当前页
-                pagesize: this.page.pagesize//每页展示多少条
+                pageSize: this.page.pagesize//每页展示多少条
             });
             this.emailList(params);
         }

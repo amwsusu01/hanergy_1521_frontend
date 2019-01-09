@@ -163,9 +163,9 @@ export default {
 
         }
         .active-line{
+            margin: -7px auto;
             width: 30px;
             border-bottom: 2px solid #ffffff;
-            margin-top: -6px;
         }
     }
     /deep/ .el-submenu__title {
