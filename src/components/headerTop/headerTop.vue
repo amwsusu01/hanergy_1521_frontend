@@ -160,7 +160,7 @@ export default {
         text-align: center;
         display: inline-block;
         &:hover,&.active {
-
+            text-shadow: 0px 0px 1px #fff;
         }
         .active-line{
             margin: -7px auto;
