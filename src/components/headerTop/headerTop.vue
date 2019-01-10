@@ -136,6 +136,7 @@ export default {
             margin-top: 15px;
         }
     }
+
     .tags-breadcrumb {
         position: absolute;
         top: -3px;
@@ -153,7 +154,6 @@ export default {
     }
     /deep/ .header-title {
         cursor: pointer;
-        font-family: FZZZHONGJW--GB1-0;
         font-size: 16px;
         color: #FFFFFF;
         padding:0 31px;
@@ -187,7 +187,6 @@ export default {
     }
 
     .header-subtitle {
-        font-family: FZZZHONGJW--GB1-0;
         font-size: 24px;
         color: #FFFFFF;
         line-height: 60px;

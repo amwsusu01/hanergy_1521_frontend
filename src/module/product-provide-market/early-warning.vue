@@ -144,6 +144,33 @@ export default {
                     type: 'line'
                 }]
             },
+            otherChartDataOption: {
+                xAxis: [{
+                    type: 'category',
+                    axisLabel: {
+                        rotate: 45,
+                    },
+                    data: this.dataChart
+                }],
+                yAxis: {
+                    type: 'value',
+                    min: 0,
+                    max: 6,
+                    splitNumber: 2
+                },
+                grid: {
+                    x: 25
+                },
+                legend: {
+                    data: ['预警数'],
+                    top: 20
+                },
+                series: [{
+                    name: '预警数',
+                    data: this.warnChart,
+                    type: 'line'
+                }]
+            },
             lineChartOption: {
                 title: {
                     // text: '预警订单延迟点',
@@ -290,7 +317,7 @@ export default {
         getData() {
             let oneOption = Object.assign(this.chartDataOption, {});
             let twoOption = Object.assign(this.chartDataOption, {})
-            let threeOption = Object.assign(this.chartDataOption, {})
+            let threeOption = Object.assign(this.otherChartDataOption, {})
             this.oneLevelChart = this.echarts.init(document.getElementById('lineChart1'));
             this.oneLevelChart.setOption(oneOption, true);
             this.twoLevelChart = this.echarts.init(document.getElementById('lineChart2'));
@@ -370,7 +397,7 @@ export default {
                 }), true);
 
                 this.threeLevelChart = this.echarts.init(document.getElementById('lineChart3'));
-                this.threeLevelChart.setOption(Object.assign(this.chartDataOption, {
+                this.threeLevelChart.setOption(Object.assign(this.otherChartDataOption, {
                     series: [{
                         name: '预警数',
                         data: warnChart3,

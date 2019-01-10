@@ -161,7 +161,10 @@ import Router from 'vue-router'
 const router = new Router({
     mode: 'history',
     // base:'/BigdataPlatform/', //生产环境下需要配置
-    routes: Routers
+    routes: Routers,
+    scrollBehavior (to, from, savedPosition) {
+        return { x: 0, y: 0 }
+    },
 })
 
 router.beforeEach((to, from, next) => {
@@ -169,7 +172,8 @@ router.beforeEach((to, from, next) => {
     if (to.meta.title) {
         document.title = to.meta.title
     }
-    next()
+    next();
 })
+
 
 export default router

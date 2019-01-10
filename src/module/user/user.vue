@@ -10,7 +10,7 @@
                         <sidebar-item :menu="menuData" :isCollapse="isCollapse"></sidebar-item>
                     </el-menu>
                 </div>
-                <el-main :class="this.isCollapse ? 'openMenu': 'closeMenu'">
+                <el-main :class="this.isCollapse ? 'openMenu': 'closeMenu'" id="mainContainer">
                     <el-breadcrumb separator="/" class="order-breadcrumb">
                         <el-breadcrumb-item>{{breadMenu[0]}}</el-breadcrumb-item>
                         <el-breadcrumb-item>{{breadMenu[1]}}</el-breadcrumb-item>
@@ -168,7 +168,6 @@ export default {
             this.$router.push({
                 name: firstPage
             });
-            console.log(index);
         },
         showCollapse(){
           this.isCollapse = !this.isCollapse;
@@ -237,10 +236,10 @@ export default {
             }
         },
         handleOpen(key, keyPath) {
-            console.log(key, keyPath);
+            // console.log(key, keyPath);
         },
         handleClose(key, keyPath) {
-            console.log(key, keyPath);
+            // console.log(key, keyPath);
         },
         // getMenu(list, res) {
         //     for (let i = 0; i < list.length; i++) {

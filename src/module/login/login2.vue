@@ -190,7 +190,6 @@ export default {
         padding: 85px 84px 0px;
 
         .login-title {
-            font-family: FZZZHONGJW--GB1-0;
             font-size: 30px;
             /*font-size: 5.2%;*/
             color: #232F49;

@@ -315,7 +315,7 @@
                 caigoushenqing:"",
                 wuliaomiaoshu: ""
             },
-            shortLabel: 70,
+            shortLabel: "70",
             pickerOptions: {
                 disabledDate: (time) => {
                     return this.$moment(time).isBefore(this.form.date.startTime);

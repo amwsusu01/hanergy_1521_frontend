@@ -43,14 +43,18 @@ export default {
 }
 .header-title {
     cursor: pointer;
-    font-family: FZZZHONGJW--GB1-0;
     font-size: 16px;
     color: #FFFFFF;
     padding:0 31px;
     text-align: center;
-
+    display: inline-block;
     &:hover,&.active {
 
+    }
+    .active-line{
+        margin: -7px auto;
+        width: 30px;
+        border-bottom: 2px solid #ffffff;
     }
 }
 .el-form-item__content {
