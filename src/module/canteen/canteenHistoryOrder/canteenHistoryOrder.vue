@@ -35,7 +35,7 @@
                     <el-table-column label="超过4次(含)未请假未提报统计报表" label-class-name="table-title">
                         <el-table-column prop="month1" label="月份" min-width="10%">
                         </el-table-column>
-                        <el-table-column prop="inputtime" label="日期" min-width="20%">
+                        <el-table-column prop="inputtime" label="未提报日期" min-width="20%">
                         </el-table-column>
                         <el-table-column prop="employeeID" label="员工工号" min-width="20%">
                         </el-table-column>
