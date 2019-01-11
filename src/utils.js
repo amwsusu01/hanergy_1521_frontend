@@ -14,6 +14,7 @@ export function exportExl(res, name) {
         // revoked by closing the blob for which they were created. 
         // These URLs will no longer resolve as the data backing 
         // the URL has been freed."
+
         window.navigator.msSaveBlob(blob, filename);
     } else {
         var blobURL = window.URL.createObjectURL(blob);
@@ -63,7 +64,8 @@ export function getMaxFreq(maxNum) {
 //         num2:"fff"
 //        }]    
 // });
-export function exportCsv(obj,name) {
+export function exportCsv(obj, name) {
+
     //title ["","",""]
     var title = obj.title;
     //titleForKey ["","",""]
@@ -79,6 +81,19 @@ export function exportCsv(obj,name) {
         str.push(temp.join(",") + "\n");
     }
     var uri = 'data:text/csv;charset=utf-8,\uFEFF' + encodeURIComponent(str.join(""));
+
+    //IE 和 edge的保存csv的方法
+    if (typeof window.navigator.msSaveBlob !== 'undefined') {
+        var BOM = "\uFEFF";
+        var csvData = new Blob([BOM + str.join("")], { type: 'text/csv' });
+
+        //var csvData = new Blob([uri], { type: 'text/csv' });
+        window.navigator.msSaveBlob(csvData, `${name}.csv`);
+        //exportCsvForIE(res);
+        return;
+    }
+
+    //谷歌、火狐
     var downloadLink = document.createElement("a");
     downloadLink.href = uri;
     downloadLink.download = `${name}.csv`;
