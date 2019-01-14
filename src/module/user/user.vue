@@ -1,23 +1,24 @@
 <template>
     <el-container class="container">
         <el-header>
-            <HeaderTop :title="titles"  :isCollapse="isCollapse" @switchMenu="switchMenu" @showCollapse="showCollapse" :activeIndex="activeIndex"></HeaderTop>
+            <HeaderTop :title="titles" :isCollapse="isCollapse" @switchMenu="switchMenu" @showCollapse="showCollapse" :activeIndex="activeIndex"></HeaderTop>
         </el-header>
         <el-container :style="{ 'height': documentClientHeight-70 + 'px'}">
             <!--<el-scrollbar style="height: 100%;width: 100%;" ref="globalScrollbar">-->
-            <div class="sidebar-container"><!--  :class="{'is-active':isCollapse}" @mouseenter="hanldeMouseenter(false)" @mouseleave="hanldeMouseenter(true)"-->
-                    <el-menu :default-active="activeFirstMenuID" :collapse="isCollapse" class="el-menu-vertical-demo" mode="vertical" :show-timeout="200" @open="handleOpen" @close="handleClose">
-                        <sidebar-item :menu="menuData" :isCollapse="isCollapse"></sidebar-item>
-                    </el-menu>
-                </div>
-                <el-main :class="this.isCollapse ? 'openMenu': 'closeMenu'" id="mainContainer">
-                    <el-breadcrumb separator="/" class="order-breadcrumb">
-                        <el-breadcrumb-item>{{breadMenu[0]}}</el-breadcrumb-item>
-                        <el-breadcrumb-item>{{breadMenu[1]}}</el-breadcrumb-item>
-                    </el-breadcrumb>
-                    <div class="rightline" v-show="is1521Sys==true">更新时间: {{updateTime}}</div>
-                    <router-view></router-view>
-                </el-main>
+            <div class="sidebar-container">
+                <!--  :class="{'is-active':isCollapse}" @mouseenter="hanldeMouseenter(false)" @mouseleave="hanldeMouseenter(true)"-->
+                <el-menu :default-active="activeFirstMenuID" :collapse="isCollapse" class="el-menu-vertical-demo" mode="vertical" :show-timeout="200" @open="handleOpen" @close="handleClose">
+                    <sidebar-item :menu="menuData" :isCollapse="isCollapse"></sidebar-item>
+                </el-menu>
+            </div>
+            <el-main :class="this.isCollapse ? 'openMenu': 'closeMenu'" id="mainContainer">
+                <el-breadcrumb separator="/" class="order-breadcrumb">
+                    <el-breadcrumb-item>{{breadMenu[0]}}</el-breadcrumb-item>
+                    <el-breadcrumb-item>{{breadMenu[1]}}</el-breadcrumb-item>
+                </el-breadcrumb>
+                <div class="rightline" v-show="is1521Sys==true">更新时间: {{updateTime}}</div>
+                <router-view></router-view>
+            </el-main>
             <!--</el-scrollbar>-->
         </el-container>
     </el-container>
@@ -146,7 +147,7 @@ export default {
     },
     watch: {
         '$route'(to, from) {
-           this.init();
+            this.init();
         }
     },
     methods: {
@@ -169,8 +170,8 @@ export default {
                 name: firstPage
             });
         },
-        showCollapse(){
-          this.isCollapse = !this.isCollapse;
+        showCollapse() {
+            this.isCollapse = !this.isCollapse;
         },
         getDimension() {
             this.$api.common.getDimension().then(res => {
@@ -263,10 +264,10 @@ export default {
     position: relative;
 
     & .el-header {
-        position:relative;
-        top:0;
-        left:0;
-        z-index:3000
+        position: relative;
+        top: 0;
+        left: 0;
+        z-index: 3000
     }
 }
 
@@ -295,6 +296,7 @@ export default {
     left: 0px;
     z-index: 11;
 }
+
 .el-container {
     .el-scrollbar__wrap {
         overflow-x: hidden;

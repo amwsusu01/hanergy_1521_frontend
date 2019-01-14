@@ -23,7 +23,7 @@
 </template>
 <script>
 //import { resolveUrlPath } from "@/util/util";
-import { _setTitle} from '../../assets/js/util';
+import { _setTitle } from '../../assets/js/util';
 
 export default {
     name: "sidebar-item",
@@ -34,7 +34,7 @@ export default {
         menu: {
             type: Array
         },
-        name:String,
+        name: String,
         isCollapse: {
             type: Boolean
         }
@@ -48,12 +48,19 @@ export default {
         open(item) {
             if (item.url != '' && item.url != "‘’") {
                 _setTitle(item.name)
-                this.$store.commit('setBreadcrumbMenu', [this.name||'', item.name]);
+                this.$store.commit('setBreadcrumbMenu', [this.name || '', item.name]);
                 this.$store.commit('setActiveMenuId', item.menuId);
 
-                this.$router.push({
-                    name: item.url
-                });
+                if (item.url.indexOf('tab') >= 0) {
+                    this.$router.push({
+                        path: item.url
+                    });
+                } else {
+                    this.$router.push({
+                        name: item.url
+                    });
+                }
+
             }
         }
     }
@@ -67,5 +74,4 @@ export default {
 .el-submenu--display .el-submenu__icon-arrow {
     display: none !important;
 }
-
 </style>

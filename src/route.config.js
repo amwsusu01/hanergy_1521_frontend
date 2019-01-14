@@ -150,6 +150,14 @@ var Routers = [
                     require(['./module/manage-control/forewarnRecord.vue'], resolve)
                 },
                 meta: { keepAlive: false }
+            },
+            {
+                path: '/tab/:type',
+                name: 'tab',
+                component: function(resolve) {
+                    require(['./module/entry.vue'], resolve)
+                },
+                meta: { keepAlive: false,title:'人力报表' }
             }
         ]
     },
