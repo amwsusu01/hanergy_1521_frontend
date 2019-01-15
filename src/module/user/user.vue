@@ -17,7 +17,8 @@
                     <el-breadcrumb-item>{{breadMenu[1]}}</el-breadcrumb-item>
                 </el-breadcrumb>
                 <div class="rightline" v-show="is1521Sys==true">更新时间: {{updateTime}}</div>
-                <router-view></router-view>
+                <keep-alive>
+                <router-view></router-view></keep-alive>
             </el-main>
             <!--</el-scrollbar>-->
         </el-container>

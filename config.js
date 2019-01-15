@@ -11,7 +11,8 @@ module.exports = {
   },
   dev: {
     port: 8083,
-    assetsPublicPath: './', //开发环境下输出路径
+    assetsSubDirectory: 'static',
+    assetsPublicPath: '/', //开发环境下输出路径
     proxyTable: {},
     host:'0.0.0.0'
   }

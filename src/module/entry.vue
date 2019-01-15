@@ -1,7 +1,7 @@
 <!--人员报表 -->
 <template>
     <div :style="{ 'height': documentClientHeight+ 'px'}">
-        <iframe id="mainIframe" name="mainIframe" ref="mainIframe"  :src="urlTxt" frameborder="0" scrolling="auto" width="100%" height="100%" allowfullscreen="true"></iframe>
+        <iframe id="mainIframe" name="mainIframe" ref="mainIframe" :src="urlTxt" frameborder="0" width="100%" height="100%" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true"></iframe>
     </div>
 </template>
 <script type="text/javascript">
@@ -12,9 +12,9 @@ export default {
     method() {
 
     },
-    mounted(){
-    	//debugger
-    	//this.$refs['mainIframe'].src=this.urlTxt;
+    mounted() {
+        //debugger
+        //this.$refs['mainIframe'].src=this.urlTxt;
     },
     computed: {
         documentClientHeight: {
@@ -23,7 +23,7 @@ export default {
         },
         type: {
             get() {
-                return this.$route.params.type;
+                return this.$route.query.type;
             }
         },
         urlTxt: {
@@ -50,13 +50,24 @@ export default {
                         //离职主页
                     case 7:
                         return 'http://192.168.19.212/BigdataPlatform/manpowereport/quithomepage.html';
-                     // 考勤分析
+                        // 考勤分析
                     case 8:
-                    	return 'http://192.168.19.212/BigdataPlatform/attendence/attendanceanalysis.html';
+                        return 'http://192.168.19.212/BigdataPlatform/attendence/attendanceanalysis.html';
+                        //考勤分析明细
                     case 9:
-                    	return 'http://192.168.19.212/BigdataPlatform/attendence/attendanceanalysisdetail.html';
+                        return 'http://192.168.19.212/BigdataPlatform/attendence/attendanceanalysisdetail.html';
+
+                        //打卡明细分析
                     case 10:
-                   		 return 'http://192.168.19.212/BigdataPlatform/attendence/punchcardanalysis.html';
+                        return 'http://192.168.19.212/BigdataPlatform/attendence/punchcardanalysis.html';
+
+                        //考勤综合分析
+                    case 11:
+                        return 'http://192.168.19.212/BigdataPlatform/attendence/comprehensiveattendanceanalysis.html';
+
+                        //库存统计BI报表
+                    case 12:
+                        return 'http://192.168.19.212/BigdataPlatform/SupplyChainWarehousingManagement/inventorystatementreport.html';
                 }
             }
         }

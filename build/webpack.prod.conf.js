@@ -38,6 +38,10 @@ module.exports = merge(baseWebpackConfig, {
     }),
     new CleanPlugin(['../dist']), //清空生成目录
     new webpack.optimize.OccurenceOrderPlugin(),
+    //发布环境下的baseURL
+    new webpack.DefinePlugin({
+      BASE_URL:"'/BigdataPlatform/'"
+    })
   ]
 })
 

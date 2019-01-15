@@ -25,6 +25,10 @@ module.exports = merge(baseWebpackConfig, {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new OPEN_BROWSER({url: OPEN_BROWSER_URL}),
+    //发布环境下的baseURL
+    new webpack.DefinePlugin({
+      BASE_URL:"'/'"
+    })
   ]
 })
 

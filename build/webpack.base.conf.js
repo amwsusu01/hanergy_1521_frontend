@@ -10,8 +10,7 @@ var entries = utils.getEntry('./src/main.js'); // 获得入口js文件
 // 手动配置全局公共资源，打包到vendors
 entries['static/common/vendors'] = [
   'vue',
-  'axios',
-  'babel-polyfill'
+  'axios'
 ];
 var chunks = Object.keys(entries);
 
@@ -89,7 +88,7 @@ module.exports = {
         test   : /\.css$/,
         loader : ExtractTextPlugin.extract('style-loader', 'css-loader')
       }, 
-      {
+        {
         test: /\.less$/,
         loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader')
       },

@@ -136,9 +136,17 @@ export default {
                     }
                     this.$store.commit('setBreadcrumbMenu', [this.menuData[0].name||'', firstName]);
                     this.$store.commit('setActiveMenuId', defaultMenuId);
-                    this.$router.push({
-                        name: firstPage
-                    });
+
+                    if(firstPage.indexOf('tab')>=0) {
+                        this.$router.push({
+                            path: firstPage
+                        });
+                    } else {
+                        this.$router.push({
+                            name: firstPage
+                        });
+                    }
+                    
                     this.clearForm();
                 } else {
                     this.$message.error({
