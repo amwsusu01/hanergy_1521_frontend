@@ -129,9 +129,11 @@
         //问题提出和解决流程统计 接口
         getProductDetailed() {
             let params = {
-                applyStartDate: this.$moment(this.form.date2).format('YYYY-MM-DD'),
+               //applyStartDate: this.$moment(this.form.date2).format('YYYY-MM-DD'),
+                applyStartDate: this.form.date2,
                 applyEndDate: this.form.date3,
-                finishStartDate: this.$moment(this.form.date4).format('YYYY-MM-DD'),
+                finishStartDate: this.form.date4,
+                //finishStartDate: this.$moment(this.form.date4).format('YYYY-MM-DD'):"",
                 finishEndDate: this.form.date5,
                 pageNo: this.page.currentPage,
                 pageSize: this.page.pagesize,
@@ -156,7 +158,7 @@
                 this.form.date4= "";
                 this.form.date5= "";
                //调用接口
-                this.getProductDetailed();
+                //this.getProductDetailed();
         },
         exportExl(type) {
             let count = 0;
@@ -186,12 +188,12 @@
                     break;
             }
             let params = {
-                applyStartDate: this.$moment(this.form.date2).format('YYYY-MM-DD'),
+                //applyStartDate: this.form.date2!=null||this.form.date2!=""?this.$moment(this.form.date2).format('YYYY-MM-DD'):"",
+                applyStartDate: this.form.date2,
                 applyEndDate: this.form.date3,
-                finishStartDate: this.$moment(this.form.date4).format('YYYY-MM-DD'),
+                finishStartDate: this.form.date4,
+                //finishStartDate: this.form.date4!=null||this.form.date4!=""?this.$moment(this.form.date4).format('YYYY-MM-DD'):"",
                 finishEndDate: this.form.date5,
-                pageNo: this.page.currentPage,
-                pageSize: this.page.pagesize,
                 isExprot: '1'
             };
             this.$api.common.getProblemExportDetailed(params).then(res => {
