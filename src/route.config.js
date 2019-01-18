@@ -133,6 +133,14 @@ var Routers = [
                 },
                 meta: { keepAlive: false,title: '产供销一体化-预警' }
             },
+            {
+                path: '/problem',
+                name: 'problem',
+                component: function(resolve) {
+                    require(['./module/problem/person-problem.vue'], resolve)
+                },
+                meta: { keepAlive: false,title: '产供销一体化明细表'  }
+            },
             //管理控制台-供应链一体化-预警管理
             {
                 path: '/forewarnManage',

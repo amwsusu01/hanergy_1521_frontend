@@ -2,7 +2,8 @@
  * Created by 601200 on 2018/9/19.
  */
 var configM = {
-   comUrl:'http://192.168.19.212/admin/',
+    comUrl:'http://192.168.19.212/admin/',
+    localUrl:'http://10.0.246.121:8080',
     otherComUrl:'http://bgs.hanergy.com/',
     tempComUrl:'http://bgs.hanergy.com/admin',
     uploadUrl:'/photo/uploadAttachment',//上传图片
