@@ -3,7 +3,6 @@
  */
 var configM = {
     comUrl:'http://192.168.19.212/admin/',
-    localUrl:'http://10.0.246.121:8080',
     otherComUrl:'http://bgs.hanergy.com/',
     tempComUrl:'http://bgs.hanergy.com/admin',
     uploadUrl:'/photo/uploadAttachment',//上传图片

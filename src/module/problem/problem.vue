@@ -151,10 +151,10 @@
         },
         //重置
         resetForm(){
-                this.form.date2= this.$moment().year(this.$moment().year()).startOf('year').valueOf();
-                this.form.date3= this.$moment().subtract(1, 'days').format('YYYY-MM-DD');
-                this.form.date4= this.$moment().year(this.$moment().year()).startOf('year').valueOf();
-                this.form.date5= this.$moment().subtract(1, 'days').format('YYYY-MM-DD');
+                this.form.date2= "";
+                this.form.date3= "";
+                this.form.date4= "";
+                this.form.date5= "";
                //调用接口
                 this.getProductDetailed();
         },

@@ -28,7 +28,7 @@ const apiURL = {
 
 export default {
     prosearch(obj){
-        return Api.post(`${configM.localUrl}${apiURL.problemList}`, obj);
+        return Api.post(apiURL.problemList, obj);
     },
     login(obj) {
         return Api.post(`${configM.tempComUrl}${apiURL.login}`, obj);
