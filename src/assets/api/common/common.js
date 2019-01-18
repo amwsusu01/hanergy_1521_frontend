@@ -23,7 +23,7 @@ const apiURL = {
     updateNotifier: "/mail/updateNotifier",
     mailRecordList: "/mail/mailRecordList",
     problemList:"/problem/problemlist",
-    problemExportDetailed: "/problem/problemlist"
+    problemExportDetailed: "/problem/problemexcelexport"
 };
 
 export default {

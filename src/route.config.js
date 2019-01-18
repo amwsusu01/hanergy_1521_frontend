@@ -137,7 +137,7 @@ var Routers = [
                 path: '/problem',
                 name: 'problem',
                 component: function(resolve) {
-                    require(['./module/problem/person-problem.vue'], resolve)
+                    require(['./module/problem/problem.vue'], resolve)
                 },
                 meta: { keepAlive: false,title: '问题提出和解决流程统计'  }
             },
