@@ -139,7 +139,7 @@ var Routers = [
                 component: function(resolve) {
                     require(['./module/problem/person-problem.vue'], resolve)
                 },
-                meta: { keepAlive: false,title: '产供销一体化明细表'  }
+                meta: { keepAlive: false,title: '问题提出和解决流程统计'  }
             },
             //管理控制台-供应链一体化-预警管理
             {

@@ -1,36 +1,49 @@
 <template>
     <div>
         <div class="box">
-            <el-form ref="form" label-position="left" :inline="true" :model="form" label-width="130px" class="contain" size="mini" @submit.native.prevent>
+            <el-form ref="form" label-position="left" :inline="true" :model="form" label-width="shortLabel" class="contain" size="mini" @submit.native.prevent>
                 <el-row>
-                    <el-col :span="12">
-                        <el-form-item label="申请日期"  prop="date2" class="contain-time-form-item">
-                            <el-col :span="11">
-                                <el-date-picker type="date" placeholder="无限制" v-model="form.date2" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
-                            </el-col>
-                            <el-col class="line" :span="2">-</el-col>
-                            <el-col :span="11">
-                                <el-date-picker type="date" placeholder="无限制" v-model="form.date3" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
-                            </el-col>
-                        </el-form-item>
+                    <el-col :span="2" class="title"> 申请日期:</el-col>
+                    <el-col :span="8">
+                            <el-date-picker
+                                    size="mini"
+                                    v-model="form.date2"
+                                    type="date"
+                                    placeholder="选择日期"
+                                    style="width:150px;display: inline-block">
+                            </el-date-picker>
+
+                        <span> - </span>
+                        <el-date-picker
+                                size="mini"
+                                v-model="form.date3"
+                                type="date"
+                                placeholder="选择日期"
+                                style="width:150px;">
+                        </el-date-picker>
                     </el-col>
-                    <el-col :span="12">
-                        <el-form-item label="完成日期"  prop="date4" class="contain-time-form-item">
-                            <el-col :span="11">
-                                <el-date-picker type="date" placeholder="无限制" v-model="form.date4" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
-                            </el-col>
-                            <el-col class="line" :span="2">-</el-col>
-                            <el-col :span="11">
-                                <el-date-picker type="date" placeholder="无限制" v-model="form.date5" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
-                            </el-col>
-                        </el-form-item>
+                    <el-col :span="2"  class="title"> 完成日期:</el-col>
+                    <el-col :span="8">
+                        <el-date-picker
+                                size="mini"
+                                v-model="form.date4"
+                                type="date"
+                                placeholder="选择日期"
+                                style="width:150px;display: inline-block">
+                        </el-date-picker>
+                        <span> - </span>
+                        <el-date-picker
+                                size="mini"
+                                v-model="form.date5"
+                                type="date"
+                                placeholder="选择日期"
+                                style="width:150px;">
+                        </el-date-picker>
                     </el-col>
-                </el-row>
-                <el-row>
-                    <el-form-item>
-                        <el-col :span="8"><el-button type="primary" size="mini" @click.prevent="querySelect()">查询</el-button></el-col>
-                        <el-col :span="8"><el-button type="primary" size="mini" @click.prevent="resetForm('form')">重置</el-button></el-col>
-                    </el-form-item>
+                    <el-col :span="3">
+                        <el-button type="primary" size="mini" @click.prevent="querySelect()">查询</el-button>
+                        <el-button type="primary" size="mini" @click.prevent="resetForm()">重置</el-button>
+                    </el-col>
                 </el-row>
             </el-form>
             <div style="width:100%;max-width: 1200px;position: relative;" class="table-container">
@@ -75,11 +88,8 @@
 </template>
 <script type="text/javascript">
     import { exportExl } from '../../utils';
-    import productSelect from '../../components/common/product-select';
-    import businessSelect from "../../components/common/business-select";
-    import submitterSelect from "../../components/common/submitter-select";
     export default {
-        name: 'detail',
+        name: 'person-problem',
     data() {
         return {
             dataList: [],
@@ -89,41 +99,16 @@
                 currentPage: 1 // 当前页
             },
             form: {
-                date1: this.$moment().subtract(1, 'days').format('YYYY-MM-DD'),
-                date2: "",
-                date3: ""
-
+                date2: this.$moment().year(this.$moment().year()).startOf('year').valueOf(),
+                date3: this.$moment().subtract(1, 'days').format('YYYY-MM-DD'),
+                date4: this.$moment().year(this.$moment().year()).startOf('year').valueOf(),
+                date5: this.$moment().subtract(1, 'days').format('YYYY-MM-DD'),
             },
-            shortLabel: "70",
-            pickerOptions: {
-                disabledDate: (time) => {
-                    return this.$moment(time).isBefore(this.form.date.startTime);
-                }
-            },
+            shortLabel: "90",
         }
     },
-    components: {
-        businessSelect,
-        submitterSelect,
-        productSelect,
-    },
     computed: {
-        businessList: {
-            get() {
-                return this.$store.state.common.dept || [];
-            },
-            set(val) {
-                this.$store.commit('setPsmDept', val);
-            }
-        },
-        productList: {
-            get() {
-                return this.$store.state.common.product || [];
-            },
-            set(val) {
-                this.$store.commit('setPsmProduct', val);
-            }
-        },
+
         submitterList: {
             get() {
                 return this.$store.state.common.psmuser || [];
@@ -141,15 +126,15 @@
             this.page.currentPage = val;
             this.getProductDetailed();
         },
-        //产供销一体化明细报表 接口
+        //问题提出和解决流程统计 接口
         getProductDetailed() {
             let params = {
-                //prjihua: this.form.date2, prjihuaend: this.form.date3,	//#PR计划区间
-                //prshiji: this.form.date4, prshijiend: this.form.date5, //#PR实际区间
-                //pageNo: this.page.currentPage,
-                //pageSize: this.page.pagesize,
-                pageNo:1,
-                pageSize:3
+                applyStartDate: this.$moment(this.form.date2).format('YYYY-MM-DD'),
+                applyEndDate: this.form.date3,
+                finishStartDate: this.$moment(this.form.date4).format('YYYY-MM-DD'),
+                finishEndDate: this.form.date5,
+                pageNo: this.page.currentPage,
+                pageSize: this.page.pagesize,
         };
             this.$api.common.prosearch(params).then(res => {
                 this.page.totalNumber = res.count;
@@ -166,75 +151,12 @@
         },
         //重置
         resetForm(){
-            let _this = this;
-            _this.$refs.form.resetFields();
-            _this.form.date3 = "";
-            _this.form.date5 = "";
-            _this.form.date7 = "";
-            _this.form.date9 = "";
-            _this.form.date11 = "";
-            _this.form.date13 = "";
-            _this.form.date15 = "";
-            _this.form.date17 = "";
-            _this.form.date19 = "";
-            _this.form.date21 = "";
-            _this.form.date23 = "";
-            _this.form.date25 = "";
-            _this.form.date1= this.$moment().subtract(1, 'days').format('YYYY-MM-DD');
-            this.$refs['productList'].values = [];
-            this.$refs['businessList'].values = [];
-            this.$refs['submitterList'].values = [];
-            this.$nextTick(() => {
+                this.form.date2= this.$moment().year(this.$moment().year()).startOf('year').valueOf();
+                this.form.date3= this.$moment().subtract(1, 'days').format('YYYY-MM-DD');
+                this.form.date4= this.$moment().year(this.$moment().year()).startOf('year').valueOf();
+                this.form.date5= this.$moment().subtract(1, 'days').format('YYYY-MM-DD');
+               //调用接口
                 this.getProductDetailed();
-            })
-        },
-        getProduct() {
-            if (this.$refs['productList']) {
-                this.form.product = this.$refs['productList'].values.concat();
-            }
-            let resProducts = '';
-            if (this.form.product.length > 0) {
-                resProducts = this.form.product.join(',');
-            } else {
-                let productNames = this.productList.map((a) => {
-                    return a.chanpin_name;
-                })
-
-                resProducts = productNames.join(',');
-            }
-            return resProducts;
-        },
-        getBusiness() {
-            if (this.$refs['businessList']) {
-                this.form.business = this.$refs['businessList'].values.concat();
-            }
-            let resProducts = '';
-            if (this.form.business.length > 0) {
-                resProducts = this.form.business.join(',');
-            } else {
-                let productNames = this.businessList.map((a) => {
-                    return a.shiyebu_name;
-                })
-
-                resProducts = productNames.join(',');
-            }
-            return resProducts;
-        },
-        getSubmitter() {
-            if (this.$refs['submitterList']) {
-                this.form.submitter = this.$refs['submitterList'].values.concat();
-            }
-            let resProducts = '';
-            if (this.form.submitter.length > 0) {
-                resProducts = this.form.submitter.join(',');
-            } else {
-                let productNames = this.submitterList.map((a) => {
-                    return a.FD_NAME;
-                });
-
-                resProducts = productNames.join(',');
-            }
-            return resProducts;
         },
         exportExl(type) {
             let count = 0;
@@ -260,96 +182,51 @@
             let filename = '';
             switch (type) {
                 case '67':
-                    filename = "产供销一体化明细表.xls";
+                    filename = "问题提出和解决流程统计.xls";
                     break;
             }
             let params = {
-                prjihua: this.form.date2, prjihuaend: this.form.date3,	//#PR计划区间
-                prshiji: this.form.date4, prshijiend: this.form.date5, //#PR实际区间
-                page: this.page.currentPage,
+                applyStartDate: this.$moment(this.form.date2).format('YYYY-MM-DD'),
+                applyEndDate: this.form.date3,
+                finishStartDate: this.$moment(this.form.date4).format('YYYY-MM-DD'),
+                finishEndDate: this.form.date5,
+                pageNo: this.page.currentPage,
                 pageSize: this.page.pagesize,
                 isExprot: '1'
             };
-            this.$api.common.getProductExportDetailed(params).then(res => {
+            this.$api.common.getProblemExportDetailed(params).then(res => {
                 exportExl(res, filename);
             })
         },
-        init(){
-            if (this.productList.length > 0) {
-                this.form.product = this.productList.map((a) => a.chanpin_name);
-                if (this.$refs['productList']) {
-                    this.$refs['productList'].values = this.form.product.concat();
-                }
-            }
-            if (this.submitterList.length > 0) {
-                this.form.submitter = this.submitterList.map((a) => a.FD_NAME);
-                if (this.$refs['submitterList']) {
-                    this.$refs['submitterList'].values = this.form.submitter.concat();
-                }
-            }
-            if (this.businessList.length > 0) {
-                this.form.business = this.businessList.map((a) => a.shiyebu_name);
-                if (this.$refs['businessList']) {
-                    this.$refs['businessList'].values = this.form.business.concat();
-                }
-            }
-        }
     },
     mounted() {
-        this.init();
         this.$nextTick(() => {
-            if (this.productList.length > 0 && this.submitterList.length > 0 && this.businessList.length > 0) {
                 this.getProductDetailed();
-            }
         });
-    },
-        watch: {
-            'productList': function(newVal, oldVal) {
-                if (newVal.length > 0 && oldVal && oldVal.length == 0) {
-                    this.getProductDetailed();
-                }
-            },
-            'submitterList': function(newVal, oldVal) {
-                if (newVal.length > 0 && oldVal && oldVal.length == 0) {
-                    this.getProductDetailed();
-                }
-            },
-            'businessList': function(newVal, oldVal) {
-                if (newVal.length > 0 && oldVal && oldVal.length == 0) {
-                    this.getProductDetailed();
-                }
-            }
-        }
+    }
 }
 </script>
-<style lang="less">
-.contain-form-item .el-form-item__content {
-    width: 125px !important
-}
-
-.contain-time-form-item .el-form-item__content {
-    width: 377px !important
-}
-</style>
 <style type="text/css" scoped>
-.block {
-    text-align: right;
-    margin-top: 10px;
-    margin-right: 100px;
-    margin-bottom: 30px;
-}
+    .block {
+        text-align: right;
+        margin-top: 10px;
+        margin-right: 100px;
+        margin-bottom: 30px;
+    }
 
-.table-title {
-    color:white;
-}
+    .exp-btn {
+        position: absolute;
+        right: 15px;
+        z-index: 1000;
+        top: 19px;
+    }
 
-.exp-btn {
-    position: absolute;
-    right: 15px;
-    z-index: 1000;
-    top: 0px;
-}
-.table-container {
-    padding-top:45px;
-}
+    .table-container {
+        padding-top: 60px;
+    }
+
+    .title {
+        font-size: 14px;
+        color: #5c5c5c;
+    }
 </style>
