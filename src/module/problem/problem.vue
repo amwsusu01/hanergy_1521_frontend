@@ -62,6 +62,8 @@
                             </el-table-column>
                             <el-table-column prop="chengbanrenquerenwentizhuan" label-class-name="title-th" label="问题状态" show-overflow-tooltip width="100">
                             </el-table-column>
+                            <el-table-column prop="chengbanrenquerenwentizhuan" label-class-name="title-th" label="是否实施" show-overflow-tooltip width="100">
+                            </el-table-column>
                             <el-table-column prop="wentimiaoshu" label-class-name="title-th" label="问题描述" show-overflow-tooltip width="100">
                             </el-table-column>
                             <el-table-column prop="jianyi" label-class-name="title-th"  label="建议" show-overflow-tooltip width="100">
