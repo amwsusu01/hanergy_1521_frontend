@@ -20,6 +20,7 @@ exports.getEntry = function(globPath){
     // * 输出js和html的路径
     pathname = basename;
     entries[pathname] = entry;
+
   });
   console.log(entries);
   return entries;

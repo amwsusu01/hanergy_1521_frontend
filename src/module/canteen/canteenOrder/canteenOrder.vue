@@ -730,6 +730,8 @@ export default {
         this.initTime = this.updateTime ? this.$moment(this.updateTime).format('YYYY-MM') : '';
 
         this.initData();
+        console.log(this.$store.state.common.menuData[0].list,"list，，，，，，，，，，，")
+        console.log("list，，，，，，，，，，，")
     },
     methods: {
         initData() {

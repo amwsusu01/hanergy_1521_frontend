@@ -5,21 +5,23 @@
         </el-header>
         <el-container :style="{ 'height': documentClientHeight-70 + 'px'}">
             <!--<el-scrollbar style="height: 100%;width: 100%;" ref="globalScrollbar">-->
-            <div class="sidebar-container">
+            <div class="sidebar-container siderbarnew">
                 <!--  :class="{'is-active':isCollapse}" @mouseenter="hanldeMouseenter(false)" @mouseleave="hanldeMouseenter(true)"-->
                 <el-menu :default-active="activeFirstMenuID" :collapse="isCollapse" class="el-menu-vertical-demo" mode="vertical" :show-timeout="200" @open="handleOpen" @close="handleClose">
                     <sidebar-item :menu="menuData" :isCollapse="isCollapse"></sidebar-item>
                 </el-menu>
+                <div class="scrollbar"></div>
             </div>
-            <el-main :class="this.isCollapse ? 'openMenu': 'closeMenu'" id="mainContainer">
-                <el-breadcrumb separator="/" class="order-breadcrumb">
-                    <el-breadcrumb-item>{{breadMenu[0]}}</el-breadcrumb-item>
-                    <el-breadcrumb-item>{{breadMenu[1]}}</el-breadcrumb-item>
-                </el-breadcrumb>
-                <div class="rightline" v-show="is1521Sys==true">更新时间: {{updateTime}}</div>
-                <keep-alive>
-                <router-view></router-view></keep-alive>
-            </el-main>
+                <el-main :class="this.isCollapse ? 'openMenu': 'closeMenu'" id="mainContainer">
+                    <el-breadcrumb separator="/" class="order-breadcrumb">
+                        <el-breadcrumb-item>{{breadMenu[0]}}</el-breadcrumb-item>
+                        <el-breadcrumb-item>{{breadMenu[1]}}</el-breadcrumb-item>
+                    </el-breadcrumb>
+                    <div class="rightline" v-show="is1521Sys==true">更新时间: {{updateTime}}</div>
+                        <keep-alive>
+                            <router-view></router-view>
+                        </keep-alive>
+                </el-main>
             <!--</el-scrollbar>-->
         </el-container>
     </el-container>
@@ -296,11 +298,53 @@ export default {
     top: 60px;
     left: 0px;
     z-index: 11;
+    overflow: auto;
+    height: 100%;
+    width: 16%;
+}
+.sidebarbox{
+    width: 84%;
+    height: 100%;
+}
+.containbar::-webkit-scrollbar {/*滚动条整体样式*/
+    width: 7px;     /*高宽分别对应横竖滚动条的尺寸*/
+    height: 1px;
+}
+.containbar::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+    background: #9c9c9c;
+}
+.containbar::-webkit-scrollbar-track {/*滚动条里面轨道*/
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    background: #EDEDED;
 }
 
+/*左侧菜单的滚动条*/
+.siderbarnew::-webkit-scrollbar {/*滚动条整体样式*/
+    width: 7px;     /*高宽分别对应横竖滚动条的尺寸*/
+    height: 1px;
+}
+.siderbarnew::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+    background: #9c9c9c;
+}
+.siderbarnew::-webkit-scrollbar-track {/*滚动条里面轨道*/
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    background: #EDEDED;
+}
+.scrollbar{
+    width: 90%;
+    height: 50%;
+    margin: 0 auto;
+}
 .el-container {
     .el-scrollbar__wrap {
         overflow-x: hidden;
+        overflow-y: auto;
     }
 
     .el-scrollbar__bar.is-horizontal {

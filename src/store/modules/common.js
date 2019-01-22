@@ -1,4 +1,4 @@
-import { _sessionStorage, getMenuData } from "../../assets/js/util";
+import { _sessionStorage, LocalStorage,getMenuData } from "../../assets/js/util";
 
 const common = {
     state: {
@@ -6,19 +6,19 @@ const common = {
         curMenuID: '48',
         // 页面文档可视高度(随窗口改变大小)
         documentClientHeight: 0,
-        allMenu:_sessionStorage("allMenu") ? JSON.parse(_sessionStorage("allMenu")) : [],
-        menuData: _sessionStorage("menuData") ? JSON.parse(_sessionStorage("menuData")) : [],
-        user: _sessionStorage("loggeduser") ? JSON.parse(_sessionStorage("loggeduser")) : {},
-        breadcrumbMenu: _sessionStorage("breadcrumbMenu") ? JSON.parse(_sessionStorage("breadcrumbMenu")) : [],
-        sysTitle: _sessionStorage("sysTitle") || '',
+        allMenu:LocalStorage("allMenu") ? JSON.parse(LocalStorage("allMenu")) : [],
+        menuData: LocalStorage("menuData") ? JSON.parse(LocalStorage("menuData")) : [],
+        user: LocalStorage("loggeduser") ? JSON.parse(LocalStorage("loggeduser")) : {},
+        breadcrumbMenu: LocalStorage("breadcrumbMenu") ? JSON.parse(LocalStorage("breadcrumbMenu")) : [],
+        sysTitle: LocalStorage("sysTitle") || '',
         updateTime: '',
         deptments: [],
-        menuItemData: _sessionStorage("menuData") ? getMenuData(JSON.parse(_sessionStorage("menuData")), []) : [],
+        menuItemData: LocalStorage("menuData") ? getMenuData(JSON.parse(LocalStorage("menuData")), []) : [],
         dept:[],
         product: [],
         psmUser: [],
         templateId: "1000001",
-        activeMenuId:_sessionStorage("activeMenuId") ? JSON.parse(_sessionStorage("activeMenuId")) : ''
+        activeMenuId:LocalStorage("activeMenuId") ? JSON.parse(LocalStorage("activeMenuId")) : ''
     },
     actions: {},
     mutations: {
@@ -41,11 +41,11 @@ const common = {
             state.user = data;
         },
         setBreadcrumbMenu(state, data) {
-            _sessionStorage("breadcrumbMenu",JSON.stringify(data));
+            LocalStorage("breadcrumbMenu",JSON.stringify(data));
             state.breadcrumbMenu = data;
         },
         setActiveMenuId(state, data) {
-            _sessionStorage("activeMenuId",data);
+            LocalStorage("activeMenuId",data);
             state.activeMenuId = data;
         },
         setSysTitle(state, data) {

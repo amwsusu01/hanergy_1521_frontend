@@ -1,4 +1,5 @@
 require('es6-promise').polyfill();
+import "babel-polyfill"
 import Vue from 'vue'
 import Router from 'vue-router'
 import router from './route.config'
@@ -43,6 +44,7 @@ Vue.config.devtools = false
 Vue.config.silent = true*/
 
 import store from './store';
+
 
 router.afterEach((to,from,next)=> {
     window.scrollTo(0, 0);

@@ -165,6 +165,21 @@ export function _sessionStorage(item, value) {
         }
     }
 }
+export function LocalStorage(item, value) {
+    if (value == "") {
+        localStorage.setItem(item, "");
+    } else if (value && JSON.stringify(value) != "{}") {
+        localStorage.setItem(item, JSON.stringify(value));
+    } else {
+        var val = localStorage.getItem(item);
+        //sessionStorage.setItem(item, "");
+        if (val) {
+            return JSON.parse(val);
+        } else {
+            return '';
+        }
+    }
+}
 
 export function sleep(numberMillis) {
     var now = new Date();
