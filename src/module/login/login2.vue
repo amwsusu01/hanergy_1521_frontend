@@ -23,7 +23,7 @@
     </div>
 </template>
 <script>
-import { _setTitle, getQueryStringHr, sessionId, _sessionStorage, calcuMD5 } from '../../assets/js/util';
+import { _setTitle, getQueryStringHr, sessionId, _sessionStorage,LocalStorage ,calcuMD5 } from '../../assets/js/util';
 
 import {compressToEncodedURIComponent} from 'lz-string';
 
@@ -123,10 +123,10 @@ export default {
                     this.menuData = res.data[0].menus[0].list;
                     this.allMenu = res.data[0].menus;
 
-                    _sessionStorage("loggeduser", JSON.stringify(res.user));
-                    _sessionStorage("menuData", JSON.stringify(this.menuData));
-                    _sessionStorage("allMenu", JSON.stringify(this.allMenu));
-                    _sessionStorage("sysTitle", this.sysTitle);
+                    LocalStorage("loggeduser", JSON.stringify(res.user));
+                    LocalStorage("menuData", JSON.stringify(this.menuData));
+                    LocalStorage("allMenu", JSON.stringify(this.allMenu));
+                    LocalStorage("sysTitle", this.sysTitle);
 
                     let firstPage = 'canteenOrder',firstName='',defaultMenuId='';
                     if(this.menuData.length > 0 && this.menuData[0].list.length > 0) {

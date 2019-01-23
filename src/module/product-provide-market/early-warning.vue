@@ -154,8 +154,8 @@ export default {
                 }],
                 yAxis: {
                     type: 'value',
-                    min: 0,
-                    max: 6,
+                    // min: 0,
+                    // max: 6,
                     splitNumber: 2
                 },
                 grid: {

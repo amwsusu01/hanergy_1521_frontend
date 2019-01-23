@@ -306,21 +306,6 @@ export default {
     width: 84%;
     height: 100%;
 }
-.containbar::-webkit-scrollbar {/*滚动条整体样式*/
-    width: 7px;     /*高宽分别对应横竖滚动条的尺寸*/
-    height: 1px;
-}
-.containbar::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
-    background: #9c9c9c;
-}
-.containbar::-webkit-scrollbar-track {/*滚动条里面轨道*/
-    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
-    border-radius: 10px;
-    background: #EDEDED;
-}
-
 /*左侧菜单的滚动条*/
 .siderbarnew::-webkit-scrollbar {/*滚动条整体样式*/
     width: 7px;     /*高宽分别对应横竖滚动条的尺寸*/
@@ -329,7 +314,7 @@ export default {
 .siderbarnew::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
-    background: #9c9c9c;
+    background: #409EFF;
 }
 .siderbarnew::-webkit-scrollbar-track {/*滚动条里面轨道*/
     -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.3);

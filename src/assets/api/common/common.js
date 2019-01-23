@@ -23,7 +23,9 @@ const apiURL = {
     updateNotifier: "/mail/updateNotifier",
     mailRecordList: "/mail/mailRecordList",
     problemList:"/problem/problemlist",
-    problemExportDetailed: "/problem/problemexcelexport"
+    problemExportDetailed: "/problem/problemexcelexport",
+    logsList: "/process/recodeList",
+    logsExport: "/process/recodeexport"
 };
 
 export default {
@@ -90,4 +92,10 @@ export default {
     getProblemExportDetailed(obj) {
         return Api.exportPost(apiURL.problemExportDetailed, obj);
     },
+    getlogsExport(obj){
+        return Api.exportPost(apiURL.logsExport,obj)
+    },
+    getLogsList(obj){
+       return Api.post(apiURL.logsList,obj)
+    }
 }

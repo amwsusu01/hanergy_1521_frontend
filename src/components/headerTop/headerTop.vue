@@ -55,7 +55,8 @@ export default {
                 let _this = this;
                 setTimeout(function() {
                     _this.$store.commit('setUser', null);
-                    sessionStorage.removeItem('loggeduser');
+                    localStorage.removeItem('loggeduser');
+                    
                     _this.$router.push({
                         'name': 'login',
                     });
@@ -77,7 +78,7 @@ export default {
             }).then(() => {
                 if(_this.$store)
                 _this.$store.commit('setUser', null);
-                sessionStorage.removeItem('loggeduser');
+                localStorage.removeItem('loggeduser');
                 _this.$router.push({
                     'name': 'login',
                 });
@@ -113,8 +114,8 @@ export default {
     }
     /* watch:{
          '$route' (to, from) {
-             _sessionStorage("childValue", true)
-             _sessionStorage("systemValue", false)
+             _localStorage("childValue", true)
+             _localStorage("systemValue", false)
              console.log(this.systemValue , "tryei]qj")
          }
      },*/

@@ -101,10 +101,10 @@
                 currentPage: 1 // 当前页
             },
             form: {
-                date2: this.$moment().year(this.$moment().year()).startOf('year').valueOf(),
-                date3: this.$moment().subtract(1, 'days').format('YYYY-MM-DD'),
-                date4: this.$moment().year(this.$moment().year()).startOf('year').valueOf(),
-                date5: this.$moment().subtract(1, 'days').format('YYYY-MM-DD'),
+                date2: "",
+                date3: "",
+                date4: "",
+                date5: ""
             },
             shortLabel: "90",
         }
