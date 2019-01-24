@@ -5,7 +5,7 @@
         </el-header>
         <el-container :style="{ 'height': documentClientHeight-70 + 'px'}">
             <!--<el-scrollbar style="height: 100%;width: 100%;" ref="globalScrollbar">-->
-            <div class="sidebar-container siderbarnew">
+            <div  :class="this.isCollapse ? 'sidebar-container siderbarClose' :'sidebar-container siderbarnew'" :style="'width:'+ num +'%;'">
                 <!--  :class="{'is-active':isCollapse}" @mouseenter="hanldeMouseenter(false)" @mouseleave="hanldeMouseenter(true)"-->
                 <el-menu :default-active="activeFirstMenuID" :collapse="isCollapse" class="el-menu-vertical-demo" mode="vertical" :show-timeout="200" @open="handleOpen" @close="handleClose">
                     <sidebar-item :menu="menuData" :isCollapse="isCollapse"></sidebar-item>
@@ -42,7 +42,8 @@ export default {
     data() {
         return {
             isCollapse: false,
-            activeIndex: 0
+            num: 16,
+            activeIndex: _sessionStorage("activeIndex") || 0
             //sysTitle: '报表'
         };
     },
@@ -154,27 +155,36 @@ export default {
         }
     },
     methods: {
-        switchMenu(index) {
-            this.activeIndex = index;
-            this.menuData = this.allMenu[index].list;
-            _sessionStorage("menuData", JSON.stringify(this.menuData));
-            let firstPage = 'canteenOrder',
-                firstName = '',
-                defaultMenuId = '';
-            if (this.menuData.length > 0 && this.menuData[0].list.length > 0) {
-                firstPage = this.menuData[0].list[0].url;
-                firstName = this.menuData[0].list[0].name;
-                defaultMenuId = this.menuData[0].list[0].menuId;
-            }
-            this.$store.commit('setBreadcrumbMenu', [this.menuData[0].name || '', firstName]);
-            this.$store.commit('setActiveMenuId', defaultMenuId);
+        switchMenu(index){
+            this.$nextTick(() =>{
+                this.activeIndex = index;
+                _sessionStorage("activeIndex", this.activeIndex);
+                this.menuData = this.allMenu[index].list;
+                _sessionStorage("menuData", JSON.stringify(this.menuData));
+                let firstPage = 'canteenOrder',
+                    firstName = '',
+                    defaultMenuId = '';
+                if (this.menuData.length > 0 && this.menuData[0].list.length > 0) {
+                    firstPage = this.menuData[0].list[0].url;
+                    firstName = this.menuData[0].list[0].name;
+                    defaultMenuId = this.menuData[0].list[0].menuId;
+                }
+                this.$store.commit('setBreadcrumbMenu', [this.menuData[0].name || '', firstName]);
+                this.$store.commit('setActiveMenuId', defaultMenuId);
 
-            this.$router.push({
-                name: firstPage
-            });
+                this.$router.push({
+                    name: firstPage
+                });
+            })
+
         },
         showCollapse() {
             this.isCollapse = !this.isCollapse;
+            if( this.isCollapse){
+               this.num = 5
+            }else{
+                this.num = 16
+            }
         },
         getDimension() {
             this.$api.common.getDimension().then(res => {
@@ -243,7 +253,6 @@ export default {
             // console.log(key, keyPath);
         },
         handleClose(key, keyPath) {
-            // console.log(key, keyPath);
         },
         // getMenu(list, res) {
         //     for (let i = 0; i < list.length; i++) {
@@ -300,7 +309,6 @@ export default {
     z-index: 11;
     overflow: auto;
     height: 100%;
-    width: 16%;
 }
 .sidebarbox{
     width: 84%;
@@ -312,11 +320,24 @@ export default {
     height: 1px;
 }
 .siderbarnew::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+    background: #dcedfa;
+}
+.siderbarnew::-webkit-scrollbar-track {/*滚动条里面轨道*/
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
+    background: #EDEDED;
+}
+/*左侧菜单的滚动条*/
+.siderbarClose::-webkit-scrollbar {/*滚动条整体样式*/
+    width: 7px;     /*高宽分别对应横竖滚动条的尺寸*/
+    height: 1px;
+}
+.siderbarClose::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
     background: #409EFF;
 }
-.siderbarnew::-webkit-scrollbar-track {/*滚动条里面轨道*/
+.siderbarClose::-webkit-scrollbar-track {/*滚动条里面轨道*/
     -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
     border-radius: 10px;
     background: #EDEDED;

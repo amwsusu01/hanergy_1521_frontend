@@ -27,6 +27,9 @@ export default {
 #app{
     position: relative;
 }
+.el-notification.right{
+    width: 315px !important;
+}
 .el-message {
     min-width: 380px;
     -webkit-box-sizing: border-box;

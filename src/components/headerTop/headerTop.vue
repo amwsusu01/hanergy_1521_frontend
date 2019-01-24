@@ -20,6 +20,7 @@
             <span class="header-user">您好，{{user.name}}</span>
             <span class="header-oblique-line">/</span>
             <span class="header-quit" @click="quit()">退出</span>
+            <span><el-button type="danger" size="mini" @click="help()">帮助</el-button></span>
         </div>
     </div>
 </template>
@@ -93,6 +94,14 @@ export default {
             // this.sidebar.childValue = false;
             // this.sidebar.systemValue = true;
             // this.$emit('switchMenu',this.sidebar);
+        },
+        help(){
+            const h = this.$createElement;
+            this.$notify({
+                title: "帮助中心",
+                message: h('i', { style: 'color: (0,0,0,.8)'}, '欢迎您使用汉能大数据分析平台使用过程中遇到问题你可以通过以下方式联系我们KK: @隋琛  邮箱:suichen@hanergy.com'),
+                offset: 100,
+            });
         }
     },
     computed: {
@@ -201,7 +210,7 @@ export default {
             margin-right: 20px;
             position: absolute;
             top: 11px;
-            right: 155px;
+            right: 213px;
         }
     }
 
@@ -226,7 +235,7 @@ export default {
         font-family: PingFangSC-Regular;
         font-size: 14px;
         color: #FFFFFF;
-
+        padding-right: 10px;
         &:hover {
             /*color: #3a8ee6;*/
         }

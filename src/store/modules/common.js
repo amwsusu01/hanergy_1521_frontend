@@ -18,10 +18,14 @@ const common = {
         product: [],
         psmUser: [],
         templateId: "1000001",
-        activeMenuId:LocalStorage("activeMenuId") ? JSON.parse(LocalStorage("activeMenuId")) : ''
+        activeMenuId:LocalStorage("activeMenuId") ? JSON.parse(LocalStorage("activeMenuId")) : '',
+        activeIndex: 0
     },
     actions: {},
     mutations: {
+        saveActiveIndex(state,activeIndex){
+            state.activeIndex = activeIndex;
+        },
         saveTemplateId(state, templateId){
             state.templateId = templateId;
         },
