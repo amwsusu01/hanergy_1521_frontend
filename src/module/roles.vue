@@ -69,7 +69,6 @@ export default {
                         a.name = ""
                     }
                     if (a.name.indexOf(this.form.keyword) >=0 || a.jobNumber.indexOf(this.form.keyword)>=0 || a.email.indexOf(this.form.keyword)>=0) {
-                        console.log("aaaaaaaaaaa")
                         return a;
                     }
                 })
@@ -85,7 +84,19 @@ export default {
             this.userList = this.data.slice((this.page.currentPage - 1) * this.page.pagesize, this.page.currentPage * this.page.pagesize);
         },
         getUserList() {
-            this.$api.common.getUserList().then(res => {
+            let params ={
+                corpCode:'Hanergy',
+                menuId:48,
+                userId: this.userObj.userId,
+                userName: this.userObj.userName,
+                fullName: this.userObj.name,
+                systemId: "92",//系统id
+                systemName: "管理系统",
+                menuId: "94",
+                menuName: "数据权限管理",
+                proType: 4
+            }
+            this.$api.common.getUserList(params).then(res => {
                 if (res.user) {
                     //let users = JSON.parse(res.user);
                     this.data = res.user;
@@ -110,6 +121,13 @@ export default {
     },
     mounted() {
         this.getUserList();
+    },
+    computed: {
+        userObj: {
+            get(){
+                return this.$store.state.common.user;
+            }
+        }
     }
 }
 </script>

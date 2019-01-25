@@ -134,6 +134,11 @@ export default {
                 return this.$store.state.common.updateTime;
             }
         },
+        userObj: {
+            get(){
+                return this.$store.state.common.user;
+            }
+        }
     }, // 计算属性
     filters: {}, // 过滤器
     methods: {
@@ -171,6 +176,14 @@ export default {
                 //部门
                 dept: this.getDepts(),
                 beginDate: this.form.date.date1,
+                userId: this.userObj.userId,
+                userName: this.userObj.userName,
+                fullName: this.userObj.name,
+                systemId: "49",//系统id
+                systemName: "管理驾驶舱",
+                menuId: "55",
+                menuName: "部门热词",
+                proType: 4
             }
             this.$api.canteen.getHotWord(params).then(res => {
                 // let rc = JSON.parse(res);

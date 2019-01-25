@@ -86,7 +86,16 @@
                     this.form.name = "";
                     this.form.email = "";
                 });
-                this.addUpdateForm = Object.assign(this.form,{templateId: this.templateId,});
+                this.addUpdateForm = Object.assign(this.form,{templateId: this.templateId,
+                    userId: this.userObj.userId,
+                    userName: this.userObj.userName,
+                    fullName: this.userObj.name,
+                    systemId: "92",//系统id
+                    systemName: "管理系统",
+                    menuId: "105",
+                    menuName: "预警管理",
+                    proType: 1
+                });
                 this.add = true;
                 this.update = false;
                 this.dialogVisible = true;
@@ -109,7 +118,15 @@
                     name: row.name,
                     email: row.email,
                     userId: row.id,
-                    type: type //2删除
+                    type: type, //2删除
+                    userId: this.userObj.userId,
+                    userName: this.userObj.userName,
+                    fullName: this.userObj.name,
+                    systemId: "92",//系统id
+                    systemName: "管理系统",
+                    menuId: "105",
+                    menuName: "预警管理",
+                    proType: 3
                 };
                 this.oprateNotifier(deleteObj);
             },
@@ -144,7 +161,15 @@
             addNotifier(){
                 var _this = this;
                 let form = Object.assign(_this.form,{
-                    templateId: _this.templateId
+                    templateId: _this.templateId,
+                    userId: this.userObj.userId,
+                    userName: this.userObj.userName,
+                    fullName: this.userObj.name,
+                    systemId: "92",//系统id
+                    systemName: "管理系统",
+                    menuId: "105",
+                    menuName: "预警管理",
+                    proType: 2
                 });
                 _this.$api.common.addNotifier(form).then(res => {
                     if(res && res.status == 0){
@@ -173,7 +198,14 @@
             getUserList() {
                 let params = {
                     templateId: this.templateId,
-                    userId: "" //1
+                    userId: this.userObj.userId,
+                    userName: this.userObj.userName,
+                    fullName: this.userObj.name,
+                    systemId: "92",//系统id
+                    systemName: "管理系统",
+                    menuId: "105",
+                    menuName: "预警管理",
+                    proType: 4
                 };
                 this.$api.common.getMailNotifierList(params).then(res => {
                     if(res && res.status == '0'){
@@ -194,6 +226,11 @@
                 get() { return this.$store.state.common.templateId },
                 set(val) { this.$store.commit('saveTemplateId', val) }
             },
+            userObj: {
+                get(){
+                    return this.$store.state.common.user;
+                }
+            }
         },
         mounted(){
             this.getUserList();

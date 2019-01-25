@@ -66,23 +66,6 @@ var Routers = [
                     title: '问题/反省库'
                 }
             },
-            // // 离职人员汇总统计
-            // {
-            //     path: '/canteenConfirmOrder',
-            //     name: 'canteenConfirmOrder',
-            //     component: function (resolve) {
-            //         require(['./module/canteen/canteenConfirmOrder/canteenConfirmOrder.vue'], resolve)
-            //     },
-            //     meta: {keepAlive: false}
-            // }, // 离职人员明细统计
-            // {
-            //     path: '/canteendetail',
-            //     name: 'canteendetail',
-            //     component: function (resolve) {
-            //         require(['./module/canteen/canteendetail/canteendetail.vue'], resolve)
-            //     },
-            //     meta: {keepAlive: false}
-            // },
             //////////////////////////// 第二个系统  ////////////////////////////            
             //系统日志
             {

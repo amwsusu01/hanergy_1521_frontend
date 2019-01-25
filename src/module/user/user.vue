@@ -48,6 +48,11 @@ export default {
         };
     },
     computed: {
+        userObj: {
+            get(){
+                return this.$store.state.common.user;
+            }
+        },
         is1521Sys: {
             get() {
                 if (this.$route.name == 'canteenCartBig' || this.$route.name == 'canteenOrder' || this.$route.name == 'canteenHistoryOrder' || this.$route.name == 'canteenReceiverOrder' || this.$router.name == '') {
@@ -187,7 +192,17 @@ export default {
             }
         },
         getDimension() {
-            this.$api.common.getDimension().then(res => {
+            let params = {
+                userId: this.userObj.userId,
+                userName: this.userObj.userName,
+                fullName: this.userObj.name,
+                systemId: "49",//系统id
+                systemName: "管理驾驶舱",
+                menuId: "53",
+                menuName: "1521总览",
+                proType: 4
+            }
+            this.$api.common.getDimension(params).then(res => {
                 this.setPsmDept = JSON.parse(res.dept)
                 this.setPsmProduct = JSON.parse(res.product)
                 this.setPsmUser = JSON.parse(res.user)
@@ -207,7 +222,17 @@ export default {
         init() {
             if (!this.is1521Sys) return;
             //只在1521系统时请求
-            this.$api.common.getUpdateData().then(res => {
+            let params = {
+                userId: this.userObj.userId,
+                userName: this.userObj.userName,
+                fullName: this.userObj.name,
+                // systemId: "49",//系统id
+                // systemName: "管理驾驶舱",
+                // menuId: "53",
+                // menuName: "1521总览",
+                proType: 4
+            }
+            this.$api.common.getUpdateData(params).then(res => {
                 if (res.Date) {
                     this.updateTime = res.Date;
                 } else {
@@ -229,7 +254,15 @@ export default {
                 return;
             }
             var params = {
-                userCode: this.userCode
+                userCode: this.userCode,
+                userId: this.userObj.userId,
+                userName: this.userObj.userName,
+                fullName: this.userObj.name,
+                systemId: "49",//系统id
+                systemName: "管理驾驶舱",
+                menuId: "53",
+                menuName: "1521总览",
+                proType: 4
             }
             this.$api.canteen.getSelectPermission(params).then(res => {
                 let user = JSON.parse(res.user) || [];
@@ -310,10 +343,6 @@ export default {
     overflow: auto;
     height: 100%;
 }
-.sidebarbox{
-    width: 84%;
-    height: 100%;
-}
 /*左侧菜单的滚动条*/
 .siderbarnew::-webkit-scrollbar {/*滚动条整体样式*/
     width: 7px;     /*高宽分别对应横竖滚动条的尺寸*/
@@ -335,7 +364,7 @@ export default {
 .siderbarClose::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
-    background: #409EFF;
+    background: #dcedfa;
 }
 .siderbarClose::-webkit-scrollbar-track {/*滚动条里面轨道*/
     -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.3);

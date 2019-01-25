@@ -76,6 +76,13 @@ export default {
     mounted(){
 	  this.getLogData();
     },
+    computed: {
+            userObj: {
+                get(){
+                    return this.$store.state.common.user;
+                }
+            }
+    },
     methods:{
         queryList(){
             this.getLogData();
@@ -89,39 +96,21 @@ export default {
     	        start_date:this.form.date.startTime,
                 end_date: this.form.date.endTime,
                 pageNo:this.page.currentPage,
-                pageSize:this.page.pageShowNum
+                pageSize:this.page.pageShowNum,
+                userId: this.userObj.userId,
+                userName: this.userObj.userName,
+                fullName: this.userObj.name,
+                systemId: "92",//系统id
+                systemName: "管理系统",
+                menuId: "98",
+                menuName: "用户操作记录",
+                proType: 4
     	    };
             this.$api.common.getLogsList(params).then(res =>{
                 this.loglist = res.data ||[];
                 this.page.totalNumber = res.count;
             })
     	},
-      /*  exportExl() {
-            let count = 0;
-            count = this.page.totalNumber;
-            if (count >= 10000) {
-                this.$confirm('当前导出行数超过1万行， 是否继续?', '提示', {
-                    confirmButtonText: '继续',
-                    cancelButtonText: '取消',
-                    type: 'info'
-                }).then(() => {
-                    this.exportExlOk();
-                }).catch(() => {});
-            } else {
-                this.exportExlOk();
-            }
-        },
-
-        exportExlOk() {
-            let filename = "用户操作记录.xls";
-            let params = {
-                start_date: this.form.date.startTime,
-                end_date: this.form.date.endTime,
-             };
-            this.$api.common.getlogsExport(params).then(res => {
-                exportExl(res, filename);
-            })
-        },*/
 
         exportExl(type) {
             let count = 0;
@@ -153,6 +142,14 @@ export default {
             let params = {
                 start_date: this.form.date.startTime,
                 end_date: this.form.date.endTime,
+                userId: this.userObj.userId,
+                userName: this.userObj.userName,
+                fullName: this.userObj.name,
+                systemId: "92",//系统id
+                systemName: "管理系统",
+                menuId: "98",
+                menuName: "用户操作记录",
+                proType: 6
             };
             this.$api.common.getlogsExport(params).then(res => {
                 exportExl(res, filename);

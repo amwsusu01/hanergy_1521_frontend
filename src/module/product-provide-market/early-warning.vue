@@ -232,7 +232,7 @@ export default {
                         },
                         itemStyle: {
                             color: function(params) {
-                                var colorList = ['#56CEFB', '#5793f3', '#56CEFB', '#5793f3', '#56CEFB', '#5793f3', '#56CEFB', '#5793f3', '#56CEFB', '#5793f3'];
+                                var colorList = ['#105CEFB', '#5793f3', '#105CEFB', '#5793f3', '#105CEFB', '#5793f3', '#105CEFB', '#5793f3', '#105CEFB', '#5793f3'];
                                 return '#5793f3';
 
                                 return colorList[params.dataIndex];
@@ -344,7 +344,15 @@ export default {
             let params = {
                 Product: this.getProduct(),
                 Date: this.form.date,
-                Warning: warning
+                Warning: warning,
+                userId: this.userObj.userId,
+                userName: this.userObj.userName,
+                fullName: this.userObj.name,
+                systemId: "92",//系统id
+                systemName: "管理系统",
+                menuId: "105",
+                menuName: "预警管理",
+                proType: 4
             }
             //预警统计图
             this.$api.common.getWarning(params).then(res => {
@@ -440,6 +448,14 @@ export default {
                 type: this.warningType, // 预警类型 // yujing1: 一级 yujing2: 二级 yujing3: 三级
                 page: this.page.currentPage, //分页
                 pageSize: this.page.pagesize, //   分页
+                userId: this.userObj.userId,
+                userName: this.userObj.userName,
+                fullName: this.userObj.name,
+                systemId: "92",//系统id
+                systemName: "管理系统",
+                menuId: "105",
+                menuName: "预警管理",
+                proType: 4
             }
             //预警详细
             this.$api.common.warningDetailed(param).then(res => {
@@ -504,7 +520,15 @@ export default {
                 type: this.warningType, // 预警类型 // yujing1: 一级 yujing2: 二级 yujing3: 三级
                 page: this.page.currentPage, //分页
                 pageSize: this.page.pagesize, //   分页
-                isExprot: '1'
+                isExprot: '1',
+                userId: this.userObj.userId,
+                userName: this.userObj.userName,
+                fullName: this.userObj.name,
+                systemId: "92",//系统id
+                systemName: "管理系统",
+                menuId: "105",
+                menuName: "预警管理",
+                proType: 6
             }
             this.$api.common.warningExportGet(params).then(res => {
                  exportExl(res, filename);
@@ -536,6 +560,11 @@ export default {
                 this.$store.commit('setPsmUser', val);
             }
         },
+        userObj: {
+            get(){
+                return this.$store.state.common.user;
+            }
+        }
     },
     mounted() {
         //this.getData();

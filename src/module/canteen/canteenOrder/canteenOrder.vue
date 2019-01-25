@@ -31,19 +31,19 @@
             </div>
             <div class="chart-box">
                 <el-button v-if="buttons['65']==true" class="exp-btn" plain size="small" @click="exportExl('65')">导出</el-button>
-                <div id="assemblyFiveChart" class="relationShipChart" :style="{background:cnt5.length>0?'white':'transparent'}"></div>
+                <div id="assemblyFiveChart" class="relationShipChart" :style="{background:cnt2.length>0?'white':'transparent'}"></div>
             </div>
             <div class="chart-box">
                 <el-button v-if="buttons['66']==true" class="exp-btn" plain size="small" @click="exportExl('66')">导出</el-button>
-                <div id="assemblyThreeChart" class="relationShipChart" :style="{background:cnt2.length>0?'white':'transparent'}"></div>
+                <div id="assemblyThreeChart" class="relationShipChart" :style="{background:cnt3.length>0?'white':'transparent'}"></div>
             </div>
             <div class="chart-box">
                 <el-button v-if="buttons['67']==true" class="exp-btn" plain size="small" @click="exportExl('67')">导出</el-button>
-                <div id="assemblyFourChart" class="relationShipChart" :style="{background:cnt3.length>0?'white':'transparent'}"></div>
+                <div id="assemblyFourChart" class="relationShipChart" :style="{background:cnt4.length>0?'white':'transparent'}"></div>
             </div>
             <div class="chart-box">
                 <el-button v-if="buttons['68']==true" class="exp-btn" plain size="small" @click="exportExl('68')">导出</el-button>
-                <div id="assemblyTwoChart" class="relationShipChart" :style="{background:cnt4.length>0?'white':'transparent'}"></div>
+                <div id="assemblyTwoChart" class="relationShipChart" :style="{background:cnt5.length>0?'white':'transparent'}"></div>
             </div>
             <div class="chart-box">
                 <el-button v-if="buttons['69']==true" class="exp-btn" plain size="small" @click="exportExl('69')">导出</el-button>
@@ -101,6 +101,12 @@ export default {
                 return this.$store.state.common.updateTime;
             }
         },
+        userObj: {
+             get(){
+                 return this.$store.state.common.user;
+             }
+        },
+
     }, // 计算属性
     watch: {
         updateTime: function(newval, oldval) {
@@ -728,7 +734,6 @@ export default {
     },
     mounted() {
         this.initTime = this.updateTime ? this.$moment(this.updateTime).format('YYYY-MM') : '';
-
         this.initData();
     },
     methods: {
@@ -777,6 +782,14 @@ export default {
                 jobGrade: this.form.rankname.join(','), //值级
                 beginDate: this.form.date.date1,
                 endDate: this.form.date.date2,
+                userId: this.userObj.userId,
+                userName: this.userObj.userName,
+                fullName: this.userObj.name,
+                systemId: "49",//系统id
+                systemName: "管理驾驶舱",
+                menuId: "53",
+                menuName: "1521总览",
+                proType: 4
             }
             this.$api.canteen.getQueryList(params).then(res => {
                 var objList = res || {};
@@ -940,50 +953,58 @@ export default {
         exportExl(type) {
             let data = [],
                 pers = [],
+                in_month = [],
                 title = "";
             switch (type) {
                 case '64':
                     data = this.cnt;
                     pers = this.per;
+                    in_month = this.in_month;
                     title = "超过4次(含)未请假未提报统计报表";
                     break;
                 case '65':
-                    data = this.cnt5;
-                    pers = this.per5;
+                    data = this.cnt2;
+                    pers = this.per2;
+                    in_month = this.in_month2;
                     title = "提报内容一样/当天重复条数超过6条(含)/一个月累计出现超过6次(含)";
                     break;
                 case '66':
-                    data = this.cnt2;
-                    pers = this.per2;
+                    data = this.cnt3;
+                    pers = this.per3;
+                    in_month = this.in_month3;
                     title = "提报月平均条数小于5";
                     break;
                 case '67':
-                    data = this.cnt3;
-                    pers = this.per3;
+                    data = this.cnt4;
+                    pers = this.per4;
+                    in_month = this.in_month4;
                     title = "提报月平均字数小于5";
                     break;
                 case '68':
-                    data = this.cnt4;
-                    pers = this.per4;
+                    data = this.cnt5;
+                    pers = this.per5;
+                    in_month = this.in_month5;
                     title = "9点之前提报统计报表/一个月累计出现3次(含)";
                     break;
                 case '69':
                     data = this.cnt6;
                     pers = this.per6;
+                    in_month = this.in_month6+"";
                     title = "12点之前提报统计报表/一个月累计出现3次(含)";
                     break;
             }
-            if (data.length <= 0 || pers.length <= 0) return;
+            if (data.length <= 0 || pers.length <= 0 || in_month.length <= 0) return;
             let resData = data.map((a, i) => {
                 return {
                     name: a,
-                    per: pers[i]
+                    per: pers[i],
+                    month: in_month[i],
                 }
             });
 
             let res = {
-                title: ["提报人数", "占比"],
-                titleForKey: ["name", "per"],
+                title: ["月份","提报人数", "占比"],
+                titleForKey: ["month","name", "per"],
                 data: resData
             };
             exportCsv(res, title);

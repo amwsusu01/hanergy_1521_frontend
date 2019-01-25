@@ -60,6 +60,13 @@
                 this.$refs.tree.filter(val);
             }
         },
+        computed: {
+            userObj: {
+                get(){
+                    return this.$store.state.common.user;
+                }
+            }
+        },
         methods: {
             filterNode(value, data) {
                 if (!value) return true;
@@ -80,7 +87,17 @@
                 this.selectNewDeptIds = [...new Set(this.selectDeptIds)]
                 let params = {
                     userCode: this.$route.query.jobNumber,
-                    deptids: this.selectNewDeptIds.join(",")
+                    deptids: this.selectNewDeptIds.join(","),
+                    userCode: this.$route.query.jobNumber,
+                    userId: this.userObj.userId,
+                    userName: this.userObj.userName,
+                    fullName: this.userObj.name,
+                    proType: 2
+                    // systemId: "49",//系统id
+                    // systemName: "管理驾驶舱",
+                    // menuId: "53",
+                    // menuName: "1521总览",
+
                 };
                 this.$api.common.updateSelectDeptList(params).then(res => {
                     this.$message({
@@ -98,7 +115,15 @@
             //获取当前用户的权限
             getCheckedData(){
                 let param = {
-                    userCode: this.$route.query.jobNumber
+                    userCode: this.$route.query.jobNumber,
+                    userId: this.userObj.userId,
+                    userName: this.userObj.userName,
+                    fullName: this.userObj.name,
+                    // systemId: "49",//系统id
+                    // systemName: "管理驾驶舱",
+                    // menuId: "53",
+                    // menuName: "1521总览",
+                     proType: 4
                 };
                 this.$api.common.getSelectPermission(param).then(res =>{
                     let user = JSON.parse(res.user) || [];
@@ -111,7 +136,17 @@
                 });
             },
             getAllCheckData(){
-                let params = {};
+                let params = {
+                    userCode: this.$route.query.jobNumber,
+                    userId: this.userObj.userId,
+                    userName: this.userObj.userName,
+                    fullName: this.userObj.name,
+                    // systemId: "49",//系统id
+                    // systemName: "管理驾驶舱",
+                    // menuId: "53",
+                    // menuName: "1521总览",
+                    proType: 4
+                };
                 //获取所有部门的权限
                 this.$api.common.getSelectDeptList(params).then(res =>{
                     let deptList = res.deptList || [];

@@ -90,6 +90,11 @@ export default {
             set(val) {
                 this.$store.commit('setSysTitle', val);
             }
+        },
+        userObj: {
+            get(){
+                return this.$store.state.common.user;
+            }
         }
     },
     methods: {
@@ -114,7 +119,15 @@ export default {
                 jobNumber: this.formLogin.username,
                 password: compressToEncodedURIComponent(this.formLogin.password),
                 corpCode: 'Hanergy',
-                menuId: 48
+                menuId: 48,
+                userId: this.userObj.userId,
+                userName: this.userObj.userName,
+                fullName: this.userObj.name,
+                // systemId: "49",//系统id
+                // systemName: "管理驾驶舱",
+                // menuId: "56",
+                // menuName: "问题/反省库",
+                proType: 4
             };
             this.$api.common.login(param).then(res => {
                 if (res.status == 0) {

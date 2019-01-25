@@ -119,6 +119,11 @@
                 this.$store.commit('setPsmUser', val);
             }
         },
+        userObj: {
+            get(){
+                return this.$store.state.common.user;
+            }
+        }
     },
     methods: {
         filterData() {
@@ -139,6 +144,14 @@
                 finishEndDate: this.form.date5,
                 pageNo: this.page.currentPage,
                 pageSize: this.page.pagesize,
+                userId: this.userObj.userId,
+                userName: this.userObj.userName,
+                fullName: this.userObj.name,
+                systemId: "49",//系统id
+                systemName: "管理驾驶舱",
+                menuId: "109",
+                menuName: "问题提出和解决流程统计",
+                proType: 4
         };
             this.$api.common.prosearch(params).then(res => {
                 this.page.totalNumber = res.count;
@@ -196,7 +209,15 @@
                 finishStartDate: this.form.date4,
                 //finishStartDate: this.form.date4!=null||this.form.date4!=""?this.$moment(this.form.date4).format('YYYY-MM-DD'):"",
                 finishEndDate: this.form.date5,
-                isExprot: '1'
+                isExprot: '1',
+                userId: this.userObj.userId,
+                userName: this.userObj.userName,
+                fullName: this.userObj.name,
+                systemId: "49",//系统id
+                systemName: "管理驾驶舱",
+                menuId: "109",
+                menuName: "问题提出和解决流程统计",
+                proType: 6
             };
             this.$api.common.getProblemExportDetailed(params).then(res => {
                 exportExl(res, filename);

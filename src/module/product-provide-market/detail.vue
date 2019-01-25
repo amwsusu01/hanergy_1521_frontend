@@ -353,6 +353,11 @@
                 this.$store.commit('setPsmUser', val);
             }
         },
+        userObj: {
+            get(){
+                return this.$store.state.common.user;
+            }
+        }
     },
     methods: {
         filterData() {
@@ -389,6 +394,14 @@
                 jiaofubiangeng: this.form.date24, jiaofubiangengend:  this.form.date25,//#交付实际区间
                 page: this.page.currentPage,
                 pageSize: this.page.pagesize,
+                userId: this.userObj.userId,
+                userName: this.userObj.userName,
+                fullName: this.userObj.name,
+                systemId: "49",//系统id
+                systemName: "管理驾驶舱",
+                menuId: "101",
+                menuName: "产供销一体化明细",
+                proType: 4
         };
             this.$api.common.getProductDetailed(params).then(res => {
                 this.page.totalNumber = res.count;
@@ -527,7 +540,15 @@
                 jiaofubiangeng: this.form.date24, jiaofubiangengend:  this.form.date25,//#交付实际区间
                 page: this.page.currentPage,
                 pageSize: this.page.pagesize,
-                isExprot: '1'
+                isExprot: '1',
+                userId: this.userObj.userId,
+                userName: this.userObj.userName,
+                fullName: this.userObj.name,
+                systemId: "49",//系统id
+                systemName: "管理驾驶舱",
+                menuId: "101",
+                menuName: "产供销一体化明细",
+                proType: 6
             };
             this.$api.common.getProductExportDetailed(params).then(res => {
                 exportExl(res, filename);

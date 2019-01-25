@@ -113,6 +113,11 @@
                     }]
                 }
             },
+            userObj: {
+                get(){
+                    return this.$store.state.common.user;
+                }
+            }
         },
         methods:{
                 checkAllOpts() {
@@ -129,7 +134,15 @@
                 let params = Object.assign({},this.form,{
                     warningLevel: this.form.warningLevel.join(','),
                     page: this.page.currentPage,//当前页
-                    pageSize: this.page.pagesize//每页展示多少条
+                    pageSize: this.page.pagesize,//每页展示多少条
+                    userId: this.userObj.userId,
+                    userName: this.userObj.userName,
+                    fullName: this.userObj.name,
+                    systemId: "92",//系统id
+                    systemName: "管理系统",
+                    menuId: "109",
+                    menuName: "预警记录",
+                    proType: 4
                 });
                 this.emailList(params);
             },

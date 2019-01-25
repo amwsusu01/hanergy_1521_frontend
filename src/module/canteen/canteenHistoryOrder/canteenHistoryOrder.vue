@@ -358,6 +358,11 @@ export default {
                 return this.$store.state.common.updateTime;
             }
         },
+        userObj: {
+            get(){
+                return this.$store.state.common.user;
+            }
+        }
     }, // 计算属性
     methods: {
         initData() {
@@ -406,9 +411,16 @@ export default {
                 beginDate: this.form.date.startTime,
                 endDate: this.form.date.endTime,
                 page: page.currentPage,
-                pageSize: page.pageShowNum
+                pageSize: page.pageShowNum,
+                userId: this.userObj.userId,
+                userName: this.userObj.userName,
+                fullName: this.userObj.name,
+                systemId: "49",//系统id
+                systemName: "管理驾驶舱",
+                menuId: "54",
+                menuName: "1521明细",
+                proType: 4
             }
-
             return params;
         },
         //表格初始化数据---超过四次
@@ -632,7 +644,15 @@ export default {
                 dept: this.getDepts(),
                 jobGrade: this.originForm.rankname,
                 beginDate: this.originForm.date.startTime,
-                endDate: this.originForm.date.endTime
+                endDate: this.originForm.date.endTime,
+                userId: this.userObj.userId,
+                userName: this.userObj.userName,
+                fullName: this.userObj.name,
+                systemId: "49",//系统id
+                systemName: "管理驾驶舱",
+                menuId: "54",
+                menuName: "1521明细",
+                proType: 6
             }
 
             let filename = '';

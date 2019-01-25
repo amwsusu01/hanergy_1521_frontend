@@ -4,7 +4,7 @@ const apiURL = {
     // 登录
     login: '/api/v1/user/getRoleListByUser',
     // 退出
-    logout: '/user/logout',
+    logout: '/user/logout', //无用
     //菜单
     sidebar: '/admin/api/v1/user/roles', //无用了。
 
@@ -41,17 +41,17 @@ export default {
     sidebar(obj) {
         return Api.get(`${configM.otherComUrl}${apiURL.sidebar}`, obj)
     },
-    getUpdateData() {
-        return Api.get(apiURL.updateDate,{})
+    getUpdateData(obj) {
+        return Api.get(apiURL.updateDate,obj)
     },
     exportExcel(obj) {
         return Api.exportGet(apiURL.exportExcel,obj);
     },
-    getUserList() {
-        return Api.get(`${configM.otherComUrl}${apiURL.userList}`,{corpCode:'Hanergy','menuId':48});
+    getUserList(obj) {
+        return Api.get(`${configM.otherComUrl}${apiURL.userList}`,obj);
     },
-    getDimension(){
-        return Api.get(apiURL.psmDimension,{})
+    getDimension(obj){
+        return Api.get(apiURL.psmDimension,obj)
     },
     getWarning(obj){
         return Api.get(apiURL.psmWarning,obj)

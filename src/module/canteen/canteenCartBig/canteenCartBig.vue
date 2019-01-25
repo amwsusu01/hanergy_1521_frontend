@@ -208,6 +208,11 @@ export default {
                 return this.$store.state.common.updateTime;
             }
         },
+            userObj: {
+                get(){
+                    return this.$store.state.common.user;
+                }
+            }
     }, // 计算属性
     methods: {
         initData() {
@@ -257,7 +262,15 @@ export default {
                 dept: this.getDepts(), //部门,
                 jobGrade: this.originForm.rankname,
                 beginDate: this.originForm.date.startTime,
-                endDate: this.originForm.date.endTime
+                endDate: this.originForm.date.endTime,
+                userId: this.userObj.userId,
+                userName: this.userObj.userName,
+                fullName: this.userObj.name,
+                systemId: "49",//系统id
+                systemName: "管理驾驶舱",
+                menuId: "105",
+                menuName: "预警管理",
+                proType: 6
             }
 
             let filename = '';
@@ -296,7 +309,15 @@ export default {
                 beginDate: this.form.date.startTime,
                 endDate: this.form.date.endTime,
                 page: page.currentPage,
-                pageSize: page.pageShowNum
+                pageSize: page.pageShowNum,
+                userId: this.userObj.userId,
+                userName: this.userObj.userName,
+                fullName: this.userObj.name,
+                systemId: "49",//系统id
+                systemName: "管理驾驶舱",
+                menuId: "56",
+                menuName: "问题/反省库",
+                proType: 4
             }
 
             return params;
