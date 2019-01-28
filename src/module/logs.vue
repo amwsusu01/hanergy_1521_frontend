@@ -32,9 +32,9 @@
                         </el-table-column>
                         <el-table-column prop="fullName" label="姓名" min-width="15%">
                         </el-table-column>
-                        <el-table-column prop="LoginIpAddr" label="登录ip" min-width="15%">
+                        <el-table-column prop="loginIpAddr" label="登录ip" min-width="15%">
                         </el-table-column>
-                        <el-table-column prop="proTarget" label="操作对象" show-overflow-tooltip min-width="25%">
+                        <el-table-column prop="proTarg" label="操作对象" show-overflow-tooltip min-width="25%">
                         </el-table-column>
                         <el-table-column prop="proType" label="操作类型" show-overflow-tooltip min-width="15%">
                         </el-table-column>
@@ -98,7 +98,7 @@ export default {
                 pageNo:this.page.currentPage,
                 pageSize:this.page.pageShowNum,
                 userId: this.userObj.userId,
-                userName: this.userObj.userName,
+                userName: this.userObj.username,
                 fullName: this.userObj.name,
                 systemId: "92",//系统id
                 systemName: "管理系统",
@@ -143,7 +143,7 @@ export default {
                 start_date: this.form.date.startTime,
                 end_date: this.form.date.endTime,
                 userId: this.userObj.userId,
-                userName: this.userObj.userName,
+                userName: this.userObj.username,
                 fullName: this.userObj.name,
                 systemId: "92",//系统id
                 systemName: "管理系统",

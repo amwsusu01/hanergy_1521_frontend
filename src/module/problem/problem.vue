@@ -145,7 +145,7 @@
                 pageNo: this.page.currentPage,
                 pageSize: this.page.pagesize,
                 userId: this.userObj.userId,
-                userName: this.userObj.userName,
+                userName: this.userObj.username,
                 fullName: this.userObj.name,
                 systemId: "49",//系统id
                 systemName: "管理驾驶舱",
@@ -211,7 +211,7 @@
                 finishEndDate: this.form.date5,
                 isExprot: '1',
                 userId: this.userObj.userId,
-                userName: this.userObj.userName,
+                userName: this.userObj.username,
                 fullName: this.userObj.name,
                 systemId: "49",//系统id
                 systemName: "管理驾驶舱",

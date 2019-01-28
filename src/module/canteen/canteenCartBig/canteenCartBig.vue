@@ -264,7 +264,7 @@ export default {
                 beginDate: this.originForm.date.startTime,
                 endDate: this.originForm.date.endTime,
                 userId: this.userObj.userId,
-                userName: this.userObj.userName,
+                userName: this.userObj.username,
                 fullName: this.userObj.name,
                 systemId: "49",//系统id
                 systemName: "管理驾驶舱",
@@ -311,7 +311,7 @@ export default {
                 page: page.currentPage,
                 pageSize: page.pageShowNum,
                 userId: this.userObj.userId,
-                userName: this.userObj.userName,
+                userName: this.userObj.username,
                 fullName: this.userObj.name,
                 systemId: "49",//系统id
                 systemName: "管理驾驶舱",

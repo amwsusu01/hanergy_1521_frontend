@@ -346,7 +346,7 @@ export default {
                 Date: this.form.date,
                 Warning: warning,
                 userId: this.userObj.userId,
-                userName: this.userObj.userName,
+                userName: this.userObj.username,
                 fullName: this.userObj.name,
                 systemId: "92",//系统id
                 systemName: "管理系统",
@@ -449,7 +449,7 @@ export default {
                 page: this.page.currentPage, //分页
                 pageSize: this.page.pagesize, //   分页
                 userId: this.userObj.userId,
-                userName: this.userObj.userName,
+                userName: this.userObj.username,
                 fullName: this.userObj.name,
                 systemId: "92",//系统id
                 systemName: "管理系统",
@@ -522,7 +522,7 @@ export default {
                 pageSize: this.page.pagesize, //   分页
                 isExprot: '1',
                 userId: this.userObj.userId,
-                userName: this.userObj.userName,
+                userName: this.userObj.username,
                 fullName: this.userObj.name,
                 systemId: "92",//系统id
                 systemName: "管理系统",

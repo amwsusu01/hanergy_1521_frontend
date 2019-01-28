@@ -88,7 +88,7 @@ export default {
                 corpCode:'Hanergy',
                 menuId:48,
                 userId: this.userObj.userId,
-                userName: this.userObj.userName,
+                userName: this.userObj.username,
                 fullName: this.userObj.name,
                 systemId: "92",//系统id
                 systemName: "管理系统",

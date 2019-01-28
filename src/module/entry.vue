@@ -12,6 +12,9 @@ export default {
     method() {
 
     },
+    created(){
+        /////////////////
+    },
     mounted() {
         //debugger
         //this.$refs['mainIframe'].src=this.urlTxt;

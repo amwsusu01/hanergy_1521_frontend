@@ -89,7 +89,7 @@ export function exportCsv(obj, name) {
 
         //var csvData = new Blob([uri], { type: 'text/csv' });
         window.navigator.msSaveBlob(csvData, `${name}.csv`);
-        oExcel.ActiveSheet.Columns(1).NumberFormatLocal = "yyyy.mm"
+        // oExcel.ActiveSheet.Columns(1).NumberFormatLocal = "yyyy.mm" //excel处理日期格式(第几行)
         //exportCsvForIE(res);
         return;
     }

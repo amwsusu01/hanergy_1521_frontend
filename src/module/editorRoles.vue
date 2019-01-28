@@ -90,7 +90,7 @@
                     deptids: this.selectNewDeptIds.join(","),
                     userCode: this.$route.query.jobNumber,
                     userId: this.userObj.userId,
-                    userName: this.userObj.userName,
+                    userName: this.userObj.username,
                     fullName: this.userObj.name,
                     proType: 2
                     // systemId: "49",//系统id
@@ -117,7 +117,7 @@
                 let param = {
                     userCode: this.$route.query.jobNumber,
                     userId: this.userObj.userId,
-                    userName: this.userObj.userName,
+                    userName: this.userObj.username,
                     fullName: this.userObj.name,
                     // systemId: "49",//系统id
                     // systemName: "管理驾驶舱",
@@ -139,7 +139,7 @@
                 let params = {
                     userCode: this.$route.query.jobNumber,
                     userId: this.userObj.userId,
-                    userName: this.userObj.userName,
+                    userName: this.userObj.username,
                     fullName: this.userObj.name,
                     // systemId: "49",//系统id
                     // systemName: "管理驾驶舱",

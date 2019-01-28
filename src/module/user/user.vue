@@ -194,7 +194,7 @@ export default {
         getDimension() {
             let params = {
                 userId: this.userObj.userId,
-                userName: this.userObj.userName,
+                userName: this.userObj.username,
                 fullName: this.userObj.name,
                 systemId: "49",//系统id
                 systemName: "管理驾驶舱",
@@ -224,7 +224,7 @@ export default {
             //只在1521系统时请求
             let params = {
                 userId: this.userObj.userId,
-                userName: this.userObj.userName,
+                userName: this.userObj.username,
                 fullName: this.userObj.name,
                 // systemId: "49",//系统id
                 // systemName: "管理驾驶舱",
@@ -256,7 +256,7 @@ export default {
             var params = {
                 userCode: this.userCode,
                 userId: this.userObj.userId,
-                userName: this.userObj.userName,
+                userName: this.userObj.username,
                 fullName: this.userObj.name,
                 systemId: "49",//系统id
                 systemName: "管理驾驶舱",

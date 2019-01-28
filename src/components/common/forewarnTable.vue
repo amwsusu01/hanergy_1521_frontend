@@ -88,7 +88,7 @@
                 });
                 this.addUpdateForm = Object.assign(this.form,{templateId: this.templateId,
                     userId: this.userObj.userId,
-                    userName: this.userObj.userName,
+                    userName: this.userObj.username,
                     fullName: this.userObj.name,
                     systemId: "92",//系统id
                     systemName: "管理系统",
@@ -120,7 +120,7 @@
                     userId: row.id,
                     type: type, //2删除
                     userId: this.userObj.userId,
-                    userName: this.userObj.userName,
+                    userName: this.userObj.username,
                     fullName: this.userObj.name,
                     systemId: "92",//系统id
                     systemName: "管理系统",
@@ -163,7 +163,7 @@
                 let form = Object.assign(_this.form,{
                     templateId: _this.templateId,
                     userId: this.userObj.userId,
-                    userName: this.userObj.userName,
+                    userName: this.userObj.username,
                     fullName: this.userObj.name,
                     systemId: "92",//系统id
                     systemName: "管理系统",
@@ -199,7 +199,7 @@
                 let params = {
                     templateId: this.templateId,
                     userId: this.userObj.userId,
-                    userName: this.userObj.userName,
+                    userName: this.userObj.username,
                     fullName: this.userObj.name,
                     systemId: "92",//系统id
                     systemName: "管理系统",

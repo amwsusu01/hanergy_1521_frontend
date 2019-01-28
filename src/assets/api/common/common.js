@@ -97,5 +97,6 @@ export default {
     },
     getLogsList(obj){
        return Api.post(apiURL.logsList,obj)
-    }
+    },
+
 }
