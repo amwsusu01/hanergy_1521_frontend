@@ -25,7 +25,8 @@ const apiURL = {
     problemList:"/problem/problemlist",
     problemExportDetailed: "/problem/problemexcelexport",
     logsList: "/process/recodeList",
-    logsExport: "/process/recodeexport"
+    logsExport: "/process/recodeexport",
+    iframQuery : "/elasticsearch/index"
 };
 
 export default {
@@ -98,5 +99,7 @@ export default {
     getLogsList(obj){
        return Api.post(apiURL.logsList,obj)
     },
-
+    getIframQuery(obj){
+        return Api.post(apiURL.iframQuery,obj)
+    }
 }
