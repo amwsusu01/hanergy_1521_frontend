@@ -99,6 +99,7 @@ export default {
     },
     data() {
         return {
+            isInit:false, //第一次打开初始false,记录日志，否则不记录
             tableDataQuestion: [], //问题明细
             tableDataIntro: [], //反省明细
             page1: {
@@ -154,6 +155,7 @@ export default {
         }
     },
     mounted() {
+        this.isInit  = false;
         this.initTime = this.updateTime ? this.$moment(this.updateTime).format('YYYY-MM') : '';
         this.initData();
     },
@@ -317,7 +319,8 @@ export default {
                 systemName: "管理驾驶舱",
                 menuId: "56",
                 menuName: "问题/反省库",
-                proType: 4
+                proType: 4,
+                isNo:this.isInit
             }
 
             return params;
@@ -336,6 +339,7 @@ export default {
             })
         },
         CurrentChange1(val) {
+            this.isInit  = true;
             this.page1.currentPage = val
             this.getIssueDetail()
         },
@@ -351,11 +355,13 @@ export default {
             })
         },
         CurrentChange2(val) {
+            this.isInit  = true;
             this.page2.currentPage = val
             this.getIntrospectionDetail()
         },
         //查询数据接口
         queryList() {
+            this.isInit  = false;
             this.getIssueDetail();
             this.getIntrospectionDetail();
         },
@@ -371,7 +377,7 @@ export default {
             if(this.$refs['rankSelect']) {
                 this.$refs['rankSelect'].values = this.form.rankname.concat();
             }
-             this.init();
+               this.init();
             // this.getIssueDetail();
             // this.getIntrospectionDetail();
         }

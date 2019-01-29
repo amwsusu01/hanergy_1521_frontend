@@ -42,6 +42,7 @@ export default {
     name: 'roles',
     data() {
         return {
+            isInit:false, //第一次打开初始false,记录日志，否则不记录
             userList: [],
             data: [],
             originData: [],
@@ -80,6 +81,7 @@ export default {
             return res;
         },
         CurrentChange(val) {
+            this.Init=true;
             this.page.currentPage = val
             this.userList = this.data.slice((this.page.currentPage - 1) * this.page.pagesize, this.page.currentPage * this.page.pagesize);
         },
@@ -94,7 +96,8 @@ export default {
                 systemName: "管理系统",
                 menuId: "94",
                 menuName: "数据权限管理",
-                proType: 4
+                proType: 4,
+                isNo:this.Init
             }
             this.$api.common.getUserList(params).then(res => {
                 if (res.user) {
@@ -120,6 +123,7 @@ export default {
         },
     },
     mounted() {
+        this.Init=false;
         this.getUserList();
     },
     computed: {

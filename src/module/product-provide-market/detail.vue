@@ -277,6 +277,7 @@
         name: 'detail',
     data() {
         return {
+            isInit:false, //第一次打开初始false,记录日志，否则不记录
             dataList: [],
             page: {
                 pagesize: 5, // 每页展示多少条
@@ -364,6 +365,7 @@
             return res;
         },
         CurrentChange(val) {
+            this.isInit=true;
             this.page.currentPage = val;
             this.getProductDetailed();
         },
@@ -401,7 +403,8 @@
                 systemName: "管理驾驶舱",
                 menuId: "101",
                 menuName: "产供销一体化明细",
-                proType: 4
+                proType: 4,
+                isNo:this.isInit
         };
             this.$api.common.getProductDetailed(params).then(res => {
                 this.page.totalNumber = res.count;
@@ -414,6 +417,7 @@
         },
         //查询
         querySelect(){
+            this.isInit=false;
             this.getProductDetailed();
         },
         //重置
@@ -437,6 +441,7 @@
             this.$refs['businessList'].values = [];
             this.$refs['submitterList'].values = [];
             this.$nextTick(() => {
+                this.isInit=false;
                 this.getProductDetailed();
             })
         },
@@ -549,6 +554,7 @@
                 menuId: "101",
                 menuName: "产供销一体化明细",
                 proType: 6
+
             };
             this.$api.common.getProductExportDetailed(params).then(res => {
                 exportExl(res, filename);
@@ -576,6 +582,7 @@
         }
     },
     mounted() {
+        this.isInit  = false;
         this.init();
         this.$nextTick(() => {
             if (this.productList.length > 0 && this.submitterList.length > 0 && this.businessList.length > 0) {

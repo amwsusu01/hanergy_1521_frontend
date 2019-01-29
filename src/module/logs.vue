@@ -55,6 +55,7 @@ export default {
     data() {
         return {
             loglist: [],
+            isInit:false, //第一次打开初始false,记录日志，否则不记录
             page: {
                 pageShowNum: 5, // 每页展示多少条
                 totalNumber: 0, // 总条数
@@ -74,6 +75,7 @@ export default {
         }
     },
     mounted(){
+      this.isInit  = false;
 	  this.getLogData();
     },
     computed: {
@@ -85,10 +87,12 @@ export default {
     },
     methods:{
         queryList(){
+            this.isInit  = false;
             this.getLogData();
         },
     	CurrentChange(val) {
-    		this.page.currentPage = val;
+    	    this.isInit  = true;
+    	    this.page.currentPage = val;
             this.getLogData();
     	},
     	getLogData() {
@@ -104,7 +108,8 @@ export default {
                 systemName: "管理系统",
                 menuId: "98",
                 menuName: "用户操作记录",
-                proType: 4
+                proType: 4,
+                isNo:this.isInit
     	    };
             this.$api.common.getLogsList(params).then(res =>{
                 this.loglist = res.data ||[];
