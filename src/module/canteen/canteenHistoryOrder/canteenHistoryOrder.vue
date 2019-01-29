@@ -217,6 +217,7 @@ export default {
     },
     data() {
         return {
+            isInit:false, //第一次打开初始false,记录日志，否则不记录
             tableData1: [],
             tableData2: [],
             tableData3: [],
@@ -318,6 +319,7 @@ export default {
     },
     mounted() {
         this.initTime = this.updateTime ? this.$moment(this.updateTime).format('YYYY-MM') : '';
+        this.isInit  = false;
         this.initData();
     },
     computed: {
@@ -419,7 +421,8 @@ export default {
                 systemName: "管理驾驶舱",
                 menuId: "54",
                 menuName: "1521明细",
-                proType: 4
+                proType: 4,
+                isNo:this.isInit
             }
             return params;
         },
@@ -439,6 +442,7 @@ export default {
             })
         },
         CurrentChange1(val) {
+            this.isInit  = true;
             this.page1.currentPage = val
             this.getTabledata1()
         },
@@ -457,6 +461,7 @@ export default {
             })
         },
         CurrentChange2(val) {
+            this.isInit  = true;
             this.page2.currentPage = val
             this.getTabledata2()
         },
@@ -480,6 +485,7 @@ export default {
             })
         },
         CurrentChange3(val) {
+            this.isInit  = true;
             this.page3.currentPage = val
             this.getTabledata3()
         },
@@ -498,6 +504,7 @@ export default {
             })
         },
         CurrentChange4(val) {
+            this.isInit  = true;
             this.page4.currentPage = val
             this.getTabledata4()
         },
@@ -516,6 +523,7 @@ export default {
             })
         },
         CurrentChange5(val) {
+            this.isInit  = true;
             this.page5.currentPage = val
             this.getTabledata5()
         },
@@ -534,6 +542,7 @@ export default {
             })
         },
         CurrentChange6(val) {
+            this.isInit  = true;
             this.page6.currentPage = val
             this.getTabledata6()
         },
@@ -552,11 +561,13 @@ export default {
             })
         },
         CurrentChange7(val) {
+            this.isInit  = true;
             this.page7.currentPage = val
             this.getTabledata7()
         },
         //查询数据接口
         queryList() {
+            this.isInit  = false;
             this.getTabledata1();
             this.getTabledata2();
             this.getTabledata3();

@@ -94,6 +94,7 @@
         name: 'person-problem',
     data() {
         return {
+            isInit:false, //第一次打开初始false,记录日志，否则不记录
             dataList: [],
             page: {
                 pagesize: 5, // 每页展示多少条
@@ -130,6 +131,7 @@
             return res;
         },
         CurrentChange(val) {
+            this.isInit=true;
             this.page.currentPage = val;
             this.getProductDetailed();
         },
@@ -151,7 +153,8 @@
                 systemName: "管理驾驶舱",
                 menuId: "109",
                 menuName: "问题提出和解决流程统计",
-                proType: 4
+                proType: 4,
+                isNo:this.isInit
         };
             this.$api.common.prosearch(params).then(res => {
                 this.page.totalNumber = res.count;
@@ -164,6 +167,7 @@
         },
         //查询
         querySelect(){
+            this.Init=false;
             this.getProductDetailed();
         },
         //重置
@@ -225,6 +229,7 @@
         },
     },
     mounted() {
+       this.isInit  = false;
         this.$nextTick(() => {
                 this.getProductDetailed();
         });

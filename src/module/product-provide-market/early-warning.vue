@@ -98,6 +98,7 @@ export default {
     name: 'early-warning',
     data() {
         return {
+            isInit:false, //第一次打开初始false,记录日志，否则不记录
             dataList: [],
             page: {
                 pagesize: 5, // 每页展示多少条
@@ -282,6 +283,7 @@ export default {
         },
         querySelect(){
             this.$nextTick(() => {
+                    this.isInit  = false;
                     this.getWarning(); //预警接口
                     this.getWarningDetailed(); //预警明细
             })
@@ -311,6 +313,7 @@ export default {
             this.getWarningDetailed();
         },
         CurrentChange(val) {
+            this.isInit  = true;
             this.page.currentPage = val
             this.getWarningDetailed();
         },
@@ -352,7 +355,8 @@ export default {
                 systemName: "管理系统",
                 menuId: "105",
                 menuName: "预警管理",
-                proType: 4
+                proType: 4,
+                isNo:this.isInit
             }
             //预警统计图
             this.$api.common.getWarning(params).then(res => {
@@ -455,7 +459,8 @@ export default {
                 systemName: "管理系统",
                 menuId: "105",
                 menuName: "预警管理",
-                proType: 4
+                proType: 4,
+                isNo:this.isInit
             }
             //预警详细
             this.$api.common.warningDetailed(param).then(res => {
@@ -568,6 +573,7 @@ export default {
     },
     mounted() {
         //this.getData();
+        this.isInit  = false;
         this.init(); //产品/事业/提交人表
         this.$nextTick(() => {
             if (this.productList.length > 0) {

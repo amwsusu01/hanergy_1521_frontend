@@ -83,6 +83,7 @@
         name: "forewarning-record",
         data(){
             return {
+                isInit:false, //第一次打开初始false,记录日志，否则不记录
                 shortLabel: '80px',
                 form: {
                     warningLevel: [],
@@ -142,7 +143,8 @@
                     systemName: "管理系统",
                     menuId: "109",
                     menuName: "预警记录",
-                    proType: 4
+                    proType: 4,
+                    isNo:this.Init
                 });
                 this.emailList(params);
             },
@@ -155,11 +157,13 @@
                 })
             },
             currentChange(val){
+                this.Init=true;
                 this.page.currentPage = val;
                 this.queryList();
             }
         },
         mounted(){
+            this.Init=false;
             if(this.warningLevelGroup.length>0){
                 let group = this.warningLevelGroup[0].warningLevels;
                 this.form.warningLevel = group.map((a) => a.label);
@@ -169,7 +173,8 @@
                 endDate: this.$moment().subtract('days', 1).format('YYYY-MM-DD') ,
                 warningLevel: this.form.warningLevel.join(','),
                 page: this.page.currentPage,//当前页
-                pageSize: this.page.pagesize//每页展示多少条
+                pageSize: this.page.pagesize,//每页展示多少条
+                isNo:this.Init
             });
             this.emailList(params);
         }

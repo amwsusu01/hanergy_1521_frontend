@@ -55,6 +55,7 @@
         name: "forewarn-table",
         data(){
             return {
+                isInit:false, //第一次打开初始false,记录日志，否则不记录
                 dialogVisible: false,
                 add: true,
                 update: true,
@@ -205,7 +206,8 @@
                     systemName: "管理系统",
                     menuId: "105",
                     menuName: "预警管理",
-                    proType: 4
+                    proType: 4,
+                    isNo:this.Init
                 };
                 this.$api.common.getMailNotifierList(params).then(res => {
                     if(res && res.status == '0'){
@@ -215,6 +217,7 @@
                 })
             },
             currentChange(val) {
+            this.Init=true;
                 this.page.currentPage = val;
             },
             // resetForm() {
@@ -233,6 +236,7 @@
             }
         },
         mounted(){
+            this.Init=false;
             this.getUserList();
         },
         watch:{

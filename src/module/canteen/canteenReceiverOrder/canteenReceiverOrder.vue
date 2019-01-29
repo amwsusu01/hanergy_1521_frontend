@@ -52,6 +52,7 @@ export default {
     data() {
         return {
             rcdata: [],
+            isInit:false, //第一次打开初始false,记录日志，否则不记录
             form: {
                 region: [], //部门
                 date: {
@@ -183,7 +184,8 @@ export default {
                 systemName: "管理驾驶舱",
                 menuId: "55",
                 menuName: "部门热词",
-                proType: 4
+                proType: 4,
+                isNo:this.isInit
             }
             this.$api.canteen.getHotWord(params).then(res => {
                 // let rc = JSON.parse(res);
