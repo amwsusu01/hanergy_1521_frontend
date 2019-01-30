@@ -170,8 +170,7 @@ export default {
             }
             return resDepts;
         },
-        Hotword() {          
-
+        Hotword() {
             //热词接口
             let params = {
                 //部门
@@ -187,6 +186,7 @@ export default {
                 proType: 4,
                 isNo:this.isInit
             }
+
             this.$api.canteen.getHotWord(params).then(res => {
                 // let rc = JSON.parse(res);
                 /* let hasData = [],
