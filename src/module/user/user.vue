@@ -63,6 +63,9 @@ export default {
         activeFirstMenuID: {
             get() {
                 return this.$store.state.common.activeMenuId + ''
+            },
+            set(val){
+                this.$store.commit("setactiveMenuId",val)
             }
         },
         sysTitle: {

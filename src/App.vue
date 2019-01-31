@@ -1,5 +1,5 @@
 <template>
-    <div id="app" style="height: 100%;">
+    <div id="app" style="height: 100%;" @click="clickTime()">
         <keep-alive>
             <router-view v-if="$route.meta && $route.meta.keepAlive"></router-view>
         </keep-alive>
@@ -16,10 +16,31 @@ export default {
     name: 'app',
     data() {
         return {
-            isCollapse: false
+            isCollapse: false,
+            currentTime: new Date().getTime()
         };
     },
-    methods: {}
+    methods: {
+        clickTime() {
+            let currentTime = this.currentTime;
+            console.log(currentTime, "currentTime");
+            let lastTime = new Date().getTime();
+            console.log(lastTime, "lastTime");
+            let timeOut = 30 * 60 * 1000; //设置时间 10分钟
+            if (lastTime - currentTime > timeOut) {
+                // 未操作页面，跳转登录页面
+                this.currentTime = new Date().getTime();
+                this.$router.push({
+                    name: "login",
+                });
+            } else {
+                this.currentTime = new Date().getTime();
+            }
+        }
+    },
+    mounted () {
+        // setInterval(this.clickTime(), 3000);
+    },
 }
 </script>
 <style lang="less">
