@@ -236,7 +236,7 @@
             }
         },
         mounted(){
-            this.Init=false;
+            this.Init=true;
             this.getUserList();
         },
         watch:{

@@ -19,7 +19,7 @@
                     </el-col>
                 </el-form-item>
                 <el-form-item class="buttons">
-                    <el-button size="mini" type="primary" class="query" @click="queryList()">查询</el-button>
+                    <el-button size="mini" type="primary" class="query" @click="click()">查询</el-button>
                     <el-button size="mini" type="primary" class="reset" @click="resetForm()">重置</el-button>
                 </el-form-item>
             </el-form>
@@ -124,6 +124,7 @@ export default {
     },
     data() {
         return {
+            isInit:true, //第一次打开初始false,记录日志，否则不记录
             //图一
             chartOption: {
                 title: {
@@ -733,6 +734,7 @@ export default {
         }
     },
     mounted() {
+        this.isInit=true;
         this.initTime = this.updateTime ? this.$moment(this.updateTime).format('YYYY-MM') : '';
         this.initData();
     },
@@ -776,6 +778,10 @@ export default {
             this.queryList()
         },
         //点击查询调用接口
+        click(){
+           this.isInit=false;
+           this.queryList();
+        },
         queryList() {
             var params = {
                 dept: this.getDepts(), //部门
@@ -789,7 +795,8 @@ export default {
                 systemName: "管理驾驶舱",
                 menuId: "53",
                 menuName: "1521总览",
-                proType: 4
+                proType: 4,
+                isNo: this.isInit
             }
             this.$api.canteen.getQueryList(params).then(res => {
                 var objList = res || {};
