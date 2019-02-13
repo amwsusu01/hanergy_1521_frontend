@@ -27,6 +27,12 @@
                             </el-date-picker>
                         </el-col>
                     </el-form-item>
+                    <el-form-item label="员工姓名:" >
+                        <el-input v-model="form.empname" placeholder="请填写姓名"/>
+                    </el-form-item>
+                    <el-form-item label="员工工号:">
+                        <el-input v-model="form.empid" placeholder="请填写工号"/>
+                    </el-form-item>
                     <el-form-item class="operate">
                         <el-button type="primary" class="query" @click="queryList()">查询</el-button>
                         <el-button type="primary" class="reset" @click="resetForm()">重置</el-button>
@@ -137,7 +143,9 @@ export default {
                 date: { //时间
                     startTime: '',
                     endTime: ''
-                }
+                },
+                empname:"",
+                empid:""
             },
             form: {
                 rankname: [], //职级
@@ -145,7 +153,9 @@ export default {
                 date: { //时间
                     startTime: '',
                     endTime: ''
-                }
+                },
+                empname:"",
+                empid:""
             },
             pickerOptions: {
                 disabledDate: (time) => {
@@ -263,6 +273,8 @@ export default {
                 type: `type` + type,
                 dept: this.getDepts(), //部门,
                 jobGrade: this.originForm.rankname,
+                employeeName:this.originForm.empname,
+                employeeID:this.originForm.empid,
                 beginDate: this.originForm.date.startTime,
                 endDate: this.originForm.date.endTime,
                 userId: this.userObj.userId,
@@ -310,6 +322,8 @@ export default {
                 jobGrade: this.form.rankname.join(','), //值级
                 beginDate: this.form.date.startTime,
                 endDate: this.form.date.endTime,
+                employeeName:this.form.empname,
+                employeeID:this.form.empid,
                 page: page.currentPage,
                 pageSize: page.pageShowNum,
                 userId: this.userObj.userId,
@@ -370,7 +384,9 @@ export default {
         resetForm() {
             this.$refs.form.resetFields()
             this.form.date.startTime = this.initTime //默认显示时间
-            this.form.date.endTime = this.initTime //默认显示时间
+            this.form.date.endTime = this.initTime; //默认显示时间
+            this.form.empname="";
+            this.form.empid="";
             if(this.$refs['deptSelect']) {
                 this.$refs['deptSelect'].values = this.form.region.concat();
             }

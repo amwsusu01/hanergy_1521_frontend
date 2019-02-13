@@ -13,7 +13,7 @@
                     <rank-select ref="rankSelect" />
                 </el-form-item>
                 <el-form-item label="查询时间:" prop="date">
-                    <el-col :span="8" style="width:120px;">
+                    <el-col :span="8" style="idwidth:120px;">
                         <el-date-picker size="mini" type="month" :placeholder=initTime value-format="yyyy-MM" v-model="form.date.startTime" style="width: 100%;"></el-date-picker>
                     </el-col>
                     <el-col class="line" :span="1">-</el-col>
@@ -21,6 +21,12 @@
                         <el-date-picker size="mini" type="month" value-format="yyyy-MM" :placeholder=initTime :picker-options="pickerOptions" v-model="form.date.endTime" style="width: 100%;">
                         </el-date-picker>
                     </el-col>
+                </el-form-item>
+                <el-form-item label="员工姓名:" >
+                    <el-input v-model="form.empname" placeholder="请填写姓名"/>
+                </el-form-item>
+                <el-form-item label="员工工号:">
+                    <el-input v-model="form.empid" placeholder="请填写工号"/>
                 </el-form-item>
                 <el-form-item class="operate buttons">
                     <el-button size="mini" type="primary" class="query" @click="queryList()">查询</el-button>
@@ -287,7 +293,9 @@ export default {
                 date: { //时间
                     startTime: '',
                     endTime: ''
-                }
+                },
+                empname:"",
+                empid:""
             },
             originForm: {
                 rankname: '', //职级
@@ -295,7 +303,9 @@ export default {
                 date: { //时间
                     startTime: '',
                     endTime: ''
-                }
+                },
+                empname:"",
+                empid:""
             },
             pickerOptions: {
                 disabledDate: (time) => {
@@ -410,6 +420,8 @@ export default {
             let params = {
                 dept: this.getDepts(), //部门
                 jobGrade: this.form.rankname.join(','), //值级
+                employeeName:this.form.empname,
+                employeeID:this.form.empid,
                 beginDate: this.form.date.startTime,
                 endDate: this.form.date.endTime,
                 page: page.currentPage,
@@ -582,7 +594,9 @@ export default {
             this.$refs.form.resetFields();
             this.form.region = [];
             this.form.date.startTime = this.initTime; //默认显示时间
-            this.form.date.endTime = this.initTime //默认显示时间
+            this.form.date.endTime = this.initTime ;//默认显示时间
+            this.form.empname="";
+            this.form.empid="";
             if(this.$refs['deptSelect']) {
                 this.$refs['deptSelect'].values = this.form.region.concat();
             }
@@ -654,6 +668,8 @@ export default {
                 type: `type` + type,
                 dept: this.getDepts(),
                 jobGrade: this.originForm.rankname,
+                employeeName:this.originForm.empname,
+                employeeID:this.originForm.empid,
                 beginDate: this.originForm.date.startTime,
                 endDate: this.originForm.date.endTime,
                 userId: this.userObj.userId,
