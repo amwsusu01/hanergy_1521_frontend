@@ -13,7 +13,7 @@
                     <rank-select ref="rankSelect" />
                 </el-form-item>
                 <el-form-item label="查询时间:" prop="date">
-                    <el-col :span="8" style="idwidth:120px;">
+                    <el-col :span="8" style="width:120px;">
                         <el-date-picker size="mini" type="month" :placeholder=initTime value-format="yyyy-MM" v-model="form.date.startTime" style="width: 100%;"></el-date-picker>
                     </el-col>
                     <el-col class="line" :span="1">-</el-col>
@@ -417,6 +417,7 @@ export default {
             return resDepts;
         },
         getParams(page) {
+            console.log(page);
             let params = {
                 dept: this.getDepts(), //部门
                 jobGrade: this.form.rankname.join(','), //值级

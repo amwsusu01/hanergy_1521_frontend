@@ -123,7 +123,7 @@
                     // systemName: "管理驾驶舱",
                     // menuId: "53",
                     // menuName: "1521总览",
-                     proType: 4
+                     proType: 5
                 };
                 this.$api.common.getSelectPermission(param).then(res =>{
                     let user = JSON.parse(res.user) || [];
