@@ -5,7 +5,7 @@
         </div>
         <div class="header-logo"><img :src="logoUrl" /></div>
         <div class="header-marginTitle">
-            <div :class="{'header-title':true,'active':activeIndex==index}" v-for="(tl,index) in title" @click="switchMenu(index)" @onload="switchMenu(index)">
+            <div :class="{'header-title':true,'active':activeIndex==index}" v-for="(tl,index) in title" @click="switchMenu(index)">
                 <!--  <img :src="baobiao" style="margin-top: -11px; width: 40px;" class="home-icon"></img>
                   <i class="iconfont icon-baobiao"></i> //可以用~~~-->
                 <div class="home-title">{{tl}}</div>
@@ -27,6 +27,7 @@
 <script>
 import logo from '../../assets/img/logo.png';
 import baobiao from '../../assets/img/baobiao.png';
+import { _sessionStorage } from '../../assets/js/util'
 
 export default {
     name: "headerTop",
@@ -66,6 +67,7 @@ export default {
         },
         switchMenu(index) {
             this.$emit('switchMenu',index)
+            _sessionStorage("activeIndex", index);
         },
         showCollapse(){
             this.$emit('showCollapse') //点击菜单展开收起

@@ -152,6 +152,12 @@ export default {
             }
         },
     },
+    created() {
+            window.onload= () => {
+              let activeIndex = _sessionStorage("activeIndex");
+                this.switchMenu(activeIndex)
+            }
+    },
     mounted() {
         this.init();
         this.resetDocumentClientHeight();
