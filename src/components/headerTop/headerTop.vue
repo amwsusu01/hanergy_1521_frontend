@@ -1,11 +1,11 @@
 <template>
     <div class="header-box">
-        <div class="tags-breadcrumb"  @click="showCollapse()" style="cursor: pointer">
+        <div class="tags-breadcrumb"  @click="showCollapse()"  style="cursor: pointer">
             <i class="iconfont icon-caidan"></i>
         </div>
         <div class="header-logo"><img :src="logoUrl" /></div>
         <div class="header-marginTitle">
-            <div :class="{'header-title':true,'active':activeIndex==index}" v-for="(tl,index) in title" @click="switchMenu(index)" >
+            <div :class="{'header-title':true,'active':activeIndex==index}" v-for="(tl,index) in title" @click="switchMenu(index)" @onload="switchMenu(index)">
                 <!--  <img :src="baobiao" style="margin-top: -11px; width: 40px;" class="home-icon"></img>
                   <i class="iconfont icon-baobiao"></i> //可以用~~~-->
                 <div class="home-title">{{tl}}</div>

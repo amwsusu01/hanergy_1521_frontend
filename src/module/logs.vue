@@ -56,7 +56,6 @@
 </template>
 <script type="text/javascript">
     import {exportExl} from '../utils';
-
     export default {
         name: 'logs',
         data() {

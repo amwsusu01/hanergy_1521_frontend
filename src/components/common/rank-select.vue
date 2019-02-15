@@ -17,14 +17,11 @@ export default {
                 name:'15-20',
                 disabled:false
             },{
-                name:'10-14',
-                disabled:true
-            },{
-                name:'05-09',
+                name:'5-14',
                 disabled:true
             },
             {
-                name:'01-04',
+                name:'1-4',
                 disabled:true
             }],
         }

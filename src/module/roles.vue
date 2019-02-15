@@ -66,8 +66,10 @@ export default {
             let res = this.originData;
             if (this.form.keyword) {
                 res = this.data.filter((a) => {
-                    if(a.name == null){
-                        a.name = ""
+                    if(a.name == null||a.jobNumber==null||a.email==null){
+                        a.name = '';
+                        a.jobNumber='';
+                        a.email='';
                     }
                     if (a.name.indexOf(this.form.keyword) >=0 || a.jobNumber.indexOf(this.form.keyword)>=0 || a.email.indexOf(this.form.keyword)>=0) {
                         return a;

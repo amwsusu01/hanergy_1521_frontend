@@ -18,6 +18,7 @@ const common = {
         product: [],
         psmUser: [],
         templateId: "1000001",
+        isInit:"false",
         activeMenuId:LocalStorage("activeMenuId") ? JSON.parse(LocalStorage("activeMenuId")) : '',
         activeIndex: 0
     },
@@ -28,6 +29,9 @@ const common = {
         },
         saveTemplateId(state, templateId){
             state.templateId = templateId;
+        },
+        updateIsInit(state,isInit){
+            state.isInit=isInit;
         },
         setActiveMenu(state, id) {
             state.curMenuID = id;
