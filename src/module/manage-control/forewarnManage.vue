@@ -34,6 +34,7 @@
                  if(tab.name == 'third'){
                      this.templateId = "1000003"; // 三级预警
                  }
+                 this.isInit=false;
             },
         },
         computed: {
@@ -41,7 +42,11 @@
                 get() { return this.$store.state.common.templateId },
                 set(val) { this.$store.commit('saveTemplateId', val) }
             },
-        },
+            isInit:{
+                get() { return this.$store.state.common.isInit },
+                set(val) { this.$store.commit('updateIsInit', val) }
+            }
+         },
         components:{
             forewarnTable
         }

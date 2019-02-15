@@ -5,23 +5,28 @@
                 <el-row>
                     <el-col :span="2" style="font-size:14px;line-height: 28px;">查询时间:</el-col>
                     <el-col :span="8" style="width:150px;display: inline-block">
-                                <el-date-picker size="mini" type="date" placeholder="无限制"  v-model="form.date.startTime" value-format="yyyy-MM-dd" style="width: 180px;">
-                                </el-date-picker>
-                    </el-col>
-                    <el-col class="line" :span="1">-</el-col>
-                    <el-col :span="8"  style="width:150px;display: inline-block">
-                        <el-date-picker size="mini" type="date" placeholder="无限制" v-model="form.date.endTime" value-format="yyyy-MM-dd" style="width: 180px;">
+                        <el-date-picker size="mini" type="date" placeholder="无限制" v-model="form.date.startTime"
+                                        value-format="yyyy-MM-dd" style="width: 180px;">
                         </el-date-picker>
                     </el-col>
-
-                <el-col :span="4" style="margin-left:50px;line-height: 27px;">
-                    <el-form-item class="buttons">
-                        <el-button size="mini" type="primary" class="query" @click="queryList()">查询</el-button>
-                    </el-form-item>
-                </el-col>
+                    <el-col class="line" :span="1">-</el-col>
+                    <el-col :span="8" style="width:150px;display: inline-block">
+                        <el-date-picker size="mini" type="date" placeholder="无限制" v-model="form.date.endTime"
+                                        value-format="yyyy-MM-dd" style="width: 180px;">
+                        </el-date-picker>
+                    </el-col>
+                    <el-col :span="8" style="width:150px;display: inline-block;margin-left:40px">
+                        <el-form-item >
+                            <el-input style="height: 28px;" v-model="form.userName" placeholder="请填写姓名"/>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="5" style="margin-left:50px;line-height: 27px;">
+                        <el-form-item class="buttons">
+                            <el-button size="mini" type="primary" class="query" @click="queryList()">查询</el-button>
+                        </el-form-item>
+                    </el-col>
                 </el-row>
             </el-form>
-
             <div class="table">
                 <el-button class="exp-btn" plain size="small" @click="exportExl('67')">导出</el-button>
                 <el-table :data="loglist" border style="width: 100%">
@@ -42,141 +47,148 @@
                 </el-table>
             </div>
             <div class="block">
-                <el-pagination layout="total, prev, pager, next" @current-change="CurrentChange" :current-page="page.currentPage" :total="page.totalNumber" :page-size="page.pageShowNum" >
+                <el-pagination layout="total, prev, pager, next" @current-change="CurrentChange"
+                               :current-page="page.currentPage" :total="page.totalNumber" :page-size="page.pageShowNum">
                 </el-pagination>
             </div>
         </div>
     </div>
 </template>
 <script type="text/javascript">
-    import { exportExl } from '../utils';
-export default {
-	name:'logs',
-    data() {
-        return {
-            loglist: [],
-            isInit:false, //第一次打开初始false,记录日志，否则不记录
-            page: {
-                pageShowNum: 5, // 每页展示多少条
-                totalNumber: 0, // 总条数
-                currentPage: 1 // 当前页
-            },
-            form: {
-                date: { //时间
-                    startTime: '',
-                    endTime: ''
-                }
-            },
-            pickerOptions: {
-                disabledDate: (time) => {
-                    return this.$moment(time).isBefore(this.form.date.startTime);
+    import {exportExl} from '../utils';
+    export default {
+        name: 'logs',
+        data() {
+            return {
+                loglist: [],
+                isInit: false, //第一次打开初始false,记录日志，否则不记录
+                page: {
+                    pageShowNum: 5, // 每页展示多少条
+                    totalNumber: 0, // 总条数
+                    currentPage: 1 // 当前页
+                },
+                form: {
+                    date: { //时间
+                        startTime: '',
+                        endTime: ''
+                    },
+                    userName: ''//姓名
+                },
+                pickerOptions: {
+                    disabledDate: (time) => {
+                        return this.$moment(time).isBefore(this.form.date.startTime);
+                    }
                 }
             }
-        }
-    },
-    mounted(){
-      this.isInit  = false;
-	  this.getLogData();
-    },
-    computed: {
+        },
+        mounted() {
+            this.isInit = false;
+            this.getLogData();
+        },
+        computed: {
             userObj: {
-                get(){
+                get() {
                     return this.$store.state.common.user;
                 }
             }
-    },
-    methods:{
-        queryList(){
-            this.isInit  = false;
-            this.getLogData();
         },
-    	CurrentChange(val) {
-    	    this.isInit  = true;
-    	    this.page.currentPage = val;
-            this.getLogData();
-    	},
-    	getLogData() {
-    	    let params ={
-    	        start_date:this.form.date.startTime,
-                end_date: this.form.date.endTime,
-                pageNo:this.page.currentPage,
-                pageSize:this.page.pageShowNum,
-                userId: this.userObj.userId,
-                userName: this.userObj.username,
-                fullName: this.userObj.name,
-                systemId: "92",//系统id
-                systemName: "管理系统",
-                menuId: "98",
-                menuName: "用户操作记录",
-                proType: 4,
-                isNo:this.isInit
-    	    };
-            this.$api.common.getLogsList(params).then(res =>{
-                this.loglist = res.data ||[];
-                this.page.totalNumber = res.count;
-            })
-    	},
+        methods: {
+            queryList() {
+                this.isInit = false;
+                this.getLogData();
+            },
+            CurrentChange(val) {
+                this.isInit = true;
+                this.page.currentPage = val;
+                this.getLogData();
+            },
+            getLogData() {
+                let params = {
+                    start_date: this.form.date.startTime,
+                    end_date: this.form.date.endTime,
+                    userFullName: this.form.userName,
+                    pageNo: this.page.currentPage,
+                    pageSize: this.page.pageShowNum,
+                    userId: this.userObj.userId,
+                    userName: this.userObj.username,
+                    fullName: this.userObj.name,
+                    systemId: "92",//系统id
+                    systemName: "管理系统",
+                    menuId: "98",
+                    menuName: "用户操作记录",
+                    proType: 4,
+                    isNo: this.isInit
+                };
+                this.$api.common.getLogsList(params).then(res => {
+                    this.loglist = res.data || [];
+                    this.page.totalNumber = res.count;
+                })
+            },
 
-        exportExl(type) {
-            let count = 0;
-            switch (type) {
-                case '67':
-                    count = this.page.totalNumber;
-                    break;
-            }
-            if (count >= 10000) {
-                this.$confirm('当前导出行数超过1万行， 是否继续?', '提示', {
-                    confirmButtonText: '继续',
-                    cancelButtonText: '取消',
-                    type: 'info'
-                }).then(() => {
+            exportExl(type) {
+                let count = 0;
+                switch (type) {
+                    case '67':
+                        count = this.page.totalNumber;
+                        break;
+                }
+                if (count >= 10000) {
+                    this.$confirm('当前导出行数超过1万行， 是否继续?', '提示', {
+                        confirmButtonText: '继续',
+                        cancelButtonText: '取消',
+                        type: 'info'
+                    }).then(() => {
+                        this.exportExlOk(type);
+                    }).catch(() => {
+                    });
+                } else {
                     this.exportExlOk(type);
-                }).catch(() => {});
-            } else {
-                this.exportExlOk(type);
-            }
-        },
+                }
+            },
 
-        exportExlOk(type) {
-            let filename = '';
-            switch (type) {
-                case '67':
-                    filename = "用户操作记录.xls";
-                    break;
-            }
-            let params = {
-                start_date: this.form.date.startTime,
-                end_date: this.form.date.endTime,
-                userId: this.userObj.userId,
-                userName: this.userObj.username,
-                fullName: this.userObj.name,
-                systemId: "92",//系统id
-                systemName: "管理系统",
-                menuId: "98",
-                menuName: "用户操作记录",
-                proType: 6
-            };
-            this.$api.common.getlogsExport(params).then(res => {
-                exportExl(res, filename);
-            })
-        },
+            exportExlOk(type) {
+                let filename = '';
+                switch (type) {
+                    case '67':
+                        filename = "用户操作记录.xls";
+                        break;
+                }
+                let params = {
+                    start_date: this.form.date.startTime,
+                    end_date: this.form.date.endTime,
+                    userFullName: this.form.userName,
+                    userId: this.userObj.userId,
+                    userName: this.userObj.username,
+                    fullName: this.userObj.name,
+                    systemId: "92",//系统id
+                    systemName: "管理系统",
+                    menuId: "98",
+                    menuName: "用户操作记录",
+                    proType: 6
+                };
+                this.$api.common.getlogsExport(params).then(res => {
+                    exportExl(res, filename);
+                })
+            },
+        }
     }
-}
 </script>
 <style type="text/css">
-.table {
-	position:relative;
-}
-.exp-btn {
-    position: absolute;
-    right: 15px;
-    z-index: 1000;
-    top: 10px;
-}
-.block {
-    text-align: right;
-    margin-top: 10px;
-    margin-right: 100px;
-    margin-bottom: 30px;
-}
+    .table {
+        position: relative;
+    }
+
+    .exp-btn {
+        position: absolute;
+        right: 15px;
+        z-index: 1000;
+        top: 10px;
+    }
+
+    .block {
+        text-align: right;
+        margin-top: 10px;
+        margin-right: 100px;
+        margin-bottom: 30px;
+    }
 </style>

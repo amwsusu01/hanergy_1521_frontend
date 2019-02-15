@@ -122,12 +122,11 @@ export default {
                 menuId: 48,
                 userId: this.userObj.userId,
                 userName: this.userObj.username,
-                fullName: this.userObj.name,
+                fullName: this.userObj.name
                 // systemId: "49",//系统id
                 // systemName: "管理驾驶舱",
                 // menuId: "56",
                 // menuName: "问题/反省库",
-                proType: 4
             };
             this.$api.common.login(param).then(res => {
                 if (res.status == 0) {
