@@ -17,7 +17,7 @@ var Routers = [
             require(['./module/user/user.vue'], resolve)
         },
         meta: {
-            keepAlive: false
+            keepAlive: true
         },
         children: [
             // 报表 首页

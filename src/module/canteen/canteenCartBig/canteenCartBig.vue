@@ -11,7 +11,7 @@
                         </el-select> -->
                     </el-form-item>
                     <el-form-item label="职级:" prop="rankname">
-                        <rank-select />
+                        <rank-select ref="rankSelect"/>
                         <!-- <el-select v-model="form.rankname" style="width: 251px;" multiple collapse-tags placeholder="请选择职级">
                             <el-option v-for="item in this.rankOptions" :key="item.name" :label=item.name :value=item.name :disabled="item.disabled">
                             </el-option>
@@ -94,9 +94,6 @@
 import { exportExl } from '../../../utils';
 import deptSelect from '../../../components/common/dept-select.vue';
 import rankSelect from '../../../components/common/rank-select.vue';
-
-
-
 export default {
     name: 'canteen-cart-big',
     components: {
@@ -304,6 +301,10 @@ export default {
             if (this.$refs['deptSelect']) {
                 this.form.region = this.$refs['deptSelect'].values.concat();
             }
+            if (this.$refs['rankSelect']) {
+                this.form.rankname = this.$refs['rankSelect'].values.concat();
+            }
+
             let resDepts = '';
             if (this.form.region.length > 0) {
                 resDepts = this.form.region.join(',');

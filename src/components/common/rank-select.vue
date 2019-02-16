@@ -18,7 +18,7 @@ export default {
                 disabled:false
             },{
                 name:'5-14',
-                disabled:true
+                disabled:false
             },
             {
                 name:'1-4',
