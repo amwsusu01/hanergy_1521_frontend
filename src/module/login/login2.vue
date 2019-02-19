@@ -93,7 +93,11 @@ export default {
         },
         userObj: {
             get(){
-                return this.$store.state.common.user;
+                var user=this.$store.state.common.user;
+                if(!user){
+                    user=JSON.parse(_sessionStorage("loggeduser"));
+                }
+                return user;
             }
         }
     },
@@ -115,6 +119,7 @@ export default {
             });
         }, // 点击登录
         loginAjax() {
+            console.log(this.userObj);
             let param = {
                 jobNumber: this.formLogin.username,
                 password: compressToEncodedURIComponent(this.formLogin.password),
@@ -123,10 +128,6 @@ export default {
                 userId: this.userObj.userId,
                 userName: this.userObj.username,
                 fullName: this.userObj.name
-                // systemId: "49",//系统id
-                // systemName: "管理驾驶舱",
-                // menuId: "56",
-                // menuName: "问题/反省库",
             };
             this.$api.common.login(param).then(res => {
                 if (res.status == 0) {
@@ -139,6 +140,7 @@ export default {
                     LocalStorage("menuData", JSON.stringify(this.menuData));
                     LocalStorage("allMenu", JSON.stringify(this.allMenu));
                     LocalStorage("sysTitle", this.sysTitle);
+                    _sessionStorage("loggeduser", JSON.stringify(res.user));
 
                     let firstPage = 'canteenOrder',firstName='',defaultMenuId='';
                     if(this.menuData.length > 0 && this.menuData[0].list.length > 0) {
