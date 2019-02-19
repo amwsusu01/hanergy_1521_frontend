@@ -17,7 +17,7 @@ var Routers = [
             require(['./module/user/user.vue'], resolve)
         },
         meta: {
-            keepAlive: true
+            keepAlive: false
         },
         children: [
             // 报表 首页
@@ -37,7 +37,7 @@ var Routers = [
                 path: '/Logdetailstatistics',
                 name: 'canteenHistoryOrder',
                 component: function(resolve) {
-                    require(['./module/canteen/canteenHistoryOrder/canteenHistoryOrder.vue'], resolve)
+                    require(['./module/canteen/canteenHistoryOrder/canteenHistoryOrder2.vue'], resolve)
                 },
                 meta: {
                     keepAlive: false,
@@ -86,8 +86,10 @@ var Routers = [
                 component: function(resolve) {
                     require(['./module/roles.vue'], resolve)
                 },
-                meta: { keepAlive: false,
-                    title: '数据权限' }
+                meta: {
+                    keepAlive: false,
+                    title: '数据权限'
+                }
             },
             //系统日志-编辑
             {
@@ -96,7 +98,7 @@ var Routers = [
                 component: function(resolve) {
                     require(['./module/editorRoles.vue'], resolve)
                 },
-                meta: { keepAlive: false,title: '数据权限-编辑' }
+                meta: { keepAlive: false, title: '数据权限-编辑' }
             },
             //产供销一体化明细
             {
@@ -105,7 +107,7 @@ var Routers = [
                 component: function(resolve) {
                     require(['./module/product-provide-market/detail.vue'], resolve)
                 },
-                meta: { keepAlive: false,title: '产供销一体化明细表'  }
+                meta: { keepAlive: false, title: '产供销一体化明细表' }
             },
             //产供销一体化图标
             {
@@ -114,7 +116,7 @@ var Routers = [
                 component: function(resolve) {
                     require(['./module/product-provide-market/early-warning.vue'], resolve)
                 },
-                meta: { keepAlive: false,title: '产供销一体化-预警' }
+                meta: { keepAlive: false, title: '产供销一体化-预警' }
             },
             {
                 path: '/problem',
@@ -122,7 +124,7 @@ var Routers = [
                 component: function(resolve) {
                     require(['./module/problem/problem.vue'], resolve)
                 },
-                meta: { keepAlive: false,title: '问题提出和解决流程统计'  }
+                meta: { keepAlive: false, title: '问题提出和解决流程统计' }
             },
             //管理控制台-供应链一体化-预警管理
             {
@@ -131,7 +133,7 @@ var Routers = [
                 component: function(resolve) {
                     require(['./module/manage-control/forewarnManage.vue'], resolve)
                 },
-                meta: { keepAlive: false ,title: '预警管理'}
+                meta: { keepAlive: false, title: '预警管理' }
             },
             //管理控制台-供应链一体化-预警记录
             {
@@ -148,7 +150,7 @@ var Routers = [
                 component: function(resolve) {
                     require(['./module/entry.vue'], resolve)
                 },
-                meta: { keepAlive: false,title:'人力报表' }
+                meta: { keepAlive: false, title: '人力报表' }
             }
         ]
     },
@@ -157,10 +159,10 @@ var Routers = [
 import Router from 'vue-router'
 
 // 并且配置路由规则
-console.log('BASE_URL',BASE_URL);
+console.log('BASE_URL', BASE_URL);
 const router = new Router({
     mode: 'history',
-    base:BASE_URL, //生产环境下需要配置
+    base: BASE_URL, //生产环境下需要配置
     routes: Routers
 })
 
