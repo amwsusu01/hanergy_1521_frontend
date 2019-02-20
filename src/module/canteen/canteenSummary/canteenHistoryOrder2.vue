@@ -2,6 +2,18 @@
     <div class="canteen-history-order">
         <div class="box">
             <el-form :inline="true" :model="form" ref="form" class="contain" size="mini">
+                <el-form-item label="控股集团:" size="mini">
+                    <hold-select :holdList="holdList" ref="holdSelect"></hold-select>
+                </el-form-item>
+                <el-form-item label="事业群:" size="mini" prop="rankname">
+                    <career-select :careerList="careerList" ref="careerSelect"></career-select>
+                </el-form-item>
+                <el-form-item label="事业部/公司:" size="mini" prop="rankname">
+                    <business-unit :businessList="businessList" ref="careerSelect"></business-unit>
+                </el-form-item>
+                <el-form-item label="省公司/分公司:" size="mini" prop="rankname">
+                    <branch-office :branchList="branchList"></branch-office>
+                </el-form-item>
                 <el-form-item label="部门:" label-width="50px" prop="region">
                     <dept-select :deptList="deptList" ref="deptSelect"></dept-select>
                     <!-- <el-select v-model="form.region" multiple filterable collapse-tags placeholder="请选择部门" size="mini" style="width: 251px;">
@@ -220,7 +232,7 @@
             </el-tab-pane>
             <el-tab-pane label="部门问题明细表" name="eighth">
                 <div class="table">
-                    <el-button v-if="buttons['78']==true" class="exp-btn" plain size="small" @click="exportExl(1)">导出</el-button>
+                    <el-button v-if="buttons1['78']==true" class="exp-btn" plain size="small" @click="exportExl(1)">导出</el-button>
                     <el-table :data="tableDataQuestion" border style="width: 100%">
                         <el-table-column label="部门问题明细表" label-class-name="table-title">
                             <el-table-column prop="month" label="月份" min-width="10%">
@@ -239,13 +251,13 @@
                     </el-table>
                 </div>
                 <div class="block">
-                    <el-pagination layout="total, prev, pager, next"   :page-size="page8.pageShowNum"  @current-change="CurrentChange1" :current-page="page8.currentPage" :total="page8.totalNumber">
+                    <el-pagination layout="total, prev, pager, next"   :page-size="page8.pageShowNum"  @current-change="CurrentChange8" :current-page="page8.currentPage" :total="page8.totalNumber">
                     </el-pagination>
                 </div>
             </el-tab-pane>
             <el-tab-pane label="部门反省明细表" name="ninth">
                 <div class="table">
-                    <el-button v-if="buttons['79']==true" class="exp-btn" plain size="small" @click="exportExl(2)">导出</el-button>
+                    <el-button v-if="buttons1['79']==true" class="exp-btn" plain size="small" @click="exportExl(2)">导出</el-button>
                     <el-table :data="tableDataIntro" border style="width: 100%">
                         <el-table-column label="部门反省明细表" label-class-name="table-title">
                             <el-table-column prop="month" label="月份" min-width="10%">
@@ -264,227 +276,13 @@
                     </el-table>
                 </div>
                 <div class="block">
-                    <el-pagination layout="total, prev, pager, next"  :page-size="page9.pageShowNum" @current-change="CurrentChange2" :current-page="page9.currentPage" :total="page9.totalNumber">
+                    <el-pagination layout="total, prev, pager, next"  :page-size="page9.pageShowNum" @current-change="CurrentChange9" :current-page="page9.currentPage" :total="page9.totalNumber">
                     </el-pagination>
                 </div>
             </el-tab-pane>
         </el-tabs>
         <div class="table-contain">
-            <!-- <div class="table">
-                <el-button v-if="buttons['70']==true" class="exp-btn" plain size="small" @click="exportExl(3)">导出</el-button>
-                <el-table :data="tableData1" border style="width: 100%">
-                    <el-table-column label="超过4次(含)未请假未提报统计报表" label-class-name="table-title">
-                        <el-table-column prop="month1" label="月份" min-width="10%">
-                        </el-table-column>
-                        <el-table-column prop="inputtime" label="未提报日期" min-width="20%">
-                        </el-table-column>
-                        <el-table-column prop="employeeID" label="员工工号" min-width="20%">
-                        </el-table-column>
-                        <el-table-column prop="realName" label="员工姓名" min-width="20%">
-                        </el-table-column>
-                        <el-table-column prop="frameName" label="部门" show-overflow-tooltip min-width="30%">
-                        </el-table-column>
-                    </el-table-column>
-                </el-table>
-            </div>
-            <div class="block">
-                <el-pagination layout="total, prev, pager, next" @current-change="CurrentChange1" :current-page="page1.currentPage" :total="page1.totalNumber" :page-size="page1.pageShowNum">
-                </el-pagination>
-            </div> -->
-            <!-- <div class="table">
-                <el-button class="exp-btn" plain size="small" v-if="buttons['71']==true" @click="exportExl(4)">导出</el-button>
-                <el-table :data="tableData2" border style="width: 100%">
-                    <el-table-column prop="date" label="提报月平均条数小于5明细表" label-class-name="table-title">
-                        <el-table-column prop="in_month" label="月份" min-width="10%">
-                        </el-table-column>
-                        <el-table-column prop="in_date" label="日期" min-width="10%">
-                        </el-table-column>
-                        <el-table-column prop="in_datetime" label="提报时间" min-width="15%">
-                        </el-table-column>
-                        <el-table-column prop="employeeID" label="员工工号" min-width="10%">
-                        </el-table-column>
-                        <el-table-column prop="empname" label="员工姓名" min-width="10%">
-                        </el-table-column>
-                        <el-table-column prop="departmentname" label="部门" show-overflow-tooltip min-width="15%">
-                        </el-table-column>
-                        <el-table-column prop="content_new" label="提报内容" show-overflow-tooltip min-width="30%">
-                        </el-table-column>
-                    </el-table-column>
-                </el-table>
-            </div>
-            <div class="block">
-                <el-pagination layout="total, prev, pager, next" @current-change="CurrentChange2" :current-page="page2.currentPage" :total="page2.totalNumber"></el-pagination>
-                <el-pagination layout="total, prev, pager, next" :total="page2.totalNumber" @size-change="handleSizeChange" @current-change="CurrentChange2"  :current-page="page2.currentPage" :page-size="page2.pageShowNum"></el-pagination>
-
-            </div> -->
-            <!-- <div class="table">
-                <el-button class="exp-btn" v-if="buttons['72']==true" plain size="small" @click="exportExl(5)">导出</el-button>
-                <el-table :data="tableData3" border style="width: 100%">
-                    <el-table-column prop="date" label="提报月平均字数小于5明细表" label-class-name="table-title">
-                        <el-table-column prop="in_month" label="月份" min-width="10%">
-                        </el-table-column>
-                        <el-table-column prop="in_date" label="日期" min-width="10%">
-                        </el-table-column>
-                        <el-table-column prop="in_datetime" label="提报时间" min-width="15%">
-                        </el-table-column>
-                        <el-table-column prop="employeeID" label="员工工号" min-width="10%">
-                        </el-table-column>
-                        <el-table-column prop="empname" label="员工姓名" min-width="10%">
-                        </el-table-column>
-                        <el-table-column prop="departmentname" label="部门" show-overflow-tooltip min-width="15%">
-                        </el-table-column>
-                        <el-table-column prop="content_new" label="提报内容" show-overflow-tooltip min-width="30%">
-                        </el-table-column>
-                    </el-table-column>
-                </el-table>
-            </div>
-            <div class="block">
-                <el-pagination layout="total, prev, pager, next" :page-size="page3.pageShowNum" @current-change="CurrentChange3" :current-page="page3.currentPage" :total="page3.totalNumber">
-                </el-pagination>
-            </div> -->
-            <!-- <div class="table">
-                <el-button class="exp-btn" plain size="small" v-if="buttons['73']==true" @click="exportExl(6)">导出</el-button>
-                <el-table :data="tableData4" border style="width: 100%">
-                    <el-table-column prop="date" label="9点之前提报数据明细表" label-class-name="table-title">
-                        <el-table-column prop="month" label="月份" min-width="10%">
-                        </el-table-column>
-                        <el-table-column prop="day" label="日期" min-width="10%">
-                        </el-table-column>
-                        <el-table-column prop="inputtime" label="提报时间" min-width="15%">
-                        </el-table-column>
-                        <el-table-column prop="employeeID" label="员工工号" min-width="10%">
-                        </el-table-column>
-                        <el-table-column prop="emp_name" label="员工姓名" min-width="10%">
-                        </el-table-column>
-                        <el-table-column prop="dept_name" label="部门" show-overflow-tooltip min-width="15%">
-                        </el-table-column>
-                        <el-table-column prop="content_new" label="提报内容" show-overflow-tooltip min-width="30%">
-                        </el-table-column>
-                    </el-table-column>
-                </el-table>
-            </div>
-            <div class="block">
-                <el-pagination layout="total, prev, pager, next" :page-size="page4.pageShowNum" @current-change="CurrentChange4" :current-page="page4.currentPage" :total="page4.totalNumber">
-                </el-pagination>
-            </div> -->
-            <!-- <div class="table">
-                <el-button class="exp-btn" plain size="small" v-if="buttons['74']==true" @click="exportExl(7)">导出</el-button>
-                <el-table :data="tableData5" border style="width: 100%">
-                    <el-table-column prop="date" label="12点之前提报数据明细表" label-class-name="table-title">
-                        <el-table-column prop="month" label="月份" min-width="10%">
-                        </el-table-column>
-                        <el-table-column prop="day" label="日期" min-width="10%">
-                        </el-table-column>
-                        <el-table-column prop="inputtime" label="提报时间" min-width="15%">
-                        </el-table-column>
-                        <el-table-column prop="employeeID" label="员工工号" min-width="10%">
-                        </el-table-column>
-                        <el-table-column prop="emp_name" label="员工姓名" min-width="10%">
-                        </el-table-column>
-                        <el-table-column prop="dept_name" label="部门" show-overflow-tooltip min-width="10%">
-                        </el-table-column>
-                        <el-table-column prop="content_new" label="提报内容" show-overflow-tooltip min-width="30%">
-                        </el-table-column>
-                    </el-table-column>
-                </el-table>
-            </div>
-            <div class="block">
-                <el-pagination layout="total, prev, pager, next" :page-size="page5.pageShowNum" @current-change="CurrentChange5" :current-page="page5.currentPage" :total="page5.totalNumber">
-                </el-pagination>
-            </div> -->
-            <!-- <div class="table">
-                <el-button class="exp-btn" plain v-if="buttons['75']==true" size="small" @click="exportExl(8)">导出</el-button>
-                <el-table :data="tableData6" border style="width: 100%">
-                    <el-table-column prop="date" label="提报内容重复超6次(含)汇总表" label-class-name="table-title">
-                        <el-table-column prop="month" label="月份" min-width="10%">
-                        </el-table-column>
-                        <el-table-column prop="day" label="日期" min-width="10%">
-                        </el-table-column>
-                        <el-table-column prop="employeeID" label="员工工号" min-width="10%">
-                        </el-table-column>
-                        <el-table-column prop="empname" label="员工姓名" min-width="10%">
-                        </el-table-column>
-                        <el-table-column prop="deptname" label="部门" show-overflow-tooltip min-width="10%">
-                        </el-table-column>
-                        <el-table-column prop="ts" label="重复次数" width="80" min-width="5%">
-                        </el-table-column>
-                        <el-table-column prop="content" label="提报内容" show-overflow-tooltip min-width="35%">
-                        </el-table-column>
-                    </el-table-column>
-                </el-table>
-            </div>
-            <div class="block">
-                <el-pagination layout="total, prev, pager, next" :page-size="page6.pageShowNum" @current-change="CurrentChange6" :current-page="page6.currentPage" :total="page6.totalNumber">
-                </el-pagination>
-            </div> -->
-            <!-- <div class="table">
-                <el-button class="exp-btn" plain v-if="buttons['76']==true" size="small" @click="exportExl(9)">导出</el-button>
-                <el-table :data="tableData7" border style="width: 100%">
-                    <el-table-column prop="month" label="提报内容重复超6次(含)明细表" label-class-name="table-title">
-                        <el-table-column prop="month" label="月份" min-width="10%">
-                        </el-table-column>
-                        <el-table-column prop="day1" label="日期" min-width="10%">
-                        </el-table-column>
-                        <el-table-column prop="employeeID" label="员工工号" min-width="10%">
-                        </el-table-column>
-                        <el-table-column prop="empname" label="员工姓名" min-width="10%">
-                        </el-table-column>
-                        <el-table-column prop="deptname" label="部门" show-overflow-tooltip min-width="15%">
-                        </el-table-column>
-                        <el-table-column prop="content_new" label="提报内容" show-overflow-tooltip min-width="35%">
-                        </el-table-column>
-                    </el-table-column>
-                </el-table>
-            </div>
-            <div class="block">
-                <el-pagination layout="total, prev, pager, next" @current-change="CurrentChange7" :current-page="page7.currentPage" :total="page7.totalNumber" :page-size="page7.pageShowNum"></el-pagination>
-            </div> -->
-            <!-- <div class="table">
-                <el-button v-if="buttons['78']==true" class="exp-btn" plain size="small" @click="exportExl(1)">导出</el-button>
-                <el-table :data="tableDataQuestion" border style="width: 100%">
-                    <el-table-column label="部门问题明细表" label-class-name="table-title">
-                        <el-table-column prop="month" label="月份" min-width="10%">
-                        </el-table-column>
-                        <el-table-column prop="day" label="日期" min-width="10%">
-                        </el-table-column>
-                        <el-table-column prop="employeeID" label="员工工号" min-width="10%">
-                        </el-table-column>
-                        <el-table-column prop="empname" label="员工姓名" min-width="10%">
-                        </el-table-column>
-                        <el-table-column prop="deptname" label="部门" min-width="15%" show-overflow-tooltip>
-                        </el-table-column>
-                        <el-table-column prop="sol_pro" label="提报内容" min-width="45%" show-overflow-tooltip>
-                        </el-table-column>
-                    </el-table-column>
-                </el-table>
-            </div>
-            <div class="block">
-                <el-pagination layout="total, prev, pager, next"   :page-size="page8.pageShowNum"  @current-change="CurrentChange1" :current-page="page8.currentPage" :total="page8.totalNumber">
-                </el-pagination>
-            </div> -->
-            <!-- <div class="table">
-                <el-button v-if="buttons['79']==true" class="exp-btn" plain size="small" @click="exportExl(2)">导出</el-button>
-                <el-table :data="tableDataIntro" border style="width: 100%">
-                    <el-table-column label="部门反省明细表" label-class-name="table-title">
-                        <el-table-column prop="month" label="月份" min-width="10%">
-                        </el-table-column>
-                        <el-table-column prop="day" label="日期" min-width="10%">
-                        </el-table-column>
-                        <el-table-column prop="employeeID" label="员工工号" min-width="10%">
-                        </el-table-column>
-                        <el-table-column prop="empname" label="员工姓名" min-width="10%">
-                        </el-table-column>
-                        <el-table-column prop="deptname" label="部门" show-overflow-tooltip min-width="15%">
-                        </el-table-column>
-                        <el-table-column prop="introspect" label="提报内容" show-overflow-tooltip min-width="45%">
-                        </el-table-column>
-                    </el-table-column>
-                </el-table>
-            </div>
-            <div class="block">
-                <el-pagination layout="total, prev, pager, next"  :page-size="page9.pageShowNum" @current-change="CurrentChange2" :current-page="page9.currentPage" :total="page9.totalNumber">
-                </el-pagination>
-            </div> -->
+            
         </div>
     </div>
 </template>
@@ -494,13 +292,21 @@ import Paging from '../../../components/common/Paging'
 import { exportExl } from '../../../utils';
 import deptSelect from '../../../components/common/dept-select.vue';
 import rankSelect from '../../../components/common/rank-select.vue';
+import holdSelect from '../../../components/common/holding-select.vue'; // 控股集团
+import careerSelect from '../../../components/common/career-select.vue'; // 事业群
+import businessUnit from '../../../components/common/business-unit.vue'; // 事业群
+import branchOffice from '../../../components/common/branch-office.vue'; // 事业群
 
 export default {
     name: 'canteenHistoryOrder',
     components: {
         Paging,
         deptSelect,
-        rankSelect
+        rankSelect,
+        holdSelect,
+        careerSelect,
+        businessUnit,
+        branchOffice
     },
     data() {
         return {
@@ -560,7 +366,11 @@ export default {
             },
             initTime: this.updateTime, //初始化的时间
             startTimeUnix: 0,
-            //deptList: [],
+            // deptList: [],
+            holdList: [], // 控股集团列表
+            careerList: [], // 事业群列表
+            businessList: [], // 事业部列表
+            branchList: [], // 省公司/分公司
             rankOptions: [{
                     name: '21-24',
                     disabled: false
@@ -625,20 +435,42 @@ export default {
         this.initTime = this.updateTime ? this.$moment(this.updateTime).format('YYYY-MM') : '';
         this.isInit  = false;
         this.initData();
+
+        this.getOrganization();
     },
     computed: {
         buttons: {
             get() {
                 //获取当前可导出的按钮组
                 if (this.$store.state.common.menuData && this.$store.state.common.menuData.length > 0 && this.$store.state.common.menuData[0].list) {
-                    let curMenu = this.$store.state.common.menuData[0].list.find((item) => item.menuId == '54') //1521明细的菜单
+                    let curMenu = this.$store.state.common.menuData[0].list.find((item) => item.menuId == '54'); //1521明细的菜单
+                    console.log(this.$store.state.common.menuData[0].list, '我是处理好的数据一样。。。。。')
+                    //1521问题和反省明细
+                    if (curMenu && curMenu.list) {
+                        // console.log('处理成功1.。。。。。。。。。。')
+                        let res = {};
+                        curMenu.list.map((item) => {
+                            res[item.menuId] = true;
+                        })
+                        return res;
+                    } 
+                }
+
+                return {};
+            }
+        },
+        buttons1: {
+            get() {
+                //获取当前可导出的按钮组
+                if (this.$store.state.common.menuData && this.$store.state.common.menuData.length > 0 && this.$store.state.common.menuData[0].list) {
+                    let curMenu = this.$store.state.common.menuData[0].list.find((item) => item.menuId == '56'); //1521问题和反省明细
                     if (curMenu && curMenu.list) {
                         let res = {};
                         curMenu.list.map((item) => {
                             res[item.menuId] = true;
                         })
                         return res;
-                    }
+                    } 
                 }
 
                 return {};
@@ -678,7 +510,7 @@ export default {
             if (this.updateTime && this.deptList.length > 0) {
                 this.form.date.startTime = this.initTime; //默认显示时间
                 this.form.date.endTime = this.initTime //默认显示时间
-                this.form.region = this.deptList.map((a) => a.dept_name);
+                // this.form.region = this.deptList.map((a) => a.dept_name);
                 if (this.$refs['deptSelect']) {
                     this.$refs['deptSelect'].values = this.form.region.concat();
                 }
@@ -696,9 +528,50 @@ export default {
             this.getIssueDetail()
             this.getIntrospectionDetail()
         },
+        getParams(page) {
+            let params = {
+                dept: this.getDepts(), //部门
+                jobGrade: this.form.rankname.join(','), //值级
+                beginDate: this.form.date.startTime,
+                endDate: this.form.date.endTime,
+                employeeName:this.form.empname,
+                employeeID:this.form.empid,
+                page: page.currentPage,
+                pageSize: page.pageShowNum,
+                userId: this.userObj.userId,
+                userName: this.userObj.username,
+                fullName: this.userObj.name,
+                systemId: "49",//系统id
+                systemName: "管理驾驶舱",
+                menuId: "56",
+                menuName: "问题/反省库",
+                proType: 4,
+                isNo:this.isInit
+            }
+
+            return params;
+        },
+        // 获取所有控股集团以及集团下的所有事业群，事业部，省公司，以及部门
+        getOrganization() {
+            let params = {
+                konggujituan: '',
+                shiyequn: '',
+                shiyebu: '',
+                shenggongsi: ''
+            }
+            this.$api.common.getOrganization(params).then(res => {
+                console.log('res.......', res.jituanList);
+                this.holdList = res.jituanList; // 控股集团
+                this.careerList = res.shiyequnList; // 事业群
+                this.businessList = res.shiyebuList; // 事业部
+                this.branchList = res.shenggongsiList; // 省公司/ 分公司
+                this.deptList = res.deptList; // 部门
+                console.log('this.deptList,.....', this.deptList);
+            })
+        },
         //初始化表格数据-----部门问题明细
         getIssueDetail() {
-            let params = this.getParams(this.page1);
+            let params = this.getParams(this.page8);
 
             this.$api.canteen.getIssueDetail(params).then(res => {
                 this.page8.totalNumber = res.count
@@ -709,14 +582,14 @@ export default {
                 this.originForm = Object.assign({}, this.form);
             })
         },
-        CurrentChange1(val) {
+        CurrentChange8(val) {
             this.isInit  = true;
             this.page8.currentPage = val
             this.getIssueDetail()
         },
         //部门反省明细
         getIntrospectionDetail() {
-            let params = this.getParams(this.page2);
+            let params = this.getParams(this.page9);
             this.$api.canteen.getIntrospectionDetail(params).then(res => {
                 this.page9.totalNumber = res.count
                 let qusetionData = JSON.parse(res.list)
@@ -725,7 +598,7 @@ export default {
                 this.originForm = Object.assign({}, this.form); //保存上一次的值
             })
         },
-        CurrentChange2(val) {
+        CurrentChange9(val) {
             this.isInit  = true;
             this.page9.currentPage = val
             this.getIntrospectionDetail()
@@ -776,13 +649,15 @@ export default {
         getTabledata1() {
             let params = this.getParams(this.page1);
             this.$api.canteen.getDetailList1(params).then(res => {
-                this.page1.totalNumber = res.count;
-                let cgsc = JSON.parse(res.list)
+                console.log('23456789...', res);
+                this.page1.totalNumber = res.data.count;
+                let cgsc = JSON.parse(res.data.data)
                 //不要屏蔽,这个转时间
                 cgsc.map((item) => {
                     item.inputtime = formatChange(item.inputtime, 2)
                     return item
                 })
+                console.log('表格数据。。。。。。',this.cgsc);
                 this.tableData1 = cgsc;
                 this.originForm = Object.assign({}, this.form);
             })
@@ -921,6 +796,8 @@ export default {
             this.getTabledata5();
             this.getTabledata6();
             this.getTabledata7();
+            this.getIssueDetail();
+            this.getIntrospectionDetail();
         },
 
         // 表单重置
@@ -961,6 +838,12 @@ export default {
         exportExl(type) {
             let count = 0;
             switch (type) {
+                case 1:
+                    count = this.page8.totalNumber;
+                    break;
+                case 2:
+                    count = this.page9.totalNumber;
+                    break;
                 case 3:
                     count = this.page1.totalNumber;
                     break;
@@ -1018,6 +901,12 @@ export default {
 
             let filename = '';
             switch (type) {
+                case 1:
+                    filename = "部门问题明细表.xls";
+                    break;
+                case 2:
+                    filename = "部门反省明细表.xls";
+                    break;
                 case 3:
                     filename = "超过4次(含)未请假未提报统计报表.xls";
                     break;
@@ -1049,7 +938,7 @@ export default {
     }
 }
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .canteen-history-order {}
 
 .zhiji {
@@ -1076,5 +965,28 @@ export default {
     right: 15px;
     z-index: 1000;
     top: 10px;
+}
+
+.box{
+    width:100%;
+    .el-form{
+        width:100%;
+        position: relative;
+        .el-form-item{
+            width:33%;
+            position: relative !important;
+            .el-form-item__content{
+                position: absolute !important;
+                right:0 !important;
+                top:0 !important;
+            }
+        }
+        .operate{
+            width:100%;
+            position: relative;
+            left:80%;
+            right:0;
+        }
+    }
 }
 </style>

@@ -42,7 +42,7 @@ export default {
     data() {
         return {
             isCollapse: false,
-            num: 16,
+            num: 14,
             activeIndex: _sessionStorage("activeIndex") || 0
             //sysTitle: '报表'
         };
@@ -55,7 +55,7 @@ export default {
         },
         is1521Sys: {
             get() {
-                if (this.$route.name == 'canteenCartBig' || this.$route.name == 'canteenOrder' || this.$route.name == 'canteenHistoryOrder' || this.$route.name == 'canteenReceiverOrder' || this.$router.name == '') {
+                if (this.$route.name == 'canteenCartBig' || this.$route.name == 'canteenOrder' || this.$route.name == 'canteenHistoryOrder' || this.$route.name == 'canteenReceiverOrder' || this.$route.name == 'canteenSummary' || this.$router.name == '') {
                     return true;
                 } else return false;
             }

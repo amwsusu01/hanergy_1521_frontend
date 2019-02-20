@@ -32,12 +32,23 @@ var Routers = [
                     keepAlive: false,
                     title: '1521数据汇总统计'
                 }
+            }, // 1521明细汇总
+            {
+                path: '/Logdetailsummarystatistics',
+                name: 'canteenSummary',
+                component: function(resolve) {
+                    require(['./module/canteen/canteenSummary/canteenHistoryOrder2.vue'], resolve)
+                },
+                meta: {
+                    keepAlive: false,
+                    title: '1521明细汇总'
+                }
             }, // 1521明细统计
             {
                 path: '/Logdetailstatistics',
                 name: 'canteenHistoryOrder',
                 component: function(resolve) {
-                    require(['./module/canteen/canteenHistoryOrder/canteenHistoryOrder2.vue'], resolve)
+                    require(['./module/canteen/canteenHistoryOrder/canteenHistoryOrder.vue'], resolve)
                 },
                 meta: {
                     keepAlive: false,
