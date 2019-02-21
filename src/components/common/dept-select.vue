@@ -1,14 +1,14 @@
 <template>
     <el-select v-model="values"  @change="changeSelect"  multiple filterable collapse-tags placeholder="无限制" size="mini" style="width: 251px;">
         <el-option-group v-for="group in deptGroup" :key="group.label" :label="group.label" @click.native="checkAllOpts">
-            <el-option v-for="item in group.groups" :key="item" :label="item.dept_name" :value="item" style="width: 251px">
+            <el-option v-for="item in group.groups" :key="item.dept_name" :label="item.dept_name" :value="item.dept_name" style="width: 251px">
             </el-option>
         </el-option-group>
     </el-select>
 </template>
 <script type="text/javascript">
 export default {
-    name: 'department-list',
+    name: 'dept-select',
     data() {
         return {
             checkAll: true, //选中当前所有的部门

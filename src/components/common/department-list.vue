@@ -8,7 +8,7 @@
 </template>
 <script type="text/javascript">
 export default {
-    name: 'dept-select',
+    name: 'department-list',
     data() {
         return {
             checkAll: true, //选中当前所有的部门

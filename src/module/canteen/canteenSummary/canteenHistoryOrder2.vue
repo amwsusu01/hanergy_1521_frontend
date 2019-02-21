@@ -15,7 +15,7 @@
                     <branch-office :branchList="branchList" ref="branchOffice" @updataOrgData="updateOrgData"></branch-office>
                 </el-form-item>
                 <el-form-item label="部门:" label-width="50px" prop="region">
-                    <dept-select :deptList="deptList" ref="deptSelect" @updataOrgData="updateOrgData"></dept-select>
+                    <department-list :deptList="deptList" ref="deptSelect" @updataOrgData="updateOrgData"></department-list>
                     <!-- <el-select v-model="form.region" multiple filterable collapse-tags placeholder="请选择部门" size="mini" style="width: 251px;">
                         <el-option v-for="item in deptList" :key="item.dept_name" :label="item.dept_name" :value="item.dept_name" style="width: 251px;">
                         </el-option>
