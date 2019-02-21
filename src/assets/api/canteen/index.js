@@ -6,19 +6,31 @@ const apiURL = {
     //部门查询
     getSelectPermission: '/userPermission/selectPermission',
     //明细统计----7个接口
-    getDetailList1: '/detailcollect/cgscDetail',
-    getDetailList2: '/detailcollect/tsxywDetail',
-    getDetailList3: '/detailcollect/zsxywDetail',
-    getDetailList4: '/detailcollect/jdzqDetail',
-    getDetailList5: '/detailcollect/sedzqDetail',
-    getDetailList6: '/detailcollect/cglhzDetail',
-    getDetailList7: '/detailcollect/cglmxDetail',
+    getDetailList1: '/report/cgscDetail',
+    getDetailList2: '/report/tsxywDetail',
+    getDetailList3: '/report/zsxywDetail',
+    getDetailList4: '/report/jdzqDetail',
+    getDetailList5: '/report/sedzqDetail',
+    getDetailList6: '/report/cglhzDetail',
+    getDetailList7: '/report/cglmxDetail',
+
+    getcgscDetail: '/detailcollect/cgscDetail',
+    gettsxywDetail: '/detailcollect/tsxywDetail',
+    getzsxywDetail: '/detailcollect/zsxywDetail',
+    getjdzqDetail: '/detailcollect/jdzqDetail',
+    getsedzqDetail: '/detailcollect/sedzqDetail',
+    getcglhzDetail: '/detailcollect/cglhzDetail',
+    getcglmxDetail: '/detailcollect/cglmxDetail',
     //热词
     getHotWord: '/report/Vocabulary',
     //问题明细
-    getIssueDetail: '/detailcollect/issueDetail',
+    getIssueDetail: '/report/issueDetail',
+    getProblemList: '/detailcollect/issueDetail',
+
     //反省明细
-    getIntrospectionDetail: '/detailcollect/introspectionDetail'
+    getIntrospectionDetail: '/report/introspectionDetail',
+    getIntrospectionList: '/detailcollect/introspectionDetail'
+
 }
 
 export default {
@@ -28,36 +40,62 @@ export default {
     getSelectPermission(params) {
         return Api.get(apiURL.getSelectPermission, params)
     },
+    getcgscDetail(params) {
+        return Api.post(apiURL.getcgscDetail, params) // 1
+    },
+    gettsxywDetail(params) {
+        return Api.post(apiURL.gettsxywDetail, params) // 2
+    },
+    getzsxywDetail(params) {
+        return Api.post(apiURL.getzsxywDetail, params) // 3
+    },
+    getjdzqDetail(params) {
+        return Api.post(apiURL.getjdzqDetail, params) // 4
+    },
+    getsedzqDetail(params) {
+        return Api.post(apiURL.getsedzqDetail, params) // 5
+    },
+    getcglhzDetail(params) {
+        return Api.post(apiURL.getcglhzDetail, params) //6 
+    },
+    getcglmxDetail(params) {
+        return Api.post(apiURL.getcglmxDetail, params) // 7
+    },
     //7个明细接口
     getDetailList1(params) {
-        return Api.post(apiURL.getDetailList1, params)
+        return Api.get(apiURL.getDetailList1, params)
     },
     getDetailList2(params) {
-        return Api.post(apiURL.getDetailList2, params)
+        return Api.get(apiURL.getDetailList2, params)
     },
     getDetailList3(params) {
-        return Api.post(apiURL.getDetailList3, params)
+        return Api.get(apiURL.getDetailList3, params)
     },
     getDetailList4(params) {
-        return Api.post(apiURL.getDetailList4, params)
+        return Api.get(apiURL.getDetailList4, params)
     },
     getDetailList5(params) {
-        return Api.post(apiURL.getDetailList5, params)
+        return Api.get(apiURL.getDetailList5, params)
     },
     getDetailList6(params) {
-        return Api.post(apiURL.getDetailList6, params)
+        return Api.get(apiURL.getDetailList6, params)
     },
     getDetailList7(params) {
-        return Api.post(apiURL.getDetailList7, params)
+        return Api.get(apiURL.getDetailList7, params)
     },
     getHotWord(params) {
         return Api.get(apiURL.getHotWord, params)
     },
     getIssueDetail(params) {
-        return Api.post(apiURL.getIssueDetail, params)
+        return Api.get(apiURL.getIssueDetail, params)
     },
     getIntrospectionDetail(params) {
-        return Api.post(apiURL.getIntrospectionDetail, params)
+        return Api.get(apiURL.getIntrospectionDetail, params)
+    },
+    getProblemList(params) {
+        return Api.post(apiURL.getProblemList, params)
+    },
+    getIntrospectionList(params) {
+        return Api.post(apiURL.getIntrospectionList, params)
     }
-
 }

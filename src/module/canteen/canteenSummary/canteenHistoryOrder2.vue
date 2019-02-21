@@ -604,7 +604,7 @@ export default {
         getIssueDetail() {
             let params = this.getParams1(this.page8);
 
-            this.$api.canteen.getIssueDetail(params).then(res => {
+            this.$api.canteen.getProblemList(params).then(res => {
                 this.page8.totalNumber = res.count
                 let qusetionData = res.data;
                 console.log(qusetionData)
@@ -621,7 +621,7 @@ export default {
         //部门反省明细
         getIntrospectionDetail() {
             let params = this.getParams1(this.page9);
-            this.$api.canteen.getIntrospectionDetail(params).then(res => {
+            this.$api.canteen.getIntrospectionList(params).then(res => {
                 this.page9.totalNumber = res.count
                 let qusetionData = res.data;
                 this.tableDataIntro = qusetionData;
@@ -697,7 +697,7 @@ export default {
         getTabledata1() {
             let params = this.getParams(this.page1);
             console.log('表格一的参数是。。。。', params);
-            this.$api.canteen.getDetailList1(params).then(res => {
+            this.$api.canteen.getcgscDetail(params).then(res => {
                 this.page1.totalNumber = res.count;
                 let cgsc = res.data;
                 //不要屏蔽,这个转时间
@@ -717,7 +717,7 @@ export default {
         //-----条数小于5
         getTabledata2() {
             let params = this.getParams(this.page2);
-            this.$api.canteen.getDetailList2(params).then(res => {
+            this.$api.canteen.gettsxywDetail(params).then(res => {
                 this.page2.totalNumber = res.count
                 let tsxyw = res.data;
                 tsxyw.map((item) => {
@@ -741,7 +741,7 @@ export default {
         //-----字数小于5
         getTabledata3() {
             let params = this.getParams(this.page3);
-            this.$api.canteen.getDetailList3(params).then(res => {
+            this.$api.canteen.getzsxywDetail(params).then(res => {
                 this.page3.totalNumber = res.count
                 let zsxyw = res.data
                 zsxyw.map((item) => {
@@ -760,7 +760,7 @@ export default {
         //-----九点之前
         getTabledata4() {
             let params = this.getParams(this.page4);
-            this.$api.canteen.getDetailList4(params).then(res => {
+            this.$api.canteen.getjdzqDetail(params).then(res => {
                 this.page4.totalNumber = res.count
                 let jdzq = res.data
                 // jdzq.map((item) => {
@@ -779,7 +779,7 @@ export default {
         //十二点之前
         getTabledata5() {
             let params = this.getParams(this.page5);
-            this.$api.canteen.getDetailList5(params).then(res => {
+            this.$api.canteen.getsedzqDetail(params).then(res => {
                 this.page5.totalNumber = res.count
                 let sedzq = res.data
                 // sedzq.map((item) => {
@@ -798,7 +798,7 @@ export default {
         //重复超过六次汇总
         getTabledata6() {
             let params = this.getParams(this.page6);
-            this.$api.canteen.getDetailList6(params).then(res => {
+            this.$api.canteen.getcglhzDetail(params).then(res => {
                 this.page6.totalNumber = res.count
                 let cglhz = res.data;
                 cglhz.map((item) => {
@@ -817,7 +817,7 @@ export default {
         //重复超过六次明细
         getTabledata7() {
             let params = this.getParams(this.page7);
-            this.$api.canteen.getDetailList7(params).then(res => {
+            this.$api.canteen.getcglmxDetail(params).then(res => {
                 this.page7.totalNumber = res.count
                 let cglmx = res.data;
                 cglmx.map((item) => {
@@ -1005,8 +1005,9 @@ export default {
                     filename = "提报内容重复超6次(含)明细表.xls";
                     break;
             }
-            console.log('打印表格。。。。。。。')
+            
             this.$api.common.export(params).then(res => {
+                console.log('打印表格。。。。。。。', res);
                 exportExl(res, filename);
             })
         }
