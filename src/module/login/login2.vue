@@ -95,6 +95,7 @@ export default {
             get(){
                 var user=this.$store.state.common.user;
                 if(!user){
+                    console.log(_sessionStorage("loggeduser"));
                     user=JSON.parse(_sessionStorage("loggeduser"));
                 }
                 return user;
@@ -119,7 +120,6 @@ export default {
             });
         }, // 点击登录
         loginAjax() {
-            console.log(this.userObj);
             let param = {
                 jobNumber: this.formLogin.username,
                 password: compressToEncodedURIComponent(this.formLogin.password),

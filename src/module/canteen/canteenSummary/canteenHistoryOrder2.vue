@@ -649,15 +649,14 @@ export default {
         getTabledata1() {
             let params = this.getParams(this.page1);
             this.$api.canteen.getDetailList1(params).then(res => {
-                console.log('23456789...', res);
-                this.page1.totalNumber = res.data.count;
-                let cgsc = JSON.parse(res.data.data)
+                this.page1.totalNumber = res.count;
+                let cgsc = res.data;
+                console.log('表格数据。。。。。。',cgsc);
                 //不要屏蔽,这个转时间
                 cgsc.map((item) => {
                     item.inputtime = formatChange(item.inputtime, 2)
                     return item
                 })
-                console.log('表格数据。。。。。。',this.cgsc);
                 this.tableData1 = cgsc;
                 this.originForm = Object.assign({}, this.form);
             })
