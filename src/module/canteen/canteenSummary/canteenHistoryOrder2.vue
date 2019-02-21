@@ -2,17 +2,17 @@
     <div class="canteen-history-order">
         <div class="box">
             <el-form :inline="true" :model="form" ref="form" class="contain" size="mini">
-                <el-form-item label="控股集团:" size="mini">
+                <el-form-item label="控股集团:" size="mini" prop="konggujitua">
                     <hold-select :holdList="holdList" ref="holdSelect" @updataOrgData="updateOrgData"></hold-select>
                 </el-form-item>
                 <el-form-item label="事业群:" size="mini" prop="rankname">
                     <career-select :careerList="careerList" ref="careerSelect" @updataOrgData="updateOrgData"></career-select>
                 </el-form-item>
                 <el-form-item label="事业部/公司:" size="mini" prop="rankname">
-                    <business-unit :businessList="businessList" ref="careerSelect" @updataOrgData="updateOrgData"></business-unit>
+                    <business-unit :businessList="businessList" ref="businessUnit" @updataOrgData="updateOrgData"></business-unit>
                 </el-form-item>
                 <el-form-item label="省公司/分公司:" size="mini" prop="rankname">
-                    <branch-office :branchList="branchList" @updataOrgData="updateOrgData"></branch-office>
+                    <branch-office :branchList="branchList" ref="branchOffice" @updataOrgData="updateOrgData"></branch-office>
                 </el-form-item>
                 <el-form-item label="部门:" label-width="50px" prop="region">
                     <dept-select :deptList="deptList" ref="deptSelect" @updataOrgData="updateOrgData"></dept-select>
@@ -417,11 +417,10 @@ export default {
             tableDataQuestion: [], //问题明细
             tableDataIntro: [], //反省明细
             allOrganization: {
-                konggujituan: '',
-                shiyequn: '',
-                shiyebu: '',
-                shenggongsi: '',
-                dept: ''
+                konggujituan: [],
+                shiyequn: [],
+                shiyebu: [],
+                shenggongsi: []
             }
         }
     },
@@ -554,10 +553,10 @@ export default {
                 menuName: "问题/反省库",
                 proType: 4,
                 isNo:this.isInit,
-                jituanList: this.allOrganization.konggujituan,
-                shiyequnList: this.allOrganization.shiyequn,
-                shiyebuList: this.allOrganization.shiyebu,
-                shenggongsiList: this.allOrganization.shenggongsi
+                jituanList: this.allOrganization.konggujituan.join(','),
+                shiyequnList: this.allOrganization.shiyequn.join(','),
+                shiyebuList: this.allOrganization.shiyebu.join(','),
+                shenggongsiList: this.allOrganization.shenggongsi.join(',')
             }
 
             return params;
@@ -565,20 +564,24 @@ export default {
         updateOrgData(obj) { // 下拉框联动效果
             
             if ( obj.type == 'konggu') {
-                this.allOrganization.konggujituan = obj.val.length> 0 ? obj.val.join(',') : '';
+                this.allOrganization.konggujituan = obj.val.length> 0 ? obj.val : [];
             } else if(obj.type == 'shiyequn') {
-                this.allOrganization.shiyequn = obj.val.length> 0 ? obj.val.join(',') : '';
+                this.allOrganization.shiyequn = obj.val.length> 0 ? obj.val : [];
             } else if(obj.type == 'shiyebu') {
-                this.allOrganization.shiyebu = obj.val.length > 0 ? obj.val.join(',') : '';
+                this.allOrganization.shiyebu = obj.val.length > 0 ? obj.val : [];
             } else if (obj.type == 'shenggongsi'){
-                this.allOrganization.shenggongsi = obj.val.length > 0 ? obj.val.join(',') : '';
-            }
+                this.allOrganization.shenggongsi = obj.val.length > 0 ? obj.val : [];
+            } 
             this.$api.common.getOrganization(this.allOrganization).then(res => {
                 console.log('更新集团下拉框数据。。。。', res);
                 this.holdList = res.jituanList; // 控股集团下拉框
                 this.careerList = res.shiyequnList; // 事业群下拉框
                 this.businessList = res.shiyebuList; // 事业部下拉框
                 this.branchList = res.shenggongsiList; // 省公司下拉框
+                console.log('this.deptList....', res.deptList);
+                this.deptList = res.deptList;
+                // this.form.region = res.deptList;
+                this.$refs['deptSelect'].values = res.deptList;
             })
         },
         // 获取所有控股集团以及集团下的所有事业群，事业部，省公司，以及部门
@@ -638,6 +641,18 @@ export default {
             if (this.$refs['rankSelect']) {
                 this.form.rankname = this.$refs['rankSelect'].values.concat();
             }
+            // if (this.$refs['holdSelect']) {
+            //     this.allOrganization.konggujitua = this.$refs['holdSelect'].values.concat();
+            // }
+            // if (this.$refs['careerSelect']) {
+            //     this.allOrganization.shiyequn = this.$refs['careerSelect'].values.concat();
+            // }
+            // if (this.$refs['businessUnit']) {
+            //     this.allOrganization.shiyebu = this.$refs['businessUnit'].values.concat();
+            // }
+            // if (this.$refs['branchOffice']) {
+            //     this.allOrganization.shenggongsi = this.$refs['branchOffice'].values.concat();
+            // }
             let resDepts = '';
             if (this.form.region.length > 0) {
                 resDepts = this.form.region.join(',');
@@ -671,10 +686,10 @@ export default {
                 menuName: "1521明细",
                 proType: 4,
                 isNo:this.isInit,
-                jituanList: this.allOrganization.konggujituan,
-                shiyequnList: this.allOrganization.shiyequn,
-                shiyebuList: this.allOrganization.shiyebu,
-                shenggongsiList: this.allOrganization.shenggongsi
+                jituanList: this.allOrganization.konggujituan.join(','),
+                shiyequnList: this.allOrganization.shiyequn.join(','),
+                shiyebuList: this.allOrganization.shiyebu.join(','),
+                shenggongsiList: this.allOrganization.shenggongsi.join(',')
             }
             return params;
         },
@@ -691,7 +706,6 @@ export default {
                     return item
                 })
                 this.tableData1 = cgsc;
-                console.log('表格一查询完的数据是。。。。', this.tableData1);
                 this.originForm = Object.assign({}, this.form);
             })
         },
@@ -841,18 +855,23 @@ export default {
             this.form.date.endTime = this.initTime ;//默认显示时间
             this.form.empname="";
             this.form.empid="";
+            
+            this.allOrganization.konggujitua = [];
+            
 
-            this.allOrganization.jituan = "";
-            this.allOrganization.shiyequn = "";
-            this.allOrganization.shiyebu = "";
-            this.allOrganization.shenggongsi = "";
-
+            // this.holdList = ""; // 控股集团列表
+            // this.careerList = ""; // 事业群列表
+            // this.businessList = ""; // 事业部列表
+            // this.branchList = ""; // 省公司/分公司
+            
+            //  holdSelect,rankname,businessUnit,branchOffice
             if(this.$refs['deptSelect']) {
                 this.$refs['deptSelect'].values = this.form.region.concat();
             }
             if(this.$refs['rankSelect']) {
                 this.$refs['rankSelect'].values = this.form.rankname.concat();
             }
+
              this.init();
         },
         //开始时间选择改变的函数

@@ -42,6 +42,7 @@ export default {
             if (this.checkAll == true) {
                 this.values = [];
                 this.checkAll = false;
+
             } else {
                 // this.values = this.deptList.map((a) => a.dept_name);
                 this.values = this.deptList.map((a) => a);
@@ -51,6 +52,7 @@ export default {
         changeSelect(val) {
             // console.log('目前选种植。。。。', val);
             //this.values = val;
+            this.$emit('updateOrgData', {type: 'bumen', val: val})
             this.$emit('getWarningDetailed')
         }
     }
