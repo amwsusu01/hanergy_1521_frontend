@@ -32,6 +32,7 @@ import '../../assets/css/common.css'
 import { _sessionStorage } from '../../assets/js/util'
 import HeaderTop from '../../components/headerTop/headerTop';
 import SidebarItem from '../../components/sidebar/sidebarItem.vue';
+import { debug } from 'util';
 
 export default {
     name: 'canteenHome',
@@ -275,6 +276,7 @@ export default {
             }
             this.$api.canteen.getSelectPermission(params).then(res => {
                 let user = JSON.parse(res.user) || [];
+
                 this.depts = user;
 
                 // for (let j = 0; j < user.length; j++) {

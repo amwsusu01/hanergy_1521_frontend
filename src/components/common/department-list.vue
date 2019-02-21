@@ -1,14 +1,14 @@
 <template>
     <el-select v-model="values"  @change="changeSelect"  multiple filterable collapse-tags placeholder="无限制" size="mini" style="width: 251px;">
         <el-option-group v-for="group in deptGroup" :key="group.label" :label="group.label" @click.native="checkAllOpts">
-            <el-option v-for="item in group.groups" :key="item" :label="item.dept_name" :value="item" style="width: 251px">
+            <el-option v-for="item in group.groups" :key="item" :label="item" :value="item" style="width: 251px">
             </el-option>
         </el-option-group>
     </el-select>
 </template>
 <script type="text/javascript">
 export default {
-    name: 'department-list',
+    name: 'dept-select',
     data() {
         return {
             checkAll: true, //选中当前所有的部门
@@ -18,9 +18,7 @@ export default {
     props: {
         deptList: Array
     },
-    mounted() {
-      console.log('this.deptlist.....', this.deptList);
-    },
+    mounted() {},
     computed: {
         deptGroup: {
             get() {
@@ -34,7 +32,8 @@ export default {
     watch:{
     	'deptList':function(newval,val) {
     		if(newval.length > 0 && (!val || val.length ==0 )) {
-                this.values = newval.map((a)=>a.dept_name);
+                // this.values = newval.map((a)=>a.dept_name);
+                this.values = newval.map((a)=>a);
     		}
     	}
     },
@@ -45,13 +44,15 @@ export default {
                 this.checkAll = false;
 
             } else {
-                this.values = this.deptList.map((a) => a.dept_name);
-                console.log('this.values....', this.values);
+                // this.values = this.deptList.map((a) => a.dept_name);
+                this.values = this.deptList.map((a) => a);
                 this.checkAll = true;
             }
         },
         changeSelect(val) {
+            // console.log('目前选种植。。。。', val);
             //this.values = val;
+            this.$emit('updateOrgData', {type: 'bumen', val: val})
             this.$emit('getWarningDetailed')
         }
     }

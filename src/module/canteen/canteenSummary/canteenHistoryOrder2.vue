@@ -3,7 +3,7 @@
         <div class="box">
             <el-form :inline="true" :model="form" ref="form" class="contain" size="mini">
                 <el-form-item label="控股集团:" size="mini" prop="konggujitua">
-                    <hold-select :holdList="holdList" ref="holdSelect" @updataOrgData="updateOrgData"></hold-select>
+                    <hold-select :holdList="holdList"  ref="holdSelect" @updataOrgData="updateOrgData"></hold-select>
                 </el-form-item>
                 <el-form-item label="事业群:" size="mini" prop="rankname">
                     <career-select :careerList="careerList" ref="careerSelect" @updataOrgData="updateOrgData"></career-select>
@@ -290,7 +290,7 @@
 import { formatChange } from '../../../assets/js/util'
 import Paging from '../../../components/common/Paging'
 import { exportExl } from '../../../utils';
-import deptSelect from '../../../components/common/dept-select.vue';
+import departmentList from '../../../components/common/department-list.vue';
 import rankSelect from '../../../components/common/rank-select.vue';
 import holdSelect from '../../../components/common/holding-select.vue'; // 控股集团
 import careerSelect from '../../../components/common/career-select.vue'; // 事业群
@@ -301,7 +301,7 @@ export default {
     name: 'canteenHistoryOrder',
     components: {
         Paging,
-        deptSelect,
+        departmentList,
         rankSelect,
         holdSelect,
         careerSelect,
@@ -857,22 +857,39 @@ export default {
             this.form.empid="";
             
             this.allOrganization.konggujitua = [];
-            
 
-            // this.holdList = ""; // 控股集团列表
+            //this.holdList = []; // 控股集团列表
             // this.careerList = ""; // 事业群列表
             // this.businessList = ""; // 事业部列表
             // this.branchList = ""; // 省公司/分公司
             
             //  holdSelect,rankname,businessUnit,branchOffice
+            
+
+            if(this.$refs['holdSelect']) {
+                this.$refs['holdSelect'].values = [];
+            }
+            if(this.$refs['careerSelect']) {
+                this.$refs['careerSelect'].values = [];
+            }
+            if(this.$refs['businessUnit']) {
+                this.$refs['businessUnit'].values = [];
+            }
+            if(this.$refs['branchOffice']) {
+                this.$refs['branchOffice'].values = [];
+            }
+            // this.$refs['holdSelect'].values = [];
+            // this.$refs['careerSelect'].values = [];
+            // this.$refs['businessUnit'].values = [];
+            // this.$refs['branchOffice'].values = [];
             if(this.$refs['deptSelect']) {
                 this.$refs['deptSelect'].values = this.form.region.concat();
             }
             if(this.$refs['rankSelect']) {
                 this.$refs['rankSelect'].values = this.form.rankname.concat();
             }
-
              this.init();
+             this.getOrganization();
         },
         //开始时间选择改变的函数
         changeTime(startDateTime) {
