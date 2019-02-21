@@ -1,7 +1,7 @@
 <template>
     <el-select v-model="values"  @change="changeSelect"  multiple filterable collapse-tags placeholder="无限制" size="mini" style="width: 251px;">
         <el-option-group v-for="group in deptGroup" :key="group.label" :label="group.label" @click.native="checkAllOpts">
-            <el-option v-for="item in group.groups" :key="item.dept_name" :label="item.dept_name" :value="item.dept_name" style="width: 251px">
+            <el-option v-for="item in group.groups" :key="item" :label="item" :value="item" style="width: 251px">
             </el-option>
         </el-option-group>
     </el-select>
@@ -32,7 +32,8 @@ export default {
     watch:{
     	'deptList':function(newval,val) {
     		if(newval.length > 0 && (!val || val.length ==0 )) {
-    			this.values = newval.map((a)=>a.dept_name);
+                // this.values = newval.map((a)=>a.dept_name);
+                this.values = newval.map((a)=>a);
     		}
     	}
     },
@@ -42,11 +43,13 @@ export default {
                 this.values = [];
                 this.checkAll = false;
             } else {
-                this.values = this.deptList.map((a) => a.dept_name);
+                // this.values = this.deptList.map((a) => a.dept_name);
+                this.values = this.deptList.map((a) => a);
                 this.checkAll = true;
             }
         },
-        changeSelect() {
+        changeSelect(val) {
+            // console.log('目前选种植。。。。', val);
             //this.values = val;
             this.$emit('getWarningDetailed')
         }

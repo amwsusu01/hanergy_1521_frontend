@@ -7,18 +7,18 @@ const apiURL = {
     getSelectPermission: '/userPermission/selectPermission',
     //明细统计----7个接口
     getDetailList1: '/detailcollect/cgscDetail',
-    getDetailList2: '/report/tsxywDetail',
-    getDetailList3: '/report/zsxywDetail',
-    getDetailList4: '/report/jdzqDetail',
-    getDetailList5: '/report/sedzqDetail',
-    getDetailList6: '/report/cglhzDetail',
-    getDetailList7: '/report/cglmxDetail',
+    getDetailList2: '/detailcollect/tsxywDetail',
+    getDetailList3: '/detailcollect/zsxywDetail',
+    getDetailList4: '/detailcollect/jdzqDetail',
+    getDetailList5: '/detailcollect/sedzqDetail',
+    getDetailList6: '/detailcollect/cglhzDetail',
+    getDetailList7: '/detailcollect/cglmxDetail',
     //热词
     getHotWord: '/report/Vocabulary',
     //问题明细
-    getIssueDetail: '/report/issueDetail',
+    getIssueDetail: '/detailcollect/issueDetail',
     //反省明细
-    getIntrospectionDetail: '/report/introspectionDetail'
+    getIntrospectionDetail: '/detailcollect/introspectionDetail'
 }
 
 export default {
@@ -33,31 +33,31 @@ export default {
         return Api.post(apiURL.getDetailList1, params)
     },
     getDetailList2(params) {
-        return Api.get(apiURL.getDetailList2, params)
+        return Api.post(apiURL.getDetailList2, params)
     },
     getDetailList3(params) {
-        return Api.get(apiURL.getDetailList3, params)
+        return Api.post(apiURL.getDetailList3, params)
     },
     getDetailList4(params) {
-        return Api.get(apiURL.getDetailList4, params)
+        return Api.post(apiURL.getDetailList4, params)
     },
     getDetailList5(params) {
-        return Api.get(apiURL.getDetailList5, params)
+        return Api.post(apiURL.getDetailList5, params)
     },
     getDetailList6(params) {
-        return Api.get(apiURL.getDetailList6, params)
+        return Api.post(apiURL.getDetailList6, params)
     },
     getDetailList7(params) {
-        return Api.get(apiURL.getDetailList7, params)
+        return Api.post(apiURL.getDetailList7, params)
     },
     getHotWord(params) {
         return Api.get(apiURL.getHotWord, params)
     },
     getIssueDetail(params) {
-        return Api.get(apiURL.getIssueDetail, params)
+        return Api.post(apiURL.getIssueDetail, params)
     },
     getIntrospectionDetail(params) {
-        return Api.get(apiURL.getIntrospectionDetail, params)
+        return Api.post(apiURL.getIntrospectionDetail, params)
     }
 
 }

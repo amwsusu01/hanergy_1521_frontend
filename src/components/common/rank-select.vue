@@ -32,6 +32,7 @@ export default {
     methods: {
         //修改职级,默认搜索所有的职级,后两个职级不能选择,但是作为搜索条件
         changeRank(val){
+            console.log('职级。。。。', this.values);
             // let res = [];
             // res.push(rankOptions.slice(2,3));
             // this.$emit('rankChanged',res);

@@ -1,5 +1,5 @@
 <template>
-    <el-select v-model="values" style="width: 251px;" multiple collapse-tags size="mini">
+    <el-select v-model="values"  @change="changeSelect" style="width: 251px;" multiple collapse-tags size="mini">
       <el-option v-for="item in businessList" :key="item" :label=item :value=item>
       </el-option>
     </el-select>
@@ -23,7 +23,11 @@ export default {
         
     },
     methods: {
-        
+        changeSelect(val) {
+            //this.values = val;
+            this.$emit('updataOrgData', {type: 'shiyebu', val: val});
+            this.$emit('getWarningDetailed')
+        } 
     }
 }
 </script>

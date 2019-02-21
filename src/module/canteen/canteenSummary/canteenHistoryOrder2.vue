@@ -3,19 +3,19 @@
         <div class="box">
             <el-form :inline="true" :model="form" ref="form" class="contain" size="mini">
                 <el-form-item label="控股集团:" size="mini">
-                    <hold-select :holdList="holdList" ref="holdSelect"></hold-select>
+                    <hold-select :holdList="holdList" ref="holdSelect" @updataOrgData="updateOrgData"></hold-select>
                 </el-form-item>
                 <el-form-item label="事业群:" size="mini" prop="rankname">
-                    <career-select :careerList="careerList" ref="careerSelect"></career-select>
+                    <career-select :careerList="careerList" ref="careerSelect" @updataOrgData="updateOrgData"></career-select>
                 </el-form-item>
                 <el-form-item label="事业部/公司:" size="mini" prop="rankname">
-                    <business-unit :businessList="businessList" ref="careerSelect"></business-unit>
+                    <business-unit :businessList="businessList" ref="careerSelect" @updataOrgData="updateOrgData"></business-unit>
                 </el-form-item>
                 <el-form-item label="省公司/分公司:" size="mini" prop="rankname">
-                    <branch-office :branchList="branchList"></branch-office>
+                    <branch-office :branchList="branchList" @updataOrgData="updateOrgData"></branch-office>
                 </el-form-item>
                 <el-form-item label="部门:" label-width="50px" prop="region">
-                    <dept-select :deptList="deptList" ref="deptSelect"></dept-select>
+                    <dept-select :deptList="deptList" ref="deptSelect" @updataOrgData="updateOrgData"></dept-select>
                     <!-- <el-select v-model="form.region" multiple filterable collapse-tags placeholder="请选择部门" size="mini" style="width: 251px;">
                         <el-option v-for="item in deptList" :key="item.dept_name" :label="item.dept_name" :value="item.dept_name" style="width: 251px;">
                         </el-option>
@@ -130,9 +130,9 @@
                     <el-button class="exp-btn" plain size="small" v-if="buttons['73']==true" @click="exportExl(6)">导出</el-button>
                     <el-table :data="tableData4" border style="width: 100%">
                         <el-table-column prop="date" label="9点之前提报数据明细表" label-class-name="table-title">
-                            <el-table-column prop="month" label="月份" min-width="10%">
+                            <el-table-column prop="MONTH" label="月份" min-width="10%">
                             </el-table-column>
-                            <el-table-column prop="day" label="日期" min-width="10%">
+                            <el-table-column prop="DAY" label="日期" min-width="10%">
                             </el-table-column>
                             <el-table-column prop="inputtime" label="提报时间" min-width="15%">
                             </el-table-column>
@@ -211,7 +211,7 @@
                     <el-button class="exp-btn" plain v-if="buttons['76']==true" size="small" @click="exportExl(9)">导出</el-button>
                     <el-table :data="tableData7" border style="width: 100%">
                         <el-table-column prop="month" label="提报内容重复超6次(含)明细表" label-class-name="table-title">
-                            <el-table-column prop="month" label="月份" min-width="10%">
+                            <el-table-column prop="MONTH" label="月份" min-width="10%">
                             </el-table-column>
                             <el-table-column prop="day1" label="日期" min-width="10%">
                             </el-table-column>
@@ -245,7 +245,7 @@
                             </el-table-column>
                             <el-table-column prop="deptname" label="部门" min-width="15%" show-overflow-tooltip>
                             </el-table-column>
-                            <el-table-column prop="sol_pro" label="提报内容" min-width="45%" show-overflow-tooltip>
+                            <el-table-column prop="content" label="提报内容" min-width="45%" show-overflow-tooltip>
                             </el-table-column>
                         </el-table-column>
                     </el-table>
@@ -270,7 +270,7 @@
                             </el-table-column>
                             <el-table-column prop="deptname" label="部门" show-overflow-tooltip min-width="15%">
                             </el-table-column>
-                            <el-table-column prop="introspect" label="提报内容" show-overflow-tooltip min-width="45%">
+                            <el-table-column prop="content" label="提报内容" show-overflow-tooltip min-width="45%">
                             </el-table-column>
                         </el-table-column>
                     </el-table>
@@ -366,7 +366,7 @@ export default {
             },
             initTime: this.updateTime, //初始化的时间
             startTimeUnix: 0,
-            // deptList: [],
+            deptList: [],
             holdList: [], // 控股集团列表
             careerList: [], // 事业群列表
             businessList: [], // 事业部列表
@@ -416,6 +416,13 @@ export default {
             },
             tableDataQuestion: [], //问题明细
             tableDataIntro: [], //反省明细
+            allOrganization: {
+                konggujituan: '',
+                shiyequn: '',
+                shiyebu: '',
+                shenggongsi: '',
+                dept: ''
+            }
         }
     },
     watch: {
@@ -444,7 +451,6 @@ export default {
                 //获取当前可导出的按钮组
                 if (this.$store.state.common.menuData && this.$store.state.common.menuData.length > 0 && this.$store.state.common.menuData[0].list) {
                     let curMenu = this.$store.state.common.menuData[0].list.find((item) => item.menuId == '54'); //1521明细的菜单
-                    console.log(this.$store.state.common.menuData[0].list, '我是处理好的数据一样。。。。。')
                     //1521问题和反省明细
                     if (curMenu && curMenu.list) {
                         // console.log('处理成功1.。。。。。。。。。。')
@@ -483,14 +489,14 @@ export default {
                 else return '';
             }
         },
-        deptList: {
-            get() {
-                return this.$store.state.common.deptments;
-            },
-            set() {
-                this.$store.commit('setDeptments', val);
-            }
-        },
+        // deptList: {
+        //     get() {
+        //         return this.$store.state.common.deptments;
+        //     },
+        //     set() {
+        //         this.$store.commit('setDeptments', val);
+        //     }
+        // },
         updateTime: {
             get() {
                 return this.$store.state.common.updateTime;
@@ -511,6 +517,7 @@ export default {
                 this.form.date.startTime = this.initTime; //默认显示时间
                 this.form.date.endTime = this.initTime //默认显示时间
                 // this.form.region = this.deptList.map((a) => a.dept_name);
+                this.form.region = this.deptList.map((a) => a);
                 if (this.$refs['deptSelect']) {
                     this.$refs['deptSelect'].values = this.form.region.concat();
                 }
@@ -520,7 +527,7 @@ export default {
         init() {
             this.getTabledata1()
             this.getTabledata2()
-            this.getTabledata3()
+            this.getTabledata3() // TODO List
             this.getTabledata4()
             this.getTabledata5()
             this.getTabledata6()
@@ -546,10 +553,33 @@ export default {
                 menuId: "56",
                 menuName: "问题/反省库",
                 proType: 4,
-                isNo:this.isInit
+                isNo:this.isInit,
+                jituanList: this.allOrganization.konggujituan,
+                shiyequnList: this.allOrganization.shiyequn,
+                shiyebuList: this.allOrganization.shiyebu,
+                shenggongsiList: this.allOrganization.shenggongsi
             }
 
             return params;
+        },
+        updateOrgData(obj) { // 下拉框联动效果
+            
+            if ( obj.type == 'konggu') {
+                this.allOrganization.konggujituan = obj.val.length> 0 ? obj.val.join(',') : '';
+            } else if(obj.type == 'shiyequn') {
+                this.allOrganization.shiyequn = obj.val.length> 0 ? obj.val.join(',') : '';
+            } else if(obj.type == 'shiyebu') {
+                this.allOrganization.shiyebu = obj.val.length > 0 ? obj.val.join(',') : '';
+            } else if (obj.type == 'shenggongsi'){
+                this.allOrganization.shenggongsi = obj.val.length > 0 ? obj.val.join(',') : '';
+            }
+            this.$api.common.getOrganization(this.allOrganization).then(res => {
+                console.log('更新集团下拉框数据。。。。', res);
+                this.holdList = res.jituanList; // 控股集团下拉框
+                this.careerList = res.shiyequnList; // 事业群下拉框
+                this.businessList = res.shiyebuList; // 事业部下拉框
+                this.branchList = res.shenggongsiList; // 省公司下拉框
+            })
         },
         // 获取所有控股集团以及集团下的所有事业群，事业部，省公司，以及部门
         getOrganization() {
@@ -560,22 +590,20 @@ export default {
                 shenggongsi: ''
             }
             this.$api.common.getOrganization(params).then(res => {
-                console.log('res.......', res.jituanList);
                 this.holdList = res.jituanList; // 控股集团
                 this.careerList = res.shiyequnList; // 事业群
                 this.businessList = res.shiyebuList; // 事业部
                 this.branchList = res.shenggongsiList; // 省公司/ 分公司
                 this.deptList = res.deptList; // 部门
-                console.log('this.deptList,.....', this.deptList);
             })
         },
         //初始化表格数据-----部门问题明细
         getIssueDetail() {
-            let params = this.getParams(this.page8);
+            let params = this.getParams1(this.page8);
 
             this.$api.canteen.getIssueDetail(params).then(res => {
                 this.page8.totalNumber = res.count
-                let qusetionData = JSON.parse(res.list)
+                let qusetionData = res.data;
                 console.log(qusetionData)
                 this.tableDataQuestion = qusetionData;
 
@@ -589,10 +617,10 @@ export default {
         },
         //部门反省明细
         getIntrospectionDetail() {
-            let params = this.getParams(this.page9);
+            let params = this.getParams1(this.page9);
             this.$api.canteen.getIntrospectionDetail(params).then(res => {
                 this.page9.totalNumber = res.count
-                let qusetionData = JSON.parse(res.list)
+                let qusetionData = res.data;
                 this.tableDataIntro = qusetionData;
 
                 this.originForm = Object.assign({}, this.form); //保存上一次的值
@@ -615,14 +643,15 @@ export default {
                 resDepts = this.form.region.join(',');
             } else {
                 let deptNames = this.deptList.map((a) => {
-                    return a.dept_name;
+                    // return a.dept_name;
+                    return a;
                 })
 
                 resDepts = deptNames.join(',');
             }
             return resDepts;
         },
-        getParams(page) {
+        getParams1(page) {
             console.log(page);
             let params = {
                 dept: this.getDepts(), //部门
@@ -641,23 +670,28 @@ export default {
                 menuId: "54",
                 menuName: "1521明细",
                 proType: 4,
-                isNo:this.isInit
+                isNo:this.isInit,
+                jituanList: this.allOrganization.konggujituan,
+                shiyequnList: this.allOrganization.shiyequn,
+                shiyebuList: this.allOrganization.shiyebu,
+                shenggongsiList: this.allOrganization.shenggongsi
             }
             return params;
         },
         //表格初始化数据---超过四次
         getTabledata1() {
             let params = this.getParams(this.page1);
+            console.log('表格一的参数是。。。。', params);
             this.$api.canteen.getDetailList1(params).then(res => {
                 this.page1.totalNumber = res.count;
                 let cgsc = res.data;
-                console.log('表格数据。。。。。。',cgsc);
                 //不要屏蔽,这个转时间
                 cgsc.map((item) => {
                     item.inputtime = formatChange(item.inputtime, 2)
                     return item
                 })
                 this.tableData1 = cgsc;
+                console.log('表格一查询完的数据是。。。。', this.tableData1);
                 this.originForm = Object.assign({}, this.form);
             })
         },
@@ -671,7 +705,7 @@ export default {
             let params = this.getParams(this.page2);
             this.$api.canteen.getDetailList2(params).then(res => {
                 this.page2.totalNumber = res.count
-                let tsxyw = JSON.parse(res.list)
+                let tsxyw = res.data;
                 tsxyw.map((item) => {
                     item.in_date = formatChange(item.in_date, 2)
                     return item
@@ -695,7 +729,7 @@ export default {
             let params = this.getParams(this.page3);
             this.$api.canteen.getDetailList3(params).then(res => {
                 this.page3.totalNumber = res.count
-                let zsxyw = JSON.parse(res.list)
+                let zsxyw = res.data
                 zsxyw.map((item) => {
                     item.in_date = formatChange(item.in_date, 2)
                     return item
@@ -714,7 +748,7 @@ export default {
             let params = this.getParams(this.page4);
             this.$api.canteen.getDetailList4(params).then(res => {
                 this.page4.totalNumber = res.count
-                let jdzq = JSON.parse(res.list)
+                let jdzq = res.data
                 // jdzq.map((item) => {
                 //     item.inputtime = formatChange(item.inputtime, 2)
                 //     return item
@@ -733,7 +767,7 @@ export default {
             let params = this.getParams(this.page5);
             this.$api.canteen.getDetailList5(params).then(res => {
                 this.page5.totalNumber = res.count
-                let sedzq = JSON.parse(res.list)
+                let sedzq = res.data
                 // sedzq.map((item) => {
                 //     item.inputtime = formatChange(item.inputtime, 2)
                 //     return item
@@ -752,7 +786,7 @@ export default {
             let params = this.getParams(this.page6);
             this.$api.canteen.getDetailList6(params).then(res => {
                 this.page6.totalNumber = res.count
-                let cglhz = JSON.parse(res.list)
+                let cglhz = res.data;
                 cglhz.map((item) => {
                     item.day = formatChange(item.day, 2)
                     return item
@@ -771,7 +805,7 @@ export default {
             let params = this.getParams(this.page7);
             this.$api.canteen.getDetailList7(params).then(res => {
                 this.page7.totalNumber = res.count
-                let cglmx = JSON.parse(res.list)
+                let cglmx = res.data;
                 cglmx.map((item) => {
                     item.day1 = formatChange(item.day1, 2)
                     return item
@@ -807,6 +841,12 @@ export default {
             this.form.date.endTime = this.initTime ;//默认显示时间
             this.form.empname="";
             this.form.empid="";
+
+            this.allOrganization.jituan = "";
+            this.allOrganization.shiyequn = "";
+            this.allOrganization.shiyebu = "";
+            this.allOrganization.shenggongsi = "";
+
             if(this.$refs['deptSelect']) {
                 this.$refs['deptSelect'].values = this.form.region.concat();
             }
@@ -881,9 +921,10 @@ export default {
 
         exportExlOk(type) {
             let params = {
-                type: `type` + type,
+                // type: `type` + type,
+                type: type,
                 dept: this.getDepts(),
-                jobGrade: this.originForm.rankname,
+                jobGrade: this.originForm.rankname.join(','),
                 employeeName:this.originForm.empname,
                 employeeID:this.originForm.empid,
                 beginDate: this.originForm.date.startTime,
@@ -928,8 +969,8 @@ export default {
                     filename = "提报内容重复超6次(含)明细表.xls";
                     break;
             }
-
-            this.$api.common.exportExcel(params).then(res => {
+            console.log('打印表格。。。。。。。')
+            this.$api.common.export(params).then(res => {
                 exportExl(res, filename);
             })
         }

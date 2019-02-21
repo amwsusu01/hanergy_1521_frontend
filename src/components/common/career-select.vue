@@ -1,5 +1,5 @@
 <template>
-    <el-select v-model="values" style="width: 251px;" multiple collapse-tags size="mini">
+    <el-select v-model="values" @change="selectChange" style="width: 251px;" multiple collapse-tags size="mini">
       <el-option v-for="item in careerList" :key="item" :label=item :value=item>
       </el-option>
     </el-select>
@@ -24,7 +24,9 @@ export default {
         
     },
     methods: {
-        
+      selectChange(val) {
+         this.$emit('updataOrgData', {type: 'shiyequn', val: val});
+      }
     }
 }
 </script>

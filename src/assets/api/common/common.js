@@ -10,6 +10,7 @@ const apiURL = {
 
     updateDate: '/return/getDate',
     exportExcel: '/return/printExcel',
+    export: '/detailcollect/export',
     userList: '/admin/api/v1/user/getUserList',
     psmDimension: 'psm/dimension',
     psmWarning: 'psm/getWarning',
@@ -48,6 +49,9 @@ export default {
     },
     exportExcel(obj) {
         return Api.exportGet(apiURL.exportExcel, obj);
+    },
+    export (obj) {
+        return Api.post(apiURL.export, obj);
     },
     getUserList(obj) {
         return Api.get(`${configM.otherComUrl}${apiURL.userList}`, obj);

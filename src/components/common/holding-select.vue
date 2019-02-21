@@ -19,13 +19,14 @@ export default {
       
     },
     mounted() {
-      console.log('this.holdList...', this.holdList);
         // this.values = ['21-24','15-20'];
-        
     },
     methods: {
-       selectChange() {
-         
+       selectChange(val) {
+         this.$emit('updataOrgData', {type: 'konggu', val: val});
+       },
+       checkAllOpts() {
+         console.log('234567890');
        }
     }
 }
