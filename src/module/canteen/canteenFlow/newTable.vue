@@ -49,7 +49,7 @@
               </el-date-picker>
           </el-col>
         </el-form-item>
-        <el-form-item label="饮食时间:" prop="date">
+        <el-form-item label="谈薪时间:" prop="date">
           <el-col :span="8" style="width:120px;">
               <el-date-picker size="mini" type="month" value-format="yyyy-MM" style="width: 100%;"></el-date-picker>
           </el-col>
