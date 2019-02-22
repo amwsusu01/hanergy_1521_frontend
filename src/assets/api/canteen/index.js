@@ -29,8 +29,10 @@ const apiURL = {
 
     //反省明细
     getIntrospectionDetail: '/report/introspectionDetail',
-    getIntrospectionList: '/detailcollect/introspectionDetail'
+    getIntrospectionList: '/detailcollect/introspectionDetail',
 
+    // 全民提报数据明细
+    gettableDataSub: '/detailcollect/allreport'
 }
 
 export default {
@@ -97,5 +99,8 @@ export default {
     },
     getIntrospectionList(params) {
         return Api.post(apiURL.getIntrospectionList, params)
+    },
+    gettableDataSub(params) {
+        return Api.post(apiURL.gettableDataSub, params)
     }
 }

@@ -34,6 +34,17 @@ var Routers = [
                 }
             }, // 1521明细汇总
             {
+                path: '/detailedPersonnelFlow',
+                name: 'newTable',
+                component: function(resolve) {
+                    require(['./module/canteen/canteenFlow/newTable.vue'], resolve)
+                },
+                meta: {
+                    keepAlive: false,
+                    title: '人员流量明细'
+                }
+            }, // 新的页面
+            {
                 path: '/Logdetailsummarystatistics',
                 name: 'canteenSummary',
                 component: function(resolve) {

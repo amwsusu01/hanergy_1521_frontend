@@ -280,6 +280,70 @@
                     </el-pagination>
                 </div>
             </el-tab-pane>
+
+            <el-tab-pane label="全员提报数据明细" name="tenth">
+                <div class="table">
+                    <el-button v-if="buttons1['79']==true" class="exp-btn" plain size="small" @click="exportExl(2)">导出</el-button>
+                    <el-table :data="tableDataSub" border style="width: 100%">
+                        <el-table-column label="部门反省明细表" label-class-name="table-title">
+                            <el-table-column prop="in_month" label="月份" min-width="10%" width="150">
+                            </el-table-column>
+                            <el-table-column prop="in_date" label="日期" min-width="10%" width="150">
+                            </el-table-column>
+                            <el-table-column prop="inputtime" label="提报时间" min-width="10%" width="150">
+                            </el-table-column>
+                            <el-table-column prop="employeeID" label="员工工号" min-width="10%" width="150">
+                            </el-table-column>
+                            <el-table-column prop="type" label="职级" show-overflow-tooltip min-width="45%" width="150">
+                            </el-table-column>
+                            <el-table-column prop="empname" label="员工姓名" show-overflow-tooltip min-width="15%" width="150">
+                            </el-table-column>
+                            <el-table-column prop="dept_name" label="部门" show-overflow-tooltip min-width="45%" width="150">
+                            </el-table-column>
+                            <el-table-column prop="konggujituan" label="控股集团" show-overflow-tooltip min-width="15%" width="150">
+                            </el-table-column>
+                            <el-table-column prop="shiyequn" label="事业群" show-overflow-tooltip min-width="45%" width="150">
+                            </el-table-column>
+                            <el-table-column prop="1521_1" label="1-发现并解决问题" min-width="10%" width="150">
+                            </el-table-column>
+                            <el-table-column prop="1521_2" label="2-工作" min-width="10%" width="150">
+                            </el-table-column>
+                            <el-table-column prop="1521_3" label=" 3-工作" min-width="10%" width="150">
+                            </el-table-column>
+                            <el-table-column prop="1521_4" label="4-工作" min-width="10%" width="150">
+                            </el-table-column>
+                            <el-table-column prop="1521_5" label="5-工作" show-overflow-tooltip min-width="45%" width="150">
+                            </el-table-column>
+                            <el-table-column prop="1521_6" label=" 6-发现并解决问题" show-overflow-tooltip min-width="15%" width="150">
+                            </el-table-column>
+                            <el-table-column prop="1521_7" label="7-客户" show-overflow-tooltip min-width="45%" width="150">
+                            </el-table-column>
+                            <el-table-column prop="1521_8" label="8-工作" show-overflow-tooltip min-width="15%" width="150">
+                            </el-table-column>
+                            <el-table-column prop="1521_9" label=" 9-工作" show-overflow-tooltip min-width="45%" width="150">
+                            </el-table-column>
+                            <el-table-column prop="1521_10" label="10-工作" min-width="10%" width="150">
+                            </el-table-column>
+                            <el-table-column prop="1521_11" label="11-工作" min-width="10%" width="150">
+                            </el-table-column>
+                            <el-table-column prop="1521_12" label="12-工作" min-width="10%" width="150">
+                            </el-table-column>
+                            <el-table-column prop="1521_13" label="13-工作" show-overflow-tooltip min-width="45%" width="150">
+                            </el-table-column>
+                            <el-table-column prop="1521_14" label="14-工作" show-overflow-tooltip min-width="15%" width="150">
+                            </el-table-column>
+                            <el-table-column prop="1521_15" label="15-工作" show-overflow-tooltip min-width="45%" width="150">
+                            </el-table-column>
+                            <el-table-column prop="1521_16" label="16-反省" show-overflow-tooltip min-width="15%" width="150">
+                            </el-table-column>
+                        </el-table-column>
+                    </el-table>
+                </div>
+                <div class="block">
+                    <el-pagination layout="total, prev, pager, next"  :page-size="page10.pageShowNum" @current-change="CurrentChange10" :current-page="page10.currentPage" :total="page10.totalNumber">
+                    </el-pagination>
+                </div>
+            </el-tab-pane>
         </el-tabs>
         <div class="table-contain">
             
@@ -364,6 +428,11 @@ export default {
                 totalNumber: 0, // 总条数
                 currentPage: 1 // 当前页
             },
+            page10: {
+                pageShowNum: 5, // 每页展示多少条
+                totalNumber: 0, // 总条数
+                currentPage: 1 // 当前页
+            },
             initTime: this.updateTime, //初始化的时间
             startTimeUnix: 0,
             deptList: [],
@@ -416,6 +485,7 @@ export default {
             },
             tableDataQuestion: [], //问题明细
             tableDataIntro: [], //反省明细
+            tableDataSub: [], // 全员提报数据明细
             allOrganization: {
                 konggujituan: [],
                 shiyequn: [],
@@ -533,6 +603,7 @@ export default {
             this.getTabledata7()
             this.getIssueDetail()
             this.getIntrospectionDetail()
+            this.gettableDataSub()
         },
         getParams(page) {
             let params = {
@@ -633,6 +704,23 @@ export default {
             this.isInit  = true;
             this.page9.currentPage = val
             this.getIntrospectionDetail()
+        },
+        // 全员提报数据明细
+        gettableDataSub(){
+            let params = this.getParams1(this.page10);
+            this.$api.canteen.gettableDataSub(params).then(res => {
+                console.log('全员提报数据明细。。。。', res);
+                this.page10.totalNumber = res.count
+                let qusetionData = res.data;
+                this.tableDataSub = qusetionData;
+
+                this.originForm = Object.assign({}, this.form); //保存上一次的值
+            })
+        },
+        CurrentChange10(val){
+            this.isInit  = true;
+            this.page10.currentPage = val
+            this.gettableDataSub()
         },
         getDepts() {
             if (this.$refs['deptSelect']) {
@@ -845,6 +933,7 @@ export default {
             this.getTabledata7();
             this.getIssueDetail();
             this.getIntrospectionDetail();
+            this.gettableDataSub();
         },
 
         // 表单重置
