@@ -784,7 +784,6 @@ export default {
         //表格初始化数据---超过四次
         getTabledata1() {
             let params = this.getParams(this.page1);
-            console.log('表格一的参数是。。。。', params);
             this.$api.canteen.getcgscDetail(params).then(res => {
                 this.page1.totalNumber = res.count;
                 let cgsc = res.data;
@@ -967,10 +966,6 @@ export default {
             if(this.$refs['branchOffice']) {
                 this.$refs['branchOffice'].values = [];
             }
-            // this.$refs['holdSelect'].values = [];
-            // this.$refs['careerSelect'].values = [];
-            // this.$refs['businessUnit'].values = [];
-            // this.$refs['branchOffice'].values = [];
             if(this.$refs['deptSelect']) {
                 this.$refs['deptSelect'].values = this.form.region.concat();
             }

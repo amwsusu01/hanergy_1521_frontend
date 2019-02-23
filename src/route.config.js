@@ -34,17 +34,6 @@ var Routers = [
                 }
             }, // 1521明细汇总
             {
-                path: '/detailedPersonnelFlow',
-                name: 'newTable',
-                component: function(resolve) {
-                    require(['./module/canteen/canteenFlow/newTable.vue'], resolve)
-                },
-                meta: {
-                    keepAlive: false,
-                    title: '人员流量明细'
-                }
-            }, // 新的页面
-            {
                 path: '/Logdetailsummarystatistics',
                 name: 'canteenSummary',
                 component: function(resolve) {
@@ -173,7 +162,52 @@ var Routers = [
                     require(['./module/entry.vue'], resolve)
                 },
                 meta: { keepAlive: false, title: '人力报表' }
-            }
+            },
+            // 国内销售总部人员数据分析
+            {
+                path: '/detailedPersonnelFlow',
+                name: 'newTable',
+                component: function(resolve) {
+                    require(['./module/canteen/canteenFlow/newTable.vue'], resolve)
+                },
+                meta: {
+                    keepAlive: false,
+                    title: '人员流量明细'
+                }
+            }, // 人员流量明细
+            {
+                path: '/offerOfRetiredPersonnel',
+                name: 'offerOfRetiredPersonnel',
+                component: function(resolve) {
+                    require(['./module/canteen/canteenFlow/offerOfRetiredPersonnel.vue'], resolve)
+                },
+                meta: {
+                    keepAlive: false,
+                    title: '离职人员报盘'
+                }
+            }, // 离职人员报盘 
+            {
+                path: '/onTheJobOffer',
+                name: 'onTheJobOffer',
+                component: function(resolve) {
+                    require(['./module/canteen/canteenFlow/onTheJobOffer.vue'], resolve)
+                },
+                meta: {
+                    keepAlive: false,
+                    title: '在职人员报盘'
+                }
+            }, // 在职人员报盘 
+            {
+                path: '/salesPersonnerData',
+                name: 'salesPersonnerData',
+                component: function(resolve) {
+                    require(['./module/canteen/canteenFlow/salesPersonnelData.vue'], resolve)
+                },
+                meta: {
+                    keepAlive: false,
+                    title: '销售人员数据'
+                }
+            }, // 销售人员数据
         ]
     },
 ]

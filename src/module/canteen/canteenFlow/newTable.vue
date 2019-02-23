@@ -1,5 +1,5 @@
 <template>
-  <div class="new-container">
+  <div class="canteen-history-order">
     <div class="box">
       <el-form :inline="true" ref="form" class="contain" size="mini">
         <el-form-item label="负责人:" size="mini" prop="konggujitua">
@@ -63,96 +63,48 @@
             <el-button size="mini" type="primary" class="query" @click="queryList()">查询</el-button>
             <el-button size="mini" type="primary" class="reset" @click="resetForm()">重置</el-button>
         </el-form-item>
-        <div class="table">
-            <el-button class="exp-btn" plain size="small">导出</el-button>
-            <el-table
-            :data="tableData"
-            border
-            style="width: 100%">
-            <el-table-column
-              prop="date"
-              label="负责人"
-              width="150">
-            </el-table-column>
-            <el-table-column
-              prop="name"
-              label="招聘负责人"
-              width="120">
-            </el-table-column>
-            <el-table-column
-              prop="province"
-              label="候选人姓名"
-              width="120">
-            </el-table-column>
-            <el-table-column
-              prop="city"
-              label="候选人工号"
-              width="120">
-            </el-table-column>
-            <el-table-column
-              prop="address"
-              label="候选人身份证"
-              width="150">
-            </el-table-column>
-            <el-table-column
-              prop="zip"
-              label="招聘职位"
-              width="120">
-            </el-table-column>
-            <el-table-column
-              label="推荐职级"
-              width="100">
-            </el-table-column>
-            <el-table-column
-              prop="address"
-              label="招聘的集团"
-              width="150">
-            </el-table-column>
-            <el-table-column
-              prop="zip"
-              label="应聘部门所属HRVP"
-              width="120">
-            </el-table-column>
-            <el-table-column
-              label="应聘的部门/事业部"
-              width="100">
-            </el-table-column>
-            <el-table-column
-              prop="address"
-              label="业务单元"
-              width="150">
-            </el-table-column>
-            <el-table-column
-              prop="zip"
-              label="工作地点"
-              width="120">
-            </el-table-column>
-            <el-table-column
-              label="是否在华为工作过"
-              width="100">
-            </el-table-column>
-            <el-table-column
-              label="入职后汇报领导"
-              width="100">
-            </el-table-column>
-            <el-table-column
-              prop="address"
-              label="分管领导"
-              width="150">
-            </el-table-column>
-            <el-table-column
-              prop="zip"
-              label="简历来源"
-              width="120">
-            </el-table-column>
-            <el-table-column
-              fixed="right"
-              label="谈薪日期"
-              width="100">
-            </el-table-column>
-          </el-table>
-          </div>
       </el-form>
+    </div> 
+    <div class="table">
+      <el-button class="exp-btn" plain size="small">导出</el-button>
+      <el-table :data="tableData" border style="width: 100%">
+        <el-table-column label="人员流量明细" label-class-name="table-title">
+          <el-table-column prop="date" label="负责人" width="150">
+          </el-table-column>
+          <el-table-column prop="name" label="招聘负责人" width="120">
+          </el-table-column>
+          <el-table-column prop="province" label="候选人姓名" width="120">
+          </el-table-column>
+          <el-table-column prop="city" label="候选人工号" width="120">
+          </el-table-column>
+          <el-table-column prop="address" label="候选人身份证" width="150">
+          </el-table-column>
+          <el-table-column prop="zip" label="招聘职位" width="120">
+          </el-table-column>
+          <el-table-column label="推荐职级" width="100">
+          </el-table-column>
+          <el-table-column prop="address" label="招聘的集团" width="150">
+          </el-table-column>
+          <el-table-column prop="zip" label="应聘部门所属HRVP" width="120">
+          </el-table-column>
+          <el-table-column label="应聘的部门/事业部" width="100">
+          </el-table-column>
+          <el-table-column prop="address" label="业务单元" width="150">
+          </el-table-column>
+          <el-table-column prop="zip" label="工作地点" width="120">
+          </el-table-column>
+          <el-table-column label="是否在华为工作过" width="100">
+          </el-table-column>
+          <el-table-column label="入职后汇报领导" width="100">
+          </el-table-column>
+          <el-table-column prop="address" label="分管领导" width="150">
+          </el-table-column>
+          <el-table-column prop="zip" label="简历来源" width="120">
+          </el-table-column>
+          <el-table-column fixed="right" label="谈薪日期" width="100">
+          </el-table-column>
+        </el-table-column>
+      </el-table>
     </div>
   </div>
 </template>
@@ -172,6 +124,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .box{
     width:100%;
     .el-form{
@@ -193,5 +146,14 @@ export default {
             right:0;
         }
     }
+}
+.table {
+  position: relative;
+  .exp-btn {
+    position: absolute;
+    right: 15px;
+    z-index: 1000;
+    top: 10px;
+  }
 }
 </style>
