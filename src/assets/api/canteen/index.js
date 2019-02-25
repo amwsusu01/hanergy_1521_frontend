@@ -32,7 +32,12 @@ const apiURL = {
     getIntrospectionList: '/detailcollect/introspectionDetail',
 
     // 全民提报数据明细
-    gettableDataSub: '/detailcollect/allreport'
+    gettableDataSub: '/detailcollect/allreport',
+
+    // 人员流量明细
+    getPersonnelFlow: '/personnelflow/list',
+    // 查询人员流量明细的下拉框数据
+    getPersonnelFlowSelect: '/personnelflow/param'
 }
 
 export default {
@@ -102,5 +107,11 @@ export default {
     },
     gettableDataSub(params) {
         return Api.post(apiURL.gettableDataSub, params)
+    },
+    getPersonnelflow(params) {
+        return Api.post(apiURL.getPersonnelFlow, params)
+    },
+    getPersonnelFlowSelect(params) {
+        return Api.post(apiURL.getPersonnelFlowSelect, params)
     }
 }

@@ -6,7 +6,7 @@
 </template>
 <script type="text/javascript">
 export default {
-    name: 'rank-select',
+    name: 'branch-office',
     props: {
       branchList: Array
     },
@@ -25,7 +25,6 @@ export default {
     methods: {
         changeSelect(val) {
             this.$emit('updataOrgData', {type: 'shenggongsi', val: val});
-            console.log('省公司触发一一一一')
         }
     }
 }

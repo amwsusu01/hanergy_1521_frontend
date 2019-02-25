@@ -285,7 +285,7 @@
                 <div class="table">
                     <el-button v-if="buttons1['79']==true" class="exp-btn" plain size="small" @click="exportExl(2)">导出</el-button>
                     <el-table :data="tableDataSub" border style="width: 100%">
-                        <el-table-column label="部门反省明细表" label-class-name="table-title">
+                        <el-table-column label="全员提报数据明细" label-class-name="table-title">
                             <el-table-column prop="in_month" label="月份" min-width="10%" width="150">
                             </el-table-column>
                             <el-table-column prop="in_date" label="日期" min-width="10%" width="150">
@@ -677,6 +677,7 @@ export default {
 
             this.$api.canteen.getProblemList(params).then(res => {
                 this.page8.totalNumber = res.count
+                console.log('第8个表的总数。。。', this.page8.totalNumber);
                 let qusetionData = res.data;
                 console.log(qusetionData)
                 this.tableDataQuestion = qusetionData;

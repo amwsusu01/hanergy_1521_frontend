@@ -6,7 +6,7 @@
 </template>
 <script type="text/javascript">
 export default {
-    name: 'rank-select',
+    name: 'business-unit',
     props: {
       businessList: Array
     },
