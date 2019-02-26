@@ -51,7 +51,7 @@ export default {
         return Api.exportGet(apiURL.exportExcel, obj);
     },
     export (obj) {
-        return Api.post(apiURL.export, obj);
+        return Api.exportPost(apiURL.export, obj);
     },
     getUserList(obj) {
         return Api.get(`${configM.otherComUrl}${apiURL.userList}`, obj);

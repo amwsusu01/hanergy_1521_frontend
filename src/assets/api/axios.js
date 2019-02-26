@@ -1,7 +1,7 @@
 import Axios from 'axios'
 import QS from 'querystring'
 import Call from './call'
-import {_sessionStorage} from "../js/util";
+import { _sessionStorage } from "../js/util";
 
 
 // TODO baseURL
@@ -10,9 +10,9 @@ import {_sessionStorage} from "../js/util";
 
 //测试url
 
-var urls = configM.comUrl;//'http://172.28.27.69:8082'//
-var otherUrls = configM.otherComUrl;//'http://172.28.27.69:8082'//
-var permissonUrls = configM.permissonComUrl;//'http://172.28.27.69:8082'//
+var urls = configM.comUrl; //'http://172.28.27.69:8082'//
+var otherUrls = configM.otherComUrl; //'http://172.28.27.69:8082'//
+var permissonUrls = configM.permissonComUrl; //'http://172.28.27.69:8082'//
 
 Axios.defaults.baseURL = urls || otherUrls || permissonUrls;
 
@@ -26,12 +26,12 @@ Axios.defaults.timeout = 300000;
 Axios.defaults.withCredentials = false;
 
 // TODO http code 校验
-Axios.defaults.validateStatus = function (status) {
+Axios.defaults.validateStatus = function(status) {
     return status
 }
 
 // TODO GET 请求 params 序列化
-Axios.defaults.paramsSerializer = function (params) {
+Axios.defaults.paramsSerializer = function(params) {
     return QS.stringify(params)
 }
 
@@ -103,9 +103,9 @@ Axios.interceptors.response.use(res => {
 function get2(url) {
     Axios.defaults.responseType = '';
     return new Call((resolve, reject) => {
-        Axios.get(url, {params: params})
+        Axios.get(url, { params: params })
             .then(response => {
-                if(response.status == '0'){
+                if (response.status == '0') {
                     console.log('response.msg == 0')
                     vm.$message.error({
                         message: response.msg,
@@ -119,7 +119,7 @@ function get2(url) {
                 resolve(response)
             })
             .catch(error => {
-                console.log(url,'网络超时的URL',error);
+                console.log(url, '网络超时的URL', error);
                 vm.$message.error({
                     message: '网络超时，请稍后重试',
                     duration: 1000,
@@ -141,12 +141,12 @@ function get(url, params) {
         //给get请求后面追加时间戳
         // let timestamp = (new Date()).valueOf();
         // params.timestamp = timestamp
-        Axios.get(url, {params: params})
+        Axios.get(url, { params: params })
             .then(response => {
                 resolve(response) //res直接返回数据 无code 无data
             })
             .catch(error => {
-                console.log(url,'网络超时的URL',error);
+                console.log(url, '网络超时的URL', error);
                 vm.$message.error({
                     message: '网络超时，请稍后重试',
                     duration: 1000,
@@ -168,15 +168,15 @@ function exportGet(url, params) {
         //给get请求后面追加时间戳
         let timestamp = (new Date()).valueOf();
         params.timestamp = timestamp
-        
-        Axios.get(url, {params: params},{ responseType: 'blob'})
+
+        Axios.get(url, { params: params }, { responseType: 'blob' })
             .then(response => {
-                
+
                 resolve(response) //res直接返回数据 无code 无data
             })
             .catch(error => {
-                
-                console.log(url,'网络超时的URL',error);
+
+                console.log(url, '网络超时的URL', error);
                 vm.$message.error({
                     message: '网络超时，请稍后重试',
                     duration: 1000,
@@ -198,13 +198,13 @@ function exportPost(url, params) {
         let timestamp = (new Date()).valueOf();
         params.timestamp = timestamp
 
-        Axios.post(url,params,{ responseType: 'blob'})
+        Axios.post(url, params, { responseType: 'blob' })
             .then(response => {
                 resolve(response) //res直接返回数据 无code 无data
             })
             .catch(error => {
 
-                console.log(url,'网络超时的URL',error);
+                console.log(url, '网络超时的URL', error);
                 vm.$message.error({
                     message: '网络超时，请稍后重试',
                     duration: 1000,
@@ -226,7 +226,7 @@ function post(url, body) {
         Axios.post(url, body)
             .then(response => {
                 //错误提示！
-                if(response.status == 1){
+                if (response.status == 1) {
                     vm.$message.error({
                         message: response.msg,
                         duration: 1000,
@@ -239,7 +239,7 @@ function post(url, body) {
                 resolve(response)
             })
             .catch(error => {
-                console.log(url,'网络超时的URL',error);
+                console.log(url, '网络超时的URL', error);
                 vm.$message.error({
                     message: '网络超时，请稍后重试',
                     duration: 1000,
@@ -255,5 +255,10 @@ function direct(url) {
 }
 
 export default {
-    get, post, direct, get2,exportGet,exportPost
+    get,
+    post,
+    direct,
+    get2,
+    exportGet,
+    exportPost
 }

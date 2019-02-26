@@ -49,13 +49,11 @@
         </el-form-item>
         <el-form-item label="谈薪时间:" prop="date">
           <el-col :span="8" style="width:120px;">
-              <!-- <el-date-picker size="mini" type="month" value-format="yyyy-MM" style="width: 100%;"></el-date-picker> -->
-              <el-date-picker v-model="salaryTime.value1" value-format="yyyy-MM-d" placeholder="选择日期时间" :picker-options="pickerOptionsBeforeApply" @change="changeTime"></el-date-picker>
+              <el-date-picker v-model="salaryTime.value1" value-format="yyyy-MM-d" placeholder="选择日期时间" :picker-options="pickerOptionsBeforeSalary" @change="changeTime"></el-date-picker>
           </el-col>
           <el-col class="line" :span="1">-</el-col>
           <el-col style="width:120px;display: inline-block">
-              <!-- <el-date-picker size="mini" type="month" value-format="yyyy-MM" style="width: 100%;"></el-date-picker> -->
-              <el-date-picker v-model="salaryTime.value2" value-format="yyyy-MM-d" placeholder="选择日期时间" @change="changeTime" :picker-options="pickerOptionsAfterApply"></el-date-picker>
+              <el-date-picker v-model="salaryTime.value2" value-format="yyyy-MM-d" placeholder="选择日期时间" :picker-options="pickerOptionsAfterSalary" @change="changeTime"></el-date-picker>
           </el-col>
         </el-form-item>
         <el-form-item label="offer时间:" prop="date">
@@ -177,15 +175,15 @@ export default {
           candidateList: '', // 候选人姓名
           positionNumberList: '', // 候选人工号
       },
-      pickerOptionsBeforeApply:{
-          disabledDate: (time) => {
-              return this.$moment(time).isAfter(this.salaryTime.value2);
-          }
+      pickerOptionsBeforeSalary: {
+        disabledDate: (time) => {
+          return this.$moment(time).isAfter(this.salaryTime.value2);
+        }
       },
-      pickerOptionsAfterApply:{
-          disabledDate: (time) => {
-              return this.$moment(time).isBefore(this.salaryTime.value1);
-          }
+      pickerOptionsAfterSalary: {
+        disabledDate: (time) => {
+          return this.$moment(time).isBefore(this.salaryTime.value1);
+        }
       },
       pickerOptionsBeforeOffer: {
         disabledDate: (time) => {
