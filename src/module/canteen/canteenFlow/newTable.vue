@@ -49,29 +49,29 @@
         </el-form-item>
         <el-form-item label="谈薪时间:" prop="date">
           <el-col :span="8" style="width:120px;">
-              <el-date-picker v-model="salaryTime.value1" value-format="yyyy-MM-d" placeholder="选择日期时间" :picker-options="pickerOptionsBeforeSalary" @change="changeTime"></el-date-picker>
+              <el-date-picker v-model="salaryTime.value1" value-format="yyyy-MM-d" placeholder="选择日期时间" :picker-options="pickerOptionsBeforeSalary" @change="changeTime" size="mini" style="width: 100%;"></el-date-picker>
           </el-col>
           <el-col class="line" :span="1">-</el-col>
           <el-col style="width:120px;display: inline-block">
-              <el-date-picker v-model="salaryTime.value2" value-format="yyyy-MM-d" placeholder="选择日期时间" :picker-options="pickerOptionsAfterSalary" @change="changeTime"></el-date-picker>
+              <el-date-picker v-model="salaryTime.value2" value-format="yyyy-MM-d" placeholder="选择日期时间" :picker-options="pickerOptionsAfterSalary" @change="changeTime" size="mini" style="width: 100%;"></el-date-picker>
           </el-col>
         </el-form-item>
         <el-form-item label="offer时间:" prop="date">
           <el-col :span="8" style="width:120px;">
-              <el-date-picker v-model="offerTime.value1" value-format="yyyy-MM-d" placeholder="选择日期时间" :picker-options="pickerOptionsBeforeOffer" @change="changeTime"></el-date-picker>
+              <el-date-picker v-model="offerTime.value1" value-format="yyyy-MM-d" placeholder="选择日期时间" :picker-options="pickerOptionsBeforeOffer" @change="changeTime" size="mini" style="width: 100%;"></el-date-picker>
           </el-col>
           <el-col class="line" :span="1">-</el-col>
           <el-col style="width:120px;display: inline-block">
-              <el-date-picker v-model="offerTime.value2" value-format="yyyy-MM-d" placeholder="选择日期时间" :picker-options="pickerOptionsAfterOffer" @change="changeTime"></el-date-picker>
+              <el-date-picker v-model="offerTime.value2" value-format="yyyy-MM-d" placeholder="选择日期时间" :picker-options="pickerOptionsAfterOffer" @change="changeTime" size="mini" style="width: 100%;"></el-date-picker>
           </el-col>
         </el-form-item>
         <el-form-item label="入职时间:" prop="date">
           <el-col :span="8" style="width:120px;">
-              <el-date-picker v-model="entryTime.value1" value-format="yyyy-MM-d" placeholder="选择日期时间" :picker-options="pickerOptionsBeforeEntry" @change="changeTime"></el-date-picker>
+              <el-date-picker v-model="entryTime.value1" value-format="yyyy-MM-d" placeholder="选择日期时间" :picker-options="pickerOptionsBeforeEntry" @change="changeTime" size="mini" style="width: 100%;"></el-date-picker>
           </el-col>
           <el-col class="line" :span="1">-</el-col>
           <el-col style="width:120px;display: inline-block">
-              <el-date-picker v-model="entryTime.value2" value-format="yyyy-MM-d" placeholder="选择日期时间" :picker-options="pickerOptionsAfterEntry" @change="changeTime"></el-date-picker>
+              <el-date-picker v-model="entryTime.value2" value-format="yyyy-MM-d" placeholder="选择日期时间" :picker-options="pickerOptionsAfterEntry" @change="changeTime" size="mini" style="width: 100%;"></el-date-picker>
           </el-col>
         </el-form-item>
         <el-form-item class="operate buttons">
@@ -287,7 +287,8 @@ export default {
     },
     CurrentChange(val) {
       // 点击按钮改变当前页数
-      console.log('val.....', val);
+      this.page.currentPage = val
+      this.getTableData()
     },
     getTableData() {
       let params = this.getParams();
