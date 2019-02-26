@@ -246,6 +246,19 @@ export default {
     selectChange() {
 
     },
+    resetForm() {
+      // 表单重置
+      this.$refs.form.resetFields();
+      this.form.approverList = [];
+      this.form.recruiterList = [];
+      this.form.hrvpList = [];
+      this.form.buoncodeList = [];
+      this.form.divicodeList = [];
+      this.form.busUnitList = [];
+      this.form.jobTitleList = '';
+      this.form.candidateList = '';
+      this.form.positionNumberList = '';
+    },
     getParams() {
       let params = {
         approver: this.form.approverList.join(','), //负责人

@@ -49,7 +49,7 @@
         <el-tabs v-model="activeName2" type="card" @tab-click="handleClick">
             <el-tab-pane label="超过4次(含)未请假未提报统计报表" name="first">
                 <div class="table">
-                        <el-button v-if="buttons['70']==true" class="exp-btn" plain size="small" @click="exportExl(3)">导出</el-button>
+                        <el-button v-if="buttons['70']==true" class="exp-btn" plain size="small" @click="exportExl(1)">导出</el-button>
                         <el-table :data="tableData1" border style="width: 100%">
                             <el-table-column label="超过4次(含)未请假未提报统计报表" label-class-name="table-title">
                                 <el-table-column prop="month1" label="月份" min-width="10%">
@@ -72,7 +72,7 @@
             </el-tab-pane>
             <el-tab-pane label="提报月平均条数小于5明细表" name="second">
                 <div class="table">
-                    <el-button class="exp-btn" plain size="small" v-if="buttons['71']==true" @click="exportExl(4)">导出</el-button>
+                    <el-button class="exp-btn" plain size="small" v-if="buttons['71']==true" @click="exportExl(2)">导出</el-button>
                     <el-table :data="tableData2" border style="width: 100%">
                         <el-table-column prop="date" label="提报月平均条数小于5明细表" label-class-name="table-title">
                             <el-table-column prop="in_month" label="月份" min-width="10%">
@@ -100,7 +100,7 @@
             </el-tab-pane>
             <el-tab-pane label="提报月平均字数小于5明细表" name="third">
                 <div class="table">
-                    <el-button class="exp-btn" v-if="buttons['72']==true" plain size="small" @click="exportExl(5)">导出</el-button>
+                    <el-button class="exp-btn" v-if="buttons['72']==true" plain size="small" @click="exportExl(3)">导出</el-button>
                     <el-table :data="tableData3" border style="width: 100%">
                         <el-table-column prop="date" label="提报月平均字数小于5明细表" label-class-name="table-title">
                             <el-table-column prop="in_month" label="月份" min-width="10%">
@@ -127,7 +127,7 @@
             </el-tab-pane>
             <el-tab-pane label="9点之前提报数据明细表" name="fourth">
                 <div class="table">
-                    <el-button class="exp-btn" plain size="small" v-if="buttons['73']==true" @click="exportExl(6)">导出</el-button>
+                    <el-button class="exp-btn" plain size="small" v-if="buttons['73']==true" @click="exportExl(4)">导出</el-button>
                     <el-table :data="tableData4" border style="width: 100%">
                         <el-table-column prop="date" label="9点之前提报数据明细表" label-class-name="table-title">
                             <el-table-column prop="MONTH" label="月份" min-width="10%">
@@ -154,7 +154,7 @@
             </el-tab-pane>
             <el-tab-pane label="12点之前提报数据明细表" name="fifth">
                 <div class="table">
-                    <el-button class="exp-btn" plain size="small" v-if="buttons['74']==true" @click="exportExl(7)">导出</el-button>
+                    <el-button class="exp-btn" plain size="small" v-if="buttons['74']==true" @click="exportExl(5)">导出</el-button>
                     <el-table :data="tableData5" border style="width: 100%">
                         <el-table-column prop="date" label="12点之前提报数据明细表" label-class-name="table-title">
                             <el-table-column prop="month" label="月份" min-width="10%">
@@ -181,7 +181,7 @@
             </el-tab-pane>
             <el-tab-pane label="提报内容重复超6次(含)汇总表" name="sixth">
                 <div class="table">
-                    <el-button class="exp-btn" plain v-if="buttons['75']==true" size="small" @click="exportExl(8)">导出</el-button>
+                    <el-button class="exp-btn" plain v-if="buttons['75']==true" size="small" @click="exportExl(6)">导出</el-button>
                     <el-table :data="tableData6" border style="width: 100%">
                         <el-table-column prop="date" label="提报内容重复超6次(含)汇总表" label-class-name="table-title">
                             <el-table-column prop="month" label="月份" min-width="10%">
@@ -208,7 +208,7 @@
             </el-tab-pane>
             <el-tab-pane label="提报内容重复超6次(含)明细表" name="seventh">
                 <div class="table">
-                    <el-button class="exp-btn" plain v-if="buttons['76']==true" size="small" @click="exportExl(9)">导出</el-button>
+                    <el-button class="exp-btn" plain v-if="buttons['76']==true" size="small" @click="exportExl(7)">导出</el-button>
                     <el-table :data="tableData7" border style="width: 100%">
                         <el-table-column prop="month" label="提报内容重复超6次(含)明细表" label-class-name="table-title">
                             <el-table-column prop="MONTH" label="月份" min-width="10%">
@@ -232,7 +232,7 @@
             </el-tab-pane>
             <el-tab-pane label="部门问题明细表" name="eighth">
                 <div class="table">
-                    <el-button v-if="buttons1['78']==true" class="exp-btn" plain size="small" @click="exportExl(1)">导出</el-button>
+                    <el-button v-if="buttons1['78']==true" class="exp-btn" plain size="small" @click="exportExl(8)">导出</el-button>
                     <el-table :data="tableDataQuestion" border style="width: 100%">
                         <el-table-column label="部门问题明细表" label-class-name="table-title">
                             <el-table-column prop="month" label="月份" min-width="10%">
@@ -257,7 +257,7 @@
             </el-tab-pane>
             <el-tab-pane label="部门反省明细表" name="ninth">
                 <div class="table">
-                    <el-button v-if="buttons1['79']==true" class="exp-btn" plain size="small" @click="exportExl(2)">导出</el-button>
+                    <el-button v-if="buttons1['79']==true" class="exp-btn" plain size="small" @click="exportExl(9)">导出</el-button>
                     <el-table :data="tableDataIntro" border style="width: 100%">
                         <el-table-column label="部门反省明细表" label-class-name="table-title">
                             <el-table-column prop="month" label="月份" min-width="10%">
@@ -283,7 +283,7 @@
 
             <el-tab-pane label="全员提报数据明细" name="tenth">
                 <div class="table">
-                    <el-button v-if="buttons1['79']==true" class="exp-btn" plain size="small" @click="exportExl(2)">导出</el-button>
+                    <el-button v-if="buttons1['79']==true" class="exp-btn" plain size="small" @click="exportExl(10)">导出</el-button>
                     <el-table :data="tableDataSub" border style="width: 100%">
                         <el-table-column label="全员提报数据明细" label-class-name="table-title">
                             <el-table-column prop="in_month" label="月份" min-width="10%" width="150">
@@ -999,31 +999,34 @@ export default {
             let count = 0;
             switch (type) {
                 case 1:
-                    count = this.page8.totalNumber;
-                    break;
-                case 2:
-                    count = this.page9.totalNumber;
-                    break;
-                case 3:
                     count = this.page1.totalNumber;
                     break;
-                case 4:
+                case 2:
                     count = this.page2.totalNumber;
                     break;
-                case 5:
+                case 3:
                     count = this.page3.totalNumber;
                     break;
-                case 6:
+                case 4:
                     count = this.page4.totalNumber;
                     break;
-                case 7:
+                case 5:
                     count = this.page5.totalNumber;
                     break;
-                case 8:
+                case 6:
                     count = this.page6.totalNumber;
                     break;
-                case 9:
+                case 7:
                     count = this.page7.totalNumber;
+                    break;
+                case 8:
+                    count = this.page8.totalNumber;
+                    break;
+                case 9:
+                    count = this.page9.totalNumber;
+                    break;
+                case 10:
+                    count = this.page10.totalNumber;
                     break;
             }
 
@@ -1063,31 +1066,34 @@ export default {
             let filename = '';
             switch (type) {
                 case 1:
-                    filename = "部门问题明细表.xls";
-                    break;
-                case 2:
-                    filename = "部门反省明细表.xls";
-                    break;
-                case 3:
                     filename = "超过4次(含)未请假未提报统计报表.xls";
                     break;
-                case 4:
+                case 2:
                     filename = "提拔月平均条数小于5明细表.xls";
                     break;
-                case 5:
+                case 3:
                     filename = "提拔月平均字数小于5明细表.xls";
                     break;
-                case 6:
+                case 4:
                     filename = "9点之前提报数据明细表.xls";
                     break;
-                case 7:
+                case 5:
                     filename = "12点之前提报数据明细表.xls";
                     break;
-                case 8:
+                case 6:
                     filename = "提报内容重复超6次(含)汇总表.xls";
                     break;
-                case 9:
+                case 7:
                     filename = "提报内容重复超6次(含)明细表.xls";
+                    break;
+                case 8:
+                    filename = "部门问题明细表.xls";
+                    break;
+                case 9:
+                    filename = "部门反省明细表.xls";
+                    break;
+                case 10:
+                    filename = "全员提报数据明细表.xls";
                     break;
             }
             
