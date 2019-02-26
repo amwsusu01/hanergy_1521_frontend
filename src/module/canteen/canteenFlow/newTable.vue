@@ -81,7 +81,7 @@
       </el-form>
     </div> 
     <div class="table">
-      <el-button class="exp-btn" plain size="small">导出</el-button>
+      <el-button class="exp-btn" plain size="small" @click="exportExl">导出</el-button>
       <el-table :data="tableData" border style="width: 100%">
         <el-table-column label="人员流量明细" label-class-name="table-title">
           <el-table-column prop="approver" label="负责人" width="150" fixed>
@@ -138,6 +138,7 @@
 </template>
 
 <script>
+import { exportExl } from '../../../utils';
 import holdSelect from '../../../components/common/holding-select.vue'; // 控股集团
 export default {
   data (){
@@ -245,6 +246,51 @@ export default {
   methods: {
     selectChange() {
 
+    },
+    exportExl() {
+      let count = this.page.totalNumber;
+      if(count > 10000){
+        this.$confirm('当前导出行数超过1万行， 是否继续?', '提示', {
+          confirmButtonText: '继续',
+          cancelButtonText: '取消',
+          type: 'info'
+        }).then(() => {
+            this.exportExlOk();
+        }).catch(() => {});
+      } else {
+          this.exportExlOk();
+      }
+    },
+    exportExlOk() {
+      let params = {
+        approver: this.form.approverList.join(','), //负责人
+        recruiter: this.form.recruiterList.join(','), //招聘负责人
+        hrvp: this.form.hrvpList.join(','), //HRVP
+        buoncode: this.form.buoncodeList.join(','), //应聘的集团
+        divicode: this.form.divicodeList.join(','), //应聘的部门/事业部
+        busUnit: this.form.busUnitList.join(','), //业务单元
+        jobTitle: this.form.jobTitleList, //应聘职位
+        candidateName: this.form.candidateList, //候选人姓名
+        positionNumber: this.form.positionNumberList, //候选人工号
+        offerStartDate: this.offerTime.value1, //offer开始日期
+        offerEndDate: this.offerTime.value2, //offer结束如期
+        jobStartDate: this.entryTime.value1, //入职开始日期
+        jobEndDate: this.entryTime.value2, //入职结束日期
+        talkStartDate: this.salaryTime.value1, //谈薪开始日期
+        talkEndDate: this.salaryTime.value2, //谈薪结束日期
+        userId: 18000031,
+        userName: "suichen",
+        fullName: "隋琛",
+        systemId: "49",
+        systemName: "管理驾驶舱",
+        menuId: "54",
+        menuName: "人员流量明细",
+        proType: 6
+      }
+      let filename = '人员流量明细表.xls';
+      this.$api.common.exportDetailFlow(params).then(res => {
+          exportExl(res, filename);
+      })
     },
     resetForm() {
       // 表单重置

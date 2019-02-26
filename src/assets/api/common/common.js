@@ -11,6 +11,7 @@ const apiURL = {
     updateDate: '/return/getDate',
     exportExcel: '/return/printExcel',
     export: '/detailcollect/export',
+    exportDetailFlow: '/personnelflow/export', // 人员流量明细数据表导出
     userList: '/admin/api/v1/user/getUserList',
     psmDimension: 'psm/dimension',
     psmWarning: 'psm/getWarning',
@@ -52,6 +53,9 @@ export default {
     },
     export (obj) {
         return Api.exportPost(apiURL.export, obj);
+    },
+    exportDetailFlow(obj) {
+        return Api.exportPost(apiURL.exportDetailFlow, obj);
     },
     getUserList(obj) {
         return Api.get(`${configM.otherComUrl}${apiURL.userList}`, obj);
