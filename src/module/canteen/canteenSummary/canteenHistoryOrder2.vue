@@ -1060,7 +1060,11 @@ export default {
                 systemName: "管理驾驶舱",
                 menuId: "54",
                 menuName: "1521明细",
-                proType: 6
+                proType: 6,
+                jituan: this.allOrganization.konggujituan.join(','),
+                shiyequn: this.allOrganization.shiyequn.join(','),
+                shiyebu: this.allOrganization.shiyebu.join(','),
+                shenggongsi: this.allOrganization.shenggongsi.join(',')
             }
 
             let filename = '';
