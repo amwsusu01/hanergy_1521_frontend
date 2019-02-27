@@ -621,7 +621,7 @@ export default {
                 systemId: "49",//系统id
                 systemName: "管理驾驶舱",
                 menuId: "56",
-                menuName: "问题/反省库",
+                menuName: "全员日志质量分析",
                 proType: 4,
                 isNo:this.isInit,
                 jituan: this.allOrganization.konggujituan.join(','),
@@ -772,7 +772,7 @@ export default {
                 systemId: "49",//系统id
                 systemName: "管理驾驶舱",
                 menuId: "54",
-                menuName: "1521明细",
+                menuName: "全员日志质量分析",
                 proType: 4,
                 isNo:this.isInit,
                 jituan: this.allOrganization.konggujituan.join(','),
@@ -1059,7 +1059,7 @@ export default {
                 systemId: "49",//系统id
                 systemName: "管理驾驶舱",
                 menuId: "54",
-                menuName: "1521明细",
+                menuName: "全员日志质量分析",
                 proType: 6,
                 jituan: this.allOrganization.konggujituan.join(','),
                 shiyequn: this.allOrganization.shiyequn.join(','),
