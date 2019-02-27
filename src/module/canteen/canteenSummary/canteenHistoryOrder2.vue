@@ -624,10 +624,10 @@ export default {
                 menuName: "问题/反省库",
                 proType: 4,
                 isNo:this.isInit,
-                jituanList: this.allOrganization.konggujituan.join(','),
-                shiyequnList: this.allOrganization.shiyequn.join(','),
-                shiyebuList: this.allOrganization.shiyebu.join(','),
-                shenggongsiList: this.allOrganization.shenggongsi.join(',')
+                jituan: this.allOrganization.konggujituan.join(','),
+                shiyequn: this.allOrganization.shiyequn.join(','),
+                shiyebu: this.allOrganization.shiyebu.join(','),
+                shenggongsi: this.allOrganization.shenggongsi.join(',')
             }
 
             return params;
@@ -775,10 +775,10 @@ export default {
                 menuName: "1521明细",
                 proType: 4,
                 isNo:this.isInit,
-                jituanList: this.allOrganization.konggujituan.join(','),
-                shiyequnList: this.allOrganization.shiyequn.join(','),
-                shiyebuList: this.allOrganization.shiyebu.join(','),
-                shenggongsiList: this.allOrganization.shenggongsi.join(',')
+                jituan: this.allOrganization.konggujituan.join(','),
+                shiyequn: this.allOrganization.shiyequn.join(','),
+                shiyebu: this.allOrganization.shiyebu.join(','),
+                shenggongsi: this.allOrganization.shenggongsi.join(',')
             }
             return params;
         },
