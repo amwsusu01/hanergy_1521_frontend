@@ -5,13 +5,13 @@
                 <el-form-item label="控股集团:" size="mini" prop="konggujitua">
                     <hold-select :holdList="holdList"  ref="holdSelect" @updataOrgData="updateOrgData"></hold-select>
                 </el-form-item>
-                <el-form-item label="事业群:" size="mini" prop="rankname">
+                <el-form-item label="事业群:" size="mini" prop="shiyequn">
                     <career-select :careerList="careerList" ref="careerSelect" @updataOrgData="updateOrgData"></career-select>
                 </el-form-item>
-                <el-form-item label="事业部/公司:" size="mini" prop="rankname">
+                <el-form-item label="事业部/公司:" size="mini" prop="shiyebu">
                     <business-unit :businessList="businessList" ref="businessUnit" @updataOrgData="updateOrgData"></business-unit>
                 </el-form-item>
-                <el-form-item label="省公司/分公司:" size="mini" prop="rankname">
+                <el-form-item label="省公司/分公司:" size="mini" prop="shenggongsi">
                     <branch-office :branchList="branchList" ref="branchOffice" @updataOrgData="updateOrgData"></branch-office>
                 </el-form-item>
                 <el-form-item label="部门:" label-width="50px" prop="region">
@@ -22,7 +22,7 @@
                     </el-select> -->
                 </el-form-item>
                 <el-form-item label="职级:" size="mini" prop="rankname">
-                    <rank-select ref="rankSelect" />
+                    <rank-select :rankOptions="rankOptions" ref="rankSelect" />
                 </el-form-item>
                 <el-form-item label="查询时间:" prop="date">
                     <el-col :span="8" style="width:120px;">
@@ -441,23 +441,19 @@ export default {
             businessList: [], // 事业部列表
             branchList: [], // 省公司/分公司
             rankOptions: [{
-                    name: '21-24',
-                    disabled: false
-                }, {
-                    name: '15-20',
-                    disabled: false
-                }, {
-                    name: '10-14',
-                    disabled: true
-                }, {
-                    name: '05-09',
-                    disabled: true
-                },
-                {
-                    name: '01-04',
-                    disabled: true
-                }
-            ],
+                name:'21-24',
+                disabled:false
+            },{
+                name:'15-20',
+                disabled:false
+            },{
+                name:'5-14',
+                disabled:false
+            },
+            {
+                name:'1-4',
+                disabled:true
+            }],
             form: {
                 rankname: [], //职级
                 region: [], //部门
@@ -469,7 +465,7 @@ export default {
                 empid:""
             },
             originForm: {
-                rankname: '', //职级
+                rankname: [], //职级
                 region: [], //部门
                 date: { //时间
                     startTime: '',
@@ -587,9 +583,15 @@ export default {
                 this.form.date.endTime = this.initTime //默认显示时间
                 // this.form.region = this.deptList.map((a) => a.dept_name);
                 this.form.region = this.deptList.map((a) => a);
+                this.form.rankName = this.rankOptions.map(a=>{if(a && !a.disabled) return a.name});
+                console.log('rankOptions....', this.rankOptions);
                 if (this.$refs['deptSelect']) {
                     this.$refs['deptSelect'].values = this.form.region.concat();
                 }
+                this.$refs['rankSelect'].values = this.form.rankName.concat();
+                // if(this.$refs['rankSelect']) {
+                //     this.$refs['rankSelect'].values = this.form.rankName.concat();
+                // }
                 this.init();
             }
         },
@@ -945,7 +947,7 @@ export default {
             this.form.empname="";
             this.form.empid="";
             
-            this.allOrganization.konggujitua = [];
+            // this.allOrganization.konggujitua = [];
 
             //this.holdList = []; // 控股集团列表
             // this.careerList = ""; // 事业群列表
@@ -967,14 +969,14 @@ export default {
             if(this.$refs['branchOffice']) {
                 this.$refs['branchOffice'].values = [];
             }
-            if(this.$refs['deptSelect']) {
-                this.$refs['deptSelect'].values = this.form.region.concat();
-            }
-            if(this.$refs['rankSelect']) {
-                this.$refs['rankSelect'].values = this.form.rankname.concat();
-            }
-             this.init();
-             this.getOrganization();
+            // if(this.$refs['deptSelect']) {
+            //     this.$refs['deptSelect'].values = this.form.region.concat();
+            // }
+            // if(this.$refs['rankSelect']) {
+            //     this.$refs['rankSelect'].values = this.form.rankname.concat();
+            // }
+            this.getOrganization();
+            this.initData(); 
         },
         //开始时间选择改变的函数
         changeTime(startDateTime) {
