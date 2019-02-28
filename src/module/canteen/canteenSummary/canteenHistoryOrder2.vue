@@ -360,6 +360,7 @@ import holdSelect from '../../../components/common/holding-select.vue'; // 控�
 import careerSelect from '../../../components/common/career-select.vue'; // 事业群
 import businessUnit from '../../../components/common/business-unit.vue'; // 事业群
 import branchOffice from '../../../components/common/branch-office.vue'; // 事业群
+import { setTimeout } from 'timers';
 
 export default {
     name: 'canteenHistoryOrder',
@@ -589,9 +590,6 @@ export default {
                     this.$refs['deptSelect'].values = this.form.region.concat();
                 }
                 this.$refs['rankSelect'].values = this.form.rankName.concat();
-                // if(this.$refs['rankSelect']) {
-                //     this.$refs['rankSelect'].values = this.form.rankName.concat();
-                // }
                 this.init();
             }
         },
@@ -732,18 +730,6 @@ export default {
             if (this.$refs['rankSelect']) {
                 this.form.rankname = this.$refs['rankSelect'].values.concat();
             }
-            // if (this.$refs['holdSelect']) {
-            //     this.allOrganization.konggujitua = this.$refs['holdSelect'].values.concat();
-            // }
-            // if (this.$refs['careerSelect']) {
-            //     this.allOrganization.shiyequn = this.$refs['careerSelect'].values.concat();
-            // }
-            // if (this.$refs['businessUnit']) {
-            //     this.allOrganization.shiyebu = this.$refs['businessUnit'].values.concat();
-            // }
-            // if (this.$refs['branchOffice']) {
-            //     this.allOrganization.shenggongsi = this.$refs['branchOffice'].values.concat();
-            // }
             let resDepts = '';
             if (this.form.region.length > 0) {
                 resDepts = this.form.region.join(',');
@@ -946,17 +932,6 @@ export default {
             this.form.date.endTime = this.initTime ;//默认显示时间
             this.form.empname="";
             this.form.empid="";
-            
-            // this.allOrganization.konggujitua = [];
-
-            //this.holdList = []; // 控股集团列表
-            // this.careerList = ""; // 事业群列表
-            // this.businessList = ""; // 事业部列表
-            // this.branchList = ""; // 省公司/分公司
-            
-            //  holdSelect,rankname,businessUnit,branchOffice
-            
-
             if(this.$refs['holdSelect']) {
                 this.$refs['holdSelect'].values = [];
             }
@@ -969,14 +944,32 @@ export default {
             if(this.$refs['branchOffice']) {
                 this.$refs['branchOffice'].values = [];
             }
-            // if(this.$refs['deptSelect']) {
-            //     this.$refs['deptSelect'].values = this.form.region.concat();
-            // }
-            // if(this.$refs['rankSelect']) {
-            //     this.$refs['rankSelect'].values = this.form.rankname.concat();
-            // }
+            if(this.$refs['deptSelect']) { 
+                // let _this = this;
+                // async function get() {
+                //     await _this.getOrganization();
+                //     console.log('this.deptList...', _this.deptList.length);
+                //     _this.$refs['deptSelect'].values = _this.deptList.concat();
+                // }
+                // get();
+                this.getOrganization();
+                let _this = this;
+                setTimeout(function (){
+                    _this.$refs['deptSelect'].values = _this.deptList.concat();
+                },300)
+            }
+            if(this.$refs['rankSelect']) {
+                this.$refs['rankSelect'].values = this.form.rankname.concat();
+            }
+
+            // 重置的话: 部门，事业部，事业群，省公司都应该是空字符串
+            this.allOrganization.konggujituan = []
+            this.allOrganization.shiyequn = []
+            this.allOrganization.shiyebu = []
+            this.allOrganization.shenggongsi = [];
+
             this.getOrganization();
-            this.initData(); 
+            this.initData();
         },
         //开始时间选择改变的函数
         changeTime(startDateTime) {
