@@ -284,7 +284,7 @@
             <el-tab-pane label="全员提报数据明细" name="tenth">
                 <div class="table">
                     <el-button v-if="buttons1['79']==true" class="exp-btn" plain size="small" @click="exportExl(10)">导出</el-button>
-                    <el-table :data="tableDataSub" border style="width: 100%">
+                    <el-table v-loading="loading" :data="tableDataSub" border style="width: 100%">
                         <el-table-column label="全员提报数据明细" label-class-name="table-title">
                             <el-table-column prop="in_month" label="月份" min-width="10%" width="150">
                             </el-table-column>
@@ -375,6 +375,7 @@ export default {
     },
     data() {
         return {
+            loading: true,
             activeName2: 'first',
             isInit:false, //第一次打开初始false,记录日志，否则不记录
             tableData1: [],
@@ -710,6 +711,17 @@ export default {
         gettableDataSub(){
             let params = this.getParams1(this.page10);
             this.$api.canteen.gettableDataSub(params).then(res => {
+                // if(!res.length){
+                //     this.$loading({
+                //         lock: true,
+                //         text: 'Loading',
+                //         spinner: 'el-icon-loading',
+                //         background: 'rgba(0, 0, 0, 0.7)'
+                //     });
+                // }
+                if(res.data.length > 0){
+                    this.loading = false;
+                }
                 console.log('全员提报数据明细。。。。', res);
                 this.page10.totalNumber = res.count
                 let qusetionData = res.data;
@@ -717,6 +729,7 @@ export default {
 
                 this.originForm = Object.assign({}, this.form); //保存上一次的值
             })
+            this.loading = true;
         },
         CurrentChange10(val){
             this.isInit  = true;

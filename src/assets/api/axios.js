@@ -3,7 +3,6 @@ import QS from 'querystring'
 import Call from './call'
 import { _sessionStorage } from "../js/util";
 
-
 // TODO baseURL
 // proxy的配置
 // Axios.defaults.baseURL = '/webApp';
@@ -30,7 +29,7 @@ Axios.defaults.validateStatus = function(status) {
     return status
 }
 
-// TODO GET 请求 params 序列化
+// TODO GET 请求 params 序列化  
 Axios.defaults.paramsSerializer = function(params) {
     return QS.stringify(params)
 }
