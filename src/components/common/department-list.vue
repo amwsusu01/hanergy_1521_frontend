@@ -1,9 +1,11 @@
 <template>
-    <el-select v-model="values"  @change="changeSelect"  multiple collapse-tags placeholder="无限制" size="mini" style="width: 251px;">
-        <el-option-group v-for="group in deptGroup" :key="group.label" :label="group.label" @click.native="checkAllOpts">
-            <el-option v-for="item in group.groups" :key="item" :label="item" :value="item" style="width: 251px">
+    <el-select v-model="values" @focus="aa"  @change="changeSelect"  multiple filterable collapse-tags placeholder="无限制" size="mini" style="width: 251px;">
+        <!-- <el-option-group v-for="group in deptGroup" :key="group.label" :label="group.label" @click.native="checkAllOpts"> -->
+             <el-option label="全选" value="1"   @click.native="checkAllOpts" style="width: 251px">
             </el-option>
-        </el-option-group>
+            <el-option v-for="item in deptGroup[0].groups" :key="item" :label="item" :value="item"  style="width: 251px">
+            </el-option>
+        <!-- </el-option-group> -->
     </el-select>
 </template>
 <script type="text/javascript">
@@ -50,10 +52,14 @@ export default {
             }
         },
         changeSelect(val) {
-            // console.log('目前选种植。。。。', val);
+            console.log('目前选种植。。。。', val);
             //this.values = val;
             this.$emit('updateOrgData', {type: 'bumen', val: val})
             this.$emit('getWarningDetailed')
+        },
+        aa(obj) {  
+            console.log('数据信息。。。。', obj)
+            console.log(this.deptList);
         }
     }
 }
