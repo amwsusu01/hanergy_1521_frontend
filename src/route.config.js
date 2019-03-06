@@ -207,7 +207,7 @@ var Routers = [
                     keepAlive: false,
                     title: '销售人员数据'
                 }
-            }, // 销售人员数据
+            }, // 销售回款明细
         ]
     },
 ]

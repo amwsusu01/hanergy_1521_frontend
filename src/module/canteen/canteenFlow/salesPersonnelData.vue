@@ -41,28 +41,33 @@
       <el-button class="exp-btn" plain size="small">导出</el-button>
       <el-table :data="tableData" border style="width: 100%">
         <el-table-column label="销售人员回款明细数据" label-class-name="table-title">
-          <el-table-column prop="date" label="人员编号" width="150">
+          <el-table-column prop="date" label="签约主体" width="150">
           </el-table-column>
-          <el-table-column prop="name" label="人员姓名" width="120">
+          <el-table-column prop="name" label="事业部" width="120">
           </el-table-column>
-          <el-table-column prop="province" label="省公司/分公司" width="120">
+          <el-table-column prop="province" label="业务部门" width="120">
           </el-table-column>
-          <el-table-column prop="city" label="部门" width="120">
+          <el-table-column prop="city" label="省公司" width="120">
           </el-table-column>
-          <el-table-column prop="address" label="岗位名称" width="150">
+          <el-table-column prop="address" label="负责人" width="150">
           </el-table-column>
-          <el-table-column prop="zip" label="职级" width="120">
+          <el-table-column prop="zip" label="汇款销售人员" width="120">
           </el-table-column>
-          <el-table-column label="在职状态" width="100">
+          <el-table-column label="销售类别" width="100">
           </el-table-column>
-          <el-table-column prop="address" label="工作城市" width="150">
+          <el-table-column prop="address" label="项目模式" width="150">
           </el-table-column>
-          <el-table-column prop="zip" label="加入汉能时间" width="120">
+          <el-table-column prop="zip" label="金额" width="120">
           </el-table-column>
-          <el-table-column prop="zip" label="甲方名称" width="120">
+          <el-table-column prop="zip" label="日期" width="120">
           </el-table-column>
-          <el-table-column label="操作" width="100">
-            <el-button type="primary" plain>查看详情</el-button>
+          <el-table-column prop="zip" label="客户名称" width="120">
+          </el-table-column>
+          <el-table-column prop="zip" label="合同" width="100">
+          </el-table-column>
+          <el-table-column prop="zip" label="商机编码" width="100">
+          </el-table-column>
+          <el-table-column prop="zip" label="会计凭证编码" width="110">
           </el-table-column>
         </el-table-column>
       </el-table>
