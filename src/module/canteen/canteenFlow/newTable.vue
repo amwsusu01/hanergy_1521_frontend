@@ -47,7 +47,7 @@
         <el-form-item label="候选人工号:" size="mini" prop="konggujitua">
             <el-input placeholder="请填写候选人工号" v-model="form.positionNumberList"/>
         </el-form-item>
-        <el-form-item label="谈薪时间:" prop="date">
+        <el-form-item label="简历时间:" prop="date">
           <el-col :span="8" style="width:122px;">
               <el-date-picker v-model="salaryTime.value1" value-format="yyyy-MM-d" placeholder="选择日期时间" :picker-options="pickerOptionsBeforeSalary" @change="changeTime" size="mini" style="width: 100%;"></el-date-picker>
           </el-col>
@@ -121,7 +121,7 @@
           </el-table-column>
           <el-table-column prop="resumeSource" label="简历来源" width="120">
           </el-table-column>
-          <el-table-column prop="talkSalaryDate" fixed="right" label="谈薪日期" width="100">
+          <el-table-column prop="talkSalaryDate" fixed="right" label="简历日期" width="100">
           </el-table-column>
           <el-table-column prop="offerDate" fixed="right" label="offer日期" width="100">
           </el-table-column>
@@ -228,13 +228,24 @@ export default {
     holdSelect
   },
   created() {
-    let now = new Date(),
-     nowYear = now.getFullYear(),
-     nowMonth = now.getMonth(),
-     nowDate = now.getDate();
-    let nowTime = nowYear + '-0' + nowMonth + '-' + nowDate;
-    //this.salaryTime.value1 = this.salaryTime.value2 = this.offerTime.value1 = this.offerTime.value2 = this.entryTime.value1 = this.entryTime.value2 = nowTime;
-    // console.log('当前年份。。。。', nowYear);
+      var date = new Date();
+      var seperator1 = "-";
+      var year = date.getFullYear();
+      var month = date.getMonth() + 1;
+      var strDate = date.getDate();
+      if (month >= 1 && month <= 9) {
+          month = "0" + month;
+      }
+      if (strDate >= 0 && strDate <= 9) {
+          strDate = "0" + strDate;
+      }
+      var firstDate = year + seperator1 + month + seperator1 + "01";
+      var lastDateOfCurrentMonth = new Date(year,month,0);
+      var lastDate=year + seperator1 + month + seperator1+lastDateOfCurrentMonth.getDate();
+
+      this.salaryTime.value1 =this.offerTime.value1 =  this.entryTime.value1 =  firstDate;
+      this.salaryTime.value2=this.offerTime.value2=this.entryTime.value2=lastDate;
+      // console.log('当前年份。。。。', nowYear);
     // console.log('当前月份。。。。', nowMonth);
     // console.log('当前时间日子。。。。', nowDate);
     // console.log('当前时间。。。。',now);
