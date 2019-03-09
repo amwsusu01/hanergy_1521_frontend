@@ -245,7 +245,7 @@
                             </el-table-column>
                             <el-table-column prop="deptname" label="部门" min-width="15%" show-overflow-tooltip>
                             </el-table-column>
-                            <el-table-column prop="content" label="提报内容" min-width="45%" show-overflow-tooltip>
+                            <el-table-column prop="sol_pro" label="提报内容" min-width="45%" show-overflow-tooltip>
                             </el-table-column>
                         </el-table-column>
                     </el-table>
@@ -270,7 +270,7 @@
                             </el-table-column>
                             <el-table-column prop="deptname" label="部门" show-overflow-tooltip min-width="15%">
                             </el-table-column>
-                            <el-table-column prop="content" label="提报内容" show-overflow-tooltip min-width="45%">
+                            <el-table-column prop="introspect" label="提报内容" show-overflow-tooltip min-width="45%">
                             </el-table-column>
                         </el-table-column>
                     </el-table>
