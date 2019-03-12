@@ -211,7 +211,7 @@
                     <el-button class="exp-btn" plain v-if="buttons['76']==true" size="small" @click="exportExl(7)">导出</el-button>
                     <el-table :data="tableData7" border style="width: 100%">
                         <el-table-column prop="month" label="提报内容重复超6次(含)明细表" label-class-name="table-title">
-                            <el-table-column prop="MONTH" label="月份" min-width="10%">
+                            <el-table-column prop="month" label="月份" min-width="10%">
                             </el-table-column>
                             <el-table-column prop="day1" label="日期" min-width="10%">
                             </el-table-column>
