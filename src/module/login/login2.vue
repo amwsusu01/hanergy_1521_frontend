@@ -95,8 +95,7 @@ export default {
             get(){
                 var user=this.$store.state.common.user;
                 if(!user){
-                    console.log(_sessionStorage("loggeduser"));
-                    user=JSON.parse(_sessionStorage("loggeduser"));
+                    user=_sessionStorage("loggeduser");
                 }
                 return user;
             }
@@ -140,7 +139,7 @@ export default {
                     LocalStorage("menuData", JSON.stringify(this.menuData));
                     LocalStorage("allMenu", JSON.stringify(this.allMenu));
                     LocalStorage("sysTitle", this.sysTitle);
-                    _sessionStorage("loggeduser", JSON.stringify(res.user));
+                    _sessionStorage("loggeduser", res.user);
 
                     let firstPage = 'canteenOrder',firstName='',defaultMenuId='';
                     if(this.menuData.length > 0 && this.menuData[0].list.length > 0) {

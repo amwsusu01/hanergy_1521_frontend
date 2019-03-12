@@ -109,6 +109,9 @@
                     <el-table-column prop="candidateName" label="候选人姓名" width="120">
                     </el-table-column>
                     <el-table-column prop="positionNumber" label="候选人工号" width="120">
+                        <template slot-scope="scope">
+                            <div style="text-align: center">{{scope.row.positionNumber?scope.row.positionNumber:'--'}}</div>
+                        </template>
                     </el-table-column>
                     <el-table-column prop="nationalidcardmun" label="候选人身份证" width="150">
                     </el-table-column>
@@ -119,31 +122,49 @@
                     <el-table-column prop="buoncode" label="应聘的集团" width="150">
                     </el-table-column>
                     <el-table-column prop="hrvp" label="应聘部门所属HRVP" width="120">
+                        <template slot-scope="scope">
+                            <div style="text-align: center">{{scope.row.hrvp?scope.row.hrvp:'--'}}</div>
+                        </template>
                     </el-table-column>
                     <!-- 应聘部门 -->
                     <el-table-column prop="divicode" label="应聘的部门/事业部" width="100">
                     </el-table-column>
                     <el-table-column prop="busUnit" label="业务单元" width="150">
+                        <template slot-scope="scope">
+                            <div style="text-align: center">{{scope.row.busUnit?scope.row.busUnit:'--'}}</div>
+                        </template>
                     </el-table-column>
                     <el-table-column prop="locationcode" label="工作地点" width="120">
                     </el-table-column>
                     <!-- 没有看到数据 TODOLIST -->
-                    <el-table-column prop="" label="是否在华为工作过" width="100">
+                   <!-- <el-table-column prop="" label="是否在华为工作过" width="100">
                     </el-table-column>
                     <el-table-column label="在华为工作时间" width="100">
-                    </el-table-column>
+                    </el-table-column>-->
                     <!-- 没有看到数据 TODOLIST -->
                     <el-table-column prop="hiringManager" label="入职后汇报领导" width="100">
                     </el-table-column>
                     <el-table-column prop="leaderShip" label="分管领导" width="150">
+                        <template slot-scope="scope">
+                            <div style="text-align: center">{{scope.row.leaderShip?scope.row.leaderShip:'--'}}</div>
+                        </template>
                     </el-table-column>
                     <el-table-column prop="resumeSource" label="简历来源" width="120">
+                        <template slot-scope="scope">
+                            <div style="text-align: center">{{scope.row.resumeSource?scope.row.resumeSource:'--'}}</div>
+                        </template>
                     </el-table-column>
                     <el-table-column prop="talkSalaryDate" fixed="right" label="简历日期" width="100">
                     </el-table-column>
                     <el-table-column prop="offerDate" fixed="right" label="offer日期" width="100">
+                        <template slot-scope="scope">
+                            <div style="text-align: center">{{scope.row.offerDate?scope.row.offerDate:'--'}}</div>
+                        </template>
                     </el-table-column>
                     <el-table-column prop="jobDate" fixed="right" label="入职日期" width="100">
+                        <template slot-scope="scope">
+                            <div style="text-align: center">{{scope.row.jobDate?scope.row.jobDate:'--'}}</div>
+                        </template>
                     </el-table-column>
                 </el-table-column>
             </el-table>
@@ -331,6 +352,7 @@
                 this.form.positionNumber = '';
                 this.resetTime();
                 //this.$refs.form.resetFields();
+                this.page.currentPage=1;
                 this.getTableData();
             },
             getParams() {
@@ -364,6 +386,7 @@
                 return params;
             },
             queryList() {
+                this.page.currentPage=1;
                 this.getTableData();
             },
             changeTime(vm) {

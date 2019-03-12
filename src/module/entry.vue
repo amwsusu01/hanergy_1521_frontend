@@ -75,6 +75,15 @@ export default {
                 //考勤综合分析
                 case 11:
                     return "考勤综合分析";
+                //库存统计报表
+                case 12:
+                    return "库存统计报表";
+                //质量管理驾驶舱
+                case 13:
+                    return "质量管理驾驶舱";
+                //质量成本与效率管理
+                case 14:
+                    return "质量成本与效率管理";
             }
         },
         otherId(){
@@ -91,6 +100,15 @@ export default {
                 //考勤综合分析
                 case 11:
                     return "129";
+                //库存统计报表
+                case 12:
+                    return "131";
+                //质量管理驾驶舱
+                case 13:
+                    return "143";
+                //质量成本与效率管理
+                case 14:
+                    return "144";
             }
         },
         sendQuery(){
@@ -98,6 +116,7 @@ export default {
             var childId = this.initId();
             var nextName = this.otherName();
             var nextId = this.otherId();
+
             if(Number(this.type) == 8 || Number(this.type) == 9 || Number(this.type) == 10 || Number(this.type) == 11){
                 var params = {
                     data: {
@@ -113,7 +132,37 @@ export default {
                     indexName: "1521_operation_log",
                     indexType: "processrecode"
                 };
-            }else{
+            }else  if(Number(this.type) == 12){
+                var params = {
+                    data: {
+                        userId: this.userObj.userId,
+                        userName: this.userObj.username,
+                        fullName: this.userObj.name,
+                        systemId: "130",//系统id
+                        systemName: "供应链仓储管理",
+                        menuId: nextId,
+                        menuName: nextName,
+                        proType: 4
+                    },
+                    indexName: "1521_operation_log",
+                    indexType: "processrecode"
+                };
+            } else if(Number(this.type) == 12||Number(this.type) == 13){
+                var params = {
+                    data: {
+                        userId: this.userObj.userId,
+                        userName: this.userObj.username,
+                        fullName: this.userObj.name,
+                        systemId: "142",//系统id
+                        systemName: "质量分析管理",
+                        menuId: nextId,
+                        menuName: nextName,
+                        proType: 4
+                    },
+                    indexName: "1521_operation_log",
+                    indexType: "processrecode"
+                };
+            } else{
                 var params = {
                     data: {
                         userId: this.userObj.userId,
@@ -213,6 +262,13 @@ export default {
                         //库存统计BI报表
                     case 12:
                         return 'http://192.168.19.212/BigdataPlatform/SupplyChainWarehousingManagement/inventorystatementreport.html';
+
+                        //质量管理驾驶舱
+                    case 13:return 'http://192.168.19.212/BigdataPlatform/qamanage/qualitymanage.html';
+
+                    //质量成本与效率管理
+                    case 14:return 'http://192.168.19.212/BigdataPlatform/qamanage/costandefficiency.html';
+
                 }
             }
         }
