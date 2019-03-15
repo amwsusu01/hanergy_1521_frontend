@@ -23,7 +23,7 @@
                 :data="allDataList"
                 show-checkbox
                 node-key="id"
-                :default-checked-keys="checkId"
+                :default-checked-keys="selectDeptIds"
                 @check-change="handleCheckChange"
                 default-expand-all
                 :filter-node-method="filterNode"
@@ -73,6 +73,7 @@
                 return data.label.indexOf(value) !== -1;
             },
             handleCheckChange(data, checked) {
+                debugger;
                 if(checked == true){
                     this.selectDeptIds.push(data.id);
                 }else{
@@ -85,6 +86,7 @@
             //修改
             modification(){
                 this.selectNewDeptIds = [...new Set(this.selectDeptIds)]
+                console.log("dept",this.selectNewDeptIds);
                 let params = {
                     userCode: this.$route.query.jobNumber,
                     deptids: this.selectNewDeptIds.join(","),
@@ -92,12 +94,11 @@
                     userId: this.userObj.userId,
                     userName: this.userObj.username,
                     fullName: this.userObj.name,
-                    proType: 2
-                    // systemId: "49",//系统id
-                    // systemName: "管理驾驶舱",
-                    // menuId: "53",
-                    // menuName: "1521总览",
-
+                    proType: 2,
+                    systemId: "92",//系统id
+                    systemName: "管理系统",
+                    menuId: "93",
+                    menuName: "基础管理"
                 };
                 this.$api.common.updateSelectDeptList(params).then(res => {
                     this.$message({
@@ -115,15 +116,7 @@
             //获取当前用户的权限
             getCheckedData(){
                 let param = {
-                    userCode: this.$route.query.jobNumber,
-                    userId: this.userObj.userId,
-                    userName: this.userObj.username,
-                    fullName: this.userObj.name,
-                    // systemId: "49",//系统id
-                    // systemName: "管理驾驶舱",
-                    // menuId: "53",
-                    // menuName: "1521总览",
-                     proType: 5
+                    userCode: this.$route.query.jobNumber
                 };
                 this.$api.common.getSelectPermission(param).then(res =>{
                     let user = JSON.parse(res.user) || [];
@@ -131,24 +124,13 @@
                     this.selectDeptIds= [];
                     for(var i = 0; i< user.length; i++){
                         let id = user[i].dept_id+'';
-                        this.checkId.push(id);
+                        this.selectDeptIds.push(id);
                     }
                 });
             },
             getAllCheckData(){
-                let params = {
-                    userCode: this.$route.query.jobNumber,
-                    userId: this.userObj.userId,
-                    userName: this.userObj.username,
-                    fullName: this.userObj.name,
-                    // systemId: "49",//系统id
-                    // systemName: "管理驾驶舱",
-                    // menuId: "53",
-                    // menuName: "1521总览",
-                    proType: 4
-                };
                 //获取所有部门的权限
-                this.$api.common.getSelectDeptList(params).then(res =>{
+                this.$api.common.getSelectDeptList().then(res =>{
                     let deptList = res.deptList || [];
                     this.allDataList = [];
                     for(var i = 0; i< deptList.length; i++){
@@ -159,18 +141,17 @@
             }
         },
         activated(){
-           this.getCheckedData();
-        },
-        mounted(){
             let sessionObj = _sessionStorage("sessionObj");
             this.jobNumber = this.$route.query.jobNumber;
             this.name = sessionObj.name;
             this.email = sessionObj.email;
-
-            this.$nextTick(() =>{
+            this.getAllCheckData();
+        },
+        mounted(){
+            /*this.$nextTick(() =>{
                 // 在这里面去获取DOM
                 this.getAllCheckData();
-            })
+            })*/
         },
     }
 </script>

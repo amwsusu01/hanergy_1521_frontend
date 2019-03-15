@@ -155,8 +155,8 @@ export default {
     },
     created() {
             window.onload= () => {
-              let activeIndex = _sessionStorage("activeIndex");
-                this.switchMenu(activeIndex)
+              let activeIndex =Number(this.activeIndex);
+              this.switchMenu(activeIndex)
             }
     },
     mounted() {
@@ -183,9 +183,9 @@ export default {
                     firstPage = this.menuData[0].list[0].url;
                     firstName = this.menuData[0].list[0].name;
                     defaultMenuId = this.menuData[0].list[0].menuId;
+                    this.$store.commit('setBreadcrumbMenu', [this.menuData[0].name || '', firstName]);
+                    this.$store.commit('setActiveMenuId', defaultMenuId);
                 }
-                this.$store.commit('setBreadcrumbMenu', [this.menuData[0].name || '', firstName]);
-                this.$store.commit('setActiveMenuId', defaultMenuId);
 
                 this.$router.push({
                     name: firstPage
@@ -203,14 +203,6 @@ export default {
         },
         getDimension() {
             let params = {
-                userId: this.userObj.userId,
-                userName: this.userObj.username,
-                fullName: this.userObj.name,
-                systemId: "49",//系统id
-                systemName: "管理驾驶舱",
-                menuId: "53",
-                menuName: "1521总览",
-                proType: 4
             }
             this.$api.common.getDimension(params).then(res => {
                 this.setPsmDept = JSON.parse(res.dept)

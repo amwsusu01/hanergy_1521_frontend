@@ -112,6 +112,7 @@ export default {
             })
         },
         editorModal(obj){
+            console.log(obj);
             let jobNumber = obj.jobNumber;
             let name = obj.name;
             let email = obj.email;
