@@ -98,7 +98,7 @@ var Routers = [
                     require(['./module/roles.vue'], resolve)
                 },
                 meta: {
-                    keepAlive: false,
+                    keepAlive: true,
                     title: '数据权限'
                 }
             },

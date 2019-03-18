@@ -73,20 +73,22 @@
                 return data.label.indexOf(value) !== -1;
             },
             handleCheckChange(data, checked) {
-                debugger;
                 if(checked == true){
                     this.selectDeptIds.push(data.id);
                 }else{
                     let index = this.selectDeptIds.indexOf(data.id);
+                    console.log("index",index);
                     if(index >= 0) {
-                        this.selectDeptIds.splice(index,1);
+                        //this.selectDeptIds.splice(data.id,2);
+                        this.selectDeptIds=this.selectDeptIds.filter(function (ele) {
+                            return ele != data.id
+                        })
                     }
                 }
             },
             //修改
             modification(){
                 this.selectNewDeptIds = [...new Set(this.selectDeptIds)]
-                console.log("dept",this.selectNewDeptIds);
                 let params = {
                     userCode: this.$route.query.jobNumber,
                     deptids: this.selectNewDeptIds.join(","),
@@ -116,7 +118,15 @@
             //获取当前用户的权限
             getCheckedData(){
                 let param = {
-                    userCode: this.$route.query.jobNumber
+                    userCode: this.$route.query.jobNumber,
+                    userId: this.userObj.userId,
+                    userName: this.userObj.username,
+                    fullName: this.userObj.name,
+                    proType: 4,
+                    systemId: "92",//系统id
+                    systemName: "管理系统",
+                    menuId: "93",
+                    menuName: "基础管理"
                 };
                 this.$api.common.getSelectPermission(param).then(res =>{
                     let user = JSON.parse(res.user) || [];
