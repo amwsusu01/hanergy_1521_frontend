@@ -112,6 +112,7 @@ export default {
             }
         },
         sendQuery(){
+            debugger;
             var childName = this.initName();
             var childId = this.initId();
             var nextName = this.otherName();
@@ -147,7 +148,7 @@ export default {
                     indexName: "1521_operation_log",
                     indexType: "processrecode"
                 };
-            } else if(Number(this.type) == 12||Number(this.type) == 13){
+            } else if(Number(this.type) == 13||Number(this.type) == 14){
                 var params = {
                     data: {
                         userId: this.userObj.userId,
@@ -178,9 +179,12 @@ export default {
                     indexType: "processrecode"
                 };
             }
-            this.$api.common.getIframQuery(params).then(res => {
-                console.log(res)
-            })
+            if (childId||nextId){
+                this.$api.common.getIframQuery(params).then(res => {
+                    console.log(res)
+                })
+            }
+
         }
     },
     created(){

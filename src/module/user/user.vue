@@ -225,14 +225,14 @@ export default {
             if (!this.is1521Sys) return;
             //只在1521系统时请求
             let params = {
-                userId: this.userObj.userId,
+                /*userId: this.userObj.userId,
                 userName: this.userObj.username,
                 fullName: this.userObj.name,
-                // systemId: "49",//系统id
-                // systemName: "管理驾驶舱",
-                // menuId: "53",
-                // menuName: "1521总览",
-                proType: 4
+                systemId: "49",//系统id
+                systemName: "管理驾驶舱",
+                menuId: "53",
+                menuName: "1521总览",
+                proType: 4*/
             }
             this.$api.common.getUpdateData(params).then(res => {
                 if (res.Date) {
