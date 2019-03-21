@@ -195,6 +195,7 @@
                     value1: '2018-01-31',
                     value2: '2019-01-31'
                 },
+                isNo:false,
                 tableData: [],
                 approverList: [], // 负责人
                 recruiterList: [], // 招聘负责人
@@ -269,6 +270,7 @@
             this.resetTime();
         },
         mounted() {
+            this.isNo=false;
             this.initData();
         },
         methods: {
@@ -340,6 +342,7 @@
             },
             resetForm() {
                 //表单重置
+                this.isNo=false;
                 this.getSelectData();
                 this.form.approverList = [], // 负责人
                 this.form.recruiterList = [], // 招聘负责人
@@ -380,6 +383,7 @@
                     menuId: "54",
                     menuName: "人员流量明细",
                     proType: 4,
+                    isNo:this.isNo,
                     page: this.page.currentPage,
                     pageSize: this.page.pageShowNum
                 }
@@ -398,6 +402,7 @@
             CurrentChange(val) {
                 // 点击按钮改变当前页数
                 this.page.currentPage = val
+                this.isNo=true;
                 this.getTableData()
             },
             getTableData() {
