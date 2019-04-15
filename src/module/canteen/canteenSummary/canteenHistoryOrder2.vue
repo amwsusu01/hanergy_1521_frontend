@@ -16,10 +16,6 @@
                 </el-form-item>
                 <el-form-item label="部门:" label-width="50px" prop="region">
                     <department-list :deptList="deptList" ref="deptSelect" @updataOrgData="updateOrgData"></department-list>
-                    <!-- <el-select v-model="form.region" multiple filterable collapse-tags placeholder="请选择部门" size="mini" style="width: 251px;">
-                        <el-option v-for="item in deptList" :key="item.dept_name" :label="item.dept_name" :value="item.dept_name" style="width: 251px;">
-                        </el-option>
-                    </el-select> -->
                 </el-form-item>
                 <el-form-item label="职级:" size="mini" prop="rankname">
                     <rank-select :rankOptions="rankOptions" ref="rankSelect" />
@@ -130,7 +126,7 @@
                     <el-button class="exp-btn" plain size="small" v-if="buttons['73']==true" @click="exportExl(4)">导出</el-button>
                     <el-table :data="tableData4" border style="width: 100%">
                         <el-table-column prop="date" label="9点之前提报数据明细表" label-class-name="table-title">
-                            <el-table-column prop="MONTH" label="月份" min-width="10%">
+                            <el-table-column prop="month" label="月份" min-width="10%">
                             </el-table-column>
                             <el-table-column prop="DAY" label="日期" min-width="10%">
                             </el-table-column>
@@ -363,7 +359,7 @@ import branchOffice from '../../../components/common/branch-office.vue'; // 事�
 import { setTimeout } from 'timers';
 
 export default {
-    name: 'canteenHistoryOrder',
+    name: 'canteenHistoryOrder2',
     components: {
         Paging,
         departmentList,
@@ -508,9 +504,8 @@ export default {
     mounted() {
         this.initTime = this.updateTime ? this.$moment(this.updateTime).format('YYYY-MM') : '';
         this.isInit  = false;
-        this.initData();
-
         this.getOrganization();
+        this.initData()
     },
     computed: {
         buttons: {
@@ -634,7 +629,7 @@ export default {
             return params;
         },
         updateOrgData(obj) { // 下拉框联动效果
-            
+            console.log("obj:",obj);
             if ( obj.type == 'konggu') {
                 this.allOrganization.konggujituan = obj.val.length> 0 ? obj.val : [];
             } else if(obj.type == 'shiyequn') {
@@ -645,12 +640,10 @@ export default {
                 this.allOrganization.shenggongsi = obj.val.length > 0 ? obj.val : [];
             } 
             this.$api.common.getOrganization(this.allOrganization).then(res => {
-                console.log('更新集团下拉框数据。。。。', res);
                 this.holdList = res.jituanList; // 控股集团下拉框
                 this.careerList = res.shiyequnList; // 事业群下拉框
                 this.businessList = res.shiyebuList; // 事业部下拉框
                 this.branchList = res.shenggongsiList; // 省公司下拉框
-                console.log('this.deptList....', res.deptList);
                 this.deptList = res.deptList;
                 // this.form.region = res.deptList;
                 this.$refs['deptSelect'].values = res.deptList;

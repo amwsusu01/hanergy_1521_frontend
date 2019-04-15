@@ -30,7 +30,7 @@ var Routers = [
                 },
                 meta: {
                     keepAlive: false,
-                    title: '1521数据汇总统计'
+                    title: '1521总览'
                 }
             }, // 1521明细汇总
             {
@@ -41,7 +41,7 @@ var Routers = [
                 },
                 meta: {
                     keepAlive: false,
-                    title: '1521明细汇总'
+                    title: '全员日志质量分析'
                 }
             }, // 1521明细统计
             {
@@ -87,7 +87,7 @@ var Routers = [
                 },
                 meta: {
                     keepAlive: false,
-                    title: '用户操作日志'
+                    title: '用户操作记录'
                 }
             },
             //系统日志
@@ -99,7 +99,7 @@ var Routers = [
                 },
                 meta: {
                     keepAlive: true,
-                    title: '数据权限'
+                    title: '数据权限管理'
                 }
             },
             //系统日志-编辑
@@ -161,7 +161,7 @@ var Routers = [
                 component: function(resolve) {
                     require(['./module/entry.vue'], resolve)
                 },
-                meta: { keepAlive: false, title: '人力报表' }
+                meta: { keepAlive: false, title: '' }
             },
             // 国内销售总部人员数据分析
             {
@@ -172,9 +172,20 @@ var Routers = [
                 },
                 meta: {
                     keepAlive: false,
-                    title: '人员流量明细'
+                    title: '全员人员流量明细'
                 }
             }, // 人员流量明细
+            {
+                path: '/detailedPersonnelFlow1',
+                name: 'newTable1',
+                component: function(resolve) {
+                    require(['./module/canteen/canteenFlow/newTable1.vue'], resolve)
+                },
+                meta: {
+                    keepAlive: false,
+                    title: '人员流量明细'
+                }
+            },
             {
                 path: '/offerOfRetiredPersonnel',
                 name: 'offerOfRetiredPersonnel',
@@ -205,7 +216,7 @@ var Routers = [
                 },
                 meta: {
                     keepAlive: false,
-                    title: '销售人员数据'
+                    title: '销售回款明细'
                 }
             }, // 销售回款明细
         ]

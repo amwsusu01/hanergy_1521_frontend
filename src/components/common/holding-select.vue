@@ -19,14 +19,12 @@ export default {
       
     },
     mounted() {
-        // this.values = ['21-24','15-20'];
     },
     methods: {
        selectChange(val) {
          this.$emit('updataOrgData', {type: 'konggu', val: val});
-       },
+    },
        checkAllOpts() {
-         console.log('234567890');
        }
     }
 }

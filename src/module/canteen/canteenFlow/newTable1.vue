@@ -3,7 +3,7 @@
         <div class="box">
             <el-form :inline="true" ref="form" class="contain" size="mini">
                 <el-form-item label="负责人:" size="mini" prop="approver">
-                    <el-select v-model="approver[0].approverArray"
+                    <el-select v-model="approverList"
                                style="width: 251px;" multiple filterable
                                collapse-tags placeholder="无限制" size="mini"
                                @visible-change="visiblechange" @change="selectChange('approver',$event)"
@@ -11,7 +11,7 @@
                         <el-option :key="approver[0].label" :label="approver[0].label" :value="approver[0].label"
                                    @click.native="checkAllOpts('approver')">
                         </el-option>
-                        <el-option v-for="item in approvervalues" :key="item" :label="item" :value="item">
+                        <el-option v-for="item in approverListbak" :key="item" :label="item" :value="item">
                         </el-option>
                     </el-select>
                 </el-form-item>
@@ -124,7 +124,7 @@
         <div class="table">
             <el-button class="exp-btn" plain size="small" @click="exportExl">导出</el-button>
             <el-table :data="tableData" border style="width: 100%">
-                <el-table-column label="全员人员流量明细" label-class-name="table-title">
+                <el-table-column label="人员流量明细" label-class-name="table-title">
                     <el-table-column prop="approver" label="负责人" width="150" fixed>
                     </el-table-column>
                     <el-table-column prop="recruiter" label="应聘负责人" width="120">
@@ -211,12 +211,13 @@
     import {exportExl} from '../../../utils';
     //import holdSelect from '../../../components/common/holding-select.vue'; // 控股集团
     export default {
-        name: 'newTable',
+        name: 'newTable1',
         data() {
             return {
+                type:"",
                 chackAll: true,
-                type: "",
-
+                approverList: ["戴慧婷", "刘浩", "陈兆爽", "郭炎焱", "耿保强", "柯贤林", "刘聪", "刘玲", "王青岭", "兰丽丽", "周晏斌", "邓小旭", "朱红强", "宋佳佳", "高旭", "田敏", "郑辉", "王齐", "刘立广", "丁垒"], // 负责人
+                approverListbak:["戴慧婷", "刘浩", "陈兆爽", "郭炎焱", "耿保强", "柯贤林", "刘聪", "刘玲", "王青岭", "兰丽丽", "周晏斌", "邓小旭", "朱红强", "宋佳佳", "高旭", "田敏", "郑辉", "王齐", "刘立广", "丁垒"],
                 salaryTime: {
                     value1: '2018-01-31',
                     value2: '2019-01-31',
@@ -231,7 +232,6 @@
                 },
                 isNo: false,
                 tableData: [],
-                approverList: [], // 负责人
                 recruiterList: [], // 招聘负责人
                 hrvpList: [], // hrvp数据
                 buoncodeList: [], // 集团
@@ -336,7 +336,9 @@
             },
         },
         watch: {},
-        components: {},
+        components: {
+            //holdSelect
+        },
         created() {
             this.resetTime();
         },
@@ -345,10 +347,28 @@
             this.initData();
         },
         methods: {
-            checkAllOpts(type) {
-                if (this.chackAll) {
+            mouseover(type){
+                this.type=type;
+            },
+            search(val) {
+                if (val){
+                    var type=this.type;
                     if (type == "approver") {
-                        this.approver[0].approverArray = [];
+                        this.obj.approver = this.filter(val,this.approverList);
+                    } else if (type == "recruiter") {
+                        this.obj.recruiter = this.filter(val,this.recruiter[0].recruiterArray);
+                    } else if (type == "buoncode") {
+                        this.obj.buoncode = this.filter(val,this.buoncode[0].buoncodeArray);
+                    } else if (type == "divicode") {
+                        this.obj.divicode = this.filter(val,this.divicode[0].divicodeArray);
+                    }
+                    this.chackAll == false;
+                }
+            },
+            checkAllOpts(type) {
+                if (this.chackAll == true) {
+                    if (type == "approver") {
+                        this.approverList = [];
                     } else if (type == "recruiter") {
                         this.recruiter[0].recruiterArray = [];
                     } else if (type == "buoncode") {
@@ -359,7 +379,7 @@
                     this.chackAll = false;
                 } else {
                     if (type == "approver") {
-                        this.approver[0].approverArray = this.approvervalues;
+                        this.approverList  = this.approverListbak;
                     } else if (type == "recruiter") {
                         this.recruiter[0].recruiterArray = this.recruitervalues
                     } else if (type == "buoncode") {
@@ -371,18 +391,18 @@
                 }
             },
             selectChange(type, val) {
+                debugger;
                 if (type == "approver") {
                     if (val[0] == "全部") {
                         this.obj.approver = "";
-                        this.form.approverList = [];
                     } else {
-                        if (!val){
+                        if (val.length==0){
                             this.obj.approver = "";
-                        }else if(val.length - 1 == this.approvervalues.length) {
+                        } else if (val.length+1 == this.approverListbak.length) {
                             this.obj.approver = "";
-                        }else if(this.approvervalues.length==val.length){
+                        }else if(this.form.approverList.length==val.length==1){
                             this.obj.approver = "";
-                        }else {
+                        } else {
                             this.obj.approver = val.join(",");
                             this.form.approverList=val;
                             this.chackAll=false;
@@ -431,7 +451,7 @@
                             this.obj.divicode = "";
                         } else if (val.length - 1 == this.divicodevalues.length) {
                             this.obj.divicode = "";
-                        } else if(this.divicodevalues.length==val.length){
+                        } else if(this.divicodevalues.length==val.length==1){
                             this.obj.divicode = "";
                         }else {
                             this.obj.divicode = val.join(",");
@@ -441,42 +461,12 @@
                     }
                 }
             },
-            visiblechange(val) {
-                if (!val && !this.chackAll) {
+            visiblechange(val){
+                if (!val&& !this.chackAll) {
                     if (this.obj.approver || this.obj.recruiter || this.obj.buoncode || this.obj.divicode || this.obj.hrvp || this.obj.busUnit) {
                         this.getSelectData(this.obj);
                         this.chackAll = true;
                     }
-                }
-            },
-            filter(val, array) {
-                //验证是否是中文
-                var pattern = new RegExp("[\u4E00-\u9FA5]+");
-                var result = array.filter(item => {
-                    if (!pattern.test(val)) {
-                        return item.toLowerCase().indexOf(val.toLowerCase()) > -1;
-                    } else {
-                        return item.indexOf(val) > -1;
-                    }
-                }).join(",");
-                return result
-            },
-            mouseover(type) {
-                this.type = type;
-            },
-            search(val) {
-                if (val) {
-                    var type = this.type;
-                    if (type == "approver") {
-                        this.obj.approver = this.filter(val, this.approver[0].approverArray);
-                    } else if (type == "recruiter") {
-                        this.obj.recruiter = this.filter(val, this.recruiter[0].recruiterArray);
-                    } else if (type == "buoncode") {
-                        this.obj.buoncode = this.filter(val, this.buoncode[0].buoncodeArray);
-                    } else if (type == "divicode") {
-                        this.obj.divicode = this.filter(val, this.divicode[0].divicodeArray);
-                    }
-                    this.chackAll=false;
                 }
             },
             resetTime() {
@@ -538,7 +528,7 @@
                     menuName: "人员流量明细",
                     proType: 6
                 }
-                let filename = '全员人员流量明细表.xls';
+                let filename = '人员流量明细表.xls';
                 this.$api.common.exportDetailFlow(params).then(res => {
                     exportExl(res, filename);
                 })
@@ -546,20 +536,21 @@
             resetForm() {
                 //表单重置
                 this.isNo = false;
-                this.obj.approver = "";
+                this.obj.approver = this.approverListbak.join(",");
+                this.approverList=this.approverListbak;
                 this.obj.recruiter = "";
                 this.obj.hrvp = "";
                 this.obj.buoncode = "";
                 this.obj.divicode = "";
                 this.obj.busUnit = "";
                 this.getSelectData(this.obj);
-                this.chackAll = true;
-                this.form.approverList = [], // 负责人
-                    this.form.recruiterList = [], // 招聘负责人
-                    this.form.hrvpList = [], // hrvp数据
-                    this.form.buoncodeList = [], // 集团
-                    this.form.divicodeList = [], // 部门事业部
-                    this.form.busUnitList = [] // 业务单元
+                this.chackAll=true;
+                this.form.approverList = this.approverListbak, // 负责人
+                this.form.recruiterList = [], // 招聘负责人
+                this.form.hrvpList = [], // hrvp数据
+                this.form.buoncodeList = [], // 集团
+                this.form.divicodeList = [], // 部门事业部
+                this.form.busUnitList = [] // 业务单元
                 this.form.jobTitle = '';
                 this.form.candidate = '';
                 this.form.positionNumber = '';
@@ -623,19 +614,18 @@
             },
             getSelectData(obj) {
                 this.$api.canteen.getPersonnelFlowSelect(obj).then(res => {
-                    this.approver[0].approverArray = res.approverList;// 负责人
-                    this.approvervalues = res.approverList;
+                    this.approverList = res.approverList;// 负责人
                     this.recruiter[0].recruiterArray = res.recruiterList; // 招聘负责人
                     this.recruitervalues = res.recruiterList;
                     this.hrvp[0].hrvpArray = res.hrvpList; // hrvp数据
                     this.hrvpvalues = res.hrvpList;
                     this.buoncode[0].buoncodeArray = res.buoncodeList; // 集团
-                    this.buoncodevalues = res.buoncodeList;
+                    this.buoncodevalues = res.buoncodeList
                     this.divicode[0].divicodeArray = res.divicodeList; // 部门事业部
                     this.divicodevalues = res.divicodeList;
                     this.busUnit[0].busUnitArray = res.busUnitList; // 业务单元
                     this.busUnitvalues = res.busUnitList;
-                    this.obj.approver = "";
+                    this.obj.approver = res.approverList.join(",");
                     this.form.approverList = res.approverList;
                     this.obj.recruiter ="";
                     this.form.recruiterList = res.recruiterList;
@@ -650,7 +640,9 @@
                 })
             },
             init() {
+                this.obj.approver=this.approverList.join(',');
                 this.getSelectData(this.obj);
+                this.form.approverList =this.approverList;
                 this.getTableData();
             }
         }

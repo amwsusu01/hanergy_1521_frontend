@@ -84,6 +84,10 @@ export default {
                 //质量成本与效率管理
                 case 14:
                     return "质量成本与效率管理";
+                case 15:
+                    return "项目强矩阵考勤分析明细";
+                case 16:
+                    return "装备交付质量问题分析";
             }
         },
         otherId(){
@@ -109,21 +113,28 @@ export default {
                 //质量成本与效率管理
                 case 14:
                     return "144";
+                // 项目强矩阵考勤分析明细
+                case 15:
+                    return "";
+                //装备交付质量问题分析
+                case 16:
+                    return "";
             }
         },
         sendQuery(){
-            debugger;
             var childName = this.initName();
             var childId = this.initId();
             var nextName = this.otherName();
             var nextId = this.otherId();
-
-            if(Number(this.type) == 8 || Number(this.type) == 9 || Number(this.type) == 10 || Number(this.type) == 11){
+            var userId=this.userObj.userId;
+            var userName=this.userObj.username;
+            var fullName=this.userObj.name;
+            if(Number(this.type) == 8 || Number(this.type) == 9 || Number(this.type) == 10 || Number(this.type) == 11|| Number(this.type) == 15){
                 var params = {
                     data: {
-                        userId: this.userObj.userId,
-                        userName: this.userObj.username,
-                        fullName: this.userObj.name,
+                        userId: userId,
+                        userName: userName,
+                        fullName: fullName,
                         systemId: "125",//系统id
                         systemName: "人员考勤",
                         menuId: nextId,
@@ -148,7 +159,7 @@ export default {
                     indexName: "1521_operation_log",
                     indexType: "processrecode"
                 };
-            } else if(Number(this.type) == 13||Number(this.type) == 14){
+            } else if(Number(this.type) == 13||Number(this.type) == 14||Number(this.type) == 16){
                 var params = {
                     data: {
                         userId: this.userObj.userId,
@@ -179,7 +190,7 @@ export default {
                     indexType: "processrecode"
                 };
             }
-            if (childId||nextId){
+            if ((childName||nextName)&&fullName){
                 this.$api.common.getIframQuery(params).then(res => {
                     console.log(res)
                 })
@@ -189,10 +200,9 @@ export default {
     },
     created(){
         this.sendQuery();
+
     },
     mounted() {
-        //debugger
-        //this.$refs['mainIframe'].src=this.urlTxt;
     },
     watch: {
         type:{
@@ -268,14 +278,22 @@ export default {
                         return 'http://192.168.19.212/BigdataPlatform/SupplyChainWarehousingManagement/inventorystatementreport.html';
 
                         //质量管理驾驶舱
-                    case 13:return 'http://192.168.19.212/BigdataPlatform/qamanage/qualitymanage.html';
+                    case 13:
+                        return 'http://192.168.19.212/BigdataPlatform/qamanage/qualitymanage.html';
 
                     //质量成本与效率管理
-                    case 14:return 'http://192.168.19.212/BigdataPlatform/qamanage/costandefficiency.html';
+                    case 14:
+                        return 'http://192.168.19.212/BigdataPlatform/qamanage/costandefficiency.html';
 
+                    //项目强矩阵考勤分析明细
+                    case 15:
+                        return 'http://192.168.19.212/BigdataPlatform/attendence/matrixattendanceanalysis.html';
+                        //装备交付质量问题分析
+                    case 16:
+                        return 'http://192.168.19.212/BigdataPlatform/qamanage/equipment.html';
                 }
             }
         }
-    }
+    },
 }
 </script>

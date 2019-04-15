@@ -1,9 +1,9 @@
 <template>
     <el-select v-model="values"  @change="changeSelect"  multiple filterable collapse-tags placeholder="无限制" size="mini" style="width: 251px;">
-        <el-option-group v-for="group in deptGroup" :key="group.label" :label="group.label" @click.native="checkAllOpts">
-            <el-option v-for="item in group.groups" :key="item.dept_name" :label="item.dept_name" :value="item.dept_name" style="width: 251px">
+        <el-option  :label="deptGroup[0].label" value="deptGroup[0].label" @click.native="checkAllOpts">
+        </el-option>
+            <el-option v-for="item in deptGroup[0].groups" :key="item.dept_name" :label="item.dept_name" :value="item.dept_name" style="width: 251px">
             </el-option>
-        </el-option-group>
     </el-select>
 </template>
 <script type="text/javascript">
@@ -19,7 +19,6 @@ export default {
         deptList: Array
     },
     mounted() {
-      console.log('this.deptlist.....', this.deptList);
     },
     computed: {
         deptGroup: {

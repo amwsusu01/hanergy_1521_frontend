@@ -135,7 +135,6 @@
         }
     },
     computed: {
-
         submitterList: {
             get() {
                 return this.$store.state.common.psmuser || [];
