@@ -1,6 +1,6 @@
 <template>
     <el-select v-model="values" @change="selectChange" style="width: 251px;" multiple placeholder="无限制" collapse-tags size="mini">
-      <el-option v-for="item in holdList" :key="item" :label=item :value=item>
+      <el-option v-for="item in holdList" :key="item" :label='item' :value='item'>
       </el-option>
     </el-select>
 </template>

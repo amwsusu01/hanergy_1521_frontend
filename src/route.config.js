@@ -77,7 +77,18 @@ var Routers = [
                     title: '问题/反省库'
                 }
             },
-            //////////////////////////// 第二个系统  ////////////////////////////            
+            //////////////////////////// 第二个系统  //////////////////////////// 
+            {
+                path: '/filing',
+                name: 'filing',
+                component: function(resolve) {
+                    require(['./module/filing-system/index.vue'], resolve)
+                },
+                meta: {
+                    keepAlive: false,
+                    title: '补录系统'
+                }
+            },
             //系统日志
             {
                 path: '/logs',
