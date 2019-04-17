@@ -352,8 +352,9 @@ export default {
   },
   mounted(){
     // if()
-    let tableData = JSON.parse(sessionStorage.getItem('tableData'));
-    this.tableData = JSON.parse(localStorage.getItem('tableData'));
+    // let tableData = JSON.parse(sessionStorage.getItem('tableData'));
+    this.tableData = localStorage.getItem('tableData') ? JSON.parse(localStorage.getItem('tableData')) : this.tableData;
+    console.log(this.tableData);
   },
   methods:{
     // saveData(row, column, cell, event){
