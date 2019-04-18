@@ -20,7 +20,7 @@
         </el-table-column>
         <el-table-column prop="name" label="产品" width="120">
           <el-table-column prop="province" label=""  width="100"> </el-table-column>
-          <el-table-column prop="type"  label="" width="100">
+          <el-table-column prop="type"  label="" width="80">
               <template slot-scope="scope">
                 <span v-if="scope.row.type == 0">预计</span>
                 <span v-else>实际</span>
@@ -75,7 +75,7 @@
             </template>
           </el-table-column>
         </el-table-column>
-        <el-table-column prop="JanSum" v-else label="Jan" width="100" key="Jan1">
+        <el-table-column prop="JanSum" v-else label="Jan" width="70" key="Jan1">
           <template slot-scope="scope">
                 {{Number(scope.row.JanData.weekOne)+Number(scope.row.JanData.weekTwo)+Number(scope.row.JanData.weekThree)+Number(scope.row.JanData.weekFour)+Number(scope.row.JanData.weekFive)}}
             </template>
@@ -128,7 +128,7 @@
             </template>
           </el-table-column>
         </el-table-column>
-        <el-table-column v-else key="Feb1" prop="FebSum" label="Feb">
+        <el-table-column v-else key="Feb1" width="70" prop="FebSum" label="Feb">
           <template slot-scope="scope">
             {{Number(scope.row.FebData.weekOne)+Number(scope.row.FebData.weekTwo)+Number(scope.row.FebData.weekThree)+Number(scope.row.FebData.weekFour)+Number(scope.row.JanData.weekFive)}}
           </template>
@@ -181,7 +181,7 @@
             </template>
           </el-table-column>
         </el-table-column>
-        <el-table-column v-else key="Mar1" prop="MarSum" label="Mar">
+        <el-table-column v-else key="Mar1" width="70" prop="MarSum" label="Mar">
           <template slot-scope="scope">
             {{Number(scope.row.MarData.weekOne)+Number(scope.row.MarData.weekTwo)+Number(scope.row.MarData.weekThree)+Number(scope.row.MarData.weekFour)+Number(scope.row.MarData.weekFive)}}
           </template>
@@ -235,7 +235,7 @@
             </template>
           </el-table-column>
         </el-table-column>
-        <el-table-column v-else key="April1" prop="AprilSum" label="April">
+        <el-table-column v-else key="April1" width="70" prop="AprilSum" label="April">
           <template slot-scope="scope">
             {{Number(scope.row.AprilData.weekOne)+Number(scope.row.AprilData.weekTwo)+Number(scope.row.AprilData.weekThree)+Number(scope.row.AprilData.weekFour)+Number(scope.row.AprilData.weekFive)}}
           </template>
@@ -289,7 +289,7 @@
             </template>
           </el-table-column>
         </el-table-column>
-        <el-table-column v-else key="May1" prop="MaySum" label="May">
+        <el-table-column v-else key="May1" width="70" prop="MaySum" label="May">
           <template slot-scope="scope">
             {{Number(scope.row.MayData.weekOne)+Number(scope.row.MayData.weekTwo)+Number(scope.row.MayData.weekThree)+Number(scope.row.MayData.weekFour)+Number(scope.row.MayData.weekFive)}}
           </template>
@@ -342,7 +342,7 @@
             </template>
           </el-table-column>
         </el-table-column>
-        <el-table-column v-else key="June1" prop="JuneSum" label="June">
+        <el-table-column v-else key="June1" width="70" prop="JuneSum" label="June">
           <template slot-scope="scope">
             {{Number(scope.row.JuneData.weekOne)+Number(scope.row.JuneData.weekTwo)+Number(scope.row.JuneData.weekThree)+Number(scope.row.JuneData.weekFour)+Number(scope.row.JuneData.weekFive)}}
           </template>
@@ -396,7 +396,7 @@
             </template>
           </el-table-column>
         </el-table-column>
-        <el-table-column v-else key="July1" prop="JulySum" label="July">
+        <el-table-column v-else key="July1" width="70" prop="JulySum" label="July">
           <template slot-scope="scope">
             {{Number(scope.row.JulyData.weekOne)+Number(scope.row.JulyData.weekTwo)+Number(scope.row.JulyData.weekThree)+Number(scope.row.JulyData.weekFour)+Number(scope.row.JulyData.weekFive)}}
           </template>
@@ -450,7 +450,7 @@
             </template>
           </el-table-column>
         </el-table-column>
-        <el-table-column v-else key="Augu1" prop="AuguSum" label="Augu">
+        <el-table-column v-else key="Augu1" width="70" prop="AuguSum" label="Augu">
           <template slot-scope="scope">
             {{Number(scope.row.AuguData.weekOne)+Number(scope.row.AuguData.weekTwo)+Number(scope.row.AuguData.weekThree)+Number(scope.row.AuguData.weekFour)+Number(scope.row.AuguData.weekFive)}}
           </template>
@@ -503,7 +503,7 @@
             </template>
           </el-table-column>
         </el-table-column>
-        <el-table-column v-else key="Sept1" prop="SeptSum" label="Sept">
+        <el-table-column v-else key="Sept1" width="70" prop="SeptSum" label="Sept">
           <template slot-scope="scope">
             {{Number(scope.row.SeptData.weekOne)+Number(scope.row.SeptData.weekTwo)+Number(scope.row.SeptData.weekThree)+Number(scope.row.SeptData.weekFour)+Number(scope.row.SeptData.weekFive)}}
           </template>
@@ -556,7 +556,7 @@
             </template>
           </el-table-column>
         </el-table-column>
-        <el-table-column v-else key="Oct1" prop="OctSum" label="Oct">
+        <el-table-column v-else key="Oct1" width="70" prop="OctSum" label="Oct">
           <template slot-scope="scope">
             {{Number(scope.row.OctData.weekOne)+Number(scope.row.OctData.weekTwo)+Number(scope.row.OctData.weekThree)+Number(scope.row.OctData.weekFour)+Number(scope.row.OctData.weekFive)}}
           </template>
@@ -609,7 +609,7 @@
             </template>
           </el-table-column>
         </el-table-column>
-        <el-table-column v-else key="Nov1" prop="NovSum" label="Nov">
+        <el-table-column v-else key="Nov1" width="70" prop="NovSum" label="Nov">
           <template slot-scope="scope">
             {{Number(scope.row.NovData.weekOne)+Number(scope.row.NovData.weekTwo)+Number(scope.row.NovData.weekThree)+Number(scope.row.NovData.weekFour)+Number(scope.row.NovData.weekFive)}}
           </template>
@@ -662,7 +662,7 @@
             </template>
           </el-table-column>
         </el-table-column>
-        <el-table-column v-else key="Dec1" prop="DecSum" label="Dec">
+        <el-table-column v-else key="Dec1" width="70" prop="DecSum" label="Dec">
           <template slot-scope="scope">
             {{Number(scope.row.DecData.weekOne)+Number(scope.row.DecData.weekTwo)+Number(scope.row.DecData.weekThree)+Number(scope.row.DecData.weekFour)+Number(scope.row.DecData.weekFive)}}
           </template>
@@ -1281,6 +1281,19 @@ export default {
 <style lang="scss">
 /deep/.table{
   .el-table{
+    .el-table__header-wrapper{
+      .el-table__header{
+        table.el-table__header{
+          thead.is-group.has-gutter{
+            tr{
+              th.el-table_1_column_2 {
+                border-bottom: none !important;
+              }
+            }
+          }
+        }
+      }
+    }
     .el-table__body{
       .el-table td, .el-table th {
         padding: 0px 0;
@@ -1291,6 +1304,17 @@ export default {
         vertical-align: middle;
         position: relative;
         text-align: left;
+      }
+    }
+    .el-table__body-wrapper{
+      table.el-table__body{
+        tbody{
+          tr.el-table__row{
+            td{
+              padding: 6px 0 !important;
+            }
+          }
+        }
       }
     }
   }
