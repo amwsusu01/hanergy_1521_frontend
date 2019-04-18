@@ -11,11 +11,11 @@
         <el-table-column
           prop="date"
           label="目标时间"
-          width="150">
+          width="100">
         </el-table-column>
         <el-table-column prop="name" label="产品" width="120">
-          <el-table-column prop="province" label=""  width="120"> </el-table-column>
-          <el-table-column prop="type"  label="" width="120">
+          <el-table-column prop="province" label=""  width="100"> </el-table-column>
+          <el-table-column prop="type"  label="" width="100">
               <template slot-scope="scope">
                 <span v-if="scope.row.type == 0">预计</span>
                 <span v-else>实际</span>
@@ -27,7 +27,7 @@
           <el-table-column
             prop="province"
             label="Week1"
-            width="120">
+            width="100">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.JanData.weekOne"></el-input>
               <el-input v-else class="edit-cell"  v-model="scope.row.JanData.weekOne"></el-input>
@@ -36,7 +36,7 @@
           <el-table-column
             prop="city"
             label="Week2"
-            width="120">
+            width="100">
             <template slot-scope="scope">
                 <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.JanData.weekTwo"></el-input>
                 <el-input v-else class="edit-cell"  v-model="scope.row.JanData.weekTwo"></el-input>
@@ -45,7 +45,7 @@
           <el-table-column
             prop="address"
             label="Week3"
-            width="120">
+            width="100">
             <template slot-scope="scope">
                 <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.JanData.weekThree"></el-input>
                 <el-input v-else class="edit-cell"  v-model="scope.row.JanData.weekThree"></el-input>
@@ -54,7 +54,7 @@
           <el-table-column
             prop="zip"
             label="Week4"
-            width="120">
+            width="100">
             <template slot-scope="scope">
                 <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.JanData.weekFour"></el-input>
                 <el-input v-else class="edit-cell"  v-model="scope.row.JanData.weekFour"></el-input>
@@ -63,20 +63,20 @@
           <el-table-column
             prop="zip"
             label="Week5"
-            width="120">
+            width="100">
             <template slot-scope="scope">
                 <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.JanData.weekFive"></el-input>
                 <el-input v-else class="edit-cell"  v-model="scope.row.JanData.weekFive"></el-input>
             </template>
           </el-table-column>
         </el-table-column>
-        <el-table-column prop="JanSum" v-else label="Jan" width="120" key="Jan1">
+        <el-table-column prop="JanSum" v-else label="Jan" width="100" key="Jan1">
           <template slot-scope="scope">
                 {{Number(scope.row.JanData.weekOne)+Number(scope.row.JanData.weekTwo)+Number(scope.row.JanData.weekThree)+Number(scope.row.JanData.weekFour)+Number(scope.row.JanData.weekFive)}}
             </template>
         </el-table-column>
 
-        <el-table-column v-if="appear.FebAppear" label="Feb" key="Feb">
+        <el-table-column v-if="!appear.FebAppear" label="Feb" key="Feb">
           <el-table-column
             prop="province"
             label="Week1"
@@ -129,7 +129,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column v-if="appear.MarAppear" label="Mar" key="Mar">
+        <el-table-column v-if="!appear.MarAppear" label="Mar" key="Mar">
           <el-table-column
             prop="province"
             label="Week1"
@@ -183,7 +183,7 @@
         </el-table-column>
 
 
-        <el-table-column v-if="appear.AprilAppear" label="April" key="April">
+        <el-table-column v-if="!appear.AprilAppear" label="April" key="April">
           <el-table-column
             prop="province"
             label="Week1"
@@ -237,7 +237,7 @@
         </el-table-column>
 
 
-        <el-table-column v-if="appear.MayAppear" label="May" key="May">
+        <el-table-column v-if="!appear.MayAppear" label="May" key="May">
           <el-table-column
             prop="province"
             label="Week1"
@@ -290,7 +290,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column v-if="appear.JuneAppear" label="June" key="June">
+        <el-table-column v-if="!appear.JuneAppear" label="June" key="June">
           <el-table-column
             prop="province"
             label="Week1"
@@ -344,7 +344,7 @@
         </el-table-column>
 
 
-        <el-table-column v-if="appear.JulyAppear" label="July" key="July">
+        <el-table-column v-if="!appear.JulyAppear" label="July" key="July">
           <el-table-column
             prop="province"
             label="Week1"
@@ -398,7 +398,7 @@
         </el-table-column>
 
 
-        <el-table-column v-if="appear.AuguAppear" label="Augu" key="Augu">
+        <el-table-column v-if="!appear.AuguAppear" label="Augu" key="Augu">
           <el-table-column
             prop="province"
             label="Week1"
@@ -451,7 +451,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column v-if="appear.SeptAppear" label="Sept" key="Sept">
+        <el-table-column v-if="!appear.SeptAppear" label="Sept" key="Sept">
           <el-table-column
             prop="province"
             label="Week1"
@@ -504,7 +504,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column v-if="appear.OctAppear" label="Oct" key="Oct">
+        <el-table-column v-if="!appear.OctAppear" label="Oct" key="Oct">
           <el-table-column
             prop="province"
             label="Week1"
@@ -557,7 +557,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column v-if="appear.NovAppear" label="Nov" key="Nov">
+        <el-table-column v-if="!appear.NovAppear" label="Nov" key="Nov">
           <el-table-column
             prop="province"
             label="Week1"
@@ -610,7 +610,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column v-if="appear.DecAppear" label="Dec" key="Dec">
+        <el-table-column v-if="!appear.DecAppear" label="Dec" key="Dec">
           <el-table-column
             prop="province"
             label="Week1"
@@ -690,7 +690,7 @@ export default {
         Jan: 1,
       },
        tableData: [{
-          date: '2016-05-03',
+          date: '2019-04-13',
           name: '王小虎',
           province: '单玻三曲瓦',
           city: '普陀区',
@@ -794,7 +794,7 @@ export default {
             weekFive:15
           }
         }, {
-          date: '2016-05-02',
+          date: '2019-04-13',
           name: '王小虎',
           province: '发电墙',
           city: '普陀区',
@@ -898,7 +898,7 @@ export default {
             weekFive:15
           }
         },{
-          date: '2016-05-03',
+          date: '2019-04-13',
           name: '王小虎',
           province: '发电墙',
           city: '普陀区',
@@ -1002,7 +1002,7 @@ export default {
             weekFive:15
           }
         }, {
-          date: '2016-05-02',
+          date: '2019-04-16',
           name: '王小虎',
           province: '发电墙',
           city: '普陀区',
@@ -1273,7 +1273,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 /deep/.table{
   .el-table{
     .el-table__body{
