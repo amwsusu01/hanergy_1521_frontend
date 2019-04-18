@@ -6,6 +6,11 @@
         :data="tableData"
         :span-method="objectSpanMethod"
         @header-click="headerClick"
+        :header-cell-style="{
+            'background-color': '#ccc',
+            'color': '#000',
+            
+        }"
         style="width: 100%"
         max-height="500">
         <el-table-column
