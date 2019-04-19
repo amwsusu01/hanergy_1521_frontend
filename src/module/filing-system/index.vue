@@ -17,7 +17,7 @@
         </el-table-column>
         <el-table-column prop="name" label="产品" width="120" style="font-size: 34px;position:relaltive; left: 100px;">
           <el-table-column prop="province" label=""  width="100"> </el-table-column>
-          <el-table-column prop="type"  label="" width="80">
+          <el-table-column prop="type"  label="" width="60">
               <template slot-scope="scope">
                 <span v-if="scope.row.type == 0">预计</span>
                 <span v-else>实际</span>
@@ -81,7 +81,7 @@
         <el-table-column v-if="!appear.FebAppear" label="Feb" key="Feb">
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week6"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.FebData.weekOne"></el-input>
@@ -90,7 +90,7 @@
           </el-table-column>
           <el-table-column
             prop="city"
-            label="Week2"
+            label="Week7"
             width="120">
             <template slot-scope="scope">
                 <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.FebData.weekTwo"></el-input>
@@ -99,7 +99,7 @@
           </el-table-column>
           <el-table-column
             prop="address"
-            label="Week3"
+            label="Week8"
             width="120">
             <template slot-scope="scope">
                 <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.FebData.weekThree"></el-input>
@@ -108,7 +108,7 @@
           </el-table-column>
           <el-table-column
             prop="zip"
-            label="Week4"
+            label="Week9"
             width="120">
             <template slot-scope="scope">
                 <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.FebData.weekFour"></el-input>
@@ -117,7 +117,7 @@
           </el-table-column>
           <el-table-column
             prop="zip"
-            label="Week5"
+            label="Week10"
             width="120">
             <template slot-scope="scope">
                 <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.FebData.weekFive"></el-input>
@@ -134,7 +134,7 @@
         <el-table-column v-if="!appear.MarAppear" label="Mar" key="Mar">
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week11"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.MarData.weekOne"></el-input>
@@ -143,7 +143,7 @@
           </el-table-column>
           <el-table-column
             prop="city"
-            label="Week2"
+            label="Week12"
             width="120">
             <template slot-scope="scope">
                 <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.MarData.weekTwo"></el-input>
@@ -152,7 +152,7 @@
           </el-table-column>
           <el-table-column
             prop="address"
-            label="Week3"
+            label="Week13"
             width="120">
             <template slot-scope="scope">
                 <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.MarData.weekThree"></el-input>
@@ -161,7 +161,7 @@
           </el-table-column>
           <el-table-column
             prop="zip"
-            label="Week4"
+            label="Week14"
             width="120">
             <template slot-scope="scope">
                 <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.MarData.weekFour"></el-input>
@@ -170,7 +170,7 @@
           </el-table-column>
           <el-table-column
             prop="zip"
-            label="Week5"
+            label="Week15"
             width="120">
             <template slot-scope="scope">
                 <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.MarData.weekFive"></el-input>
@@ -188,7 +188,7 @@
         <el-table-column v-if="!appear.AprilAppear" label="April" key="April">
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week16"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.AprilData.weekOne"></el-input>
@@ -197,7 +197,7 @@
           </el-table-column>
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week17"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.AprilData.weekTwo"></el-input>
@@ -206,7 +206,7 @@
           </el-table-column>
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week18"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.AprilData.weekThree"></el-input>
@@ -215,7 +215,7 @@
           </el-table-column>
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week19"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.AprilData.weekFour"></el-input>
@@ -224,7 +224,7 @@
           </el-table-column>
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week20"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.AprilData.weekFive"></el-input>
@@ -242,7 +242,7 @@
         <el-table-column v-if="!appear.MayAppear" label="May" key="May">
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week21"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.MayData.weekOne"></el-input>
@@ -251,7 +251,7 @@
           </el-table-column>
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week22"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.MayData.weekTwo"></el-input>
@@ -260,7 +260,7 @@
           </el-table-column>
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week23"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.MayData.weekThree"></el-input>
@@ -269,7 +269,7 @@
           </el-table-column>
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week24"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.MayData.weekFour"></el-input>
@@ -278,7 +278,7 @@
           </el-table-column>
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week25"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.MayData.weekFive"></el-input>
@@ -295,7 +295,7 @@
         <el-table-column v-if="!appear.JuneAppear" label="June" key="June">
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week26"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.JuneData.weekOne"></el-input>
@@ -304,7 +304,7 @@
           </el-table-column>
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week27"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.JuneData.weekTwo"></el-input>
@@ -313,7 +313,7 @@
           </el-table-column>
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week28"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.JuneData.weekThree"></el-input>
@@ -322,7 +322,7 @@
           </el-table-column>
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week29"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.JuneData.weekFour"></el-input>
@@ -331,7 +331,7 @@
           </el-table-column>
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week30"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.JuneData.weekFive"></el-input>
@@ -349,7 +349,7 @@
         <el-table-column v-if="!appear.JulyAppear" label="July" key="July">
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week31"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.JulyData.weekOne"></el-input>
@@ -358,7 +358,7 @@
           </el-table-column>
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week32"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.JulyData.weekTwo"></el-input>
@@ -367,7 +367,7 @@
           </el-table-column>
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week33"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.JulyData.weekThree"></el-input>
@@ -376,7 +376,7 @@
           </el-table-column>
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week34"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.JulyData.weekFour"></el-input>
@@ -385,7 +385,7 @@
           </el-table-column>
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week35"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.JulyData.weekFive"></el-input>
@@ -403,7 +403,7 @@
         <el-table-column v-if="!appear.AuguAppear" label="Augu" key="Augu">
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week36"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.AuguData.weekOne"></el-input>
@@ -412,7 +412,7 @@
           </el-table-column>
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week37"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.AuguData.weekTwo"></el-input>
@@ -421,7 +421,7 @@
           </el-table-column>
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week38"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.AuguData.weekThree"></el-input>
@@ -430,7 +430,7 @@
           </el-table-column>
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week39"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.AuguData.weekFour"></el-input>
@@ -439,7 +439,7 @@
           </el-table-column>
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week40"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.AuguData.weekFive"></el-input>
@@ -456,7 +456,7 @@
         <el-table-column v-if="!appear.SeptAppear" label="Sept" key="Sept">
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week41"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.SeptData.weekOne"></el-input>
@@ -465,7 +465,7 @@
           </el-table-column>
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week42"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.SeptData.weekTwo"></el-input>
@@ -474,7 +474,7 @@
           </el-table-column>
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week43"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.SeptData.weekThree"></el-input>
@@ -483,7 +483,7 @@
           </el-table-column>
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week44"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.SeptData.weekFour"></el-input>
@@ -492,7 +492,7 @@
           </el-table-column>
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week45"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.SeptData.weekFive"></el-input>
@@ -509,7 +509,7 @@
         <el-table-column v-if="!appear.OctAppear" label="Oct" key="Oct">
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week46"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.OctData.weekOne"></el-input>
@@ -518,7 +518,7 @@
           </el-table-column>
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week47"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.OctData.weekTwo"></el-input>
@@ -527,7 +527,7 @@
           </el-table-column>
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week48"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.OctData.weekThree"></el-input>
@@ -536,7 +536,7 @@
           </el-table-column>
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week49"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.OctData.weekFour"></el-input>
@@ -545,7 +545,7 @@
           </el-table-column>
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week50"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.OctData.weekFive"></el-input>
@@ -562,7 +562,7 @@
         <el-table-column v-if="!appear.NovAppear" label="Nov" key="Nov">
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week51"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.NovData.weekOne"></el-input>
@@ -571,7 +571,7 @@
           </el-table-column>
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week52"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.NovData.weekTwo"></el-input>
@@ -580,7 +580,7 @@
           </el-table-column>
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week53"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.NovData.weekThree"></el-input>
@@ -589,7 +589,7 @@
           </el-table-column>
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week54"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.NovData.weekFour"></el-input>
@@ -598,7 +598,7 @@
           </el-table-column>
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week55"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.NovData.weekFive"></el-input>
@@ -615,7 +615,7 @@
         <el-table-column v-if="!appear.DecAppear" label="Dec" key="Dec">
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week56"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.DecData.weekOne"></el-input>
@@ -624,7 +624,7 @@
           </el-table-column>
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week57"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.DecData.weekTwo"></el-input>
@@ -633,7 +633,7 @@
           </el-table-column>
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week58"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.DecData.weekThree"></el-input>
@@ -642,7 +642,7 @@
           </el-table-column>
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week59"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.DecData.weekFour"></el-input>
@@ -651,7 +651,7 @@
           </el-table-column>
           <el-table-column
             prop="province"
-            label="Week1"
+            label="Week60"
             width="120">
             <template slot-scope="scope">
               <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.DecData.weekFive"></el-input>
@@ -1161,22 +1161,24 @@ export default {
       }
     },
     initData(){
-      let userId = {
-        userId: this.userObj.userId
-      };
-      let arr = [], proObj = {};
-      this.$api.canteen.getProductCost(userId).then(res=>{
-        console.log('产品成本数据...', res.data);
-        // res.data.forEach(function(item, index){
-        //   proObj.proName = item.proName; // 产品名
-        //   proObj.targetDate = item.targetDate; // 目标时间
-        //   if(item.Jan.length > 0){
-        //     item.Jan.map(function(value, key){
-              
-        //     })
-        //   }
-        // })
-      })
+      // let userId = {
+      //   userId: this.userObj.userId
+      // };
+      // let arr = [];
+      // this.$api.canteen.getProductCost(userId).then(res=>{
+      //   console.log('产品成本数据...', res.data);
+      //   res.data.forEach(function(item, index){
+      //     let proObj = {};
+      //     proObj['proName'] = item.proName; // 产品名
+      //     proObj['targetDate'] = item.targetDate; // 目标时间
+      //     if(item.Jan){
+      //       // 存在一月份的数据
+
+      //     }
+      //     arr.push(proObj);
+      //   })
+      //   console.log('arr...', arr)
+      // })
     },
     editData(){
       // console.log(this.tableData);
@@ -1313,7 +1315,7 @@ export default {
 </script>
 
 <style lang="scss">
-/deep/.table{
+/deep/ .table{
   .el-table{
     .el-table__header-wrapper{
       .el-table__header{
