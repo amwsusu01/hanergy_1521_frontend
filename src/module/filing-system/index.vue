@@ -1,16 +1,13 @@
 <template>
   <div class="container-filling">
     <el-button size="mini" type="primary" @click="editData">保存</el-button>
-    <div class="table">
+    
+    <div class="table" style="background:#ccc">
       <el-table
         :data="tableData"
         :span-method="objectSpanMethod"
         @header-click="headerClick"
-        :header-cell-style="{
-            'background-color': '#ccc',
-            'color': '#000',
-            
-        }"
+        :header-cell-style="headerCellStyle"
         style="width: 100%"
         max-height="500">
         <el-table-column
@@ -18,7 +15,7 @@
           label="目标时间"
           width="100">
         </el-table-column>
-        <el-table-column prop="name" label="产品" width="120">
+        <el-table-column prop="name" label="产品" width="120" style="font-size: 34px;position:relaltive; left: 100px;">
           <el-table-column prop="province" label=""  width="100"> </el-table-column>
           <el-table-column prop="type"  label="" width="80">
               <template slot-scope="scope">
@@ -1131,6 +1128,33 @@ export default {
     // saveData(row, column, cell, event){
     //   console.log('row...', row);
     // },
+    headerCellStyle({row, column, rowIndex, columnIndex}){
+      if(rowIndex == 0 && columnIndex == 1){
+        return {
+          'background-color': '#ccc',
+          'color': '#000',
+          'border-bottom': 'none',
+          'text-align': 'center',
+          'z-index': '99',
+          'position': 'relative',
+          'padding-top': '40px',
+          'padding-bottom': '0px',
+          'height': '40px',
+          'box-sizing': 'border-box',
+        }
+      } else if(rowIndex == 1 && columnIndex == 0) {
+        return {
+          'background-color': '#ccc',
+          'color': '#000',
+          'border-right': 'none'
+        }
+      } else {
+        return {
+          'background-color': '#ccc',
+          'color': '#000',
+        }
+      }
+    },
     headerClassName() {
       return {
         background: 'red'
@@ -1140,8 +1164,18 @@ export default {
       let userId = {
         userId: this.userObj.userId
       };
+      let arr = [], proObj = {};
       this.$api.canteen.getProductCost(userId).then(res=>{
-        console.log('产品成本数据...', res);
+        console.log('产品成本数据...', res.data);
+        // res.data.forEach(function(item, index){
+        //   proObj.proName = item.proName; // 产品名
+        //   proObj.targetDate = item.targetDate; // 目标时间
+        //   if(item.Jan.length > 0){
+        //     item.Jan.map(function(value, key){
+              
+        //     })
+        //   }
+        // })
       })
     },
     editData(){
@@ -1285,33 +1319,12 @@ export default {
       .el-table__header{
         table.el-table__header{
           thead.is-group.has-gutter{
-            tr{
-              th.el-table_1_column_2 {
-                border-bottom: none !important;
+            tr:nth-child(1){
+              th:nth-child(2) {
+                div{
+                  color:#f00!important;
+                }
               }
-            }
-          }
-        }
-      }
-    }
-    .el-table__body{
-      .el-table td, .el-table th {
-        padding: 0px 0;
-        min-width: 0;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-        text-overflow: ellipsis;
-        vertical-align: middle;
-        position: relative;
-        text-align: left;
-      }
-    }
-    .el-table__body-wrapper{
-      table.el-table__body{
-        tbody{
-          tr.el-table__row{
-            td{
-              padding: 6px 0 !important;
             }
           }
         }
