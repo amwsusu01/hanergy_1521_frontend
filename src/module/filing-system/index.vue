@@ -1,6 +1,8 @@
 <template>
   <div class="container-filling">
     <el-button size="mini" type="primary" @click="editData">保存</el-button>
+    <el-button size="mini" type="primary" @click="newlyBuild">新建</el-button>
+    <el-button size="mini" type="primary" @click="edit">编辑</el-button>
     
     <div class="table" style="background:#ccc">
       <el-table
@@ -11,12 +13,12 @@
         style="width: 100%"
         max-height="500">
         <el-table-column
-          prop="date"
+          prop="targetDate"
           label="目标时间"
           width="100">
         </el-table-column>
         <el-table-column prop="name" label="产品" width="120" style="font-size: 34px;position:relaltive; left: 100px;">
-          <el-table-column prop="province" label=""  width="100"> </el-table-column>
+          <el-table-column prop="proName" label=""  width="100"> </el-table-column>
           <el-table-column prop="type"  label="" width="60">
               <template slot-scope="scope">
                 <span v-if="scope.row.type == 0">预计</span>
@@ -74,7 +76,7 @@
         </el-table-column>
         <el-table-column prop="JanSum" v-else label="Jan" width="70" key="Jan1">
           <template slot-scope="scope">
-                {{Number(scope.row.JanData.weekOne)+Number(scope.row.JanData.weekTwo)+Number(scope.row.JanData.weekThree)+Number(scope.row.JanData.weekFour)+Number(scope.row.JanData.weekFive)}}
+                {{(Number(scope.row.JanData.weekOne)+Number(scope.row.JanData.weekTwo)+Number(scope.row.JanData.weekThree)+Number(scope.row.JanData.weekFour)+Number(scope.row.JanData.weekFive)).toFixed(2)}}
             </template>
         </el-table-column>
 
@@ -127,7 +129,7 @@
         </el-table-column>
         <el-table-column v-else key="Feb1" width="70" prop="FebSum" label="Feb">
           <template slot-scope="scope">
-            {{Number(scope.row.FebData.weekOne)+Number(scope.row.FebData.weekTwo)+Number(scope.row.FebData.weekThree)+Number(scope.row.FebData.weekFour)+Number(scope.row.JanData.weekFive)}}
+            {{(Number(scope.row.FebData.weekOne)+Number(scope.row.FebData.weekTwo)+Number(scope.row.FebData.weekThree)+Number(scope.row.FebData.weekFour)+Number(scope.row.JanData.weekFive)).toFixed(2)}}
           </template>
         </el-table-column>
 
@@ -180,7 +182,7 @@
         </el-table-column>
         <el-table-column v-else key="Mar1" width="70" prop="MarSum" label="Mar">
           <template slot-scope="scope">
-            {{Number(scope.row.MarData.weekOne)+Number(scope.row.MarData.weekTwo)+Number(scope.row.MarData.weekThree)+Number(scope.row.MarData.weekFour)+Number(scope.row.MarData.weekFive)}}
+            {{(Number(scope.row.MarData.weekOne)+Number(scope.row.MarData.weekTwo)+Number(scope.row.MarData.weekThree)+Number(scope.row.MarData.weekFour)+Number(scope.row.MarData.weekFive)).toFixed(2)}}
           </template>
         </el-table-column>
 
@@ -234,7 +236,7 @@
         </el-table-column>
         <el-table-column v-else key="April1" width="70" prop="AprilSum" label="April">
           <template slot-scope="scope">
-            {{Number(scope.row.AprilData.weekOne)+Number(scope.row.AprilData.weekTwo)+Number(scope.row.AprilData.weekThree)+Number(scope.row.AprilData.weekFour)+Number(scope.row.AprilData.weekFive)}}
+            {{(Number(scope.row.AprilData.weekOne)+Number(scope.row.AprilData.weekTwo)+Number(scope.row.AprilData.weekThree)+Number(scope.row.AprilData.weekFour)+Number(scope.row.AprilData.weekFive)).toFixed(2)}}
           </template>
         </el-table-column>
 
@@ -288,7 +290,7 @@
         </el-table-column>
         <el-table-column v-else key="May1" width="70" prop="MaySum" label="May">
           <template slot-scope="scope">
-            {{Number(scope.row.MayData.weekOne)+Number(scope.row.MayData.weekTwo)+Number(scope.row.MayData.weekThree)+Number(scope.row.MayData.weekFour)+Number(scope.row.MayData.weekFive)}}
+            {{(Number(scope.row.MayData.weekOne)+Number(scope.row.MayData.weekTwo)+Number(scope.row.MayData.weekThree)+Number(scope.row.MayData.weekFour)+Number(scope.row.MayData.weekFive)).toFixed(2)}}
           </template>
         </el-table-column>
 
@@ -341,7 +343,7 @@
         </el-table-column>
         <el-table-column v-else key="June1" width="70" prop="JuneSum" label="June">
           <template slot-scope="scope">
-            {{Number(scope.row.JuneData.weekOne)+Number(scope.row.JuneData.weekTwo)+Number(scope.row.JuneData.weekThree)+Number(scope.row.JuneData.weekFour)+Number(scope.row.JuneData.weekFive)}}
+            {{(Number(scope.row.JuneData.weekOne)+Number(scope.row.JuneData.weekTwo)+Number(scope.row.JuneData.weekThree)+Number(scope.row.JuneData.weekFour)+Number(scope.row.JuneData.weekFive)).toFixed(2)}}
           </template>
         </el-table-column>
 
@@ -395,7 +397,7 @@
         </el-table-column>
         <el-table-column v-else key="July1" width="70" prop="JulySum" label="July">
           <template slot-scope="scope">
-            {{Number(scope.row.JulyData.weekOne)+Number(scope.row.JulyData.weekTwo)+Number(scope.row.JulyData.weekThree)+Number(scope.row.JulyData.weekFour)+Number(scope.row.JulyData.weekFive)}}
+            {{(Number(scope.row.JulyData.weekOne)+Number(scope.row.JulyData.weekTwo)+Number(scope.row.JulyData.weekThree)+Number(scope.row.JulyData.weekFour)+Number(scope.row.JulyData.weekFive)).toFixed(2)}}
           </template>
         </el-table-column>
 
@@ -449,7 +451,7 @@
         </el-table-column>
         <el-table-column v-else key="Augu1" width="70" prop="AuguSum" label="Augu">
           <template slot-scope="scope">
-            {{Number(scope.row.AuguData.weekOne)+Number(scope.row.AuguData.weekTwo)+Number(scope.row.AuguData.weekThree)+Number(scope.row.AuguData.weekFour)+Number(scope.row.AuguData.weekFive)}}
+            {{(Number(scope.row.AuguData.weekOne)+Number(scope.row.AuguData.weekTwo)+Number(scope.row.AuguData.weekThree)+Number(scope.row.AuguData.weekFour)+Number(scope.row.AuguData.weekFive)).toFixed(2)}}
           </template>
         </el-table-column>
 
@@ -502,7 +504,7 @@
         </el-table-column>
         <el-table-column v-else key="Sept1" width="70" prop="SeptSum" label="Sept">
           <template slot-scope="scope">
-            {{Number(scope.row.SeptData.weekOne)+Number(scope.row.SeptData.weekTwo)+Number(scope.row.SeptData.weekThree)+Number(scope.row.SeptData.weekFour)+Number(scope.row.SeptData.weekFive)}}
+            {{(Number(scope.row.SeptData.weekOne)+Number(scope.row.SeptData.weekTwo)+Number(scope.row.SeptData.weekThree)+Number(scope.row.SeptData.weekFour)+Number(scope.row.SeptData.weekFive)).toFixed(2)}}
           </template>
         </el-table-column>
 
@@ -555,7 +557,7 @@
         </el-table-column>
         <el-table-column v-else key="Oct1" width="70" prop="OctSum" label="Oct">
           <template slot-scope="scope">
-            {{Number(scope.row.OctData.weekOne)+Number(scope.row.OctData.weekTwo)+Number(scope.row.OctData.weekThree)+Number(scope.row.OctData.weekFour)+Number(scope.row.OctData.weekFive)}}
+            {{(Number(scope.row.OctData.weekOne)+Number(scope.row.OctData.weekTwo)+Number(scope.row.OctData.weekThree)+Number(scope.row.OctData.weekFour)+Number(scope.row.OctData.weekFive)).toFixed(2)}}
           </template>
         </el-table-column>
 
@@ -608,7 +610,7 @@
         </el-table-column>
         <el-table-column v-else key="Nov1" width="70" prop="NovSum" label="Nov">
           <template slot-scope="scope">
-            {{Number(scope.row.NovData.weekOne)+Number(scope.row.NovData.weekTwo)+Number(scope.row.NovData.weekThree)+Number(scope.row.NovData.weekFour)+Number(scope.row.NovData.weekFive)}}
+            {{(Number(scope.row.NovData.weekOne)+Number(scope.row.NovData.weekTwo)+Number(scope.row.NovData.weekThree)+Number(scope.row.NovData.weekFour)+Number(scope.row.NovData.weekFive)).toFixed(2)}}
           </template>
         </el-table-column>
 
@@ -661,7 +663,7 @@
         </el-table-column>
         <el-table-column v-else key="Dec1" width="70" prop="DecSum" label="Dec">
           <template slot-scope="scope">
-            {{Number(scope.row.DecData.weekOne)+Number(scope.row.DecData.weekTwo)+Number(scope.row.DecData.weekThree)+Number(scope.row.DecData.weekFour)+Number(scope.row.DecData.weekFive)}}
+            {{(Number(scope.row.DecData.weekOne)+Number(scope.row.DecData.weekTwo)+Number(scope.row.DecData.weekThree)+Number(scope.row.DecData.weekFour)+Number(scope.row.DecData.weekFive)).toFixed(2)}}
           </template>
         </el-table-column>
       </el-table>
@@ -670,6 +672,7 @@
 </template>
 
 <script>
+import { setInterval } from 'timers';
 export default {
   name: 'filing',
   data() {
@@ -1128,6 +1131,117 @@ export default {
     // saveData(row, column, cell, event){
     //   console.log('row...', row);
     // },
+    newlyBuild(){
+      // 新建
+      
+      for(var i = 0;i < 2; i++){
+          this.tableData.push({
+            monId: "",
+            proName: "",
+            targetDate: "",
+            type: 0,
+            JanSum:'',
+              FebSum: '',
+              MarSum: '',
+              AprilSum: '',
+              MaySum: '',
+              JuneSum: '',
+              JulySum: '',
+              AuguSum: '',
+              SeptSum: '',
+              OctSum: '',
+              NovSum: '',
+              DecSum: '',
+              JanData: {
+                weekOne: 0,
+                weekTwo: 0,
+                weekThree: 0,
+                weekFour: 0,
+                weekFive:0
+              },
+              FebData: {
+                weekOne: 0,
+                weekTwo: 0,
+                weekThree: 0,
+                weekFour: 0,
+                weekFive:0
+              },
+              MarData: {
+                weekOne: 0,
+                weekTwo: 0,
+                weekThree: 0,
+                weekFour: 0,
+                weekFive:0
+              },
+              AprilData: {
+                weekOne: 0,
+                weekTwo: 0,
+                weekThree: 0,
+                weekFour: 0,
+                weekFive:0
+              },
+              MayData: {
+                weekOne: 0,
+                weekTwo: 0,
+                weekThree: 0,
+                weekFour: 0,
+                weekFive:0
+              },
+              JuneData: {
+                weekOne: 0,
+                weekTwo: 0,
+                weekThree: 0,
+                weekFour: 0,
+                weekFive:0
+              },
+              JulyData: {
+                weekOne: 0,
+                weekTwo: 0,
+                weekThree: 0,
+                weekFour: 0,
+                weekFive:0
+              },
+              AuguData: {
+                weekOne: 0,
+                weekTwo: 0,
+                weekThree: 0,
+                weekFour: 0,
+                weekFive:0
+              },
+              SeptData: {
+                weekOne: 0,
+                weekTwo: 0,
+                weekThree: 0,
+                weekFour: 0,
+                weekFive:0
+              },
+              OctData: {
+                weekOne: 0,
+                weekTwo: 0,
+                weekThree: 0,
+                weekFour: 0,
+                weekFive:0
+              },
+              NovData: {
+                weekOne: 0,
+                weekTwo: 0,
+                weekThree: 0,
+                weekFour: 0,
+                weekFive:0
+              },
+              DecData: {
+                weekOne: 0,
+                weekTwo: 0,
+                weekThree: 0,
+                weekFour: 0,
+                weekFive:0
+              }
+          })
+      }
+    },
+    edit(){
+
+    },
     headerCellStyle({row, column, rowIndex, columnIndex}){
       if(rowIndex == 0 && columnIndex == 1){
         return {
@@ -1161,24 +1275,321 @@ export default {
       }
     },
     initData(){
-      // let userId = {
-      //   userId: this.userObj.userId
-      // };
-      // let arr = [];
-      // this.$api.canteen.getProductCost(userId).then(res=>{
-      //   console.log('产品成本数据...', res.data);
-      //   res.data.forEach(function(item, index){
-      //     let proObj = {};
-      //     proObj['proName'] = item.proName; // 产品名
-      //     proObj['targetDate'] = item.targetDate; // 目标时间
-      //     if(item.Jan){
-      //       // 存在一月份的数据
+      let userId = {
+        userId: this.userObj.userId
+      };
+      let arr = [];
+      this.$api.canteen.getProductCost(userId).then(res=>{
+        console.log('产品成本数据...', res.data);
+        res.data.forEach((item, index)=>{
+          let proObj = {};
+          proObj['proName'] = item.proName; // 产品名
+          proObj['targetDate'] = item.targetDate; // 目标时间
+          proObj['proid'] = item.proid;
+          let newArr = [];
+          // 存在一月份的数据
+          item.Jan.forEach((value, key)=>{
+            let Jan = {};
+            Jan.JanSum = value.monData; // 月总量
+            Jan.monId = value.monDataId; // 月份ID
+            Jan.type = value.monDataType; // 月份数据的类型
+            let JanData = {}; // 一月份的四周数据对象
+            JanData['weekOne'] = value.wekList[0] ? value.wekList[0].wekData : '';
+            JanData['weekTwo'] = value.wekList[1] ? value.wekList[1].wekData : '';
+            JanData['weekThree'] = value.wekList[2] ? value.wekList[2].wekData : '';
+            JanData['weekFour'] = value.wekList[3] ? value.wekList[3].wekData : '';
+            JanData['weekFive'] = value.wekList[4] ? value.wekList[4].wekData : '';
+            Jan.JanData = JanData; // 一月份的四周数据
+            newArr.push(Jan); 
+          })
+          
+          // 存在二月份的数据
+          item.Feb.forEach((value, key)=>{
+            let Feb = {};
+            Feb.FebSum = value.monData; // 月总量
+            Feb.monId = value.monDataId; // 月份ID
+            Feb.type = value.monDataType; // 月份数据的类型
+            let FebData = {}; // 一月份的四周数据对象
+            FebData['weekOne'] = value.wekList[0] ? value.wekList[0].wekData : '';
+            FebData['weekTwo'] = value.wekList[1] ? value.wekList[1].wekData : '';
+            FebData['weekThree'] = value.wekList[2] ? value.wekList[2].wekData : '';
+            FebData['weekFour'] = value.wekList[3] ? value.wekList[3].wekData : '';
+            FebData['weekFive'] = value.wekList[4] ? value.wekList[4].wekData : '';
+            Feb.FebData = FebData; // 一月份的四周数据
+            // newArr.push(Feb); 
+            if(Feb.type == 0){
+              for(var i in Feb){
+                newArr[0][i] = Feb[i];
+              }
+            } else {
+              for(var i in Feb){
+                newArr[1][i] = Feb[i];
+              }
+            }
+          })
 
-      //     }
-      //     arr.push(proObj);
-      //   })
-      //   console.log('arr...', arr)
-      // })
+          // 存在三月份的数据
+          item.Mar.forEach((value, key)=>{
+            let Mar = {};
+            Mar.MarSum = value.monData; // 月总量
+            Mar.monId = value.monDataId; // 月份ID
+            Mar.type = value.monDataType; // 月份数据的类型
+            let MarData = {}; // 一月份的四周数据对象
+            MarData['weekOne'] = value.wekList[0] ? value.wekList[0].wekData : '';
+            MarData['weekTwo'] = value.wekList[1] ? value.wekList[1].wekData : '';
+            MarData['weekThree'] = value.wekList[2] ? value.wekList[2].wekData : '';
+            MarData['weekFour'] = value.wekList[3] ? value.wekList[3].wekData : '';
+            MarData['weekFive'] = value.wekList[4] ? value.wekList[4].wekData : '';
+            Mar.MarData = MarData; // 一月份的四周数据
+            // newArr.push(Feb); 
+            if(Mar.type == 0){
+              for(var i in Mar){
+                newArr[0][i] = Mar[i];
+              }
+            } else {
+              for(var i in Mar){
+                newArr[1][i] = Mar[i];
+              }
+            }
+          })
+
+          // 存在四月份的数据
+          item.Apr.forEach((value, key)=>{
+            let April = {};
+            April.AprilSum = value.monData; // 月总量
+            April.monId = value.monDataId; // 月份ID
+            April.type = value.monDataType; // 月份数据的类型
+            let AprilData = {}; // 一月份的四周数据对象
+            AprilData['weekOne'] = value.wekList[0] ? value.wekList[0].wekData : '';
+            AprilData['weekTwo'] = value.wekList[1] ? value.wekList[1].wekData : '';
+            AprilData['weekThree'] = value.wekList[2] ? value.wekList[2].wekData : '';
+            AprilData['weekFour'] = value.wekList[3] ? value.wekList[3].wekData : '';
+            AprilData['weekFive'] = value.wekList[4] ? value.wekList[4].wekData : '';
+            April.AprilData = AprilData; // 一月份的四周数据
+            // newArr.push(Feb); 
+            if(April.type == 0){
+              for(var i in April){
+                newArr[0][i] = April[i];
+              }
+            } else {
+              for(var i in April){
+                newArr[1][i] = April[i];
+              }
+            }
+          })
+
+          // 存在五月份的数据
+          item.May.forEach((value, key)=>{
+            let May = {};
+            May.MaySum = value.monData; // 月总量
+            May.monId = value.monDataId; // 月份ID
+            May.type = value.monDataType; // 月份数据的类型
+            let MayData = {}; // 一月份的四周数据对象
+            MayData['weekOne'] = value.wekList[0] ? value.wekList[0].wekData : '';
+            MayData['weekTwo'] = value.wekList[1] ? value.wekList[1].wekData : '';
+            MayData['weekThree'] = value.wekList[2] ? value.wekList[2].wekData : '';
+            MayData['weekFour'] = value.wekList[3] ? value.wekList[3].wekData : '';
+            MayData['weekFive'] = value.wekList[4] ? value.wekList[4].wekData : '';
+            May.MayData = MayData; // 一月份的四周数据
+            // newArr.push(Feb); 
+            if(May.type == 0){
+              for(var i in May){
+                newArr[0][i] = May[i];
+              }
+            } else {
+              for(var i in May){
+                newArr[1][i] = May[i];
+              }
+            }
+          })
+
+          // 存在六月份的数据
+          item.Jun.forEach((value, key)=>{
+            let June = {};
+            June.JuneSum = value.monData; // 月总量
+            June.monId = value.monDataId; // 月份ID
+            June.type = value.monDataType; // 月份数据的类型
+            let JuneData = {}; // 一月份的四周数据对象
+            JuneData['weekOne'] = value.wekList[0] ? value.wekList[0].wekData : '';
+            JuneData['weekTwo'] = value.wekList[1] ? value.wekList[1].wekData : '';
+            JuneData['weekThree'] = value.wekList[2] ? value.wekList[2].wekData : '';
+            JuneData['weekFour'] = value.wekList[3] ? value.wekList[3].wekData : '';
+            JuneData['weekFive'] = value.wekList[4] ? value.wekList[4].wekData : '';
+            June.JuneData = JuneData; // 一月份的四周数据
+            // newArr.push(Feb); 
+            if(June.type == 0){
+              for(var i in June){
+                newArr[0][i] = June[i];
+              }
+            } else {
+              for(var i in June){
+                newArr[1][i] = June[i];
+              }
+            }
+          })
+
+          // 存在七月份的数据
+          item.Jul.forEach((value, key)=>{
+            let July = {};
+            July.JulySum = value.monData; // 月总量
+            July.monId = value.monDataId; // 月份ID
+            July.type = value.monDataType; // 月份数据的类型
+            let JulyData = {}; // 一月份的四周数据对象
+            JulyData['weekOne'] = value.wekList[0] ? value.wekList[0].wekData : '';
+            JulyData['weekTwo'] = value.wekList[1] ? value.wekList[1].wekData : '';
+            JulyData['weekThree'] = value.wekList[2] ? value.wekList[2].wekData : '';
+            JulyData['weekFour'] = value.wekList[3] ? value.wekList[3].wekData : '';
+            JulyData['weekFive'] = value.wekList[4] ? value.wekList[4].wekData : '';
+            July.JulyData = JulyData; // 一月份的四周数据
+            // newArr.push(Feb); 
+            if(July.type == 0){
+              for(var i in July){
+                newArr[0][i] = July[i];
+              }
+            } else {
+              for(var i in July){
+                newArr[1][i] = July[i];
+              }
+            }
+          })
+
+          // 存在八月份的数据
+          item.Aug.forEach((value, key)=>{
+            let Augu = {};
+            Augu.AuguSum = value.monData; // 月总量
+            Augu.monId = value.monDataId; // 月份ID
+            Augu.type = value.monDataType; // 月份数据的类型
+            let AuguData = {}; // 一月份的四周数据对象
+            AuguData['weekOne'] = value.wekList[0] ? value.wekList[0].wekData : '';
+            AuguData['weekTwo'] = value.wekList[1] ? value.wekList[1].wekData : '';
+            AuguData['weekThree'] = value.wekList[2] ? value.wekList[2].wekData : '';
+            AuguData['weekFour'] = value.wekList[3] ? value.wekList[3].wekData : '';
+            AuguData['weekFive'] = value.wekList[4] ? value.wekList[4].wekData : '';
+            Augu.AuguData = AuguData; // 一月份的四周数据
+            // newArr.push(Feb); 
+            if(Augu.type == 0){
+              for(var i in Augu){
+                newArr[0][i] = Augu[i];
+              }
+            } else {
+              for(var i in Augu){
+                newArr[1][i] = Augu[i];
+              }
+            }
+          })
+
+          // 存在九月份的数据
+          item.Sep.forEach((value, key)=>{
+            let Sept = {};
+            Sept.SeptSum = value.monData; // 月总量
+            Sept.monId = value.monDataId; // 月份ID
+            Sept.type = value.monDataType; // 月份数据的类型
+            let SeptData = {}; // 一月份的四周数据对象
+            SeptData['weekOne'] = value.wekList[0] ? value.wekList[0].wekData : '';
+            SeptData['weekTwo'] = value.wekList[1] ? value.wekList[1].wekData : '';
+            SeptData['weekThree'] = value.wekList[2] ? value.wekList[2].wekData : '';
+            SeptData['weekFour'] = value.wekList[3] ? value.wekList[3].wekData : '';
+            SeptData['weekFive'] = value.wekList[4] ? value.wekList[4].wekData : '';
+            Sept.SeptData = SeptData; // 一月份的四周数据
+            // newArr.push(Feb); 
+            if(Sept.type == 0){
+              for(var i in Sept){
+                newArr[0][i] = Sept[i];
+              }
+            } else {
+              for(var i in Sept){
+                newArr[1][i] = Sept[i];
+              }
+            }
+          })
+
+          // 存在十月份的数据
+          item.Oct.forEach((value, key)=>{
+            let Oct = {};
+            Oct.OctSum = value.monData; // 月总量
+            Oct.monId = value.monDataId; // 月份ID
+            Oct.type = value.monDataType; // 月份数据的类型
+            let OctData = {}; // 一月份的四周数据对象
+            OctData['weekOne'] = value.wekList[0] ? value.wekList[0].wekData : '';
+            OctData['weekTwo'] = value.wekList[1] ? value.wekList[1].wekData : '';
+            OctData['weekThree'] = value.wekList[2] ? value.wekList[2].wekData : '';
+            OctData['weekFour'] = value.wekList[3] ? value.wekList[3].wekData : '';
+            OctData['weekFive'] = value.wekList[4] ? value.wekList[4].wekData : '';
+            Oct.OctData = OctData; // 一月份的四周数据
+            // newArr.push(Feb); 
+            if(Oct.type == 0){
+              for(var i in Oct){
+                newArr[0][i] = Oct[i];
+              }
+            } else {
+              for(var i in Oct){
+                newArr[1][i] = Oct[i];
+              }
+            }
+          })
+
+          // 存在十一月份的数据
+          item.Nov.forEach((value, key)=>{
+            let Nov = {};
+            Nov.NovSum = value.monData; // 月总量
+            Nov.monId = value.monDataId; // 月份ID
+            Nov.type = value.monDataType; // 月份数据的类型
+            let NovData = {}; // 一月份的四周数据对象
+            NovData['weekOne'] = value.wekList[0] ? value.wekList[0].wekData : '';
+            NovData['weekTwo'] = value.wekList[1] ? value.wekList[1].wekData : '';
+            NovData['weekThree'] = value.wekList[2] ? value.wekList[2].wekData : '';
+            NovData['weekFour'] = value.wekList[3] ? value.wekList[3].wekData : '';
+            NovData['weekFive'] = value.wekList[4] ? value.wekList[4].wekData : '';
+            Nov.NovData = NovData; // 一月份的四周数据
+            // newArr.push(Feb); 
+            if(Nov.type == 0){
+              for(var i in Nov){
+                newArr[0][i] = Nov[i];
+              }
+            } else {
+              for(var i in Nov){
+                newArr[1][i] = Nov[i];
+              }
+            }
+          })
+          
+          // 存在十二月份的数据
+          item.Dec.forEach((value, key)=>{
+            let Dec = {};
+            Dec.DecSum = value.monData; // 月总量
+            Dec.monId = value.monDataId; // 月份ID
+            Dec.type = value.monDataType; // 月份数据的类型
+            let DecData = {}; // 一月份的四周数据对象
+            DecData['weekOne'] = value.wekList[0] ? value.wekList[0].wekData : '';
+            DecData['weekTwo'] = value.wekList[1] ? value.wekList[1].wekData : '';
+            DecData['weekThree'] = value.wekList[2] ? value.wekList[2].wekData : '';
+            DecData['weekFour'] = value.wekList[3] ? value.wekList[3].wekData : '';
+            DecData['weekFive'] = value.wekList[4] ? value.wekList[4].wekData : '';
+            Dec.DecData = DecData; // 一月份的四周数据
+            // newArr.push(Feb); 
+            if(Dec.type == 0){
+              for(var i in Dec){
+                newArr[0][i] = Dec[i];
+              }
+            } else {
+              for(var i in Dec){
+                newArr[1][i] = Dec[i];
+              }
+            }
+          })
+
+          newArr.map((value, key)=>{
+            value['proName'] = proObj.proName;
+            value['targetDate'] = proObj.targetDate;
+            value['proid'] = proObj.proid;
+          })
+          newArr.forEach(function(values, keys){
+            arr.push(values);
+          })
+        })
+        this.tableData = arr;
+        console.log('arr...', arr)
+      })
     },
     editData(){
       // console.log(this.tableData);
