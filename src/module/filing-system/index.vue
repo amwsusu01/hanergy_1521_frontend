@@ -1,8 +1,10 @@
 <template>
   <div class="container-filling">
-    <el-button size="mini" type="primary" @click="editData">保存</el-button>
-    <el-button size="mini" type="primary" @click="newlyBuild">新建</el-button>
-    <el-button size="mini" type="primary" @click="edit">编辑</el-button>
+    <div class="buttonBox">
+      <el-button size="mini" type="primary" @click="editData">保存</el-button>
+      <el-button size="mini" type="primary" @click="newlyBuild">新建</el-button>
+      <el-button size="mini" type="primary" @click="edit">编辑</el-button>
+    </div>
     
     <div class="table" style="background:#ccc">
       <el-table
@@ -1334,5 +1336,9 @@ export default {
 </script>
 
 <style lang="scss">
-
+.container-filling{
+  .buttonBox{
+    margin-bottom: 10px;
+  }
+}
 </style>
