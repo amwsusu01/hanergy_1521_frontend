@@ -16,9 +16,18 @@
           prop="targetDate"
           label="目标时间"
           width="100">
+          <template slot-scope="scope">
+            <el-input v-if="createFlag" v-model="scope.row.targetDate"></el-input>
+            <span v-else>{{scope.row.targetDate}}</span>
+          </template>
         </el-table-column>
-        <el-table-column prop="name" label="产品" width="120" style="font-size: 34px;position:relaltive; left: 100px;">
-          <el-table-column prop="proName" label=""  width="100"> </el-table-column>
+        <el-table-column prop="name" label="产品" width="160" style="font-size: 34px;position:relaltive; left: 100px;">
+          <el-table-column prop="proName" label=""  width="100">
+            <template slot-scope="scope">
+              <el-input v-if="createFlag" v-model="scope.row.proName"></el-input>
+              <span v-else>{{scope.row.proName}}</span>
+            </template>
+          </el-table-column>
           <el-table-column prop="type"  label="" width="60">
               <template slot-scope="scope">
                 <span v-if="scope.row.type == 0">预计</span>
@@ -33,8 +42,8 @@
             label="Week1"
             width="100">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.JanData.weekOne"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.JanData.weekOne"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.JanData.weekOne"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.JanData.weekOne"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -42,8 +51,8 @@
             label="Week2"
             width="100">
             <template slot-scope="scope">
-                <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.JanData.weekTwo"></el-input>
-                <el-input v-else class="edit-cell"  v-model="scope.row.JanData.weekTwo"></el-input>
+                <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.JanData.weekTwo"></el-input>
+                <el-input v-else class="edit-cell" :disabled="createFlag"  v-model="scope.row.JanData.weekTwo"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -51,8 +60,8 @@
             label="Week3"
             width="100">
             <template slot-scope="scope">
-                <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.JanData.weekThree"></el-input>
-                <el-input v-else class="edit-cell"  v-model="scope.row.JanData.weekThree"></el-input>
+                <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.JanData.weekThree"></el-input>
+                <el-input v-else class="edit-cell" :disabled="createFlag"  v-model="scope.row.JanData.weekThree"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -60,8 +69,8 @@
             label="Week4"
             width="100">
             <template slot-scope="scope">
-                <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.JanData.weekFour"></el-input>
-                <el-input v-else class="edit-cell"  v-model="scope.row.JanData.weekFour"></el-input>
+                <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.JanData.weekFour"></el-input>
+                <el-input v-else class="edit-cell" :disabled="createFlag"  v-model="scope.row.JanData.weekFour"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -69,8 +78,8 @@
             label="Week5"
             width="100">
             <template slot-scope="scope">
-                <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.JanData.weekFive"></el-input>
-                <el-input v-else class="edit-cell"  v-model="scope.row.JanData.weekFive"></el-input>
+                <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.JanData.weekFive"></el-input>
+                <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.JanData.weekFive"></el-input>
             </template>
           </el-table-column>
         </el-table-column>
@@ -86,8 +95,8 @@
             label="Week6"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.FebData.weekOne"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.FebData.weekOne"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.FebData.weekOne"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.FebData.weekOne"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -95,8 +104,8 @@
             label="Week7"
             width="120">
             <template slot-scope="scope">
-                <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.FebData.weekTwo"></el-input>
-                <el-input v-else class="edit-cell"  v-model="scope.row.FebData.weekTwo"></el-input>
+                <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.FebData.weekTwo"></el-input>
+                <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.FebData.weekTwo"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -104,8 +113,8 @@
             label="Week8"
             width="120">
             <template slot-scope="scope">
-                <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.FebData.weekThree"></el-input>
-                <el-input v-else class="edit-cell"  v-model="scope.row.FebData.weekThree"></el-input>
+                <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.FebData.weekThree"></el-input>
+                <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.FebData.weekThree"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -113,8 +122,8 @@
             label="Week9"
             width="120">
             <template slot-scope="scope">
-                <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.FebData.weekFour"></el-input>
-                <el-input v-else class="edit-cell"  v-model="scope.row.FebData.weekFour"></el-input>
+                <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.FebData.weekFour"></el-input>
+                <el-input v-else class="edit-cell" :disabled="createFlag"  v-model="scope.row.FebData.weekFour"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -122,8 +131,8 @@
             label="Week10"
             width="120">
             <template slot-scope="scope">
-                <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.FebData.weekFive"></el-input>
-                <el-input v-else class="edit-cell"  v-model="scope.row.FebData.weekFive"></el-input>
+                <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.FebData.weekFive"></el-input>
+                <el-input v-else class="edit-cell" :disabled="createFlag"  v-model="scope.row.FebData.weekFive"></el-input>
             </template>
           </el-table-column>
         </el-table-column>
@@ -139,8 +148,8 @@
             label="Week11"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.MarData.weekOne"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.MarData.weekOne"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.MarData.weekOne"></el-input>
+              <el-input v-else class="edit-cell"  :disabled="createFlag" v-model="scope.row.MarData.weekOne"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -148,8 +157,8 @@
             label="Week12"
             width="120">
             <template slot-scope="scope">
-                <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.MarData.weekTwo"></el-input>
-                <el-input v-else class="edit-cell"  v-model="scope.row.MarData.weekTwo"></el-input>
+                <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.MarData.weekTwo"></el-input>
+                <el-input v-else class="edit-cell" :disabled="createFlag"  v-model="scope.row.MarData.weekTwo"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -157,8 +166,8 @@
             label="Week13"
             width="120">
             <template slot-scope="scope">
-                <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.MarData.weekThree"></el-input>
-                <el-input v-else class="edit-cell"  v-model="scope.row.MarData.weekThree"></el-input>
+                <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.MarData.weekThree"></el-input>
+                <el-input v-else class="edit-cell"  :disabled="createFlag" v-model="scope.row.MarData.weekThree"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -166,8 +175,8 @@
             label="Week14"
             width="120">
             <template slot-scope="scope">
-                <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.MarData.weekFour"></el-input>
-                <el-input v-else class="edit-cell"  v-model="scope.row.MarData.weekFour"></el-input>
+                <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.MarData.weekFour"></el-input>
+                <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.MarData.weekFour"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -175,8 +184,8 @@
             label="Week15"
             width="120">
             <template slot-scope="scope">
-                <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.MarData.weekFive"></el-input>
-                <el-input v-else class="edit-cell"  v-model="scope.row.MarData.weekFive"></el-input>
+                <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.MarData.weekFive"></el-input>
+                <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.MarData.weekFive"></el-input>
             </template>
           </el-table-column>
         </el-table-column>
@@ -193,8 +202,8 @@
             label="Week16"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.AprilData.weekOne"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.AprilData.weekOne"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.AprilData.weekOne"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag"  v-model="scope.row.AprilData.weekOne"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -202,8 +211,8 @@
             label="Week17"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.AprilData.weekTwo"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.AprilData.weekTwo"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.AprilData.weekTwo"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.AprilData.weekTwo"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -211,8 +220,8 @@
             label="Week18"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.AprilData.weekThree"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.AprilData.weekThree"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.AprilData.weekThree"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag"  v-model="scope.row.AprilData.weekThree"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -220,8 +229,8 @@
             label="Week19"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.AprilData.weekFour"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.AprilData.weekFour"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.AprilData.weekFour"></el-input>
+              <el-input v-else class="edit-cell"  :disabled="createFlag" v-model="scope.row.AprilData.weekFour"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -229,8 +238,8 @@
             label="Week20"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.AprilData.weekFive"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.AprilData.weekFive"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.AprilData.weekFive"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.AprilData.weekFive"></el-input>
             </template>
           </el-table-column>
         </el-table-column>
@@ -247,8 +256,8 @@
             label="Week21"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.MayData.weekOne"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.MayData.weekOne"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.MayData.weekOne"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.MayData.weekOne"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -256,8 +265,8 @@
             label="Week22"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.MayData.weekTwo"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.MayData.weekTwo"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.MayData.weekTwo"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag"  v-model="scope.row.MayData.weekTwo"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -265,8 +274,8 @@
             label="Week23"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.MayData.weekThree"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.MayData.weekThree"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.MayData.weekThree"></el-input>
+              <el-input v-else class="edit-cell"  :disabled="createFlag" v-model="scope.row.MayData.weekThree"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -274,8 +283,8 @@
             label="Week24"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.MayData.weekFour"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.MayData.weekFour"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.MayData.weekFour"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.MayData.weekFour"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -283,8 +292,8 @@
             label="Week25"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.MayData.weekFive"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.MayData.weekFive"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.MayData.weekFive"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.MayData.weekFive"></el-input>
             </template>
           </el-table-column>
         </el-table-column>
@@ -300,8 +309,8 @@
             label="Week26"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.JuneData.weekOne"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.JuneData.weekOne"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.JuneData.weekOne"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.JuneData.weekOne"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -309,8 +318,8 @@
             label="Week27"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.JuneData.weekTwo"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.JuneData.weekTwo"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.JuneData.weekTwo"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.JuneData.weekTwo"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -318,8 +327,8 @@
             label="Week28"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.JuneData.weekThree"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.JuneData.weekThree"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.JuneData.weekThree"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.JuneData.weekThree"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -327,8 +336,8 @@
             label="Week29"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.JuneData.weekFour"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.JuneData.weekFour"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.JuneData.weekFour"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.JuneData.weekFour"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -336,8 +345,8 @@
             label="Week30"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.JuneData.weekFive"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.JuneData.weekFive"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.JuneData.weekFive"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.JuneData.weekFive"></el-input>
             </template>
           </el-table-column>
         </el-table-column>
@@ -354,8 +363,8 @@
             label="Week31"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.JulyData.weekOne"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.JulyData.weekOne"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.JulyData.weekOne"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.JulyData.weekOne"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -363,8 +372,8 @@
             label="Week32"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.JulyData.weekTwo"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.JulyData.weekTwo"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.JulyData.weekTwo"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.JulyData.weekTwo"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -372,8 +381,8 @@
             label="Week33"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.JulyData.weekThree"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.JulyData.weekThree"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.JulyData.weekThree"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.JulyData.weekThree"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -381,8 +390,8 @@
             label="Week34"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.JulyData.weekFour"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.JulyData.weekFour"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.JulyData.weekFour"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.JulyData.weekFour"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -390,8 +399,8 @@
             label="Week35"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.JulyData.weekFive"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.JulyData.weekFive"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.JulyData.weekFive"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.JulyData.weekFive"></el-input>
             </template>
           </el-table-column>
         </el-table-column>
@@ -408,8 +417,8 @@
             label="Week36"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.AuguData.weekOne"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.AuguData.weekOne"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.AuguData.weekOne"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.AuguData.weekOne"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -417,8 +426,8 @@
             label="Week37"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.AuguData.weekTwo"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.AuguData.weekTwo"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.AuguData.weekTwo"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.AuguData.weekTwo"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -426,8 +435,8 @@
             label="Week38"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.AuguData.weekThree"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.AuguData.weekThree"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.AuguData.weekThree"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.AuguData.weekThree"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -435,8 +444,8 @@
             label="Week39"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.AuguData.weekFour"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.AuguData.weekFour"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.AuguData.weekFour"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.AuguData.weekFour"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -444,8 +453,8 @@
             label="Week40"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.AuguData.weekFive"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.AuguData.weekFive"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.AuguData.weekFive"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.AuguData.weekFive"></el-input>
             </template>
           </el-table-column>
         </el-table-column>
@@ -461,8 +470,8 @@
             label="Week41"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.SeptData.weekOne"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.SeptData.weekOne"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.SeptData.weekOne"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.SeptData.weekOne"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -470,8 +479,8 @@
             label="Week42"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.SeptData.weekTwo"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.SeptData.weekTwo"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.SeptData.weekTwo"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.SeptData.weekTwo"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -479,8 +488,8 @@
             label="Week43"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.SeptData.weekThree"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.SeptData.weekThree"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.SeptData.weekThree"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.SeptData.weekThree"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -488,8 +497,8 @@
             label="Week44"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.SeptData.weekFour"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.SeptData.weekFour"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.SeptData.weekFour"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.SeptData.weekFour"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -497,8 +506,8 @@
             label="Week45"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.SeptData.weekFive"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.SeptData.weekFive"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.SeptData.weekFive"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.SeptData.weekFive"></el-input>
             </template>
           </el-table-column>
         </el-table-column>
@@ -514,8 +523,8 @@
             label="Week46"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.OctData.weekOne"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.OctData.weekOne"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.OctData.weekOne"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.OctData.weekOne"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -523,8 +532,8 @@
             label="Week47"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.OctData.weekTwo"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.OctData.weekTwo"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.OctData.weekTwo"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.OctData.weekTwo"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -532,8 +541,8 @@
             label="Week48"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.OctData.weekThree"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.OctData.weekThree"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.OctData.weekThree"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.OctData.weekThree"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -541,8 +550,8 @@
             label="Week49"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.OctData.weekFour"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.OctData.weekFour"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.OctData.weekFour"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.OctData.weekFour"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -550,8 +559,8 @@
             label="Week50"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.OctData.weekFive"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.OctData.weekFive"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.OctData.weekFive"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.OctData.weekFive"></el-input>
             </template>
           </el-table-column>
         </el-table-column>
@@ -567,8 +576,8 @@
             label="Week51"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.NovData.weekOne"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.NovData.weekOne"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.NovData.weekOne"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.NovData.weekOne"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -576,8 +585,8 @@
             label="Week52"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.NovData.weekTwo"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.NovData.weekTwo"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.NovData.weekTwo"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.NovData.weekTwo"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -585,8 +594,8 @@
             label="Week53"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.NovData.weekThree"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.NovData.weekThree"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.NovData.weekThree"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.NovData.weekThree"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -594,8 +603,8 @@
             label="Week54"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.NovData.weekFour"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.NovData.weekFour"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.NovData.weekFour"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.NovData.weekFour"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -603,8 +612,8 @@
             label="Week55"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.NovData.weekFive"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.NovData.weekFive"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.NovData.weekFive"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.NovData.weekFive"></el-input>
             </template>
           </el-table-column>
         </el-table-column>
@@ -620,8 +629,8 @@
             label="Week56"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.DecData.weekOne"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.DecData.weekOne"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.DecData.weekOne"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.DecData.weekOne"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -629,8 +638,8 @@
             label="Week57"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.DecData.weekTwo"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.DecData.weekTwo"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.DecData.weekTwo"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.DecData.weekTwo"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -638,8 +647,8 @@
             label="Week58"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.DecData.weekThree"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.DecData.weekThree"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.DecData.weekThree"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.DecData.weekThree"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -647,8 +656,8 @@
             label="Week59"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.DecData.weekFour"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.DecData.weekFour"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.DecData.weekFour"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.DecData.weekFour"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -656,8 +665,8 @@
             label="Week60"
             width="120">
             <template slot-scope="scope">
-              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="scope.row.type == 0" v-model="scope.row.DecData.weekFive"></el-input>
-              <el-input v-else class="edit-cell"  v-model="scope.row.DecData.weekFive"></el-input>
+              <el-input v-if="scope.row.type == 0" class="edit-cell" :disabled="!createFlag && scope.row.disType == 0" v-model="scope.row.DecData.weekFive"></el-input>
+              <el-input v-else class="edit-cell" :disabled="createFlag" v-model="scope.row.DecData.weekFive"></el-input>
             </template>
           </el-table-column>
         </el-table-column>
@@ -677,6 +686,7 @@ export default {
   name: 'filing',
   data() {
     return {
+      createFlag: false,
       appear:{
         JanAppear: true,
         FebAppear: true,
@@ -694,423 +704,7 @@ export default {
       monthId:{
         Jan: 1,
       },
-       tableData: [{
-          date: '2019-04-13',
-          name: '王小虎',
-          province: '单玻三曲瓦',
-          city: '普陀区',
-          address: '上海市',
-          zip: 200333,
-          type: 0,
-          JanSum:'',
-          FebSum: '',
-          MarSum: '',
-          AprilSum: '',
-          MaySum: '',
-          JuneSum: '',
-          JulySum: '',
-          AuguSum: '',
-          SeptSum: '',
-          OctSum: '',
-          NovSum: '',
-          DecSum: '',
-          JanData: {
-            weekOne: 11,
-            weekTwo: 12,
-            weekThree: 13,
-            weekFour: 14,
-            weekFive:15
-          },
-          FebData: {
-            weekOne: 22222,
-            weekTwo: 12,
-            weekThree: 13,
-            weekFour: 14,
-            weekFive:15
-          },
-          MarData: {
-            weekOne: 11,
-            weekTwo: 12,
-            weekThree: 13,
-            weekFour: 14,
-            weekFive:15
-          },
-          AprilData: {
-            weekOne: 11,
-            weekTwo: 12,
-            weekThree: 13,
-            weekFour: 14,
-            weekFive:15
-          },
-          MayData: {
-            weekOne: 11,
-            weekTwo: 12,
-            weekThree: 13,
-            weekFour: 14,
-            weekFive:15
-          },
-          JuneData: {
-            weekOne: 1,
-            weekTwo: 1,
-            weekThree: 1,
-            weekFour: 1,
-            weekFive:1
-          },
-          JulyData: {
-            weekOne: 1,
-            weekTwo: 1,
-            weekThree: 1,
-            weekFour: 1,
-            weekFive:1
-          },
-          AuguData: {
-            weekOne: 1,
-            weekTwo: 1,
-            weekThree: 1,
-            weekFour: 1,
-            weekFive:1
-          },
-          SeptData: {
-            weekOne: 11,
-            weekTwo: 12,
-            weekThree: 13,
-            weekFour: 14,
-            weekFive:15
-          },
-          OctData: {
-            weekOne: 11,
-            weekTwo: 12,
-            weekThree: 13,
-            weekFour: 14,
-            weekFive:15
-          },
-          NovData: {
-            weekOne: 11,
-            weekTwo: 12,
-            weekThree: 13,
-            weekFour: 14,
-            weekFive:15
-          },
-          DecData: {
-            weekOne: 11,
-            weekTwo: 12,
-            weekThree: 13,
-            weekFour: 14,
-            weekFive:15
-          }
-        }, {
-          date: '2019-04-13',
-          name: '王小虎',
-          province: '发电墙',
-          city: '普陀区',
-          address: '上海市',
-          zip: 200333,
-          type: 1,
-          JanSum:'',
-          FebSum: '',
-          MarSum: '',
-          AprilSum: '',
-          MaySum: '',
-          JuneSum: '',
-          JulySum: '',
-          AuguSum: '',
-          SeptSum: '',
-          OctSum: '',
-          NovSum: '',
-          DecSum: '',
-          JanData: {
-            weekOne: 11,
-            weekTwo: 12,
-            weekThree: 13,
-            weekFour: 14,
-            weekFive:15
-          },
-          FebData: {
-            weekOne: 22222,
-            weekTwo: 12,
-            weekThree: 13,
-            weekFour: 14,
-            weekFive:15
-          },
-          MarData: {
-            weekOne: 11,
-            weekTwo: 12,
-            weekThree: 13,
-            weekFour: 14,
-            weekFive:15
-          },
-          AprilData: {
-            weekOne: 11,
-            weekTwo: 12,
-            weekThree: 13,
-            weekFour: 14,
-            weekFive:15
-          },
-          MayData: {
-            weekOne: 11,
-            weekTwo: 12,
-            weekThree: 13,
-            weekFour: 14,
-            weekFive:15
-          },
-          JuneData: {
-            weekOne: 1,
-            weekTwo: 1,
-            weekThree: 1,
-            weekFour: 1,
-            weekFive:1
-          },
-          JulyData: {
-            weekOne: 1,
-            weekTwo: 1,
-            weekThree: 1,
-            weekFour: 1,
-            weekFive:1
-          },
-          AuguData: {
-            weekOne: 1,
-            weekTwo: 1,
-            weekThree: 1,
-            weekFour: 1,
-            weekFive:1
-          },
-          SeptData: {
-            weekOne: 11,
-            weekTwo: 12,
-            weekThree: 13,
-            weekFour: 14,
-            weekFive:15
-          },
-          OctData: {
-            weekOne: 11,
-            weekTwo: 12,
-            weekThree: 13,
-            weekFour: 14,
-            weekFive:15
-          },
-          NovData: {
-            weekOne: 11,
-            weekTwo: 12,
-            weekThree: 13,
-            weekFour: 14,
-            weekFive:15
-          },
-          DecData: {
-            weekOne: 11,
-            weekTwo: 12,
-            weekThree: 13,
-            weekFour: 14,
-            weekFive:15
-          }
-        },{
-          date: '2019-04-13',
-          name: '王小虎',
-          province: '发电墙',
-          city: '普陀区',
-          address: '上海市',
-          zip: 200333,
-          type: 0,
-          JanSum:'',
-          FebSum: '',
-          MarSum: '',
-          AprilSum: '',
-          MaySum: '',
-          JuneSum: '',
-          JulySum: '',
-          AuguSum: '',
-          SeptSum: '',
-          OctSum: '',
-          NovSum: '',
-          DecSum: '',
-          JanData: {
-            weekOne: 11,
-            weekTwo: 12,
-            weekThree: 13,
-            weekFour: 14,
-            weekFive:15
-          },
-          FebData: {
-            weekOne: 22222,
-            weekTwo: 12,
-            weekThree: 13,
-            weekFour: 14,
-            weekFive:15
-          },
-          MarData: {
-            weekOne: 11,
-            weekTwo: 12,
-            weekThree: 13,
-            weekFour: 14,
-            weekFive:15
-          },
-          AprilData: {
-            weekOne: 11,
-            weekTwo: 12,
-            weekThree: 13,
-            weekFour: 14,
-            weekFive:15
-          },
-          MayData: {
-            weekOne: 11,
-            weekTwo: 12,
-            weekThree: 13,
-            weekFour: 14,
-            weekFive:15
-          },
-          JuneData: {
-            weekOne: 1,
-            weekTwo: 1,
-            weekThree: 1,
-            weekFour: 1,
-            weekFive:1
-          },
-          JulyData: {
-            weekOne: 1,
-            weekTwo: 1,
-            weekThree: 1,
-            weekFour: 1,
-            weekFive:1
-          },
-          AuguData: {
-            weekOne: 1,
-            weekTwo: 1,
-            weekThree: 1,
-            weekFour: 1,
-            weekFive:1
-          },
-          SeptData: {
-            weekOne: 11,
-            weekTwo: 12,
-            weekThree: 13,
-            weekFour: 14,
-            weekFive:15
-          },
-          OctData: {
-            weekOne: 11,
-            weekTwo: 12,
-            weekThree: 13,
-            weekFour: 14,
-            weekFive:15
-          },
-          NovData: {
-            weekOne: 11,
-            weekTwo: 12,
-            weekThree: 13,
-            weekFour: 14,
-            weekFive:15
-          },
-          DecData: {
-            weekOne: 11,
-            weekTwo: 12,
-            weekThree: 13,
-            weekFour: 14,
-            weekFive:15
-          }
-        }, {
-          date: '2019-04-16',
-          name: '王小虎',
-          province: '发电墙',
-          city: '普陀区',
-          address: '上海市',
-          zip: 200333,
-          type: 1,
-          JanSum:'',
-          FebSum: '',
-          MarSum: '',
-          AprilSum: '',
-          MaySum: '',
-          JuneSum: '',
-          JulySum: '',
-          AuguSum: '',
-          SeptSum: '',
-          OctSum: '',
-          NovSum: '',
-          DecSum: '',
-          JanData: {
-            weekOne: 11,
-            weekTwo: 12,
-            weekThree: 13,
-            weekFour: 14,
-            weekFive:15
-          },
-          FebData: {
-            weekOne: 22222,
-            weekTwo: 12,
-            weekThree: 13,
-            weekFour: 14,
-            weekFive:15
-          },
-          MarData: {
-            weekOne: 11,
-            weekTwo: 12,
-            weekThree: 13,
-            weekFour: 14,
-            weekFive:15
-          },
-          AprilData: {
-            weekOne: 11,
-            weekTwo: 12,
-            weekThree: 13,
-            weekFour: 14,
-            weekFive:15
-          },
-          MayData: {
-            weekOne: 11,
-            weekTwo: 12,
-            weekThree: 13,
-            weekFour: 14,
-            weekFive:15
-          },
-          JuneData: {
-            weekOne: 1,
-            weekTwo: 1,
-            weekThree: 1,
-            weekFour: 1,
-            weekFive:1
-          },
-          JulyData: {
-            weekOne: 1,
-            weekTwo: 1,
-            weekThree: 1,
-            weekFour: 1,
-            weekFive:1
-          },
-          AuguData: {
-            weekOne: 1,
-            weekTwo: 1,
-            weekThree: 1,
-            weekFour: 1,
-            weekFive:1
-          },
-          SeptData: {
-            weekOne: 11,
-            weekTwo: 12,
-            weekThree: 13,
-            weekFour: 14,
-            weekFive:15
-          },
-          OctData: {
-            weekOne: 11,
-            weekTwo: 12,
-            weekThree: 13,
-            weekFour: 14,
-            weekFive:15
-          },
-          NovData: {
-            weekOne: 11,
-            weekTwo: 12,
-            weekThree: 13,
-            weekFour: 14,
-            weekFive:15
-          },
-          DecData: {
-            weekOne: 11,
-            weekTwo: 12,
-            weekThree: 13,
-            weekFour: 14,
-            weekFive:15
-          }
-        }]
+      tableData: []
     }
   },
   computed:{
@@ -1132,14 +726,14 @@ export default {
     //   console.log('row...', row);
     // },
     newlyBuild(){
-      // 新建
-      
+      // 新建 创建两遍对象，因为是表格合并，只有类型不一样
+      this.createFlag = true;
       for(var i = 0;i < 2; i++){
           this.tableData.push({
             monId: "",
             proName: "",
             targetDate: "",
-            type: 0,
+            type: i,
             JanSum:'',
               FebSum: '',
               MarSum: '',
@@ -1240,7 +834,8 @@ export default {
       }
     },
     edit(){
-
+      // 编辑表格
+      this.createFlag = false;
     },
     headerCellStyle({row, column, rowIndex, columnIndex}){
       if(rowIndex == 0 && columnIndex == 1){
@@ -1292,7 +887,8 @@ export default {
             let Jan = {};
             Jan.JanSum = value.monData; // 月总量
             Jan.monId = value.monDataId; // 月份ID
-            Jan.type = value.monDataType; // 月份数据的类型
+            Jan.type = value.monDataType; // 月份数据的类型()
+            Jan.disType = value.monDataType; // 禁用或不禁用的属性判断
             let JanData = {}; // 一月份的四周数据对象
             JanData['weekOne'] = value.wekList[0] ? value.wekList[0].wekData : '';
             JanData['weekTwo'] = value.wekList[1] ? value.wekList[1].wekData : '';
@@ -1309,6 +905,7 @@ export default {
             Feb.FebSum = value.monData; // 月总量
             Feb.monId = value.monDataId; // 月份ID
             Feb.type = value.monDataType; // 月份数据的类型
+            Feb.disType = value.monDataType; // 禁用或不禁用的属性判断
             let FebData = {}; // 一月份的四周数据对象
             FebData['weekOne'] = value.wekList[0] ? value.wekList[0].wekData : '';
             FebData['weekTwo'] = value.wekList[1] ? value.wekList[1].wekData : '';
@@ -1334,6 +931,7 @@ export default {
             Mar.MarSum = value.monData; // 月总量
             Mar.monId = value.monDataId; // 月份ID
             Mar.type = value.monDataType; // 月份数据的类型
+            Mar.disType = value.monDataType; // 禁用或不禁用的属性判断
             let MarData = {}; // 一月份的四周数据对象
             MarData['weekOne'] = value.wekList[0] ? value.wekList[0].wekData : '';
             MarData['weekTwo'] = value.wekList[1] ? value.wekList[1].wekData : '';
@@ -1359,6 +957,7 @@ export default {
             April.AprilSum = value.monData; // 月总量
             April.monId = value.monDataId; // 月份ID
             April.type = value.monDataType; // 月份数据的类型
+            April.disType = value.monDataType; // 禁用或不禁用的属性判断
             let AprilData = {}; // 一月份的四周数据对象
             AprilData['weekOne'] = value.wekList[0] ? value.wekList[0].wekData : '';
             AprilData['weekTwo'] = value.wekList[1] ? value.wekList[1].wekData : '';
@@ -1384,6 +983,7 @@ export default {
             May.MaySum = value.monData; // 月总量
             May.monId = value.monDataId; // 月份ID
             May.type = value.monDataType; // 月份数据的类型
+            May.disType = value.monDataType; // 禁用或不禁用的属性判断
             let MayData = {}; // 一月份的四周数据对象
             MayData['weekOne'] = value.wekList[0] ? value.wekList[0].wekData : '';
             MayData['weekTwo'] = value.wekList[1] ? value.wekList[1].wekData : '';
@@ -1409,6 +1009,7 @@ export default {
             June.JuneSum = value.monData; // 月总量
             June.monId = value.monDataId; // 月份ID
             June.type = value.monDataType; // 月份数据的类型
+            June.disType = value.monDataType; // 禁用或不禁用的属性判断
             let JuneData = {}; // 一月份的四周数据对象
             JuneData['weekOne'] = value.wekList[0] ? value.wekList[0].wekData : '';
             JuneData['weekTwo'] = value.wekList[1] ? value.wekList[1].wekData : '';
@@ -1434,6 +1035,7 @@ export default {
             July.JulySum = value.monData; // 月总量
             July.monId = value.monDataId; // 月份ID
             July.type = value.monDataType; // 月份数据的类型
+            July.disType = value.monDataType; // 禁用或不禁用的属性判断
             let JulyData = {}; // 一月份的四周数据对象
             JulyData['weekOne'] = value.wekList[0] ? value.wekList[0].wekData : '';
             JulyData['weekTwo'] = value.wekList[1] ? value.wekList[1].wekData : '';
@@ -1459,6 +1061,7 @@ export default {
             Augu.AuguSum = value.monData; // 月总量
             Augu.monId = value.monDataId; // 月份ID
             Augu.type = value.monDataType; // 月份数据的类型
+            Augu.disType = value.monDataType; // 禁用或不禁用的属性判断
             let AuguData = {}; // 一月份的四周数据对象
             AuguData['weekOne'] = value.wekList[0] ? value.wekList[0].wekData : '';
             AuguData['weekTwo'] = value.wekList[1] ? value.wekList[1].wekData : '';
@@ -1484,6 +1087,7 @@ export default {
             Sept.SeptSum = value.monData; // 月总量
             Sept.monId = value.monDataId; // 月份ID
             Sept.type = value.monDataType; // 月份数据的类型
+            Sept.disType = value.monDataType; // 禁用或不禁用的属性判断
             let SeptData = {}; // 一月份的四周数据对象
             SeptData['weekOne'] = value.wekList[0] ? value.wekList[0].wekData : '';
             SeptData['weekTwo'] = value.wekList[1] ? value.wekList[1].wekData : '';
@@ -1509,6 +1113,7 @@ export default {
             Oct.OctSum = value.monData; // 月总量
             Oct.monId = value.monDataId; // 月份ID
             Oct.type = value.monDataType; // 月份数据的类型
+            Oct.disType = value.monDataType; // 禁用或不禁用的属性判断
             let OctData = {}; // 一月份的四周数据对象
             OctData['weekOne'] = value.wekList[0] ? value.wekList[0].wekData : '';
             OctData['weekTwo'] = value.wekList[1] ? value.wekList[1].wekData : '';
@@ -1534,6 +1139,7 @@ export default {
             Nov.NovSum = value.monData; // 月总量
             Nov.monId = value.monDataId; // 月份ID
             Nov.type = value.monDataType; // 月份数据的类型
+            Nov.disType = value.monDataType; // 禁用或不禁用的属性判断
             let NovData = {}; // 一月份的四周数据对象
             NovData['weekOne'] = value.wekList[0] ? value.wekList[0].wekData : '';
             NovData['weekTwo'] = value.wekList[1] ? value.wekList[1].wekData : '';
@@ -1559,6 +1165,7 @@ export default {
             Dec.DecSum = value.monData; // 月总量
             Dec.monId = value.monDataId; // 月份ID
             Dec.type = value.monDataType; // 月份数据的类型
+            Dec.disType = value.monDataType; // 禁用或不禁用的属性判断
             let DecData = {}; // 一月份的四周数据对象
             DecData['weekOne'] = value.wekList[0] ? value.wekList[0].wekData : '';
             DecData['weekTwo'] = value.wekList[1] ? value.wekList[1].wekData : '';
@@ -1646,6 +1253,7 @@ export default {
       });
       localStorage.setItem('tableData', JSON.stringify(this.tableData));
       this.tableData = JSON.parse(localStorage.getItem('tableData'));
+      console.log('this.tableData....', this.tableData);
     },
     headerClick(column, event){
       console.log('column....', column);
@@ -1726,23 +1334,5 @@ export default {
 </script>
 
 <style lang="scss">
-/deep/ .table{
-  .el-table{
-    .el-table__header-wrapper{
-      .el-table__header{
-        table.el-table__header{
-          thead.is-group.has-gutter{
-            tr:nth-child(1){
-              th:nth-child(2) {
-                div{
-                  color:#f00!important;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
+
 </style>
