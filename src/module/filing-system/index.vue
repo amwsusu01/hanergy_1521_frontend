@@ -749,88 +749,88 @@ export default {
               NovSum: '',
               DecSum: '',
               JanData: {
-                weekOne: 0,
-                weekTwo: 0,
-                weekThree: 0,
-                weekFour: 0,
-                weekFive:0
+                weekOne: '',
+                weekTwo: '',
+                weekThree: '',
+                weekFour: '',
+                weekFive:''
               },
               FebData: {
-                weekOne: 0,
-                weekTwo: 0,
-                weekThree: 0,
-                weekFour: 0,
-                weekFive:0
+                weekOne: '',
+                weekTwo: '',
+                weekThree: '',
+                weekFour: '',
+                weekFive:''
               },
               MarData: {
-                weekOne: 0,
-                weekTwo: 0,
-                weekThree: 0,
-                weekFour: 0,
-                weekFive:0
+                weekOne: '',
+                weekTwo: '',
+                weekThree: '',
+                weekFour: '',
+                weekFive:''
               },
               AprilData: {
-                weekOne: 0,
-                weekTwo: 0,
-                weekThree: 0,
-                weekFour: 0,
-                weekFive:0
+                weekOne: '',
+                weekTwo: '',
+                weekThree: '',
+                weekFour: '',
+                weekFive:''
               },
               MayData: {
-                weekOne: 0,
-                weekTwo: 0,
-                weekThree: 0,
-                weekFour: 0,
-                weekFive:0
+                weekOne: '',
+                weekTwo: '',
+                weekThree: '',
+                weekFour: '',
+                weekFive:''
               },
               JuneData: {
-                weekOne: 0,
-                weekTwo: 0,
-                weekThree: 0,
-                weekFour: 0,
-                weekFive:0
+                weekOne: '',
+                weekTwo: '',
+                weekThree: '',
+                weekFour: '',
+                weekFive:''
               },
               JulyData: {
-                weekOne: 0,
-                weekTwo: 0,
-                weekThree: 0,
-                weekFour: 0,
-                weekFive:0
+                weekOne: '',
+                weekTwo: '',
+                weekThree: '',
+                weekFour: '',
+                weekFive:''
               },
               AuguData: {
-                weekOne: 0,
-                weekTwo: 0,
-                weekThree: 0,
-                weekFour: 0,
-                weekFive:0
+                weekOne: '',
+                weekTwo: '',
+                weekThree: '',
+                weekFour: '',
+                weekFive:''
               },
               SeptData: {
-                weekOne: 0,
-                weekTwo: 0,
-                weekThree: 0,
-                weekFour: 0,
-                weekFive:0
+                weekOne: '',
+                weekTwo: '',
+                weekThree: '',
+                weekFour: '',
+                weekFive:''
               },
               OctData: {
-                weekOne: 0,
-                weekTwo: 0,
-                weekThree: 0,
-                weekFour: 0,
-                weekFive:0
+                weekOne: '',
+                weekTwo: '',
+                weekThree: '',
+                weekFour: '',
+                weekFive:''
               },
               NovData: {
-                weekOne: 0,
-                weekTwo: 0,
-                weekThree: 0,
-                weekFour: 0,
-                weekFive:0
+                weekOne: '',
+                weekTwo: '',
+                weekThree: '',
+                weekFour: '',
+                weekFive:''
               },
               DecData: {
-                weekOne: 0,
-                weekTwo: 0,
-                weekThree: 0,
-                weekFour: 0,
-                weekFive:0
+                weekOne: '',
+                weekTwo: '',
+                weekThree: '',
+                weekFour: '',
+                weekFive:''
               }
           })
       }
