@@ -140,7 +140,7 @@
         </el-table-column>
         <el-table-column v-else key="Feb1" width="70" prop="FebSum" label="Feb">
           <template slot-scope="scope">
-            {{(Number(scope.row.FebData.weekOne)+Number(scope.row.FebData.weekTwo)+Number(scope.row.FebData.weekThree)+Number(scope.row.FebData.weekFour)+Number(scope.row.JanData.weekFive)).toFixed(2)}}
+            {{(Number(scope.row.FebData.weekOne)+Number(scope.row.FebData.weekTwo)+Number(scope.row.FebData.weekThree)+Number(scope.row.FebData.weekFour)+Number(scope.row.FebData.weekFive)).toFixed(2)}}
           </template>
         </el-table-column>
 
