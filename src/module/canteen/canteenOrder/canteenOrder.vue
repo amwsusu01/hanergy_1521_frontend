@@ -412,7 +412,7 @@ export default {
             //图四
             chartFourOption: {
                 title: {
-                    text: '提报月平均字数小于5',
+                    text: '提报月平均字数小于10',
                     textStyle: {
                         fontSize: 14
                     }
@@ -985,7 +985,7 @@ export default {
                     data = this.cnt4;
                     pers = this.per4;
                     in_month = this.in_month4;
-                    title = "提报月平均字数小于5";
+                    title = "提报月平均字数小于10";
                     break;
                 case '68':
                     data = this.cnt5;

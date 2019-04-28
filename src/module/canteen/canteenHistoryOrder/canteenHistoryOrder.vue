@@ -85,7 +85,7 @@
             <div class="table">
                 <el-button class="exp-btn" v-if="buttons['72']==true" plain size="small" @click="exportExl(5)">导出</el-button>
                 <el-table :data="tableData3" border style="width: 100%">
-                    <el-table-column prop="date" label="提报月平均字数小于5明细表" label-class-name="table-title">
+                    <el-table-column prop="date" label="提报月平均字数小于10明细表" label-class-name="table-title">
                         <el-table-column prop="in_month" label="月份" min-width="10%">
                         </el-table-column>
                         <el-table-column prop="in_date" label="日期" min-width="10%">
@@ -689,10 +689,10 @@ export default {
                     filename = "超过4次(含)未请假未提报统计报表.xls";
                     break;
                 case 4:
-                    filename = "提拔月平均条数小于5明细表.xls";
+                    filename = "提报月平均条数小于5明细表.xls";
                     break;
                 case 5:
-                    filename = "提拔月平均字数小于5明细表.xls";
+                    filename = "提报月平均字数小于10明细表.xls";
                     break;
                 case 6:
                     filename = "9点之前提报数据明细表.xls";
