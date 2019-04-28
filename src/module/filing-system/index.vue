@@ -727,8 +727,8 @@ export default {
     // saveData(row, column, cell, event){
     //   console.log('row...', row);
     // },
+    // 新建 创建两遍对象，因为是表格合并，只有类型不一样
     newlyBuild(){
-      // 新建 创建两遍对象，因为是表格合并，只有类型不一样
       this.createFlag = true;
       for(var i = 0;i < 2; i++){
           this.tableData.push({
@@ -737,106 +737,106 @@ export default {
             targetDate: "",
             type: i,
             JanSum:'',
-              FebSum: '',
-              MarSum: '',
-              AprilSum: '',
-              MaySum: '',
-              JuneSum: '',
-              JulySum: '',
-              AuguSum: '',
-              SeptSum: '',
-              OctSum: '',
-              NovSum: '',
-              DecSum: '',
-              JanData: {
-                weekOne: '',
-                weekTwo: '',
-                weekThree: '',
-                weekFour: '',
-                weekFive:''
-              },
-              FebData: {
-                weekOne: '',
-                weekTwo: '',
-                weekThree: '',
-                weekFour: '',
-                weekFive:''
-              },
-              MarData: {
-                weekOne: '',
-                weekTwo: '',
-                weekThree: '',
-                weekFour: '',
-                weekFive:''
-              },
-              AprilData: {
-                weekOne: '',
-                weekTwo: '',
-                weekThree: '',
-                weekFour: '',
-                weekFive:''
-              },
-              MayData: {
-                weekOne: '',
-                weekTwo: '',
-                weekThree: '',
-                weekFour: '',
-                weekFive:''
-              },
-              JuneData: {
-                weekOne: '',
-                weekTwo: '',
-                weekThree: '',
-                weekFour: '',
-                weekFive:''
-              },
-              JulyData: {
-                weekOne: '',
-                weekTwo: '',
-                weekThree: '',
-                weekFour: '',
-                weekFive:''
-              },
-              AuguData: {
-                weekOne: '',
-                weekTwo: '',
-                weekThree: '',
-                weekFour: '',
-                weekFive:''
-              },
-              SeptData: {
-                weekOne: '',
-                weekTwo: '',
-                weekThree: '',
-                weekFour: '',
-                weekFive:''
-              },
-              OctData: {
-                weekOne: '',
-                weekTwo: '',
-                weekThree: '',
-                weekFour: '',
-                weekFive:''
-              },
-              NovData: {
-                weekOne: '',
-                weekTwo: '',
-                weekThree: '',
-                weekFour: '',
-                weekFive:''
-              },
-              DecData: {
-                weekOne: '',
-                weekTwo: '',
-                weekThree: '',
-                weekFour: '',
-                weekFive:''
-              }
+            FebSum: '',
+            MarSum: '',
+            AprilSum: '',
+            MaySum: '',
+            JuneSum: '',
+            JulySum: '',
+            AuguSum: '',
+            SeptSum: '',
+            OctSum: '',
+            NovSum: '',
+            DecSum: '',
+            JanData: {
+              weekOne: '',
+              weekTwo: '',
+              weekThree: '',
+              weekFour: '',
+              weekFive:''
+            },
+            FebData: {
+              weekOne: '',
+              weekTwo: '',
+              weekThree: '',
+              weekFour: '',
+              weekFive:''
+            },
+            MarData: {
+              weekOne: '',
+              weekTwo: '',
+              weekThree: '',
+              weekFour: '',
+              weekFive:''
+            },
+            AprilData: {
+              weekOne: '',
+              weekTwo: '',
+              weekThree: '',
+              weekFour: '',
+              weekFive:''
+            },
+            MayData: {
+              weekOne: '',
+              weekTwo: '',
+              weekThree: '',
+              weekFour: '',
+              weekFive:''
+            },
+            JuneData: {
+              weekOne: '',
+              weekTwo: '',
+              weekThree: '',
+              weekFour: '',
+              weekFive:''
+            },
+            JulyData: {
+              weekOne: '',
+              weekTwo: '',
+              weekThree: '',
+              weekFour: '',
+              weekFive:''
+            },
+            AuguData: {
+              weekOne: '',
+              weekTwo: '',
+              weekThree: '',
+              weekFour: '',
+              weekFive:''
+            },
+            SeptData: {
+              weekOne: '',
+              weekTwo: '',
+              weekThree: '',
+              weekFour: '',
+              weekFive:''
+            },
+            OctData: {
+              weekOne: '',
+              weekTwo: '',
+              weekThree: '',
+              weekFour: '',
+              weekFive:''
+            },
+            NovData: {
+              weekOne: '',
+              weekTwo: '',
+              weekThree: '',
+              weekFour: '',
+              weekFive:''
+            },
+            DecData: {
+              weekOne: '',
+              weekTwo: '',
+              weekThree: '',
+              weekFour: '',
+              weekFive:''
+            }
           })
       }
     },
+    // 编辑表格
     edit(){
-      // 编辑表格
       this.createFlag = false;
     },
     headerCellStyle({row, column, rowIndex, columnIndex}){
@@ -899,11 +899,13 @@ export default {
             JanData['weekFive'] = value.wekList[4] ? value.wekList[4].wekData : '';
             Jan.JanData = JanData; // 一月份的四周数据
             newArr.push(Jan); 
+            console.log('newArr...', newArr);
           })
           
           // 存在二月份的数据
           item.Feb.forEach((value, key)=>{
             let Feb = {};
+            // console.log('value...', value.monData);
             Feb.FebSum = value.monData; // 月总量
             Feb.monId = value.monDataId; // 月份ID
             Feb.type = value.monDataType; // 月份数据的类型
@@ -1195,13 +1197,18 @@ export default {
           newArr.forEach(function(values, keys){
             arr.push(values);
           })
+          
         })
         this.tableData = arr;
+        
         console.log('arr...', arr)
       })
     },
     editData(){
       // console.log(this.tableData);
+      let userId = {
+        userId: this.userObj.userId
+      };
       this.tableData.forEach(function(value, key){
         let sum1 = 0, sum2 = 0, sum3 = 0,sum4 =0, sum5 = 0, sum6 = 0, sum7 = 0, sum8 = 0, sum9 = 0, sum10 = 0, sum11 = 0, sum12 = 0;
         for(var i in value.JanData){
@@ -1253,9 +1260,271 @@ export default {
         }
         value.DecSum = sum12;
       });
-      localStorage.setItem('tableData', JSON.stringify(this.tableData));
-      this.tableData = JSON.parse(localStorage.getItem('tableData'));
-      console.log('this.tableData....', this.tableData);
+      let saveList = []; // 保存数组
+      this.tableData.forEach((item, key)=>{
+        let proObj = {}; // 大对象，将来要push到一个数组里（saveList）发送给后端的数组
+        proObj['proName'] = item.proName; // 产品名字
+        proObj['proid'] = item.proid || ''; // 产品Id
+        proObj['userId'] = this.userObj.userId; // 用户Id
+        proObj['targetDate'] = item.targetDate; // 目标日期
+        let monList = []; // 月数组
+        let monObj1 = {}, monObj2 = {}, monObj3 = {}, monObj4 = {}, monObj5 = {}, monObj6 = {}, monObj7 = {}, monObj8 = {}, monObj9 = {}, monObj10 = {}, monObj11 = {}, monObj12 = {}; // 月对象
+        let nowYear = new Date().getFullYear();
+        let nowDay = new Date().getDate();
+        console.log('当前天...', nowDay);
+        monObj1['monDataId'] = ''; // 一月份Id
+        monObj1['monData'] = (item.JanSum).toFixed(2); // 一月总数据
+        monObj1['monDataType'] = item.type; // 一月类型
+        monObj1['month'] = nowYear + '-' + '0' + 1 + '-' + nowDay; // 当前的月份时间
+        let weekList1 = [], sum1 = 0; // weekList 周数据列表 sum 计算第几周的数据
+        for(var i in item.JanData){
+          let obj = {};
+          obj['wekDataId'] = '';
+          obj['wekData'] = item.JanData[i];
+          obj['week'] = 'wk'+ (Number(sum1+1));
+          sum1++;
+          obj['wekDataType'] = item.type;
+          weekList1.push(obj);
+        }
+        monObj1['wekList'] = weekList1;
+        monList.push(monObj1);
+
+        monObj2['monDataId'] = ''; // 二月份Id
+        monObj2['monData'] = (item.FebSum).toFixed(2); // 二月总数据
+        monObj2['monDataType'] = item.type; // 二月类型
+        monObj2['month'] = nowYear + '-' + '0' + 2 + '-' + nowDay; // 当前的月份时间
+        let weekList2 = [], sum2 = 0; // weekList 周数据列表 sum 计算第几周的数据
+        for(var i in item.FebData){
+          let obj = {};
+          obj['wekDataId'] = '';
+          obj['wekData'] = item.FebData[i];
+          obj['week'] = 'wk'+ (Number(sum2+1));
+          sum2++;
+          obj['wekDataType'] = item.type;
+          weekList2.push(obj);
+        }
+        monObj2['wekList'] = weekList2;
+        monList.push(monObj2);
+
+        monObj3['monDataId'] = ''; // 三月份Id
+        monObj3['monData'] = (item.MarSum).toFixed(2); // 三月总数据
+        monObj3['monDataType'] = item.type; // 三月类型
+        monObj3['month'] = nowYear + '-' + '0' + 3 + '-' + nowDay; // 当前的月份时间
+        let weekList3 = [], sum3 = 0; // weekList 周数据列表 sum 计算第几周的数据
+        for(var i in item.MarData){
+          let obj = {};
+          obj['wekDataId'] = '';
+          obj['wekData'] = item.MarData[i];
+          obj['week'] = 'wk'+ (Number(sum3+1));
+          sum3++;
+          obj['wekDataType'] = item.type;
+          weekList3.push(obj);
+        }
+        monObj3['wekList'] = weekList3;
+        monList.push(monObj3);
+
+        monObj4['monDataId'] = ''; // 四月份Id
+        monObj4['monData'] = (item.AprilSum).toFixed(2); //四月总数据
+        monObj4['monDataType'] = item.type; // 四月类型
+        monObj4['month'] = nowYear + '-' + '0' + 4 + '-' + nowDay; // 当前的月份时间
+        let weekList4 = [], sum4 = 0; // weekList 周数据列表 sum 计算第几周的数据
+        for(var i in item.AprilData){
+          let obj = {};
+          obj['wekDataId'] = '';
+          obj['wekData'] = item.AprilData[i];
+          obj['week'] = 'wk'+ (Number(sum4+1));
+          sum4++;
+          obj['wekDataType'] = item.type;
+          weekList4.push(obj);
+        }
+        monObj4['wekList'] = weekList4;
+        monList.push(monObj4);
+
+        monObj5['monDataId'] = ''; // 五月份Id
+        monObj5['monData'] = (item.MaySum).toFixed(2); //五月总数据
+        monObj5['monDataType'] = item.type; // 五月类型
+        monObj5['month'] = nowYear + '-' + '0' + 5 + '-' + nowDay; // 当前的月份时间
+        let weekList5 = [], sum5 = 0; // weekList 周数据列表 sum 计算第几周的数据
+        for(var i in item.MayData){
+          let obj = {};
+          obj['wekDataId'] = '';
+          obj['wekData'] = item.MayData[i];
+          obj['week'] = 'wk'+ (Number(sum5+1));
+          sum5++;
+          obj['wekDataType'] = item.type;
+          weekList5.push(obj);
+        }
+        monObj5['wekList'] = weekList5;
+        monList.push(monObj5);
+
+        monObj6['monDataId'] = ''; // 六月份Id
+        monObj6['monData'] = (item.JuneSum).toFixed(2); //六月总数据
+        monObj6['monDataType'] = item.type; // 六月类型
+        monObj6['month'] = nowYear + '-' + '0' + 6 + '-' + nowDay; // 当前的月份时间
+        let weekList6 = [], sum6 = 0; // weekList 周数据列表 sum 计算第几周的数据
+        for(var i in item.JuneData){
+          let obj = {};
+          obj['wekDataId'] = '';
+          obj['wekData'] = item.JuneData[i];
+          obj['week'] = 'wk'+ (Number(sum6+1));
+          sum6++;
+          obj['wekDataType'] = item.type;
+          weekList6.push(obj);
+        }
+        monObj6['wekList'] = weekList6;
+        monList.push(monObj6);
+
+        monObj7['monDataId'] = ''; // 七月份Id
+        monObj7['monData'] = (item.JulySum).toFixed(2); //七月总数据
+        monObj7['monDataType'] = item.type; // 七月类型
+        monObj7['month'] = nowYear + '-' + '0' + 7 + '-' + nowDay; // 当前的月份时间
+        let weekList7 = [], sum7 = 0; // weekList 周数据列表 sum 计算第几周的数据
+        for(var i in item.JulyData){
+          let obj = {};
+          obj['wekDataId'] = '';
+          obj['wekData'] = item.MayData[i];
+          obj['week'] = 'wk'+ (Number(sum7+1));
+          sum7++;
+          obj['wekDataType'] = item.type;
+          weekList7.push(obj);
+        }
+        monObj7['wekList'] = weekList7;
+        monList.push(monObj7);
+
+        monObj8['monDataId'] = ''; // 八月份Id
+        monObj8['monData'] = (item.AuguSum).toFixed(2); //八月总数据
+        monObj8['monDataType'] = item.type; // 八月类型
+        monObj8['month'] = nowYear + '-' + '0' + 8 + '-' + nowDay; // 当前的月份时间
+        let weekList8 = [], sum8 = 0; // weekList 周数据列表 sum 计算第几周的数据
+        for(var i in item.AuguData){
+          let obj = {};
+          obj['wekDataId'] = '';
+          obj['wekData'] = item.AuguData[i];
+          obj['week'] = 'wk'+ (Number(sum8+1));
+          sum8++;
+          obj['wekDataType'] = item.type;
+          weekList8.push(obj);
+        }
+        monObj8['wekList'] = weekList8;
+        monList.push(monObj8);
+
+        monObj9['monDataId'] = ''; // 九月份Id
+        monObj9['monData'] = (item.SeptSum).toFixed(2); //九月总数据
+        monObj9['monDataType'] = item.type; // 九月类型
+        monObj9['month'] = nowYear + '-' + '0' + 9 + '-' + nowDay; // 当前的月份时间
+        let weekList9 = [], sum9 = 0; // weekList 周数据列表 sum 计算第几周的数据
+        for(var i in item.SeptData){
+          let obj = {};
+          obj['wekDataId'] = '';
+          obj['wekData'] = item.SeptData[i];
+          obj['week'] = 'wk'+ (Number(sum9+1));
+          sum9++;
+          obj['wekDataType'] = item.type;
+          weekList9.push(obj);
+        }
+        monObj9['wekList'] = weekList9;
+        monList.push(monObj9);
+
+        monObj10['monDataId'] = ''; // 十月份Id
+        monObj10['monData'] = (item.OctSum).toFixed(2); //十月总数据
+        monObj10['monDataType'] = item.type; // 十月类型
+        monObj10['month'] = nowYear + '-' + 10 + '-' + nowDay; // 当前的月份时间
+        let weekList10 = [], sum10 = 0; // weekList 周数据列表 sum 计算第几周的数据
+        for(var i in item.OctData){
+          let obj = {};
+          obj['wekDataId'] = '';
+          obj['wekData'] = item.OctData[i];
+          obj['week'] = 'wk'+ (Number(sum10+1));
+          sum10++;
+          obj['wekDataType'] = item.type;
+          weekList10.push(obj);
+        }
+        monObj10['wekList'] = weekList10;
+        monList.push(monObj10);
+
+        monObj11['monDataId'] = ''; // 十一月份Id
+        monObj11['monData'] = (item.NovSum).toFixed(2); //十一月总数据
+        monObj11['monDataType'] = item.type; // 十一月类型
+        monObj11['month'] = nowYear + '-' + 11 + '-' + nowDay; // 当前的月份时间
+        let weekList11 = [], sum11 = 0; // weekList 周数据列表 sum 计算第几周的数据
+        for(var i in item.NovData){
+          let obj = {};
+          obj['wekDataId'] = '';
+          obj['wekData'] = item.NovData[i];
+          obj['week'] = 'wk'+ (Number(sum11+1));
+          sum11++;
+          obj['wekDataType'] = item.type;
+          weekList11.push(obj);
+        }
+        monObj11['wekList'] = weekList11;
+        monList.push(monObj11);
+
+        monObj12['monDataId'] = ''; // 十二月份Id
+        monObj12['monData'] = (item.DecSum).toFixed(2); //十二月总数据
+        monObj12['monDataType'] = item.type; // 十二月类型
+        monObj12['month'] = nowYear + '-' + 12 + '-' + nowDay; // 当前的月份时间
+        let weekList12 = [], sum12 = 0; // weekList 周数据列表 sum 计算第几周的数据
+        for(var i in item.DecData){
+          let obj = {};
+          obj['wekDataId'] = '';
+          obj['wekData'] = item.DecData[i];
+          obj['week'] = 'wk'+ (Number(sum12+1));
+          sum12++;
+          obj['wekDataType'] = item.type;
+          weekList12.push(obj);
+        }
+        monObj12['wekList'] = weekList12;
+        monList.push(monObj12);
+
+        proObj['monList'] = monList; // 产品列表
+        saveList.push(proObj);
+      })
+      // 保存列表的处理
+      console.log('saveList....', saveList);
+      let arr = [], count = 0, bigArr = [], obj = {};
+      saveList.forEach(function(value, key){
+        if(key % 2 == 0){
+          // 相同类产品的第一个对象
+          obj['proName'] = value.proName; // 产品名
+          obj['proid'] = value.proid; // 产品id
+          obj['userId'] = value.userId; // 用户id
+          obj['targetDate'] = value.targetDate; // 目标日期
+        }
+        value.monList.forEach(function(item, index){
+          count++;
+          arr.push(item);
+          if(count>=24){
+            console.log('obj....',  obj);
+            obj['monList'] = arr;
+            bigArr.push(obj);
+            arr = [];
+            count = 0;
+            obj = {};
+            return;
+          }
+        })
+       
+      })
+      bigArr.forEach((item, index)=>{
+        let newArr = [];
+        item.monList.forEach((value, key)=>{
+          if(parseInt(value.monData) > 0){
+            newArr.push(value);
+          }
+        })
+        // console.log('newArr...', newArr);
+        item.monList = newArr;
+      });
+      //  console.log('处理后的arr数组...', bigArr);
+      this.$api.canteen.saveProductCost(bigArr).then(res=>{
+        console.log('保存返回数据...', res);
+        if(res.code == 200){
+          this.$message({
+            message: '保存成功！',
+            type: 'success'
+          });
+        }
+      })
     },
     headerClick(column, event){
       console.log('column....', column);

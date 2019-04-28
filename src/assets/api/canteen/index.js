@@ -39,7 +39,9 @@ const apiURL = {
     // 查询人员流量明细的下拉框数据
     getPersonnelFlowSelect: '/personnelflow/param',
     // 产品成本
-    getProductCost: '/product/list'
+    getProductCost: '/product/list',
+    // 保存产品数据接口
+    saveProductCost: '/product/save'
 }
 
 export default {
@@ -118,5 +120,8 @@ export default {
     },
     getProductCost(params) {
         return Api.post(apiURL.getProductCost, params)
+    },
+    saveProductCost(params) {
+        return Api.post(apiURL.saveProductCost, params)
     }
 }
