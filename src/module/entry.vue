@@ -118,7 +118,7 @@ export default {
                     return "";
                 //装备交付质量问题分析
                 case 16:
-                    return "";
+                    return "142";
             }
         },
         sendQuery(){
