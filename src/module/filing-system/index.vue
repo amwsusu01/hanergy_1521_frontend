@@ -677,6 +677,16 @@
             {{(Number(scope.row.DecData.weekOne)+Number(scope.row.DecData.weekTwo)+Number(scope.row.DecData.weekThree)+Number(scope.row.DecData.weekFour)+Number(scope.row.DecData.weekFive)).toFixed(2)}}
           </template>
         </el-table-column>
+
+        <!-- <el-table-column
+          label="操作"
+          width="100"
+          style="">
+          <template>
+            <el-button type="primary">删除</el-button>
+          </template>
+        </el-table-column> -->
+
       </el-table>
     </div>
   </div>
@@ -891,6 +901,7 @@ export default {
             Jan.monId = value.monDataId; // 月份ID
             Jan.type = value.monDataType; // 月份数据的类型()
             Jan.disType = value.monDataType; // 禁用或不禁用的属性判断
+            Jan.JanDataId = value.monDataId; // 月份ID
             let JanData = {}; // 一月份的四周数据对象
             JanData['weekOne'] = value.wekList[0] ? value.wekList[0].wekData : '';
             JanData['weekTwo'] = value.wekList[1] ? value.wekList[1].wekData : '';
@@ -898,8 +909,7 @@ export default {
             JanData['weekFour'] = value.wekList[3] ? value.wekList[3].wekData : '';
             JanData['weekFive'] = value.wekList[4] ? value.wekList[4].wekData : '';
             Jan.JanData = JanData; // 一月份的四周数据
-            newArr.push(Jan); 
-            console.log('newArr...', newArr);
+            newArr.push(Jan);
           })
           
           // 存在二月份的数据
@@ -910,6 +920,7 @@ export default {
             Feb.monId = value.monDataId; // 月份ID
             Feb.type = value.monDataType; // 月份数据的类型
             Feb.disType = value.monDataType; // 禁用或不禁用的属性判断
+            Feb.FebDataId = value.monDataId; // 月份ID
             let FebData = {}; // 一月份的四周数据对象
             FebData['weekOne'] = value.wekList[0] ? value.wekList[0].wekData : '';
             FebData['weekTwo'] = value.wekList[1] ? value.wekList[1].wekData : '';
@@ -936,6 +947,7 @@ export default {
             Mar.monId = value.monDataId; // 月份ID
             Mar.type = value.monDataType; // 月份数据的类型
             Mar.disType = value.monDataType; // 禁用或不禁用的属性判断
+            Mar.MarDataId = value.monDataId; // 月份ID
             let MarData = {}; // 一月份的四周数据对象
             MarData['weekOne'] = value.wekList[0] ? value.wekList[0].wekData : '';
             MarData['weekTwo'] = value.wekList[1] ? value.wekList[1].wekData : '';
@@ -962,6 +974,7 @@ export default {
             April.monId = value.monDataId; // 月份ID
             April.type = value.monDataType; // 月份数据的类型
             April.disType = value.monDataType; // 禁用或不禁用的属性判断
+            April.AprilDataId = value.monDataId; // 月份ID
             let AprilData = {}; // 一月份的四周数据对象
             AprilData['weekOne'] = value.wekList[0] ? value.wekList[0].wekData : '';
             AprilData['weekTwo'] = value.wekList[1] ? value.wekList[1].wekData : '';
@@ -988,6 +1001,7 @@ export default {
             May.monId = value.monDataId; // 月份ID
             May.type = value.monDataType; // 月份数据的类型
             May.disType = value.monDataType; // 禁用或不禁用的属性判断
+            May.MayDataId = value.monDataId; // 月份ID
             let MayData = {}; // 一月份的四周数据对象
             MayData['weekOne'] = value.wekList[0] ? value.wekList[0].wekData : '';
             MayData['weekTwo'] = value.wekList[1] ? value.wekList[1].wekData : '';
@@ -1014,6 +1028,7 @@ export default {
             June.monId = value.monDataId; // 月份ID
             June.type = value.monDataType; // 月份数据的类型
             June.disType = value.monDataType; // 禁用或不禁用的属性判断
+            June.JuneDataId = value.monDataId; // 月份ID
             let JuneData = {}; // 一月份的四周数据对象
             JuneData['weekOne'] = value.wekList[0] ? value.wekList[0].wekData : '';
             JuneData['weekTwo'] = value.wekList[1] ? value.wekList[1].wekData : '';
@@ -1040,6 +1055,7 @@ export default {
             July.monId = value.monDataId; // 月份ID
             July.type = value.monDataType; // 月份数据的类型
             July.disType = value.monDataType; // 禁用或不禁用的属性判断
+            July.JUlyDataId = value.monDataId; // 月份ID
             let JulyData = {}; // 一月份的四周数据对象
             JulyData['weekOne'] = value.wekList[0] ? value.wekList[0].wekData : '';
             JulyData['weekTwo'] = value.wekList[1] ? value.wekList[1].wekData : '';
@@ -1066,6 +1082,7 @@ export default {
             Augu.monId = value.monDataId; // 月份ID
             Augu.type = value.monDataType; // 月份数据的类型
             Augu.disType = value.monDataType; // 禁用或不禁用的属性判断
+            Augu.AuguDataId = value.monDataId; // 月份ID
             let AuguData = {}; // 一月份的四周数据对象
             AuguData['weekOne'] = value.wekList[0] ? value.wekList[0].wekData : '';
             AuguData['weekTwo'] = value.wekList[1] ? value.wekList[1].wekData : '';
@@ -1092,6 +1109,7 @@ export default {
             Sept.monId = value.monDataId; // 月份ID
             Sept.type = value.monDataType; // 月份数据的类型
             Sept.disType = value.monDataType; // 禁用或不禁用的属性判断
+            Sept.SeptDataId = value.monDataId; // 月份ID
             let SeptData = {}; // 一月份的四周数据对象
             SeptData['weekOne'] = value.wekList[0] ? value.wekList[0].wekData : '';
             SeptData['weekTwo'] = value.wekList[1] ? value.wekList[1].wekData : '';
@@ -1118,6 +1136,7 @@ export default {
             Oct.monId = value.monDataId; // 月份ID
             Oct.type = value.monDataType; // 月份数据的类型
             Oct.disType = value.monDataType; // 禁用或不禁用的属性判断
+            Oct.OctDataId = value.monDataId; // 月份ID
             let OctData = {}; // 一月份的四周数据对象
             OctData['weekOne'] = value.wekList[0] ? value.wekList[0].wekData : '';
             OctData['weekTwo'] = value.wekList[1] ? value.wekList[1].wekData : '';
@@ -1144,6 +1163,7 @@ export default {
             Nov.monId = value.monDataId; // 月份ID
             Nov.type = value.monDataType; // 月份数据的类型
             Nov.disType = value.monDataType; // 禁用或不禁用的属性判断
+            Nov.NovDataId = value.monDataId; // 月份ID
             let NovData = {}; // 一月份的四周数据对象
             NovData['weekOne'] = value.wekList[0] ? value.wekList[0].wekData : '';
             NovData['weekTwo'] = value.wekList[1] ? value.wekList[1].wekData : '';
@@ -1170,6 +1190,7 @@ export default {
             Dec.monId = value.monDataId; // 月份ID
             Dec.type = value.monDataType; // 月份数据的类型
             Dec.disType = value.monDataType; // 禁用或不禁用的属性判断
+            Dec.DecDataId = value.monDataId; // 月份ID
             let DecData = {}; // 一月份的四周数据对象
             DecData['weekOne'] = value.wekList[0] ? value.wekList[0].wekData : '';
             DecData['weekTwo'] = value.wekList[1] ? value.wekList[1].wekData : '';
@@ -1188,7 +1209,6 @@ export default {
               }
             }
           })
-
           newArr.map((value, key)=>{
             value['proName'] = proObj.proName;
             value['targetDate'] = proObj.targetDate;
@@ -1272,7 +1292,7 @@ export default {
         let nowYear = new Date().getFullYear();
         let nowDay = new Date().getDate();
         console.log('当前天...', nowDay);
-        monObj1['monDataId'] = ''; // 一月份Id
+        monObj1['monDataId'] = item.JanDataId; // 一月份Id
         monObj1['monData'] = (item.JanSum).toFixed(2); // 一月总数据
         monObj1['monDataType'] = item.type; // 一月类型
         monObj1['month'] = nowYear + '-' + '0' + 1 + '-' + nowDay; // 当前的月份时间
@@ -1289,7 +1309,7 @@ export default {
         monObj1['wekList'] = weekList1;
         monList.push(monObj1);
 
-        monObj2['monDataId'] = ''; // 二月份Id
+        monObj2['monDataId'] = item.FebDataId; // 二月份Id
         monObj2['monData'] = (item.FebSum).toFixed(2); // 二月总数据
         monObj2['monDataType'] = item.type; // 二月类型
         monObj2['month'] = nowYear + '-' + '0' + 2 + '-' + nowDay; // 当前的月份时间
@@ -1306,7 +1326,7 @@ export default {
         monObj2['wekList'] = weekList2;
         monList.push(monObj2);
 
-        monObj3['monDataId'] = ''; // 三月份Id
+        monObj3['monDataId'] = item.MarDataId; // 三月份Id
         monObj3['monData'] = (item.MarSum).toFixed(2); // 三月总数据
         monObj3['monDataType'] = item.type; // 三月类型
         monObj3['month'] = nowYear + '-' + '0' + 3 + '-' + nowDay; // 当前的月份时间
@@ -1323,7 +1343,7 @@ export default {
         monObj3['wekList'] = weekList3;
         monList.push(monObj3);
 
-        monObj4['monDataId'] = ''; // 四月份Id
+        monObj4['monDataId'] = item.AprilDataId; // 四月份Id
         monObj4['monData'] = (item.AprilSum).toFixed(2); //四月总数据
         monObj4['monDataType'] = item.type; // 四月类型
         monObj4['month'] = nowYear + '-' + '0' + 4 + '-' + nowDay; // 当前的月份时间
@@ -1340,7 +1360,7 @@ export default {
         monObj4['wekList'] = weekList4;
         monList.push(monObj4);
 
-        monObj5['monDataId'] = ''; // 五月份Id
+        monObj5['monDataId'] = item.MayDataId; // 五月份Id
         monObj5['monData'] = (item.MaySum).toFixed(2); //五月总数据
         monObj5['monDataType'] = item.type; // 五月类型
         monObj5['month'] = nowYear + '-' + '0' + 5 + '-' + nowDay; // 当前的月份时间
@@ -1357,7 +1377,7 @@ export default {
         monObj5['wekList'] = weekList5;
         monList.push(monObj5);
 
-        monObj6['monDataId'] = ''; // 六月份Id
+        monObj6['monDataId'] = item.JuneDataId; // 六月份Id
         monObj6['monData'] = (item.JuneSum).toFixed(2); //六月总数据
         monObj6['monDataType'] = item.type; // 六月类型
         monObj6['month'] = nowYear + '-' + '0' + 6 + '-' + nowDay; // 当前的月份时间
@@ -1374,7 +1394,7 @@ export default {
         monObj6['wekList'] = weekList6;
         monList.push(monObj6);
 
-        monObj7['monDataId'] = ''; // 七月份Id
+        monObj7['monDataId'] = item.JulyDataId; // 七月份Id
         monObj7['monData'] = (item.JulySum).toFixed(2); //七月总数据
         monObj7['monDataType'] = item.type; // 七月类型
         monObj7['month'] = nowYear + '-' + '0' + 7 + '-' + nowDay; // 当前的月份时间
@@ -1391,7 +1411,7 @@ export default {
         monObj7['wekList'] = weekList7;
         monList.push(monObj7);
 
-        monObj8['monDataId'] = ''; // 八月份Id
+        monObj8['monDataId'] = item.AuguDataId; // 八月份Id
         monObj8['monData'] = (item.AuguSum).toFixed(2); //八月总数据
         monObj8['monDataType'] = item.type; // 八月类型
         monObj8['month'] = nowYear + '-' + '0' + 8 + '-' + nowDay; // 当前的月份时间
@@ -1408,7 +1428,7 @@ export default {
         monObj8['wekList'] = weekList8;
         monList.push(monObj8);
 
-        monObj9['monDataId'] = ''; // 九月份Id
+        monObj9['monDataId'] = item.SeptDataId; // 九月份Id
         monObj9['monData'] = (item.SeptSum).toFixed(2); //九月总数据
         monObj9['monDataType'] = item.type; // 九月类型
         monObj9['month'] = nowYear + '-' + '0' + 9 + '-' + nowDay; // 当前的月份时间
@@ -1425,7 +1445,7 @@ export default {
         monObj9['wekList'] = weekList9;
         monList.push(monObj9);
 
-        monObj10['monDataId'] = ''; // 十月份Id
+        monObj10['monDataId'] = item.OctDataId; // 十月份Id
         monObj10['monData'] = (item.OctSum).toFixed(2); //十月总数据
         monObj10['monDataType'] = item.type; // 十月类型
         monObj10['month'] = nowYear + '-' + 10 + '-' + nowDay; // 当前的月份时间
@@ -1442,7 +1462,7 @@ export default {
         monObj10['wekList'] = weekList10;
         monList.push(monObj10);
 
-        monObj11['monDataId'] = ''; // 十一月份Id
+        monObj11['monDataId'] = item.NovDataId; // 十一月份Id
         monObj11['monData'] = (item.NovSum).toFixed(2); //十一月总数据
         monObj11['monDataType'] = item.type; // 十一月类型
         monObj11['month'] = nowYear + '-' + 11 + '-' + nowDay; // 当前的月份时间
@@ -1459,7 +1479,7 @@ export default {
         monObj11['wekList'] = weekList11;
         monList.push(monObj11);
 
-        monObj12['monDataId'] = ''; // 十二月份Id
+        monObj12['monDataId'] = item.DecDataId; // 十二月份Id
         monObj12['monData'] = (item.DecSum).toFixed(2); //十二月总数据
         monObj12['monDataType'] = item.type; // 十二月类型
         monObj12['month'] = nowYear + '-' + 12 + '-' + nowDay; // 当前的月份时间
@@ -1515,7 +1535,7 @@ export default {
         // console.log('newArr...', newArr);
         item.monList = newArr;
       });
-      //  console.log('处理后的arr数组...', bigArr);
+       console.log('处理后的arr数组...', bigArr);
       this.$api.canteen.saveProductCost(bigArr).then(res=>{
         console.log('保存返回数据...', res);
         if(res.code == 200){
