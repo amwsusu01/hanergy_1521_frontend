@@ -41,7 +41,9 @@ const apiURL = {
     // 产品成本
     getProductCost: '/product/list',
     // 保存产品数据接口
-    saveProductCost: '/product/save'
+    saveProductCost: '/product/save',
+    // 删除产品数据接口
+    delProductCost: '/product/del'
 }
 
 export default {
@@ -123,5 +125,8 @@ export default {
     },
     saveProductCost(params) {
         return Api.post(apiURL.saveProductCost, params)
+    },
+    delProductCost(params) {
+        return Api.post(apiURL.delProductCost, params)
     }
 }

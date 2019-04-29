@@ -678,14 +678,14 @@
           </template>
         </el-table-column>
 
-        <!-- <el-table-column
+        <el-table-column
           label="操作"
           width="100"
           style="">
-          <template>
-            <el-button type="primary">删除</el-button>
+          <template slot-scope="scope">
+            <el-button type="danger" size="mini" @click="deleteData(scope.row.proid)">删除</el-button>
           </template>
-        </el-table-column> -->
+        </el-table-column>
 
       </el-table>
     </div>
@@ -737,6 +737,32 @@ export default {
     // saveData(row, column, cell, event){
     //   console.log('row...', row);
     // },
+    deleteData(id){
+      console.log('产品id', id);
+      this.$confirm(`确认删除吗`, '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        let delId = [];
+        delId.push(Number(id));
+        this.$api.canteen.delProductCost(delId).then(res=>{
+          console.log('接口调通了....', res);
+          if(res.code == 200){
+            this.$message({
+              message: '删除成功！',
+              type: 'success'
+            });
+            this.initData(); // 删除成功后，在请求一遍数据进行刷新
+          } else if(res.code == 200){
+            this.$message({
+              message: '删除失败！',
+              type: 'warning'
+            })
+          }
+        })
+      })
+    },
     // 新建 创建两遍对象，因为是表格合并，只有类型不一样
     newlyBuild(){
       this.createFlag = true;
@@ -1224,6 +1250,7 @@ export default {
         console.log('arr...', arr)
       })
     },
+    // 保存数据
     editData(){
       // console.log(this.tableData);
       let userId = {
@@ -1618,7 +1645,19 @@ export default {
               colspan: 0
             };
           }
-      }
+      } else if (columnIndex === 15) {
+          if (rowIndex % 2 === 0) {
+            return {
+              rowspan: 2,
+              colspan: 1
+            };
+          } else {
+            return {
+              rowspan: 0,
+              colspan: 0
+            };
+          }
+        }
     }
   }
 }
