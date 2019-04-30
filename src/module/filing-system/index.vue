@@ -1322,7 +1322,7 @@ export default {
         monObj1['monDataId'] = item.JanDataId; // 一月份Id
         monObj1['monData'] = (item.JanSum).toFixed(2); // 一月总数据
         monObj1['monDataType'] = item.type; // 一月类型
-        monObj1['month'] = nowYear + '-' + '0' + 1 + '-' + nowDay; // 当前的月份时间
+        monObj1['month'] = nowYear + '-' + '0' + 1 + '-' + '28'; // 当前的月份时间
         let weekList1 = [], sum1 = 0; // weekList 周数据列表 sum 计算第几周的数据
         for(var i in item.JanData){
           let obj = {};
@@ -1339,7 +1339,7 @@ export default {
         monObj2['monDataId'] = item.FebDataId; // 二月份Id
         monObj2['monData'] = (item.FebSum).toFixed(2); // 二月总数据
         monObj2['monDataType'] = item.type; // 二月类型
-        monObj2['month'] = nowYear + '-' + '0' + 2 + '-' + nowDay; // 当前的月份时间
+        monObj2['month'] = nowYear + '-' + '0' + 2 + '-' + '28'; // 当前的月份时间
         let weekList2 = [], sum2 = 0; // weekList 周数据列表 sum 计算第几周的数据
         for(var i in item.FebData){
           let obj = {};
@@ -1356,7 +1356,7 @@ export default {
         monObj3['monDataId'] = item.MarDataId; // 三月份Id
         monObj3['monData'] = (item.MarSum).toFixed(2); // 三月总数据
         monObj3['monDataType'] = item.type; // 三月类型
-        monObj3['month'] = nowYear + '-' + '0' + 3 + '-' + nowDay; // 当前的月份时间
+        monObj3['month'] = nowYear + '-' + '0' + 3 + '-' + '28'; // 当前的月份时间
         let weekList3 = [], sum3 = 0; // weekList 周数据列表 sum 计算第几周的数据
         for(var i in item.MarData){
           let obj = {};
@@ -1373,7 +1373,7 @@ export default {
         monObj4['monDataId'] = item.AprilDataId; // 四月份Id
         monObj4['monData'] = (item.AprilSum).toFixed(2); //四月总数据
         monObj4['monDataType'] = item.type; // 四月类型
-        monObj4['month'] = nowYear + '-' + '0' + 4 + '-' + nowDay; // 当前的月份时间
+        monObj4['month'] = nowYear + '-' + '0' + 4 + '-' + '28'; // 当前的月份时间
         let weekList4 = [], sum4 = 0; // weekList 周数据列表 sum 计算第几周的数据
         for(var i in item.AprilData){
           let obj = {};
@@ -1390,7 +1390,7 @@ export default {
         monObj5['monDataId'] = item.MayDataId; // 五月份Id
         monObj5['monData'] = (item.MaySum).toFixed(2); //五月总数据
         monObj5['monDataType'] = item.type; // 五月类型
-        monObj5['month'] = nowYear + '-' + '0' + 5 + '-' + nowDay; // 当前的月份时间
+        monObj5['month'] = nowYear + '-' + '0' + 5 + '-' + '28'; // 当前的月份时间
         let weekList5 = [], sum5 = 0; // weekList 周数据列表 sum 计算第几周的数据
         for(var i in item.MayData){
           let obj = {};
@@ -1407,7 +1407,7 @@ export default {
         monObj6['monDataId'] = item.JuneDataId; // 六月份Id
         monObj6['monData'] = (item.JuneSum).toFixed(2); //六月总数据
         monObj6['monDataType'] = item.type; // 六月类型
-        monObj6['month'] = nowYear + '-' + '0' + 6 + '-' + nowDay; // 当前的月份时间
+        monObj6['month'] = nowYear + '-' + '0' + 6 + '-' + '28'; // 当前的月份时间
         let weekList6 = [], sum6 = 0; // weekList 周数据列表 sum 计算第几周的数据
         for(var i in item.JuneData){
           let obj = {};
@@ -1424,7 +1424,7 @@ export default {
         monObj7['monDataId'] = item.JulyDataId; // 七月份Id
         monObj7['monData'] = (item.JulySum).toFixed(2); //七月总数据
         monObj7['monDataType'] = item.type; // 七月类型
-        monObj7['month'] = nowYear + '-' + '0' + 7 + '-' + nowDay; // 当前的月份时间
+        monObj7['month'] = nowYear + '-' + '0' + 7 + '-' + '28'; // 当前的月份时间
         let weekList7 = [], sum7 = 0; // weekList 周数据列表 sum 计算第几周的数据
         for(var i in item.JulyData){
           let obj = {};
@@ -1441,7 +1441,7 @@ export default {
         monObj8['monDataId'] = item.AuguDataId; // 八月份Id
         monObj8['monData'] = (item.AuguSum).toFixed(2); //八月总数据
         monObj8['monDataType'] = item.type; // 八月类型
-        monObj8['month'] = nowYear + '-' + '0' + 8 + '-' + nowDay; // 当前的月份时间
+        monObj8['month'] = nowYear + '-' + '0' + 8 + '-' + '28'; // 当前的月份时间
         let weekList8 = [], sum8 = 0; // weekList 周数据列表 sum 计算第几周的数据
         for(var i in item.AuguData){
           let obj = {};
@@ -1458,7 +1458,7 @@ export default {
         monObj9['monDataId'] = item.SeptDataId; // 九月份Id
         monObj9['monData'] = (item.SeptSum).toFixed(2); //九月总数据
         monObj9['monDataType'] = item.type; // 九月类型
-        monObj9['month'] = nowYear + '-' + '0' + 9 + '-' + nowDay; // 当前的月份时间
+        monObj9['month'] = nowYear + '-' + '0' + 9 + '-' + '28'; // 当前的月份时间
         let weekList9 = [], sum9 = 0; // weekList 周数据列表 sum 计算第几周的数据
         for(var i in item.SeptData){
           let obj = {};
@@ -1475,7 +1475,7 @@ export default {
         monObj10['monDataId'] = item.OctDataId; // 十月份Id
         monObj10['monData'] = (item.OctSum).toFixed(2); //十月总数据
         monObj10['monDataType'] = item.type; // 十月类型
-        monObj10['month'] = nowYear + '-' + 10 + '-' + nowDay; // 当前的月份时间
+        monObj10['month'] = nowYear + '-' + 10 + '-' + '28'; // 当前的月份时间
         let weekList10 = [], sum10 = 0; // weekList 周数据列表 sum 计算第几周的数据
         for(var i in item.OctData){
           let obj = {};
@@ -1492,7 +1492,7 @@ export default {
         monObj11['monDataId'] = item.NovDataId; // 十一月份Id
         monObj11['monData'] = (item.NovSum).toFixed(2); //十一月总数据
         monObj11['monDataType'] = item.type; // 十一月类型
-        monObj11['month'] = nowYear + '-' + 11 + '-' + nowDay; // 当前的月份时间
+        monObj11['month'] = nowYear + '-' + 11 + '-' + '28'; // 当前的月份时间
         let weekList11 = [], sum11 = 0; // weekList 周数据列表 sum 计算第几周的数据
         for(var i in item.NovData){
           let obj = {};
@@ -1509,7 +1509,7 @@ export default {
         monObj12['monDataId'] = item.DecDataId; // 十二月份Id
         monObj12['monData'] = (item.DecSum).toFixed(2); //十二月总数据
         monObj12['monDataType'] = item.type; // 十二月类型
-        monObj12['month'] = nowYear + '-' + 12 + '-' + nowDay; // 当前的月份时间
+        monObj12['month'] = nowYear + '-' + 12 + '-' + '28'; // 当前的月份时间
         let weekList12 = [], sum12 = 0; // weekList 周数据列表 sum 计算第几周的数据
         for(var i in item.DecData){
           let obj = {};
