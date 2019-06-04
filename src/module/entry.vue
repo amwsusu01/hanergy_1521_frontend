@@ -200,7 +200,6 @@ export default {
     },
     created(){
         this.sendQuery();
-
     },
     mounted() {
     },

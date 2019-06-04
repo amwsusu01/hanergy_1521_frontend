@@ -157,7 +157,6 @@ export default {
             if (this.$refs['deptSelect']) {
                 this.form.region = this.$refs['deptSelect'].values.concat();
             }
-
             let resDepts = '';
             if (this.form.region.length > 0) {
                 resDepts = this.form.region.join(',');
@@ -165,7 +164,6 @@ export default {
                 let deptNames = this.deptList.map((a) => {
                     return a.dept_name;
                 })
-
                 resDepts = deptNames.join(',');
             }
             return resDepts;

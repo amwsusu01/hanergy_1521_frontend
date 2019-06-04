@@ -32,6 +32,7 @@ export default {
     },
     watch:{
     	'deptList':function(newval,val) {
+
     		if(newval.length > 0 && (!val || val.length ==0 )) {
                 this.values = newval.map((a)=>a.dept_name);
     		}
@@ -42,7 +43,6 @@ export default {
             if (this.checkAll == true) {
                 this.values = [];
                 this.checkAll = false;
-
             } else {
                 this.values = this.deptList.map((a) => a.dept_name);
                 console.log('this.values....', this.values);
