@@ -60,7 +60,7 @@
     "lz-string": "^1.4.4",
     "moment": "^2.23.0",
     "nightwatch": "^0.9.16",
-    "node-sass": "^4.0.0",
+    "node-sass": "^7.0.0",
     "open-browser-webpack-plugin": "^0.0.5",
     "ora": "^1.2.0",
     "quill-image-extend-module": "^1.1.2",
