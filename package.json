@@ -58,7 +58,7 @@
     "less": "^2.7.2",
     "less-loader": "^2.2.3",
     "lz-string": "^1.4.4",
-    "moment": "^2.23.0",
+    "moment": "^2.29.2",
     "nightwatch": "^0.9.16",
     "node-sass": "^4.0.0",
     "open-browser-webpack-plugin": "^0.0.5",
