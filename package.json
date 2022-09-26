@@ -59,7 +59,7 @@
     "less-loader": "^2.2.3",
     "lz-string": "^1.4.4",
     "moment": "^2.23.0",
-    "nightwatch": "^0.9.16",
+    "nightwatch": "^2.3.9",
     "node-sass": "^4.0.0",
     "open-browser-webpack-plugin": "^0.0.5",
     "ora": "^1.2.0",
